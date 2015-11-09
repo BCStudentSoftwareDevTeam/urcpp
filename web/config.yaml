@@ -3,3 +3,4 @@ database: "data/urcpp.sqlite"
 models:
   - Secret
   - RegLinks
+
