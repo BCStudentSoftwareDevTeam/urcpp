@@ -12,7 +12,7 @@ from flask import request
 from flask import url_for
 from flask import g
 # We need to import the DB object
-from models import webdb
+from models import theDB
 
 # Don't forget to import your own models!
 from models import Secret, RegLinks
@@ -34,7 +34,7 @@ from web import app
 # We have to set up and break down the DB on every request.
 @app.before_request
 def before_request():
-  g.db = webdb
+  g.db = theDB
   g.db.connect()
 
 @app.after_request

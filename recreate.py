@@ -1,35 +1,35 @@
 # We need to import the DB object
-from web.models import webdb
+from web.models import theDB
 import os
 
 # Don't forget to import your own models!
 from web.models import Secret, RegLinks
 from web.config import load_config
 
-# The path is relative to config.py...
-cfg = load_config('web/config.yaml')
+# The path is relative to the top of the project.
+conf = load_config('web/config.yaml')
 
 # Get the names of the databases we want to work with
-sqlite_dbs  = [cfg['database']]
+sqlite_dbs  = [conf['database']]
 
 # Remove them, then create them.
-for file in sqlite_dbs:
+for fname in sqlite_dbs:
   try:
-    fname = "data/{0}".format(file)
     print ("Removing {0}.".format(fname))
     os.remove(fname)
   except OSError:
     pass
 
-for file in sqlite_dbs:
-  fname = 'data/{0}'.format(file)
+for fname in sqlite_dbs:
   print ("Creating {0}.".format(fname))
   open(fname, 'a').close()
 
-# Recreate it
-webdb.connect()
+# Connect to the database
+theDB.connect()
 
-# We can grab these from the config as well.
+# The model names are in the config file. 
+# They need to be defined in the models module as well, but this lets us list them 
+# in the config for creation in the DB...
 # http://stackoverflow.com/questions/1176136/convert-string-to-python-class-object
 def class_from_name(module_name, class_name):
     # load the module, will raise ImportError if module cannot be loaded
@@ -39,9 +39,11 @@ def class_from_name(module_name, class_name):
     return c
 
 classes = []
-for str in cfg['models']:
-  classes.append(class_from_name("web.models", str))
+for str in conf['models']:
+  c = class_from_name("web.models", str)
+  classes.append(c)
 
-print ("Creating tables.")
-webdb.create_tables(classes)
+# Create the tables in the database.
+theDB.create_tables(classes)
+
 

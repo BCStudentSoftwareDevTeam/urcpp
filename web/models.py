@@ -1,18 +1,16 @@
 from peewee import *
-
 # Create a database
 # FIXME: This should be in a config file...
 from web.config import load_config
 
-# The path is relative to config.py...
+# The path is relative to the top of the project.
 cfg = load_config('web/config.yaml')
-
-webdb = SqliteDatabase(cfg['database'], threadlocals = True)
+theDB = SqliteDatabase(cfg['database'])
 
 # This is the parent class.
-class OTPModel (Model):
+class BaseModel (Model):
   class Meta:
-    database = webdb 
+    database = theDB
 
 ######################################################
 # MODELS
@@ -21,12 +19,12 @@ class OTPModel (Model):
 # To see the databases, do this:
 # sqlite_web -p $PORT -H $IP -x data/test.sqlite
 
-class Secret (OTPModel):
+class Secret (BaseModel):
   sid       = PrimaryKeyField()
   email     = TextField()
   secret    = TextField()
 
-class RegLinks (OTPModel):
+class RegLinks (BaseModel):
   sid       = PrimaryKeyField()
   email     = TextField()
   link      = TextField()

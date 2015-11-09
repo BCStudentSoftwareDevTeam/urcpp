@@ -16,7 +16,7 @@ from flask import g
 from web import app
 
 # We need to import the DB object
-from models import webdb
+from models import theDB
 
 # Don't forget to import your own models!
 from models import Secret, RegLinks
