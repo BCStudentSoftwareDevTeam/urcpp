@@ -1,0 +1,14 @@
+<html>
+  <head>
+    <title>Favorites for {{name}}</title>
+  </head>
+  <body>
+    {{name}}'s Favorite Cookies:
+    
+    <ul>
+      {% for fav in favs %}
+        <li> {{fav}} </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
