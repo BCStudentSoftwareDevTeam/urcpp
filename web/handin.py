@@ -21,7 +21,7 @@ from models import theDB
 # Don't forget to import your own models!
 from models import Secret, RegLinks
 
-@app.route('/create', methods = ['GET', 'POST'])
+@app.route('/createold', methods = ['GET', 'POST'])
 def create ():
   if request.method == 'GET':
     return render_template('create.html')

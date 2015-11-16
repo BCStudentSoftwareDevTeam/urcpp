@@ -2,5 +2,4 @@ from flask import Flask
 
 app = Flask(__name__)
 
-import web.login
-import web.handin
+import web.main

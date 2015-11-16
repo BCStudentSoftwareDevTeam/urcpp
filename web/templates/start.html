@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block css %}
+<link rel="stylesheet" href="/s/css/login.css">
+{% endblock %}
+
+{% block title %} {% endblock %}
+
+{% block body %}
+<form class="form-signin" action="/project-info" method="POST">
+  <h2 class="form-signin-heading">Create a New Project, {{ user }}</h2>
+  <p>
+    Every URCPP project must have a corresponding faculty member who will
+    handle all correspondance and communications regarding the project.
+  </p>
+  <p>
+    Please add that faculty member here.
+  </p>
+
+  <div style = "margin-bottom: 10px;">
+    <label for="faculty" class="sr-only">Faculty Surname</label>
+    <input type="faculty" name="email" class="form-control" placeholder="Faculty Surname" required autofocus>
+
+    <label for="faculty" class="sr-only">Faculty First Name</label>
+    <input type="faculty" name="email" class="form-control" placeholder="Faculty First Name" required autofocus>
+
+    <label for="bnumber" class="sr-only">Faculty B#</label>
+    <input type="bnumber" name="email" class="form-control" placeholder="B00..." required autofocus>
+
+    <input type = "hidden" name = "validate" value = "{{validate}}"></input>
+  </div>
+
+  <button class="btn btn-lg btn-success btn-block" type="submit">Submit Request</button>
+</form>
+{% endblock %}

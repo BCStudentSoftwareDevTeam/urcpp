@@ -1,7 +1,24 @@
 from web import app
 import os
+from web.config import load_config
 
-# Run with 
-# $ IP=0.0.0.0 PORT=8080 python run.py 
+# The path is relative to the top of the project.
+cfg = load_config('web/config.yaml')
+
+# Run with
+# $ IP=0.0.0.0 PORT=8080 python run.py
 # or similar
-app.run(host = os.getenv('IP'), port = int(os.getenv('PORT')), debug = True)
+if os.getenv('IP'):
+  IP = os.getenv('IP')
+else:
+  IP = '0.0.0.0'
+
+if os.getenv('PORT'):
+  PORT = int(os.getenv('PORT'))
+else:
+  PORT = 9090
+
+print ("Running at http://{0}:{1}/".format(IP, PORT))
+
+app.run(host = IP, port = PORT, debug = True)
+app.secret_key = cfg['secret_key']
