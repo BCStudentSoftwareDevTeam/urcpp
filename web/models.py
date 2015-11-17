@@ -1,4 +1,6 @@
+import datetime
 from peewee import *
+
 # Create a database
 # FIXME: This should be in a config file...
 from web.config import load_config
@@ -19,12 +21,17 @@ class BaseModel (Model):
 # To see the databases, do this:
 # sqlite_web -p $PORT -H $IP -x data/test.sqlite
 
-class Secret (BaseModel):
-  sid       = PrimaryKeyField()
-  email     = TextField()
-  secret    = TextField()
+class Faculty (BaseModel):
+  fid           = PrimaryKeyField()
+  bnumber       = TextField()
+  lastname      = TextField()
+  firstname     = TextField()
+  email         = TextField()
+  username      = TextField()
+  corresponding = BooleanField()
 
-class RegLinks (BaseModel):
-  sid       = PrimaryKeyField()
-  email     = TextField()
-  link      = TextField()
+class Projects (BaseModel):
+  pid           = PrimaryKeyField()
+  faculty       = ForeignKeyField(Faculty, related_name = 'projects')
+  title         = TextField()
+  created_date  = DateTimeField(default = datetime.datetime.now)

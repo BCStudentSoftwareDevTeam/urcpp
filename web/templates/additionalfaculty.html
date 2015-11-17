@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %} {% endblock %}
+
+{% block body %}
+
+<script type="text/javascript">
+// This function creates a new row with three text fields.
+console.log("Here be JavaScript.\n");
+
+function addInput(divName){
+  console.log("Found the function, adding things.\n");
+  
+  var row = document.createElement('div');
+  row.className = "row";
+  row.style.cssText = "margin-bottom: 10px;";
+  
+  var contents = "<div class = 'col-md-4'>";
+  
+  contents += "<label class='sr-only'>Faculty Surname</label>";
+  contents += "<input name = 'lastnames[]' class='form-control' placeholder='Faculty Surname' autofocus>";
+  contents += "</div>";
+  
+  contents += "<div class = 'col-md-4'>";
+  contents += "<label class='sr-only'>Faculty First Name</label>";
+  contents += "<input name = 'firstnames[]' class='form-control' placeholder='Faculty First Name' autofocus>";
+  contents += "</div>";
+
+  contents += "<div class = 'col-md-4'>";  
+  contents += "<label class='sr-only'>B#</label>";
+  contents += "<input name = 'bnumbers[]' class='form-control' placeholder='B00...' autofocus>";
+  contents += "</div>";
+  
+  row.innerHTML = contents;
+  document.getElementById(divName).appendChild(row);
+}
+</script>
+
+  <h2 class="form-signin-heading">Add Collaborators, {{ username }}</h2>
+  <p>
+    Are faculty collaborating on this project? Add additional faculty here.
+  </p>
+  <form action = "/{{tag}}/{{username}}/{{next}}" method = "POST">
+    <div id = "extendo">
+      <div style = "margin-bottom: 10px;" class = "row">
+        <div class = "col-md-4">
+          <label for="faculty" class="sr-only">Faculty Surname</label>
+          <input name = "lastnames[]" class="form-control" placeholder="Faculty Surname"  autofocus>
+        </div>
+        <div class = "col-md-4">
+          <label for="faculty" class="sr-only">Faculty First Name</label>
+          <input name = "firstnames[]" class="form-control" placeholder="Faculty First Name"  autofocus>
+        </div>
+        <div class = "col-md-4">
+          <label for="bnumber" class="sr-only">Faculty B#</label>
+          <input name = "bnumbers[]" class="form-control" placeholder="B00..."  autofocus>
+        </div>
+      </div>
+    </div>
+    <!-- New things go here! -->
+  
+    <button type = "button"
+            class = "btn btn-lg btn-success btn-block" 
+            onClick = "addInput('extendo');">Add Faculty Member
+    </button>
+    
+    <button type = "submit"
+            class = "btn btn-lg btn-success btn-block">
+            Submit
+    </button>
+            
+    <br>
+  </form>
+  
+  <!-- <button class="btn btn-lg btn-success btn-block" type="submit">Submit Request</button> -->
+  {% endblock %}

@@ -1,10 +1,11 @@
 # We need to import the DB object
 from web.models import theDB
 import os
+import importlib
 
 # Don't forget to import your own models!
-from web.models import Secret, RegLinks
 from web.config import load_config
+import web.models
 
 # The path is relative to the top of the project.
 conf = load_config('web/config.yaml')
@@ -12,6 +13,10 @@ conf = load_config('web/config.yaml')
 # Get the names of the databases we want to work with
 sqlite_dbs  = [conf['database']]
 
+# Now, dynamically import the models
+#for module in conf['models']:
+#  importlib.import_module(module, package = "web.models")
+  
 # Remove them, then create them.
 for fname in sqlite_dbs:
   try:
@@ -38,6 +43,7 @@ def class_from_name(module_name, class_name):
     c = getattr(m, class_name)
     return c
 
+# First, dynamically import the models
 classes = []
 for str in conf['models']:
   c = class_from_name("web.models", str)
@@ -45,5 +51,7 @@ for str in conf['models']:
 
 # Create the tables in the database.
 theDB.create_tables(classes)
+
+
 
 

@@ -4,6 +4,7 @@ from web.config import load_config
 
 # The path is relative to the top of the project.
 cfg = load_config('web/config.yaml')
+skt = load_config('web/secret_config.yaml')
 
 # Run with
 # $ IP=0.0.0.0 PORT=8080 python run.py
@@ -20,5 +21,8 @@ else:
 
 print ("Running at http://{0}:{1}/".format(IP, PORT))
 
+app.secret_key = skt['secret_key']
+app.tag = cfg['tag']
+
 app.run(host = IP, port = PORT, debug = True)
-app.secret_key = cfg['secret_key']
+

@@ -6,25 +6,60 @@
 {% block title %} {% endblock %}
 
 {% block body %}
-<form class="form-signin" action="/project-info" method="POST">
-  <h2 class="form-signin-heading">Create a New Project, {{ user }}</h2>
+<form class="form-signin" action="/{{tag}}/{{username}}/{{next}}" method = "POST">
+  <h2 class="form-signin-heading">Create a New Project</h2>
   <p>
     Every URCPP project must have a corresponding faculty member who will
     handle all correspondance and communications regarding the project.
   </p>
-  <p>
-    Please add that faculty member here.
-  </p>
 
   <div style = "margin-bottom: 10px;">
-    <label for="faculty" class="sr-only">Faculty Surname</label>
-    <input type="faculty" name="email" class="form-control" placeholder="Faculty Surname" required autofocus>
+    <h3>Project Title</h3>
+    <label class="sr-only">Project Title</label>
+    <input  name = "projectitle" 
+            class="form-control" 
+            placeholder="My Amazing Research"
+            {% if autofill and autofill['projecttitle'] %}
+            value = "{{autofill['projecttitle']}}"
+            {% endif %}
+            required autofocus>
+    <hr>
+    <h3>Corresponding Faculty Member</h3>
+    <label class="sr-only">Faculty Last Name</label>
+    <input  name = "lastname" 
+            class="form-control" 
+            placeholder="Faculty Last Name"
+            {% if autofill and autofill['lastname'] %}
+            value = "{{autofill['lastname']}}"
+            {% endif %}
+            required autofocus>
 
-    <label for="faculty" class="sr-only">Faculty First Name</label>
-    <input type="faculty" name="email" class="form-control" placeholder="Faculty First Name" required autofocus>
+    <label class="sr-only">Faculty First Name</label>
+    <input  name = "firstname" 
+            class="form-control" 
+            placeholder="Faculty First Name" 
+            {% if autofill and autofill['firstname'] %}
+            value = "{{autofill['firstname']}}"
+            {% endif %}
+            required autofocus>
 
-    <label for="bnumber" class="sr-only">Faculty B#</label>
-    <input type="bnumber" name="email" class="form-control" placeholder="B00..." required autofocus>
+    <label class="sr-only">Faculty Email</label>
+    <input  name = "email" 
+            class="form-control" 
+            placeholder="faculty@berea.edu" 
+            {% if autofill and autofill['email'] %}
+            value = "{{autofill['email']}}"
+            {% endif %}
+            required autofocus>
+
+    <label class="sr-only">Faculty B#</label>
+    <input  name = "bnumber" 
+            class="form-control" 
+            placeholder="B00..." 
+            {% if autofill and autofill['bnumber'] %}
+            value = "{{autofill['bnumber']}}"
+            {% endif %}
+            required autofocus>
 
     <input type = "hidden" name = "validate" value = "{{validate}}"></input>
   </div>

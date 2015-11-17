@@ -1,11 +1,12 @@
 database: "data/urcpp.sqlite"
 
 models:
-  - Secret
-  - RegLinks
+  - Faculty
+  - Projects
 
 log:
   filename: "urcpp.log"
 
-# date +%s | sha256sum | base64 | head -c 32 ; echo
-secret_key: "OTE1YWMyYzgxMDFlZmMzYjY3MjdlNzU3"
+# Use this for URL construction.
+# /{tag}/...
+tag: "urcpp"
