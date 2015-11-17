@@ -3,6 +3,7 @@ database: "data/urcpp.sqlite"
 models:
   - Faculty
   - Projects
+  - FacultyProjects
 
 log:
   filename: "urcpp.log"

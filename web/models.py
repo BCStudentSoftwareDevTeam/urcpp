@@ -28,10 +28,14 @@ class Faculty (BaseModel):
   firstname     = TextField()
   email         = TextField()
   username      = TextField()
-  corresponding = BooleanField()
 
 class Projects (BaseModel):
   pid           = PrimaryKeyField()
-  faculty       = ForeignKeyField(Faculty, related_name = 'projects')
   title         = TextField()
   created_date  = DateTimeField(default = datetime.datetime.now)
+
+class FacultyProjects (BaseModel):
+  fpid          = PrimaryKeyField()
+  pid           = IntegerField()
+  fid           = IntegerField()
+  corresponding = BooleanField()

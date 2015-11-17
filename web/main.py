@@ -55,10 +55,11 @@ def init ():
   if 'username' not in session:
     # Store their username in the session, creating a cookie
     # so we can keep track of them as they go through the app.
-    session['username'] = os.getenv('USERNAME')    
+    session['username'] = os.getenv('USERNAME')
+    app.logger.info ("Found username in environment: {0}".format(session['username']))
   else:
     app.logger.info ("Found '{0}' in session.".format(session['username']))
-      
+
   # Redirect everyone
   return redirect('/{0}/{1}/start'.format(cfg['tag'], session['username']))
 
@@ -77,11 +78,11 @@ def router (username, step):
   # If we're proceeding through a session, it is by POST.
   # GET sessions should restore information from the DB, while
   # POST should present the forms as-is.
-  
+
   app.logger.info("User: {0} Step: {1}".format(username, step))
 
   if request.method == 'POST':
-    
+
     # We should already be in the session at this point.
     # If not, kick them to an ELSE that sends them back to the start.
     if not session['username']:
@@ -91,49 +92,55 @@ def router (username, step):
     elif session['username'] != username:
       session['username'] = None
       return redirect(url_for('/'))
-      
+
     # Otherwise, lets run the app.
     else:
-      for case in switch(step):      
+      for case in switch(step):
         # STEP 2
         # Asks the submitter for additional faculty and students.
         if case ("storecommunicating"):
           return storecommunicating ()
-        
+
         # STEP 3
         # Asks for additional faculty
         if case ("storeadditionalfaculty"):
           return storeadditionalfaculty ()
-          
+
         if case():
           app.logger.error ("Something went wrong.")
 
   if request.method == 'GET':
+    if session['username'] != username:
+      return "ERROR"
+
     # The first step will necessarily be a GET request.
     # Most likely redirected from '/'.
     for case in switch(step):
+      # FIXME: These should always be the same.
       # STEP 1
-      # Step one asks for the name of the URCPP request 
+      # Step one asks for the name of the URCPP request
       # submitter and their B#.
       if case("start"):
-        return start()
+        return start(username)
 
 
 #################################################################
 # STEP 1
-def start ():
+# FIXME: 20151116 - Need to update this to reflect the new data model.
+def start (username):
   if request.method == 'GET':
-    
-    # If we come in by GET, we might have some data we want to 
+
+    # If we come in by GET, we might have some data we want to
     # pre-populate into the form.
-    query = Faculty.select().where(Faculty.username == session['username'])
-    
-    # If the query is valid, then this faculty member has been into 
+    query = Faculty.select().where(Faculty.username == username)
+
+    # If the query is valid, then this faculty member has been into
     # the system before, and we can do some pre-populating.
     if query.exists():
       # Run the query
       facultymember = query.get()
       # If they have some projects, put the title here.
+
       if facultymember.projects.exists():
         app.logger.info("start: Faculty member has one or more projects.")
         facultymember.projecttitle = facultymember.projects[0].title
@@ -143,9 +150,9 @@ def start ():
     # If they aren't in the system, we can make sure the variable is None.
     else:
       facultymember = None
-    
+
     # Render the start page.
-    return render_template('start.html', 
+    return render_template('start.html',
                             autofill = facultymember,
                             username = session['username'],
                             tag  = cfg['tag'],
@@ -158,14 +165,14 @@ def start ():
 #################################################################
 # STEP 2: storesubmitter()
 # METHOD: POST
-# Stores the faculty member making the URCPP request and 
+# Stores the faculty member making the URCPP request and
 # proceeds on to requesting any additional faculty.
 def storecommunicating ():
   app.logger.info("storecommunicating: Storing the communicating faculty member.")
-  
+
   if request.method == 'POST':
     app.logger.info("storecommunicating: POST")
-    
+
     # Flask gets very upset if you request a field that does not exist.
     # It might be good to wrap all of these in a function that checks,
     # and if the field does not exist, then a sensible error is output.
@@ -188,7 +195,7 @@ def storecommunicating ():
     query = Faculty.select().where(Faculty.username == session['username'])
     # If we already exist, we don't know the ID. This is a problem
     # in the next step.
-    
+
     # FIXME: If the faculty member already exists, we might say that they
     # cannot be a corresponding faculty member on more than one project.
     # Hence, we should perhaps... do something different here.
@@ -198,22 +205,22 @@ def storecommunicating ():
       print (fac)
     else:
       fac.save()
-      
+
     # Create a partial project entry.
-    proj = Projects (faculty = fac.fid, 
+    proj = Projects (faculty = fac.fid,
                      title   = title
                      # The date is automatically filled in with 'now'
                      )
-    
- 
-    
+
+
+
     # Save the Project to the DB.
     # Only do this if the project title does not already exist.
     query = Projects.select().where(Projects.faculty == fac.fid)
     if not query.exists():
       proj.save()
-    
-    return render_template('additionalfaculty.html', 
+
+    return render_template('additionalfaculty.html',
                             username = session['username'],
                             tag  = cfg['tag'],
                             next = "storeadditionalfaculty"
@@ -221,8 +228,8 @@ def storecommunicating ():
   else:
     app.logger.error("storecommunicating: GET request not handled.")
     return "Thanks for all the fish."
-    
-  
+
+
 
 
 #################################################################
@@ -233,13 +240,10 @@ def storecommunicating ():
 #   Allow the user to enter more faculty.
 def storeadditionalfaculty ():
   app.logger.info("Made it to storeadditionalfaculty().")
-  
+
   if request.method == 'POST':
     pass
-    
+
   else:
     app.logger.error("storeadditionalfaculty: GET request not handled.")
     return "Thanks for all the fish."
-    
-  
-  
