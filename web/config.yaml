@@ -11,3 +11,5 @@ log:
 # Use this for URL construction.
 # /{tag}/...
 tag: "urcpp"
+
+timeout: 10

@@ -52,14 +52,40 @@ def after_request(response):
 # us over to the signin page.
 @app.route("/")
 def init ():
-  if 'username' not in session:
-    # Store their username in the session, creating a cookie
-    # so we can keep track of them as they go through the app.
-    session['username'] = os.getenv('USERNAME')
-    app.logger.info ("Found username in environment: {0}".format(session['username']))
+  from datetime import timedelta, datetime
+  
+  # FIXME: It is not clear what value sessions are playing at this point.
+  # FIXME: We should also make sure that what we are storing is correct
+  #        and timely. We're going to rely on that cookie, perhaps.
+  #        Or, something... I want to make sure that when the user re-enters
+  #        elsewhere that we check these things... perhaps this should be 
+  #        broken out into a separate function, and used everywhere?
+  if 'username' in session:
+    # Check if we should time out our session value.
+    if 'lastlogin' in session:
+      # Import the library we need for timedeltas
+      timeout_duration = timedelta (minutes = cfg['timeout'])
+      FMT = '%H:%M:%S'
+      difference = datetime.now() - datetime.strptime(session['lastlogin'], FMT)
+      app.logger.info("init: time difference is {0}".format(difference))
+      if difference > timeout_duration:
+        app.logger.info("init: difference is greater than {0} minutes.".format(cfg['timeout']))
+        session['username'] = os.getenv('USERNAME')
+        app.logger.info ("init: Found username in environment 1: {0}".format(session['username']))
+      else:
+        # Keep the session username
+        pass
+    # They haven't logged in before, so we have no info...
+    else:
+      session['lastlogin'] = datetime.now()
+      session['username'] = os.getenv('USERNAME')
+      app.logger.info ("init: Found username in environment 2: {0}".format(session['username']))
+      
+  # If the username is not in the session
   else:
-    app.logger.info ("Found '{0}' in session.".format(session['username']))
-
+    session['username'] = os.getenv('USERNAME')
+    app.logger.info ("init: Found username in environment 3: {0}".format(session['username']))
+    
   # Redirect everyone
   return redirect('/{0}/{1}/start'.format(cfg['tag'], session['username']))
 
@@ -84,7 +110,9 @@ def router (username, step):
   if request.method == 'POST':
 
     # We should already be in the session at this point.
-    # If not, kick them to an ELSE that sends them back to the start.
+    # If not, kick them to an 'else' that sends them back to the start.
+    # FIXME: Note above how usernames in sessions are handled, and 
+    # think seriously about how we should check who's-who, here.
     if not session['username']:
       return redirect(url_for('/'))
 
@@ -99,7 +127,7 @@ def router (username, step):
         # STEP 2
         # Asks the submitter for additional faculty and students.
         if case ("storecommunicating"):
-          return storecommunicating ()
+          return storecommunicating (username)
 
         # STEP 3
         # Asks for additional faculty
@@ -131,29 +159,47 @@ def start (username):
   if request.method == 'GET':
 
     # If we come in by GET, we might have some data we want to
-    # pre-populate into the form.
-    query = Faculty.select().where(Faculty.username == username)
+    # pre-populate into the form. We only want to find the 
+    # project for which the faculty is a corresponding author.
+    facQ = (Faculty.select()
+      .join(FacultyProjects, on = (FacultyProjects.fid == Faculty.fid))
+      .join(Projects, on = (FacultyProjects.pid == Projects.pid))
+      .where(Faculty.username == username)
+      .where(FacultyProjects.corresponding == True)
+      )
 
+    app.logger.info("start: query looks like: \n{0}".format(facQ.sql()))
+    
     # If the query is valid, then this faculty member has been into
     # the system before, and we can do some pre-populating.
-    if query.exists():
-      # Run the query
-      facultymember = query.get()
-      # If they have some projects, put the title here.
-
-      if facultymember.projects.exists():
-        app.logger.info("start: Faculty member has one or more projects.")
-        facultymember.projecttitle = facultymember.projects[0].title
+    if facQ.exists():
+      theFaculty = facQ.get()
+      # Run the query. There MUST be only one project for
+      # which they are corresponding.
+      projectQ = (Projects.select()
+        .join(Faculty, on = (theFaculty.fid == Projects.corresponding))
+        )
+      
+      app.logger.info("start: project query looks like: \n{0}".format(projectQ.sql()))
+      
+      if projectQ.exists():
+        theProject = projectQ.get()
+        app.logger.info(
+          "start: Faculty member is a corresponding author on {0}."
+          .format(theProject.title)
+          )  
+        theFaculty.projecttitle = theProject.title
       else:
         app.logger.info("start: Faculty member has no projects.")
-        facultymember.projecttitle = None
+        theFaculty.projecttitle  = None
     # If they aren't in the system, we can make sure the variable is None.
     else:
       facultymember = None
 
     # Render the start page.
     return render_template('start.html',
-                            autofill = facultymember,
+                            faculty = theFaculty,
+                            project = theProject,
                             username = session['username'],
                             tag  = cfg['tag'],
                             next = "storecommunicating"
@@ -167,7 +213,7 @@ def start (username):
 # METHOD: POST
 # Stores the faculty member making the URCPP request and
 # proceeds on to requesting any additional faculty.
-def storecommunicating ():
+def storecommunicating (username):
   app.logger.info("storecommunicating: Storing the communicating faculty member.")
 
   if request.method == 'POST':
@@ -186,13 +232,13 @@ def storecommunicating ():
     fac = Faculty (firstname     = firstname,
                    lastname      = lastname,
                    email         = email,
-                   username      = session['username'],
+                   username      = username,
                    bnumber       = bnumber,
                    corresponding = True)
 
     # Save the faculty member to the DB.
     # Only do the insert if the B# does not already exist.
-    query = Faculty.select().where(Faculty.username == session['username'])
+    query = Faculty.select().where(Faculty.username == username)
     # If we already exist, we don't know the ID. This is a problem
     # in the next step.
 

@@ -27,15 +27,19 @@ class Faculty (BaseModel):
   lastname      = TextField()
   firstname     = TextField()
   email         = TextField()
-  username      = TextField()
+  # We have to use the username as a unique property.
+  # Users log in via this token, and therefore, there
+  # can only be one faculty member with a given username.
+  username      = TextField(unique = True)
 
 class Projects (BaseModel):
   pid           = PrimaryKeyField()
   title         = TextField()
+  corresponding = ForeignKeyField(Faculty)
   created_date  = DateTimeField(default = datetime.datetime.now)
 
 class FacultyProjects (BaseModel):
   fpid          = PrimaryKeyField()
-  pid           = IntegerField()
-  fid           = IntegerField()
+  pid           = ForeignKeyField(Projects)
+  fid           = ForeignKeyField(Faculty)
   corresponding = BooleanField()

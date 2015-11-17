@@ -62,7 +62,7 @@ fac = Faculty ( firstname     = "Matt",
                 )
 fac.save()
 
-proj = Projects ( title = "Robot Robot")
+proj = Projects ( title = "Robot Robot", corresponding = fac.fid)
 proj.save()
 
 fp   = FacultyProjects (

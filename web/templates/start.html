@@ -19,8 +19,8 @@
     <input  name = "projectitle" 
             class="form-control" 
             placeholder="My Amazing Research"
-            {% if autofill and autofill['projecttitle'] %}
-            value = "{{autofill['projecttitle']}}"
+            {% if project and project.title %}
+            value = "{{project['title']}}"
             {% endif %}
             required autofocus>
     <hr>
@@ -29,8 +29,8 @@
     <input  name = "lastname" 
             class="form-control" 
             placeholder="Faculty Last Name"
-            {% if autofill and autofill['lastname'] %}
-            value = "{{autofill['lastname']}}"
+            {% if faculty and faculty.lastname %}
+            value = "{{faculty['lastname']}}"
             {% endif %}
             required autofocus>
 
@@ -38,8 +38,8 @@
     <input  name = "firstname" 
             class="form-control" 
             placeholder="Faculty First Name" 
-            {% if autofill and autofill['firstname'] %}
-            value = "{{autofill['firstname']}}"
+            {% if faculty and faculty.firstname %}
+            value = "{{faculty['firstname']}}"
             {% endif %}
             required autofocus>
 
@@ -47,8 +47,8 @@
     <input  name = "email" 
             class="form-control" 
             placeholder="faculty@berea.edu" 
-            {% if autofill and autofill['email'] %}
-            value = "{{autofill['email']}}"
+            {% if faculty and faculty.email %}
+            value = "{{faculty['email']}}"
             {% endif %}
             required autofocus>
 
@@ -56,8 +56,8 @@
     <input  name = "bnumber" 
             class="form-control" 
             placeholder="B00..." 
-            {% if autofill and autofill['bnumber'] %}
-            value = "{{autofill['bnumber']}}"
+            {% if faculty and faculty.bnumber %}
+            value = "{{faculty['bnumber']}}"
             {% endif %}
             required autofocus>
 
