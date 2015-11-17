@@ -185,7 +185,7 @@ def storecommunicating ():
 
     # Save the faculty member to the DB.
     # Only do the insert if the B# does not already exist.
-    query = Faculty.select().where(Faculty.bnumber == bnumber)
+    query = Faculty.select().where(Faculty.username == session['username'])
     # If we already exist, we don't know the ID. This is a problem
     # in the next step.
     if query.exists():
