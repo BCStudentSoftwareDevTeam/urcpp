@@ -71,3 +71,13 @@ fp   = FacultyProjects (
         corresponding = True
         )
 fp.save()
+
+
+fac = Faculty ( firstname     = "Mario",
+                lastname      = "Nakazawa",
+                email         = "nakazawam@berea.edu",
+                username      = "nakazawam",
+                bnumber       = "B00662323",
+                corresponding = False
+                )
+fac.save()

@@ -63,10 +63,15 @@ def init ():
   if 'username' in session:
     # Check if we should time out our session value.
     if 'lastlogin' in session:
+      app.logger.info("init: last login for {0} was {1}"
+        .format(session['username'], session['lastlogin']))
       # Import the library we need for timedeltas
       timeout_duration = timedelta (minutes = cfg['timeout'])
-      FMT = '%H:%M:%S'
-      difference = datetime.now() - datetime.strptime(session['lastlogin'], FMT)
+      then = session['lastlogin']
+      # datetime.strptime(session['lastlogin'], '%Y-%M-%D %H:%M:%S')
+      app.logger.info("init: then was {0}".format(then))
+      difference = datetime.now() - then
+      
       app.logger.info("init: time difference is {0}".format(difference))
       if difference > timeout_duration:
         app.logger.info("init: difference is greater than {0} minutes.".format(cfg['timeout']))
@@ -161,6 +166,8 @@ def start (username):
     # If we come in by GET, we might have some data we want to
     # pre-populate into the form. We only want to find the 
     # project for which the faculty is a corresponding author.
+    # If they are non-corresponding faculty on some other project,
+    # then we don't want to pre-populate. (FIXME?)
     facQ = (Faculty.select()
       .join(FacultyProjects, on = (FacultyProjects.fid == Faculty.fid))
       .join(Projects, on = (FacultyProjects.pid == Projects.pid))
@@ -169,6 +176,10 @@ def start (username):
       )
 
     app.logger.info("start: query looks like: \n{0}".format(facQ.sql()))
+    
+    # Lets make sure we're ready to pass nothing in to the template.
+    theFaculty = None
+    theProject = None
     
     # If the query is valid, then this faculty member has been into
     # the system before, and we can do some pre-populating.
@@ -214,6 +225,9 @@ def start (username):
 # Stores the faculty member making the URCPP request and
 # proceeds on to requesting any additional faculty.
 def storecommunicating (username):
+  # FIXME 20151117 : This function is broken, due to datamodel changes.
+  # It will need to be updated to reflect the new model.
+  
   app.logger.info("storecommunicating: Storing the communicating faculty member.")
 
   if request.method == 'POST':
@@ -227,6 +241,17 @@ def storecommunicating (username):
     lastname  = request.form['lastname']
     email     = request.form['email']
     bnumber   = request.form['bnumber']
+
+    # Does this faculty member already have a project they are 
+    # corresponding on? If so, we need to populate this page with 
+    # information that is appropriate.
+    facQ = (Faculty.select()
+      .join(FacultyProjects, on = (FacultyProjects.fid == Faculty.fid))
+      .join(Projects, on = (FacultyProjects.pid == Projects.pid))
+      .where(Faculty.username == username)
+      .where(FacultyProjects.corresponding == True)
+      )
+    
 
     # Create a Faculty() peewee ORM object
     fac = Faculty (firstname     = firstname,
