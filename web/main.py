@@ -188,6 +188,10 @@ def storecommunicating ():
     query = Faculty.select().where(Faculty.username == session['username'])
     # If we already exist, we don't know the ID. This is a problem
     # in the next step.
+    
+    # FIXME: If the faculty member already exists, we might say that they
+    # cannot be a corresponding faculty member on more than one project.
+    # Hence, we should perhaps... do something different here.
     if query.exists():
       # Get the faculty member from the DB, so we have a faculty id.
       fac = query.get()
