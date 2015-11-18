@@ -16,49 +16,39 @@
   <div style = "margin-bottom: 10px;">
     <h3>Project Title</h3>
     <label class="sr-only">Project Title</label>
-    <input  name = "projectitle" 
-            class="form-control" 
+    <input  id = "title"
+            name = "title"
+            class="form-control"
             placeholder="My Amazing Research"
-            {% if project and project.title %}
-            value = "{{project['title']}}"
-            {% endif %}
             required autofocus>
     <hr>
     <h3>Corresponding Faculty Member</h3>
     <label class="sr-only">Faculty Last Name</label>
-    <input  name = "lastname" 
-            class="form-control" 
+    <input  id = "lastname"
+            name = "lastname"
+            class="form-control"
             placeholder="Faculty Last Name"
-            {% if faculty and faculty.lastname %}
-            value = "{{faculty['lastname']}}"
-            {% endif %}
             required autofocus>
 
     <label class="sr-only">Faculty First Name</label>
-    <input  name = "firstname" 
-            class="form-control" 
-            placeholder="Faculty First Name" 
-            {% if faculty and faculty.firstname %}
-            value = "{{faculty['firstname']}}"
-            {% endif %}
+    <input  id = "firstname"
+            name = "firstname"
+            class="form-control"
+            placeholder="Faculty First Name"
             required autofocus>
 
     <label class="sr-only">Faculty Email</label>
-    <input  name = "email" 
-            class="form-control" 
-            placeholder="faculty@berea.edu" 
-            {% if faculty and faculty.email %}
-            value = "{{faculty['email']}}"
-            {% endif %}
+    <input  id = "email"
+            name = "email"
+            class="form-control"
+            placeholder="faculty@berea.edu"
             required autofocus>
 
     <label class="sr-only">Faculty B#</label>
-    <input  name = "bnumber" 
-            class="form-control" 
-            placeholder="B00..." 
-            {% if faculty and faculty.bnumber %}
-            value = "{{faculty['bnumber']}}"
-            {% endif %}
+    <input  id = "bnumber"
+            name = "bnumber"
+            class="form-control"
+            placeholder="B00..."
             required autofocus>
 
     <input type = "hidden" name = "validate" value = "{{validate}}"></input>
@@ -66,4 +56,28 @@
 
   <button class="btn btn-lg btn-success btn-block" type="submit">Submit Request</button>
 </form>
+
+<script>
+var populate = function (endpoint) {
+  $.getJSON("/{{tag}}/_/" + endpoint + "/{{username}}", {})
+            .done (
+              function (json) {
+                 // console.log("DONE: " + json);
+                for (var key in json) {
+                  if (json.hasOwnProperty(key)) {
+                    $("#" + key).val(json[key])
+                  }
+                }
+              })
+            .fail (
+              function (jqxhr, textStatus, error) {
+                console.log ( jqxhr.responseText);
+                var err = textStatus + ", " + error;
+                console.log( "Request Failed: " + err );
+              });
+}
+
+populate("getcorresponding");
+populate("getproject");
+</script>
 {% endblock %}

@@ -12,6 +12,11 @@ from flask import request
 from flask import url_for
 from flask import g
 from flask import session
+from flask import jsonify
+
+# We need peewee's playhouse to help us serialize results
+from playhouse.shortcuts import model_to_dict as m2d
+
 # We need to import the DB object
 from models import theDB
 
@@ -53,12 +58,12 @@ def after_request(response):
 @app.route("/")
 def init ():
   from datetime import timedelta, datetime
-  
+
   # FIXME: It is not clear what value sessions are playing at this point.
   # FIXME: We should also make sure that what we are storing is correct
   #        and timely. We're going to rely on that cookie, perhaps.
   #        Or, something... I want to make sure that when the user re-enters
-  #        elsewhere that we check these things... perhaps this should be 
+  #        elsewhere that we check these things... perhaps this should be
   #        broken out into a separate function, and used everywhere?
   if 'username' in session:
     # Check if we should time out our session value.
@@ -71,7 +76,7 @@ def init ():
       # datetime.strptime(session['lastlogin'], '%Y-%M-%D %H:%M:%S')
       app.logger.info("init: then was {0}".format(then))
       difference = datetime.now() - then
-      
+
       app.logger.info("init: time difference is {0}".format(difference))
       if difference > timeout_duration:
         app.logger.info("init: difference is greater than {0} minutes.".format(cfg['timeout']))
@@ -85,12 +90,12 @@ def init ():
       session['lastlogin'] = datetime.now()
       session['username'] = os.getenv('USERNAME')
       app.logger.info ("init: Found username in environment 2: {0}".format(session['username']))
-      
+
   # If the username is not in the session
   else:
     session['username'] = os.getenv('USERNAME')
     app.logger.info ("init: Found username in environment 3: {0}".format(session['username']))
-    
+
   # Redirect everyone
   return redirect('/{0}/{1}/start'.format(cfg['tag'], session['username']))
 
@@ -116,7 +121,7 @@ def router (username, step):
 
     # We should already be in the session at this point.
     # If not, kick them to an 'else' that sends them back to the start.
-    # FIXME: Note above how usernames in sessions are handled, and 
+    # FIXME: Note above how usernames in sessions are handled, and
     # think seriously about how we should check who's-who, here.
     if not session['username']:
       return redirect(url_for('/'))
@@ -158,60 +163,62 @@ def router (username, step):
 
 
 #################################################################
+# JSON HELPERS
+
+def getcorresponding (username):
+  facQ = (Faculty.select()
+    .join(FacultyProjects, on = (FacultyProjects.fid == Faculty.fid))
+    .join(Projects, on = (FacultyProjects.pid == Projects.pid))
+    .where(Faculty.username == username)
+    .where(FacultyProjects.corresponding == True)
+      )
+
+  if facQ.exists():
+    fac = facQ.get()
+    app.logger.info("Fetched Corresponding Faculty: {0}".format(fac))
+    return fac
+  else:
+    app.logger.info("Corresponding faculty {0} not found.".format(username))
+    return None
+
+@app.route("/{0}/_/getcorresponding/<username>".format(cfg['tag']))
+def _getcorresponding (username):
+  fac = getcorresponding (username)
+  json = jsonify(m2d(fac))
+  return json
+
+def getproject (username):
+  # Run the query. There MUST be only one project for
+  # which they are corresponding.
+  theFaculty = getcorresponding(username)
+
+  projectQ = (Projects.select()
+    .join(Faculty, on = (theFaculty.fid == Projects.corresponding))
+    )
+
+  if projectQ.exists():
+    return projectQ.get()
+  else:
+    return None
+
+@app.route("/{0}/_/getproject/<username>".format(cfg['tag']))
+def _getproject (username):
+  proj = getproject (username)
+  json = jsonify(m2d(proj))
+  return json
+
+#################################################################
 # STEP 1
 # FIXME: 20151116 - Need to update this to reflect the new data model.
 def start (username):
   if request.method == 'GET':
-
-    # If we come in by GET, we might have some data we want to
-    # pre-populate into the form. We only want to find the 
-    # project for which the faculty is a corresponding author.
-    # If they are non-corresponding faculty on some other project,
-    # then we don't want to pre-populate. (FIXME?)
-    facQ = (Faculty.select()
-      .join(FacultyProjects, on = (FacultyProjects.fid == Faculty.fid))
-      .join(Projects, on = (FacultyProjects.pid == Projects.pid))
-      .where(Faculty.username == username)
-      .where(FacultyProjects.corresponding == True)
-      )
-
-    app.logger.info("start: query looks like: \n{0}".format(facQ.sql()))
-    
-    # Lets make sure we're ready to pass nothing in to the template.
-    theFaculty = None
-    theProject = None
-    
-    # If the query is valid, then this faculty member has been into
-    # the system before, and we can do some pre-populating.
-    if facQ.exists():
-      theFaculty = facQ.get()
-      # Run the query. There MUST be only one project for
-      # which they are corresponding.
-      projectQ = (Projects.select()
-        .join(Faculty, on = (theFaculty.fid == Projects.corresponding))
-        )
-      
-      app.logger.info("start: project query looks like: \n{0}".format(projectQ.sql()))
-      
-      if projectQ.exists():
-        theProject = projectQ.get()
-        app.logger.info(
-          "start: Faculty member is a corresponding author on {0}."
-          .format(theProject.title)
-          )  
-        theFaculty.projecttitle = theProject.title
-      else:
-        app.logger.info("start: Faculty member has no projects.")
-        theFaculty.projecttitle  = None
-    # If they aren't in the system, we can make sure the variable is None.
-    else:
-      facultymember = None
-
     # Render the start page.
+    # There used to be a lot of code here.
+    # Now, it's a JSON query in the page itself. The pre-population
+    # happens entirely in JavaScript, and here, we just render
+    # the page. This seems cleaner, actually.
     return render_template('start.html',
-                            faculty = theFaculty,
-                            project = theProject,
-                            username = session['username'],
+                            username = username,
                             tag  = cfg['tag'],
                             next = "storecommunicating"
                             )
@@ -227,7 +234,7 @@ def start (username):
 def storecommunicating (username):
   # FIXME 20151117 : This function is broken, due to datamodel changes.
   # It will need to be updated to reflect the new model.
-  
+
   app.logger.info("storecommunicating: Storing the communicating faculty member.")
 
   if request.method == 'POST':
@@ -242,8 +249,8 @@ def storecommunicating (username):
     email     = request.form['email']
     bnumber   = request.form['bnumber']
 
-    # Does this faculty member already have a project they are 
-    # corresponding on? If so, we need to populate this page with 
+    # Does this faculty member already have a project they are
+    # corresponding on? If so, we need to populate this page with
     # information that is appropriate.
     facQ = (Faculty.select()
       .join(FacultyProjects, on = (FacultyProjects.fid == Faculty.fid))
@@ -251,7 +258,7 @@ def storecommunicating (username):
       .where(Faculty.username == username)
       .where(FacultyProjects.corresponding == True)
       )
-    
+
 
     # Create a Faculty() peewee ORM object
     fac = Faculty (firstname     = firstname,
