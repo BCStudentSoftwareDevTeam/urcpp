@@ -58,26 +58,7 @@
 </form>
 
 <script>
-var populate = function (endpoint) {
-  $.getJSON("/{{tag}}/_/" + endpoint + "/{{username}}", {})
-            .done (
-              function (json) {
-                 // console.log("DONE: " + json);
-                for (var key in json) {
-                  if (json.hasOwnProperty(key)) {
-                    $("#" + key).val(json[key])
-                  }
-                }
-              })
-            .fail (
-              function (jqxhr, textStatus, error) {
-                console.log ( jqxhr.responseText);
-                var err = textStatus + ", " + error;
-                console.log( "Request Failed: " + err );
-              });
-}
-
-populate("getcorresponding");
-populate("getproject");
+Populate.fromURL ("/{{tag}}/_/getcorresponding/{{username}}");
+Populate.fromURL ("/{{tag}}/_/getproject/{{username}}");
 </script>
 {% endblock %}
