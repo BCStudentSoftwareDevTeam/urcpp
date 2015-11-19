@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="/s/css/login.css">
+{% endblock %}
+
+{% block title %} Wrong User {% endblock %}
+
+{% block body %}
+
+<div class = "row">
+  <div class = "col-md-6 col-md-offset-3">
+    <p>
+      It looks like you are trying to access a project owned by 
+      <strong>{{owner}}</strong>, but you are actually <strong>{{username}}</strong>. 
+    </p>
+    <p>
+      We practice good URCPP hygiene. URLs are not for sharing.
+    </p>
+    <p>
+      <a href="/">Click here to start your own, new URCPP project</a>. Remember... research
+      with undergraduates is a high-impact practice!
+    </p>
+  </div>
+</div>
+
+{% endblock %}

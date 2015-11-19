@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %} {% endblock %}
+
+{% block body %}
+
+  <h2 class="form-signin-heading">Add Collaborators, {{ username }}</h2>
+  <p>
+    Are faculty collaborating on this project? Add additional faculty here.
+  </p>
+  <form action = "/{{tag}}/{{next}}" method = "POST">
+    <div id = "extendo">
+
+    </div>
+    <!-- New things go here! -->
+    
+    <div id = "buttons" class = "row">
+      <div class = "col-md-3 col-md-offset-7">
+        <button type = "button"
+              class = "btn btn-lg btn-warning btn-block" 
+              onClick = "addInput('extendo');">
+              More Collaborators!
+            </button>
+      </div>
+      <div class = "col-md-2">
+        <button type = "submit"
+                class = "btn btn-lg btn-success btn-block">
+                Continue
+        </button>
+      </div>
+    </div>
+    
+    <input id = "fieldcount" name = "fieldcount" type = "hidden" value = "">
+  </form>
+  
+
+
+
+<script type="text/javascript">
+  var fieldcount = 0;
+  
+  var makeRow = function (start, last, first, email, bnum, end)  {
+    row = [
+    start,
+    '<div class = "col-md-3">',
+    '<label for="faculty" class="sr-only">Faculty Surname</label>',
+    '<input name = "lastnames', fieldcount, '" class="form-control" placeholder="Faculty Surname"  autofocus ',
+     'value = "', last, '">',
+    '</div>',
+    '<div class = "col-md-3">',
+    '<label for="faculty" class="sr-only">Faculty First Name</label>',
+    '<input name = "firstnames', fieldcount, '" class="form-control" placeholder="Faculty First Name"  autofocus ',
+     'value = "', first, '">',
+    '</input>',
+    '</div>',
+    '<div class = "col-md-3">',
+    '<label for="faculty" class="sr-only">Faculty First Name</label>',
+    '<input name = "emails', fieldcount, '" class="form-control" placeholder="Email Address"  autofocus ',
+     'value = "', email, '">',
+    '</input>',
+    '</div>',
+    '<div class = "col-md-3">',
+    '<label for="bnumber" class="sr-only">Faculty B#</label>',
+    '<input name = "bnumbers', fieldcount, '" class="form-control" placeholder="B00..."  autofocus ',
+     'value = "', bnum, '">',
+    '</input>',
+    '</div>',
+    end
+    ].join('');
+    return row;
+  }
+
+  // This function creates a new row with three text fields.
+  console.log("Here be JavaScript.\n");
+
+  function addInput(divName){
+    console.log("Found the function, adding things.\n");
+  
+    var row = document.createElement('div');
+    row.className = "row";
+    row.style.cssText = "margin-bottom: 10px;";
+    row.innerHTML = makeRow("", "", "", "", "", "");
+    document.getElementById(divName).appendChild(row);
+    $("#fieldcount").val(fieldcount);
+  }
+
+
+  var update = function (json) {
+    for (var key in json) {
+      if (json.hasOwnProperty(key)) {
+        console.log ("Adding in faculty member: " + key);
+        // We now have the faculty hash.
+        fac = json[key];
+        // Use this to populate things.
+        newrow = makeRow(
+          '<div style = "margin-bottom: 10px;" class = "row">',
+          fac['lastname'], fac['firstname'], fac['email'], fac['bnumber'],
+          '</div>'
+        );
+        
+        $("#extendo").append(newrow);
+        $("#fieldcount").val(fieldcount);
+        fieldcount += 1;
+
+      }
+    }
+    
+    // addInput("extendo");
+  };
+
+  Retrieve.fromURL ("/{{tag}}/_/getprojectfaculty/{{username}}", update);
+
+</script>
+
+  <!-- <button class="btn btn-lg btn-success btn-block" type="submit">Submit Request</button> -->
+  {% endblock %}

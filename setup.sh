@@ -15,6 +15,9 @@ pip install sqlite-web
 pip install pyotp
 pip install qrcode
 pip install pyyaml
+# For security, for LDAP
+pip install pyopenssl ndg-httpsclient pyasn1
+pip install ldap3
 
 # For QR Codes
 pip install Pillow

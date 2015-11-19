@@ -32,10 +32,20 @@ class Faculty (BaseModel):
   # can only be one faculty member with a given username.
   username      = TextField(unique = True)
 
+# Collaborators are also faculty, but they are entered
+# by the user... and we have no way of guaranteeing
+# they will get a username correct. So, they live 
+# somewhere else.
+class Collaborators (BaseModel):
+  cid           = PrimaryKeyField()
+  bnumber       = TextField(unique = True)
+  lastname      = TextField()
+  firstname     = TextField()
+  email         = TextField()
+
 class Projects (BaseModel):
   pid           = PrimaryKeyField()
   title         = TextField()
-  corresponding = ForeignKeyField(Faculty)
   created_date  = DateTimeField(default = datetime.datetime.now)
 
 class FacultyProjects (BaseModel):

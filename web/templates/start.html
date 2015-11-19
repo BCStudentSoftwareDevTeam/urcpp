@@ -1,12 +1,13 @@
 {% extends "base.html" %}
+
 {% block css %}
 <link rel="stylesheet" href="/s/css/login.css">
 {% endblock %}
 
-{% block title %} {% endblock %}
+{% block title %} Create a new URCPP Project {% endblock %}
 
 {% block body %}
-<form class="form-signin" action="/{{tag}}/{{username}}/{{next}}" method = "POST">
+<form class="form-signin" action="/{{tag}}/{{next}}" method = "POST">
   <h2 class="form-signin-heading">Create a New Project</h2>
   <p>
     Every URCPP project must have a corresponding faculty member who will

@@ -18,3 +18,19 @@ var Populate = {
                 });
   }
 }
+
+var Retrieve = {
+  fromURL: function (endpoint, chain) {
+  $.getJSON(endpoint, {})
+            .done (
+              function (json) {
+                chain (json);
+              })
+            .fail (
+              function (jqxhr, textStatus, error) {
+                console.log ( jqxhr.responseText);
+                var err = textStatus + ", " + error;
+                console.log( "Request Failed: " + err );
+              });
+  }
+}
