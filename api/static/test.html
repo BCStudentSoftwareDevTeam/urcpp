@@ -6,10 +6,39 @@
     <script src = "/s/js/urcpp.js"> </script>
   </head>
   <body>
+    <!-- STYLE GUIDE: 
+      All HTML should be neatly indented according to nesting level.
+      Text editors should be set to 2 spaces for every tab.
+      
+      Indentation lets us see the tree.
+      
+      Spaces follow the same style as Python. (See PEP-8)
+
+      No tabs, just spaces. 
+      -->
+      
+    <div class = "row">
+      <div class = "col-md-6 col-md-offset-3">
+        <p id = "echo">
+          <!-- Modify this HTML -->
+        </p>
+      </div>
+    </div>
     
     <script>
+      // This creates a new version 1 API object
       api = urcpp('v1');
-      api.gfd ('jadudm', { "foo" : "bar" });
+      // Then, we can invoke the "getfacultydetails"
+      // method on that object, with 'jadudm' as the
+      // first parameter and a dictionary as the post data.
+      
+      // We can also use that result to modify our webpage.
+      api.gfd ( { username: 'jadudm',
+                  data: { "foo" : "bar" },
+                  done: function (result) {
+                          console.log(result);
+                          $("#echo").text(JSON.stringify(result));
+                        }});
     </script>
   </body>
 </html>
