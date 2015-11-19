@@ -18,9 +18,6 @@ from flask import jsonify
 # We need peewee's playhouse to help us serialize results
 from playhouse.shortcuts import model_to_dict as m2d
 
-# We need to import the DB object
-from models import theDB
-
 # For unique values
 import uuid
 
@@ -32,4 +29,4 @@ app = Flask(__name__)
 
 from api.switch import switch
 from api.config import load_config
-cfg = load_config('web/config.yaml')
+cfg = load_config('api/config.yaml')

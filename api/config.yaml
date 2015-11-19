@@ -1,12 +1,16 @@
-database: "data/urcpp.sqlite"
+databases:
+  dynamic: "data/urcpp.sqlite"
+  static: "data/static.sqlite"
 
 models:
-  - Faculty
-  - LDAPFaculty
-  - Collaborators
-  - Projects
-  - FacultyProjects
-
+  dynamic:
+    - Faculty
+    - Collaborators
+    - Projects
+    - FacultyProjects
+  static:
+    - LDAPFaculty
+    
 log:
   filename: "urcpp.log"
 
