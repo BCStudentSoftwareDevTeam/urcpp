@@ -29,7 +29,7 @@ class SqliteModel (Model):
 # To see the databases, do this:
 # sqlite_web -p $PORT -H $IP -x data/test.sqlite
 
-class Faculty (SqliteModel):
+class LDAPFaculty (SqliteModel):
   fid           = PrimaryKeyField()
   bnumber       = TextField()
   lastname      = TextField()
@@ -40,13 +40,8 @@ class Faculty (SqliteModel):
   # can only be one faculty member with a given username.
   username      = TextField(unique = True)
 
-class LDAPFaculty (SqliteModel):
-  fid       = PrimaryKeyField()
-  lastname  = TextField()
-  firstname = TextField()
-  username  = TextField(unique = True)
-  bnumber   = TextField()
-  email     = TextField()
+class URCPPFaculty (SqliteModel):
+  pass
 
 class Projects (SqliteModel):
   pid           = PrimaryKeyField()

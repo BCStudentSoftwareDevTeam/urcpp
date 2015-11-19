@@ -8,11 +8,12 @@ var urcpp = function (version) {
 
     init: function (version) {
       h.client = new $.RestClient('/urcpp/' + version + '/');
+      // Establish all of our endpoints.
+      h.client.add('gfd', { stripTrailingSlash: true});
     },
 
-    gfd: function (username) {
-      h.client.add('gfd', { stripTrailingSlash: true});
-      h.client.gfd.create(username, { "foo" : "bar" });
+    gfd: function (username, data) {
+      h.client.gfd.create(username, data);
     }
   };
 

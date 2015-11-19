@@ -4,8 +4,11 @@ from everything import *
 # Also, Postman in Chrome
 # Also, http://blog.luisrei.com/articles/flaskrest.html
 # Also, https://github.com/jpillora/jquery.rest
+# For testing: http://unirest.io/python.html
+# Also, the unittest library.
+# Also for REST: http://restkit.readthedocs.org/en/latest/
 
-@app.route ("/urcpp/1/gfd/<username>", methods = ["POST"])
+@app.route ("/urcpp/v1/gfd/<username>", methods = ["POST"])
 def getfacultydetails (username):
   # FIXME: The funny library pushes things through as... form data?
   # force is for ignoring headers
