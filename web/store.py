@@ -88,10 +88,10 @@ def storecommunicating ():
 # It will update everything around the Bnumber, which
 # makes it a bit fragile... someone can basically 
 # rename me... Hm.
-def add_collaborator (firstname = "", lastname = "", email = "", bnumber = ""):
-  
-  collabQ = (Collaborators.select()
-    .where (Collaborators.bnumber == bnumber)
+def add_collaborator (firstname = "", lastname = "", email = ""):
+  # FIXME: No idea how this is broken.
+  collabQ = (Faculty.select()
+    .where (Faculty.bnumber == bnumber)
   )
   
   collab = None

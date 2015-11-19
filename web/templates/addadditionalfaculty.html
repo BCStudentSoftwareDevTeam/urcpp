@@ -8,104 +8,74 @@
   <p>
     Are faculty collaborating on this project? Add additional faculty here.
   </p>
-  <form action = "/{{tag}}/{{next}}" method = "POST">
-    <div id = "extendo">
-
-    </div>
-    <!-- New things go here! -->
+  <div class = "row">
+    <div class = "col-md-6">
+      <ul id = "collaborators">
     
-    <div id = "buttons" class = "row">
-      <div class = "col-md-3 col-md-offset-7">
-        <button type = "button"
-              class = "btn btn-lg btn-warning btn-block" 
-              onClick = "addInput('extendo');">
-              More Collaborators!
-            </button>
-      </div>
-      <div class = "col-md-2">
-        <button type = "submit"
-                class = "btn btn-lg btn-success btn-block">
-                Continue
-        </button>
-      </div>
+      </ul>
     </div>
-    
-    <input id = "fieldcount" name = "fieldcount" type = "hidden" value = "">
-  </form>
+  </div>
   
+  <div class = "row" style = "padding-bottom: 20px;">
+    <div class = "col-md-4" >
+      <input type = "text" id = "bnumber" name = "bnumber" placeholder="B00..." value = "B00">
+    </div>
+    <div class = "col-md-3 col-md-offset-1">
+      <button type = "button"
+            class = "btn btn-lg btn-warning btn-block" 
+            onClick = "lookup();">
+            Look Up Collaborator
+          </button>
+    </div>
+  </div>
+  <div class = "row">
+    <form id = "theform" action = "/{{tag}}/{{next}}" method = "POST">
+        <div class = "col-md-2 col-md-offset-6">
+          <button type = "submit"
+                  class = "btn btn-lg btn-success btn-block">
+                  Continue
+          </button>
+        </div>
+      <input id = "fieldcount" name = "fieldcount" type = "hidden" value = "">
+    </form>
+  </div>
 
 
 
 <script type="text/javascript">
   var fieldcount = 0;
   
-  var makeRow = function (start, last, first, email, bnum, end)  {
-    row = [
-    start,
-    '<div class = "col-md-3">',
-    '<label for="faculty" class="sr-only">Faculty Surname</label>',
-    '<input name = "lastnames', fieldcount, '" class="form-control" placeholder="Faculty Surname"  autofocus ',
-     'value = "', last, '">',
-    '</div>',
-    '<div class = "col-md-3">',
-    '<label for="faculty" class="sr-only">Faculty First Name</label>',
-    '<input name = "firstnames', fieldcount, '" class="form-control" placeholder="Faculty First Name"  autofocus ',
-     'value = "', first, '">',
-    '</input>',
-    '</div>',
-    '<div class = "col-md-3">',
-    '<label for="faculty" class="sr-only">Faculty First Name</label>',
-    '<input name = "emails', fieldcount, '" class="form-control" placeholder="Email Address"  autofocus ',
-     'value = "', email, '">',
-    '</input>',
-    '</div>',
-    '<div class = "col-md-3">',
-    '<label for="bnumber" class="sr-only">Faculty B#</label>',
-    '<input name = "bnumbers', fieldcount, '" class="form-control" placeholder="B00..."  autofocus ',
-     'value = "', bnum, '">',
-    '</input>',
-    '</div>',
-    end
-    ].join('');
-    return row;
-  }
+  var handleResult = function (json) {
+    console.log(json);
 
-  // This function creates a new row with three text fields.
-  console.log("Here be JavaScript.\n");
-
-  function addInput(divName){
-    console.log("Found the function, adding things.\n");
+    if (json['firstname'].length > 0) {
+      li = $("<li></li>");
+      li.html([json['firstname'], json['lastname'] ].join(" "));
+      $("#collaborators").append(li);
+      
+      input = $("<input type = 'hidden' name = 'username" + fieldcount + "' value = '" + json['username'] + "'>");
+      $("#theform").append(input);
+      fieldcount += 1;
+      $("#fieldcount").val(fieldcount);
+      
+    }
+  };
   
-    var row = document.createElement('div');
-    row.className = "row";
-    row.style.cssText = "margin-bottom: 10px;";
-    row.innerHTML = makeRow("", "", "", "", "", "");
-    document.getElementById(divName).appendChild(row);
-    $("#fieldcount").val(fieldcount);
-  }
-
+  var lookup = function () {
+    Retrieve.fromURL (["/{{tag}}/_/bybnumber/", $("#bnumber").val()].join(''), handleResult);
+  };
 
   var update = function (json) {
     for (var key in json) {
       if (json.hasOwnProperty(key)) {
         console.log ("Adding in faculty member: " + key);
-        // We now have the faculty hash.
-        fac = json[key];
         // Use this to populate things.
-        newrow = makeRow(
-          '<div style = "margin-bottom: 10px;" class = "row">',
-          fac['lastname'], fac['firstname'], fac['email'], fac['bnumber'],
-          '</div>'
-        );
-        
-        $("#extendo").append(newrow);
-        $("#fieldcount").val(fieldcount);
-        fieldcount += 1;
+        for (var key in json) {
+          handleResult(json[key]);
+        }
 
       }
     }
-    
-    // addInput("extendo");
   };
 
   Retrieve.fromURL ("/{{tag}}/_/getprojectfaculty/{{username}}", update);

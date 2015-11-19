@@ -25,7 +25,8 @@ def after_request(response):
 
 @app.route("/")
 def init ():
-  if (session['username'] != os.getenv('USERNAME')):    
+  
+  if (not session.has_key('username') or (session['username'] != os.getenv('USERNAME'))):    
     session['username'] = os.getenv('USERNAME')
   # Redirect everyone
   return redirect('/{0}/start'.format(cfg['tag']))

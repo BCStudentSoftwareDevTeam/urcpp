@@ -72,7 +72,6 @@ fp   = FacultyProjects (
         )
 fp.save()
 
-
 fac = Faculty ( firstname     = "Mario",
                 lastname      = "Nakazawa",
                 email         = "nakazawam@berea.edu",

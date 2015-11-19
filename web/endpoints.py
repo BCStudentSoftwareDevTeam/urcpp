@@ -53,7 +53,24 @@ def getproject (username):
       return projectQ.get()
   else:
     return None
-
+    
+#################################################################
+@app.route("/{0}/_/bybnumber/<bnumber>".format(cfg['tag']))
+def _bybnumber (bnumber):
+  ldapQ = (LDAPFaculty.select()
+    .where (LDAPFaculty.bnumber == bnumber)
+  )
+  
+  fac = None
+  if ldapQ.exists():
+    fac = ldapQ.get()
+  
+  if fac:  
+    json = jsonify(m2d(fac))
+    return json
+  else:
+    return jsonify({})
+  
   
 #################################################################
 @app.route("/{0}/_/getprojectfaculty/<username>".format(cfg['tag']))
@@ -61,7 +78,7 @@ def _getprojectfaculty (username):
   collabs = getprojectfaculty (username)
   res = {}
   for fac in collabs:
-    res[fac.cid] = m2d(fac)
+    res[fac.fid] = m2d(fac)
   return jsonify(res)
 
 def getprojectfaculty (username):
@@ -89,13 +106,11 @@ def getprojectfaculty (username):
   )
   fps = fpQ.select()
   
-  # Now, we have a list of faculty project entries. 
-  # However, we're going to be looking for Collaborators,
-  # so they will be in a different table.
+  # Now, we have a list of faculty project entries.
   collabs = []
   for fp in fps:
-    facsQ = (Collaborators.select()
-      .where (Collaborators.cid == fp.fid)
+    facsQ = (Faculty.select()
+      .where (Faculty.fid == fp.fid)
       )
     if facsQ.exists():
       collabs.append(facsQ.get())
