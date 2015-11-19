@@ -1,9 +1,9 @@
 var urcpp = {
 
-  client: new $.RestClient('/urcpp/1/'),
+  v1: new $.RestClient('/urcpp/1/'),
 
   gfd: function (username) {
-    urcpp.client.add('gfd', { stripTrailingSlash: true});
-    urcpp.client.gfd.create(username, { "foo" : "bar" });
+    urcpp.v1.add('gfd', { stripTrailingSlash: true});
+    urcpp.v1.gfd.create(username, { "foo" : "bar" });
   }
 }
