@@ -7,6 +7,7 @@ from everything import *
 
 @app.route ("/urcpp/1/gfd/<username>", methods = ["POST"])
 def getfacultydetails (username):
+  # FIXME: The funny library pushes things through as... form data?
   # force is for ignoring headers
   # data = request.get_json (force = True)
   data = request.form
@@ -15,4 +16,7 @@ def getfacultydetails (username):
   response = {  "result" : "OK" }
   for k in data:
     response[k] = data[k]
+
+  app.logger.info ("POST gfd: {0} {1}".format(username, data))
+
   return jsonify (response)

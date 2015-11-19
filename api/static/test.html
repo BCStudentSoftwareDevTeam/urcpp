@@ -3,14 +3,11 @@
     <title>The Title</title>
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src = "/s/jquery.rest.min.js"> </script>
+    <script src = "/s/urcpp.js"> </script>
   </head>
   <body>
     <script>
-      var client = new $.RestClient('/urcpp/1/');
-      client.add('gfd', { stripTrailingSlash: true});
-      client.gfd.create('jadudm', { "foo" : "bar" });
-      client.show();
-
+      urcpp.gfd ('jadudm');
     </script>
   </body>
 </html>
