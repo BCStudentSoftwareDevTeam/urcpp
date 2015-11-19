@@ -8,8 +8,8 @@ from everything import *
 # Also, the unittest library.
 # Also for REST: http://restkit.readthedocs.org/en/latest/
 
-@app.route ("/urcpp/v1/gfd/<username>", methods = ["POST"])
-def getfacultydetails (username):
+@app.route ("/urcpp/v1/get/facultydetails/<username>", methods = ["POST"])
+def getFacultyDetails (username):
   # FIXME: The funny library pushes things through as... form data?
   # force is for ignoring headers
   # data = request.get_json (force = True)

@@ -5,24 +5,39 @@
 var urcpp = function (version) {
   var h = {
     client: null,
-
+    getter: null,
+    
     init: function (version) {
       h.client = new $.RestClient('/urcpp/' + version + '/');
+                                  
       // Lets have some more sensible names for things.
-      h.client.addVerb ('post', "POST");
-      h.client.addVerb ('get', "GET");
-      
+      h.client.addVerb ('p', "POST");
+      h.client.addVerb ('g', "POST");
       // Establish all of our endpoints.
-      h.client.add('gfd', { stripTrailingSlash: true });
+      h.client.add('get', { isSingle: true });
+      h.client.add('set', { isSingle: true });
+      h.getter = h.client.get;
+      h.setter = h.client.set;
+      
+      h.getter.add('facultydetails', { stripTrailingSlash: true});
+      h.client.show();
+
+      
     },
     
+    // All functions should take a single dictionary (object)
+    // as an argument. It would be good if we used consistent
+    // keys for those arguments. For the moment, I'm going
+    // to use good commenting practice to make sure the 
+    // programmer knows which keys to include...
+    
     // PARAMS
-    // username: string
-    // data: dictionary
+    //  username: string
+    //  data: dictionary
     // PURPOSE
     // Gets faculty details.
-    gfd: function (params) {
-      h.client.gfd.post(params.username, params.data).done (params.done);
+    facultydetails: function (params) {
+      h.getter.get(params.username, params.data).done (params.done);
     }
   };
 
