@@ -5,4 +5,4 @@ otp/static/qr
 .DS_Store
 *.sqlite
 *.log
-web/secret_config.yaml
+secret_config.yaml
