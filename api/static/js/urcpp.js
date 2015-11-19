@@ -5,39 +5,33 @@
 var urcpp = function (version) {
   var h = {
     client: null,
-    getter: null,
-    
-    init: function (version) {
-      h.client = new $.RestClient('/urcpp/' + version + '/');
-                                  
-      // Lets have some more sensible names for things.
-      h.client.addVerb ('p', "POST");
-      h.client.addVerb ('g', "POST");
-      // Establish all of our endpoints.
-      h.client.add('get', { isSingle: true });
-      h.client.add('set', { isSingle: true });
-      h.getter = h.client.get;
-      h.setter = h.client.set;
-      
-      h.getter.add('facultydetails', { stripTrailingSlash: true});
-      h.client.show();
 
-      
+    init: function (version) {
+      console.log("Creating a version '" + version + "' client.");
+
+      var c = new $.RestClient('/urcpp/' + version + '/');
+      // Establish all of our endpoints.
+      c.add('get', { isSingle: true });
+      c.add('set', { isSingle: true });
+      c.get.add('facultydetails', { stripTrailingSlash: true});
+      c.show();
+
+      h.client = c;
     },
-    
+
     // All functions should take a single dictionary (object)
     // as an argument. It would be good if we used consistent
     // keys for those arguments. For the moment, I'm going
-    // to use good commenting practice to make sure the 
+    // to use good commenting practice to make sure the
     // programmer knows which keys to include...
-    
+
     // PARAMS
     //  username: string
     //  data: dictionary
     // PURPOSE
     // Gets faculty details.
-    facultydetails: function (params) {
-      h.getter.get(params.username, params.data).done (params.done);
+    fd: function (params) {
+      h.client.get.facultydetails.create (params.username, params.data).done (params.done);
     }
   };
 
