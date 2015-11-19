@@ -1,21 +1,20 @@
 # We need to import the DB object
-from web.models import theDB
+from api.models import *
 import os, sys
 import importlib
 
 # Don't forget to import your own models!
-from web.config import load_config
-from web.models import *
+from api.config import load_config
+from api.models import *
 
 # The path is relative to the top of the project.
-conf = load_config('web/config.yaml')
+conf = load_config('api/config.yaml')
 
 # Get the names of the databases we want to work with
-sqlite_dbs  = [conf['database']]
-
-# Now, dynamically import the models
-#for module in conf['models']:
-#  importlib.import_module(module, package = "web.models")
+sqlite_dbs  = [
+                conf['databases']['dynamic'],
+                conf['databases']['static']
+              ]
 
 # Remove them, then create them.
 for fname in sqlite_dbs:
@@ -26,39 +25,35 @@ for fname in sqlite_dbs:
     pass
 
 for fname in sqlite_dbs:
-  print ("Creating {0}.".format(fname))
+  if os.path.isfile(fname):
+    print ("Database {0} should not exist at this point!".format(fname))
+  print ("Creating empty SQLite file: {0}.".format(fname))
   open(fname, 'a').close()
 
-# Connect to the database
-theDB.connect()
-
-# The model names are in the config file.
-# They need to be defined in the models module as well, but this lets us list them
-# in the config for creation in the DB...
-# http://stackoverflow.com/questions/1176136/convert-string-to-python-class-object
-def class_from_name(module_name, class_name):
+def class_from_name (module_name, class_name):
     # load the module, will raise ImportError if module cannot be loaded
     # m = __import__(module_name, globals(), locals(), class_name)
     # get the class, will raise AttributeError if class cannot be found
     c = getattr(module_name, class_name)
     return c
 
-# First, dynamically import the models
-classes = []
-for str in conf['models']:
-  c = class_from_name(sys.modules[__name__], str)
-  classes.append(c)
+def get_classes (db):
+  classes = []
+  for str in conf['models'][db]:
+    print ("\tCreating model for '{0}'".format(str))
+    c = class_from_name(sys.modules[__name__], str)
+    classes.append(c)
+  return classes
 
-# Create the tables in the database.
-theDB.create_tables(classes)
+staticDB.create_tables(get_classes('static'))
+dynamicDB.create_tables(get_classes('dynamic'))
 
 # Add some dummy data.
-fac = Faculty ( firstname     = "Matt",
-                lastname      = "Jadud",
-                email         = "jadudm@berea.edu",
-                username      = "jadudm",
-                bnumber       = "B00661212",
-                corresponding = True
+fac = LDAPFaculty ( firstname     = "Matt",
+                    lastname      = "Jadud",
+                    email         = "jadudm@berea.edu",
+                    username      = "jadudm",
+                    bnumber       = "B00669796"
                 )
 fac.save()
 
@@ -72,11 +67,5 @@ fp   = FacultyProjects (
         )
 fp.save()
 
-fac = Faculty ( firstname     = "Mario",
-                lastname      = "Nakazawa",
-                email         = "nakazawam@berea.edu",
-                username      = "nakazawam",
-                bnumber       = "B00662323",
-                corresponding = False
-                )
+fac = Faculty ( username      = "nakazawam" )
 fac.save()

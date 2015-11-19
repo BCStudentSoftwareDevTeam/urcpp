@@ -6,22 +6,18 @@ from api.config import load_config
 
 # The path is relative to the top of the project.
 cfg = load_config('api/config.yaml')
+staticDB  = SqliteDatabase(cfg['databases']['static'])
+dynamicDB = SqliteDatabase(cfg['databases']['dynamic'])
 
-class SqliteModel (Model):
+class StaticModel (Model):
+  class Meta:
+    database = staticDB
+  
+class DynamicModel (Model):
+  class Meta:
+    database = dynamicDB
 
-  def __init__ (self):
-    self.dbs = {}
-
-  def connect (self, name):
-    if not name in self.dbs:
-      self.dbs[name] = SqliteDatabase(None)
-
-    self.dbs[name].init(cfg['databases'][name])
-    self.dbs[name].connect()
-
-  def close (self, name):
-    self.dbs[name].close()
-
+    
 ######################################################
 # MODELS
 ######################################################
@@ -29,27 +25,25 @@ class SqliteModel (Model):
 # To see the databases, do this:
 # sqlite_web -p $PORT -H $IP -x data/test.sqlite
 
-class LDAPFaculty (SqliteModel):
+class LDAPFaculty (StaticModel):
   fid           = PrimaryKeyField()
   bnumber       = TextField()
   lastname      = TextField()
   firstname     = TextField()
   email         = TextField()
-  # We have to use the username as a unique property.
-  # Users log in via this token, and therefore, there
-  # can only be one faculty member with a given username.
   username      = TextField(unique = True)
 
-class URCPPFaculty (SqliteModel):
-  pass
-
-class Projects (SqliteModel):
+class Faculty (DynamicModel):
+  fid           = PrimaryKeyField()
+  username      = TextField()
+  
+class Projects (DynamicModel):
   pid           = PrimaryKeyField()
   title         = TextField()
   created_date  = DateTimeField(default = datetime.datetime.now)
 
-class FacultyProjects (SqliteModel):
+class FacultyProjects (DynamicModel):
   fpid          = PrimaryKeyField()
   pid           = ForeignKeyField(Projects)
-  fid           = ForeignKeyField(Faculty)
+  fid           = ForeignKeyField(LDAPFaculty)
   corresponding = BooleanField()
