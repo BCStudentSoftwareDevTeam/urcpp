@@ -2,6 +2,7 @@ database: "data/urcpp.sqlite"
 
 models:
   - Faculty
+  - LDAPFaculty
   - Collaborators
   - Projects
   - FacultyProjects

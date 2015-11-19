@@ -32,6 +32,15 @@ class Faculty (BaseModel):
   # can only be one faculty member with a given username.
   username      = TextField(unique = True)
 
+class LDAPFaculty (BaseModel):
+  fid       = PrimaryKeyField()
+  lastname  = TextField()
+  firstname = TextField()
+  username  = TextField(unique = True)
+  bnumber   = TextField()
+  email     = TextField()
+  
+  
 # Collaborators are also faculty, but they are entered
 # by the user... and we have no way of guaranteeing
 # they will get a username correct. So, they live 
