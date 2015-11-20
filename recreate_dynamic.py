@@ -13,7 +13,7 @@ conf = load_config('api/config.yaml')
 # Get the names of the databases we want to work with
 sqlite_dbs  = [
                 conf['databases']['dynamic'],
-                conf['databases']['static']
+                # conf['databases']['static']
               ]
 
 # Remove them, then create them.
@@ -45,7 +45,7 @@ def get_classes (db):
     classes.append(c)
   return classes
 
-staticDB.create_tables(get_classes('static'))
+# staticDB.create_tables(get_classes('static'))
 dynamicDB.create_tables(get_classes('dynamic'))
 
 # Add some dummy data.
