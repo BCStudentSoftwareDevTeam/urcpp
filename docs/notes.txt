@@ -1,2 +1,6 @@
 Check out:
+
 * https://github.com/chrisdavies/form-to-obj
+* https://github.com/dannyvankooten/populate.js
+
+Both useful for forms.
