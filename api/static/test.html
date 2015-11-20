@@ -2,7 +2,7 @@
   <head>
     <title>The Title</title>
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src = "/s/js/jquery.rest.min.js"> </script>
+    <script src = "/s/js/aja.min.js"> </script>
     <script src = "/s/js/urcpp.js"> </script>
   </head>
   <body>
@@ -26,20 +26,13 @@
     </div>
 
     <script>
-      // This creates a new version 1 API object
       api = urcpp('v1');
-      // Then, we can invoke the "getfacultydetails"
-      // method on that object, with 'jadudm' as the
-      // first parameter and a dictionary as the post data.
+      var show = function (d) {
+         console.log (d);
+         $("#echo").text(JSON.stringify (d));
+         };
 
-      // We can also use that result to modify our webpage.
-      api.fd (
-        { username: 'jadudm',
-          data: { "foo" : "bar" },
-          done: function (result) {
-                  console.log(result);
-                  $("#echo").text(JSON.stringify(result));
-                }});
+      api.faculty.details ('jadudm', show);
     </script>
   </body>
 </html>
