@@ -3,12 +3,18 @@ databases:
   static: "data/static.sqlite"
 
 models:
-  dynamic:
-    - Faculty
-    - Projects
-    - FacultyProjects
   static:
     - LDAPFaculty
+    - LDAPStudents
+    - Programs
+  dynamic:
+    - URCPPFaculty
+    - URCPPStudents
+    - PreSurvey
+    - PostSurvey
+    - Projects
+    - Budget
+    - Parameters
     
 log:
   filename: "urcpp.log"
@@ -18,3 +24,8 @@ log:
 tag: "urcpp"
 
 timeout: 10
+
+projectstatus:
+  - Accept
+  - Reject
+  - Withdrawn

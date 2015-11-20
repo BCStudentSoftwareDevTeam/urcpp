@@ -18,6 +18,9 @@ from flask import jsonify
 # We need peewee's playhouse to help us serialize results
 from playhouse.shortcuts import model_to_dict as m2d
 
+# Import the models
+from models import *
+
 # For unique values
 import uuid
 

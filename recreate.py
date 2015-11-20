@@ -51,21 +51,7 @@ dynamicDB.create_tables(get_classes('dynamic'))
 # Add some dummy data.
 fac = LDAPFaculty ( firstname     = "Matt",
                     lastname      = "Jadud",
-                    email         = "jadudm@berea.edu",
                     username      = "jadudm",
                     bnumber       = "B00669796"
                 )
-fac.save()
-
-proj = Projects ( title = "Robot Robot", corresponding = fac.fid)
-proj.save()
-
-fp   = FacultyProjects (
-        pid           = proj.pid,
-        fid           = fac.fid,
-        corresponding = True
-        )
-fp.save()
-
-fac = Faculty ( username      = "nakazawam" )
 fac.save()

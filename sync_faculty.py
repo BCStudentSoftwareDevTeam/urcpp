@@ -1,10 +1,12 @@
 from ldap3 import Server, Connection, ALL
 from peewee import *
-from web.everything import *
+from api.everything import *
 
-cfg = load_config('web/config.yaml')
-skt = load_config('web/secret_config.yaml')
-theDB = SqliteDatabase(cfg['database'])
+cfg = load_config('api/config.yaml')
+skt = load_config('api/secret_config.yaml')
+
+theStaticDB = SqliteDatabase(cfg['databases']['static'])
+theStaticDB.drop_table(LDAPFaculty)
 
 server = Server ('berea.edu', port=389, use_ssl=False, get_info='ALL')
 conn   = Connection (server, user=skt['ldap']['user'], password=skt['ldap']['pass'])
@@ -32,6 +34,8 @@ def safe (d, k):
   
   return result
     
+# Recreate the table.
+theStaticDB.create_table(LDAPFaculty)
 
 faculty = conn.entries
 for fac in faculty:
@@ -41,6 +45,5 @@ for fac in faculty:
     firstname = safe (fac, 'givenname'),
     username  = fac.samaccountname,
     bnumber   = safe (fac, 'employeeid'),
-    email     = "{0}@berea.edu".format(fac.samaccountname)
-  )
+    )
   o.save()

@@ -12,38 +12,110 @@ dynamicDB = SqliteDatabase(cfg['databases']['dynamic'])
 class StaticModel (Model):
   class Meta:
     database = staticDB
-  
+
 class DynamicModel (Model):
   class Meta:
     database = dynamicDB
 
-    
-######################################################
-# MODELS
-######################################################
-# FIXME: Create some models
 # To see the databases, do this:
 # sqlite_web -p $PORT -H $IP -x data/test.sqlite
+    
+######################################################
+# STATIC MODELS
+######################################################
 
 class LDAPFaculty (StaticModel):
-  fid           = PrimaryKeyField()
-  bnumber       = TextField()
-  lastname      = TextField()
-  firstname     = TextField()
-  email         = TextField()
-  username      = TextField(unique = True)
+  fID               = PrimaryKeyField()
+  username          = TextField(unique = True)
+  bnumber           = TextField()
+  lastname          = TextField()
+  firstname         = TextField()
 
-class Faculty (DynamicModel):
-  fid           = PrimaryKeyField()
-  username      = TextField()
+class LDAPStudents (StaticModel):
+  username          = PrimaryKeyField()
+  bnumber           = TextField()
+  lastname          = TextField()
+  firstname         = TextField()
   
-class Projects (DynamicModel):
-  pid           = PrimaryKeyField()
-  title         = TextField()
-  created_date  = DateTimeField(default = datetime.datetime.now)
+class Programs (StaticModel):
+  pid               = PrimaryKeyField()
+  name              = TextField()
+  abbrev            = TextField()
 
-class FacultyProjects (DynamicModel):
-  fpid          = PrimaryKeyField()
-  pid           = ForeignKeyField(Projects)
-  fid           = ForeignKeyField(LDAPFaculty)
-  corresponding = BooleanField()
+######################################################
+# DYNAMIC MODELS
+######################################################
+  
+class URCPPFaculty (DynamicModel):
+  fID               = PrimaryKeyField()
+  username          = ForeignKeyField(LDAPFaculty, to_field = 'username')
+  # We will always name these ourselves, and 
+  # choose where they go. It is in our config[] YAML.
+  # Something like...
+  # /year/projid/username.pdf
+  # vitae         = BlobField()
+  yearsFunded       = TextField()
+  programID         = ForeignKeyField(Programs)
+  corresponding     = BooleanField()
+  otherFunding      = TextField()
+
+class Budget (DynamicModel):
+  bID                 = PrimaryKeyField()
+  facultyStipend      = IntegerField()
+  facultyStipendDesc  = TextField()
+  miles               = IntegerField()
+  milesDesc           = TextField()
+  otherTravel         = IntegerField()
+  otherTravelDesc     = TextField()
+  equipment           = IntegerField()
+  equipmentDesc       = TextField()
+  materials           = IntegerField()
+  materialsDesc       = TextField()
+  other               = IntegerField()
+  otherDesc           = TextField()
+  
+class PreSurvey (DynamicModel):
+  psID              = PrimaryKeyField()
+
+class PostSurvey (DynamicModel):
+  psID              = PrimaryKeyField()
+
+class Projects (DynamicModel):
+  pID               = PrimaryKeyField()
+  title             = TextField()
+  budgetID          = ForeignKeyField(Budget, related_name = 'budget')
+  duration          = IntegerField()
+  startDate         = DateTimeField()
+  year              = IntegerField()
+  # Like the vitae; the file is in a folder.
+  # /year/projid/title.pdf
+  #proposal     = BlobField()
+  serviceLearning   = BooleanField()
+  communityOutreach = BooleanField()
+  humanSubjects     = BooleanField()
+  # Like the vitae
+  # /year/projid/irb.something
+  # irb               = BlobField()
+  numberStudents    = IntegerField()
+  # Stati are in the config under the key
+  # projectstatus: ... it is a list.
+  status            = IntegerField()
+  createdDate       = DateTimeField(default = datetime.datetime.now)
+
+class URCPPStudents (DynamicModel):
+  sID               = PrimaryKeyField()
+  username          = ForeignKeyField(LDAPStudents)
+  # We need to insert empty rows when we create the students.
+  preSurveyID       = ForeignKeyField(PreSurvey)
+  postSurveyID      = ForeignKeyField(PostSurvey)
+  projectID         = ForeignKeyField(Projects)
+
+
+class Parameters (DynamicModel):
+  pID                 = PrimaryKeyField()
+  year                = IntegerField()
+  appOpenDate         = DateTimeField()
+  appCloseDate        = DateTimeField()
+  mileageRate         = FloatField() # Or Double?
+  laborRate           = FloatField() # Or Double?
+
