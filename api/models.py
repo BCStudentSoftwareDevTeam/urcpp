@@ -38,9 +38,9 @@ class LDAPStudents (StaticModel):
   firstname         = TextField()
   
 class Programs (StaticModel):
-  pid               = PrimaryKeyField()
+  pID               = PrimaryKeyField()
   name              = TextField()
-  abbrev            = TextField()
+  abbreviation      = TextField()
 
 ######################################################
 # DYNAMIC MODELS

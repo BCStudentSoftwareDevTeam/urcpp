@@ -27,7 +27,7 @@ pip install mkdocs
 #pip install git+git://github.com/ojii/pymaging-png.git#egg=pymaging-png
 
 # Database setup
-python recreate_dynamic.py
+# python recreate_dynamic.py
 
 # To deactivate the venv, use
 #

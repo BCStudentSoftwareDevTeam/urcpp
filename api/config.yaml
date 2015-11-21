@@ -1,3 +1,9 @@
+urcpp:
+  applicationCycle: 2016
+  possibleDurations:
+    - 8
+    - 10
+    
 databases:
   dynamic: "data/urcpp.sqlite"
   static: "data/static.sqlite"
@@ -36,3 +42,11 @@ projectstatus:
 
 response:
   badUsername: "Bad Username"
+  noResults: "No Results"
+
+filepaths:
+  directory: "api/static/%%applicationCycle%%/%%username%%"
+  vitae: "%%username%%-vitae.%%thing%%"
+  narrative: "%%username%%-narrative.%%thing%%"
+  irb: "%%username%%-irb.%%thing%%"
+  

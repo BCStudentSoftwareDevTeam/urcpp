@@ -12,8 +12,24 @@ from everything import *
 def templates (path):
   return render_template (path, username = os.getenv('USER'))
 
-@app.route("/urcpp/v1/project/getTitle/<username>", methods = ["POST"])
-def getTitle (username):
+@app.route ("/urcpp/v1/programs/getAll", methods = ["POST"])
+def programs_getAll ():
+  # This returns the program table
+  
+  progQ = (Programs.select())
+  
+  if progQ.exists():
+    response = {  "response" : "OK" }
+    progs = progQ.select()
+    response['programs'] = map(m2d, progs)
+    return jsonify(response)
+  else:
+    response = { "response": cfg["response"]["noResults"],
+                 "details": "No results found for all programs." }
+    return jsonify(response) 
+
+@app.route("/urcpp/v1/projects/getTitle/<username>", methods = ["POST"])
+def projects_getTitle (username):
   if username != os.getenv("USER"):
     return { "response": cfg["response"]["badUsername"] }
   
@@ -34,8 +50,44 @@ def getTitle (username):
     response = { "response": cfg["response"]["noResults"],
                  "details": "No results found for project title." }
     return jsonify(response) 
+
+
+### Get Narrative ###  
+@app.route("/urcpp/v1/projects/getNarrative/<username>", methods = ["POST"])
+def getNarrative (username):
+  if username != os.getenv("USER"):
+    return { "response": cfg["response"]["badUsername"] }
   
 
+  applicationCycle = cfg['urcpp']['applicationCycle']
+  
+  knownFiles = os.listdir()
+  
+  for filenames in knownFiles:
+    if "narrative" in filenames:
+      response = {"response": "OK",
+      "narrative": filenames}
+      return jsonify(response)
+    else:
+      response = { "response": cfg["response"]["noResults"],
+                "details": "No results found for project Narrative." }
+      return jsonify(response) 
+  
+  # projQ = (Projects.select()
+  #   .join (URCPPFaculty, on = (URCPPFaculty.pID == Projects.pID))
+  #   .where (URCPPFaculty.username == username)
+  #   .where (URCPPFaculty.corresponding == True)
+  # )
+  
+  # if projQ.exists():
+  #   response = {  "response" : "OK" }
+  #   proj = projQ.get()
+  #   response['project'] = m2d(proj)
+  #   return jsonify(response)
+  # else:
+  #   response = { "response": cfg["response"]["noResults"],
+  #               "details": "No results found for project title." }
+  #   return jsonify(response) 
 ###################################################
 # JUNK BELOW THIS LINE
 

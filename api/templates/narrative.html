@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class = "row">
+  <div class = "col-md-3">
+    Project Narrative
+  </div>
+  <div class = "col-md-6">
+    Narrative: <input id = "projectsNarrative" value="Upload" type = "file" /><label id="fileLabel">Choose a file</label>
+  </div>
+</div>
+
+<script type = "text/javascript">
+  /* global urcpp, username */
+  var api = urcpp('v1');
+  
+  var show = function (d) {
+     console.log (d);
+     $("#echo").text(JSON.stringify (d));
+     };
+  
+  var setFields = function (fields) {
+    return function (data) {
+      $("#fileLabel").text(data.narrative);
+    }
+  }
+  
+  api.projects.getNarrative (username, setFields(['projectsNarrative']));
+  
+</script>
+
+{% endblock %}

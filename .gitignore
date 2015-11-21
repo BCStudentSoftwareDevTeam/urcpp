@@ -6,3 +6,4 @@ otp/static/qr
 *.sqlite
 *.log
 secret_config.yaml
+api/static/files/

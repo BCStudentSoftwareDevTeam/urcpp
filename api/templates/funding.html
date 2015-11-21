@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class = "row">
+  <div class = "col-md-3">
+    Previous URCPP Funding Years
+  </div>
+  <div class = "col-md-6" id = "previousYearsFieldset">
+    <input type = "checkbox" name = "previousYears" id = "oneyr" value = "1" >Last Year
+    <br> 
+    <input type = "checkbox" name = "previousYears"  id = "twoyr" value = "2" >2 Years Ago
+    <br>
+    <input type = "checkbox" name = "previousYears" id = "threeToFiveyr" value = "3-5" >3 - 5 Years Ago 
+    <br> 
+    <input type = "checkbox" name = "previousYears"  id = "sixToTenyr" value = "5-10" >6 - 10 Years Ago
+    <br>
+    <input type = "checkbox" name = "previousYears" id = "elevenPlus" value = "11+" >11 or More Years
+    <br>
+    Will your project be involved with a non-religious non-profit, or government agency?
+    <br>
+    <input type = "radio" name = "relOrGov" id = "relOrGovYes" value = "Yes" onChange = "">Yes
+    <br> 
+    <input type = "radio" name = "relOrGov"  id = "relOrGovNo" value = "No" onChange = "">No
+    <br>
+    Does you project qualify as a service to the community?
+    <br>
+    <input type = "radio" name = "community" id = "communityYes" value = "Yes" onChange = "">Yes
+    <br> 
+    <input type = "radio" name = "community"  id = "communityNo" value = "No" onChange = "">No
+    <br>
+  </div>
+</div>
+
+<div class = "row">
+  <div class = "col-md-6">
+    Current/Pending Funding
+  </div>
+  <div class = "col-md-6">
+    <textarea rows = "6" id = "currentPendingFunds">
+      </textarea>
+  </div>
+</div>
+
+
+
+
+
+<script type = "text/javascript">
+  /* global urcpp, username */
+  var api = urcpp('v1');
+  
+  var show = function (d) {
+     console.log (d);
+     $("#echo").text(JSON.stringify (d));
+     };
+  
+  var setFields = function (fields) {
+    return function (data) {
+      // Set previous year checkboxes based on response
+      if (data.response == "OK") {
+        if (data.urcppFaculty.oneyr) {
+           $("#oneyr").prop( "checked" , true);
+        } 
+        if (data.urcppFaculty.twoyr) {
+           $("#twoyr").prop( "checked" , true);
+        } 
+        if (data.urcppFaculty.threeToFiveyr) {
+           $("#threeToFiveyr").prop( "checked" , true);
+        } 
+        if (data.urcppFaculty.sixToTenyr) {
+           $("#sixToTenyr").prop( "checked" , true);
+        } 
+        if (data.urcppFaculty.elevenPlus) {
+           $("#elevenPlus").prop( "checked" , true);
+        } 
+      }
+    }
+  }
+  
+  api.faculty.previousYearsFunded(username, setFields(['urcppFaculty']));
+  
+</script>
+
+{% endblock %}

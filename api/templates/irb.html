@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class = "row">
+  <div class = "col-md-3">
+    Research Involving Human Subjects
+  </div>
+  
+  <div class = "col-md-6">
+  
+      <input type = "radio" name = "irb" id = "irbYes" value = "Yes" onChange="showFileUpload()">Yes
+      <br> 
+      <input type = "radio" name = "irb"  id = "irbNo" value = "No" onChange="hideFileUpload()">No
+    
+
+  </div>
+  <div class = "col-md-6" id="fileUpload" hidden>
+    Upload IRB Approval: <input id = "projectsIRB" value="Upload" type = "file" /><label id="fileLabel">Choose a file</label>
+  </div>
+</div>
+
+<script type = "text/javascript">
+  /* global urcpp, username */
+  var api = urcpp('v1');
+  
+  var show = function (d) {
+     console.log (d);
+     $("#echo").text(JSON.stringify (d));
+     };
+  
+  var setFields = function (fields) {
+    return function (data) {
+      if (data.response == "OK") {
+        $("#fileLabel").text(data.irb);
+        showFileUpload();
+        $("#irbYes").attr('checked', true);
+      }
+    }
+  }
+  
+  api.projects.getIRB (username, setFields(['projectsNarrative']));
+  
+  function showFileUpload() {
+    $("#fileUpload").show();
+    
+  }
+  
+  function hideFileUpload() {
+    $("#fileUpload").hide();
+  }
+</script>
+
+{% endblock %}
