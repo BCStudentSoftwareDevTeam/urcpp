@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class = "row">
+  <div class = "col-md-3">
+    Project Title
+  </div>
+  <div class = "col-md-6">
+    Title: <input id = "projectTitle" type = "text" />
+  </div>
+  <div class = "row">
+    Program: <select id = "program"> </select>
+  </div>
+  <div class = "row"> 
+    Duration: <select id = "duration"> </select>
+  </div>
+  <div class = "row">
+    Start Date: <input id = "startDate" type = "datetime-local" />
+  </div>
+</div>
+
+<script type = "text/javascript">
+  /* global urcpp, username */
+  var api = urcpp('v1');
+  
+  var show = function (d) {
+     console.log (d);
+     $("#echo").text(JSON.stringify (d));
+     };
+  
+  var setFields = function (fields) {
+    return function (data) {
+      $("#projectTitle").val(data.project.title);
+    }
+  }
+http://stackoverflow.com/questions/12241138/what-is-the-script-in-javascript-equals-to-serverrequest-uri-in-php
+  api.project.getTitle (username, setFields(['projectTitle']));
+  
+  // api.faculty.details ('jadudm', show);
+</script>
+
+{% endblock %}

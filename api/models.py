@@ -45,19 +45,6 @@ class Programs (StaticModel):
 ######################################################
 # DYNAMIC MODELS
 ######################################################
-  
-class URCPPFaculty (DynamicModel):
-  fID               = PrimaryKeyField()
-  username          = ForeignKeyField(LDAPFaculty, to_field = 'username')
-  # We will always name these ourselves, and 
-  # choose where they go. It is in our config[] YAML.
-  # Something like...
-  # /year/projid/username.pdf
-  # vitae         = BlobField()
-  yearsFunded       = TextField()
-  programID         = ForeignKeyField(Programs)
-  corresponding     = BooleanField()
-  otherFunding      = TextField()
 
 class Budget (DynamicModel):
   bID                 = PrimaryKeyField()
@@ -99,7 +86,7 @@ class Projects (DynamicModel):
   numberStudents    = IntegerField()
   # Stati are in the config under the key
   # projectstatus: ... it is a list.
-  status            = IntegerField()
+  status            = TextField()
   createdDate       = DateTimeField(default = datetime.datetime.now)
 
 class URCPPStudents (DynamicModel):
@@ -109,6 +96,20 @@ class URCPPStudents (DynamicModel):
   preSurveyID       = ForeignKeyField(PreSurvey)
   postSurveyID      = ForeignKeyField(PostSurvey)
   projectID         = ForeignKeyField(Projects)
+
+class URCPPFaculty (DynamicModel):
+  fID               = PrimaryKeyField()
+  pID               = ForeignKeyField(Projects)
+  username          = ForeignKeyField(LDAPFaculty, to_field = 'username')
+  # We will always name these ourselves, and 
+  # choose where they go. It is in our config[] YAML.
+  # Something like...
+  # /year/projid/username.pdf
+  # vitae         = BlobField()
+  yearsFunded       = TextField()
+  relatedFunding    = TextField()
+  programID         = ForeignKeyField(Programs)
+  corresponding     = BooleanField()
 
 
 class Parameters (DynamicModel):

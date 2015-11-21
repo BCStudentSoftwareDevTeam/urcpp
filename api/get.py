@@ -8,6 +8,37 @@ from everything import *
 # Also, the unittest library.
 # Also for REST: http://restkit.readthedocs.org/en/latest/
 
+@app.route ("/t/<path:path>", methods = ["GET"])
+def templates (path):
+  return render_template (path, username = os.getenv('USER'))
+
+@app.route("/urcpp/v1/project/getTitle/<username>", methods = ["POST"])
+def getTitle (username):
+  if username != os.getenv("USER"):
+    return { "response": cfg["response"]["badUsername"] }
+  
+  # Look up the project title for this user.
+  
+  projQ = (Projects.select()
+    .join (URCPPFaculty, on = (URCPPFaculty.pID == Projects.pID))
+    .where (URCPPFaculty.username == username)
+    .where (URCPPFaculty.corresponding == True)
+  )
+  
+  if projQ.exists():
+    response = {  "response" : "OK" }
+    proj = projQ.get()
+    response['project'] = m2d(proj)
+    return jsonify(response)
+  else:
+    response = { "response": cfg["response"]["noResults"],
+                 "details": "No results found for project title." }
+    return jsonify(response) 
+  
+
+###################################################
+# JUNK BELOW THIS LINE
+
 @app.route ("/urcpp/v1/faculty/details/<username>", methods = ["POST"])
 def getFacultyDetails (username):
   # FIXME: The funny library pushes things through as... form data?
@@ -16,7 +47,7 @@ def getFacultyDetails (username):
   data = request.form
   app.logger.info ("POST gfd: {0} {1}".format(username, data))
 
-  response = {  "result" : "OK" }
+  response = {  "response" : "OK" }
   for k in data:
     response[k] = data[k]
 

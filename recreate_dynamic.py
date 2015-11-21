@@ -49,9 +49,9 @@ def get_classes (db):
 dynamicDB.create_tables(get_classes('dynamic'))
 
 # Add some dummy data.
-fac = LDAPFaculty ( firstname     = "Matt",
-                    lastname      = "Jadud",
-                    username      = "jadudm",
-                    bnumber       = "B00669796"
-                )
-fac.save()
+# fac = LDAPFaculty ( firstname     = "Matt",
+#                     lastname      = "Jadud",
+#                     username      = "jadudm",
+#                     bnumber       = "B00669796"
+#                 )
+# fac.save()
