@@ -12,6 +12,7 @@ import api.globalroutes
 import api.projects
 import api.faculty
 import api.programs
+import api.collaborators
 
 # Our setters, so pages can submit data
 import api.set

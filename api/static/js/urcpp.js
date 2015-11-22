@@ -12,7 +12,9 @@ var urcpp = function (version) {
 
   var dq = function (callback) {
     return function (data) {
+      console.log ("Calling callback.");
       callback(data);
+      console.log ("Dequeuing next.");
       $(document).dequeue(version);
     };
   }
@@ -25,7 +27,20 @@ var urcpp = function (version) {
     enqueue: function (fun) {
       addToQueue(version, fun);
     },
-
+    
+    //////////////////////////////////////////////
+    // COLLABORATORS
+    collaborators: {
+      get: function (username, callback) {
+        var post = aja()
+          .method ('POST')
+          .url (url(['/urcpp', version, 'collaborators', 'get', username]))
+          .body ({})
+          .on ('success', dq(callback) );
+        addToQueue(version, post);
+      }
+    },
+    
     //////////////////////////////////////////////
     // FACULTY
     faculty: {
@@ -37,7 +52,18 @@ var urcpp = function (version) {
           .on ('success', dq(callback) );
           
         addToQueue(version, post);
-      }
+      },
+      
+      checkBNumber: function (bnumber, callback) {
+        var post = aja()
+          .method ('POST')
+          .url (url(['/urcpp', version, 'faculty', 'checkBNumber', bnumber]))
+          .body ({})
+          .on ('success', dq(callback) );
+        addToQueue(version, post);
+      },
+      
+      
     },
     
     //////////////////////////////////////////////
@@ -110,7 +136,17 @@ var urcpp = function (version) {
           .body (body)
           .on ('success', dq(callback));
         addToQueue(version, post);
-      }
+      },
+      
+      people: function(username, body, callback) {
+        var post = aja()
+          .method ('POST')
+          .url (url(['/urcpp', version, 'set', 'people', username]))
+          .body (body)
+          .on ('success', dq(callback));
+        addToQueue(version, post);
+      },
+      
     }
   }
 

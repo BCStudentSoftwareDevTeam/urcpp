@@ -1,24 +1,128 @@
 {% extends "base.html" %}
 {% block body %}
 
+<script type = "text/javascript">
+  // In milliseconds
+  var BNUMBERCHECKDELAY = 250;
+  
+  var delay = (function(){
+    var timer = 0;
+    return function(callback, ms){
+      clearTimeout (timer);
+      timer = setTimeout(callback, ms);
+    };
+  })();
+  
+  var setBNumberStatus = function (id) {
+    return function (data) {
+      console.log("BNumber Status: " + JSON.stringify(data));  
+      var selector = "#cgroup" + id;
+      if (data["response"] == "OK") {
+        $(selector).removeClass("has-error");
+        $(selector).addClass("has-success");
+      } else {
+        $(selector).removeClass("has-success");
+        $(selector).addClass("has-error");
+      }
+    };};
+  
+  var checkValidBNumber = function (id) {
+    /* global api */
+    var bnumber = $("#cbnumber" + id).val();
+    api.faculty.checkBNumber(bnumber, setBNumberStatus(id));
+    api.go()
+  };
+  
+</script>
+
 <!-- http://shekhargulati.com/2014/05/07/using-python-flask-jinja2-with-mustache/ -->
 <script id = "collabInputT"  type = "x-tmpl-mustache">
   {% raw %}
   <div class = 'form-group' id = "cgroup{{id}}" >
-    <label for='c{{id}}' class = 'col-sm-3 control-label'>
-      Collaborator {{id}}
+  <h4>Collaborator #{{count}}</h4>
+  <!--
+    <label for='cfirstname{{id}}' class = 'col-sm-3 control-label'>
+      First Name
     </label>
     <div class = 'col-sm-8'>
-      <input name = 'c{{id}}' id = 'c{{id}}' type = 'text' class='form-control'/>
+      <input  name    = 'cfirstname{{id}}' 
+              id      = 'cfirstname{{id}}' 
+              type    = 'text' 
+              class   = 'form-control'
+              value   = "{{collab.firstname}}"
+              />
     </div>
+
+    <label for='clastname{{id}}' class = 'col-sm-3 control-label'>
+      Last Name
+    </label>
+    <div class = 'col-sm-8'>
+      <input  name    = 'clastname{{id}}' 
+              id      = 'clastname{{id}}' 
+              type    = 'text' 
+              class   = 'form-control'
+              value   = "{{collab.lastname}}"
+              />
+    </div>
+    -->
+    <label for='cbnumber{{id}}' class = 'col-sm-3 control-label'>
+      B-Number
+    </label>
+    <div class = 'col-sm-8'>
+      <input  name  = 'cbnumber{{id}}' 
+              id    = 'cbnumber{{id}}' 
+              type  = 'text' 
+              class = 'form-control'
+              value = "{{collab.bnumber}}"
+              />
+      <script type = "text/javascript">
+        /* global delay, checkValidBNumber, BNUMBERCHECKDELAY */
+        $("#cbnumber{{id}}").keyup ( function() {
+          delay( function () { 
+                    checkValidBNumber("{{id}}"); 
+                }, BNUMBERCHECKDELAY);
+        });
+      </script>
+    </div>
+
   </div>
   {% endraw %}
 </script>
 
+<h1> Students and Collaborators </h1>
+
+<p>
+  How many students will you be working with? And, if you are going to be collaborating with other faculty or staff on this project, indicate their names and BNumbers here.
+</p>
+
 <form class = "form-horizontal well">
+  <div id = "numStudents">
+    <h4> Students </h4>
+    <p> Indicate how many students you intend to work with here. </p>
+    <div class = "form-group spinner">
+      <label  for = "numberOfStudents"
+              name = "numberOfStudents"
+              class = "col-sm-3 control-label">
+        Number of Students
+      </label>
+      
+      <div class = "col-sm-8">
+        <input  id = "numStu" 
+                type = "text" 
+                value = "" 
+                name = "numStu"
+                style = "text-align: right;"
+                > </input>
+      </div>
+    </div>
+  </div> <!-- numStudentsID -->
+  
   <div id = "moreCollaborators">
     <h4> Collaborators </h4>
-    
+    <p> 
+      If you intend to work as a collaborative team with other faculty/staff,
+      indicate their names and BNumbers here. 
+    </p>
     <div class = "form-group spinner">
       <label  for = "numberOfCollaborators"
               name = "numberOfCollaborators"
@@ -35,26 +139,21 @@
                 > </input>
       </div>
     </div>
+  </div>
   
-  
-<!--  
-    <div class = "form-group">
-      <label for="c2" class = "col-sm-3 control-label">Collaborator 2 </label>
-      <div class = "col-sm-8">
-        <input name = "c2" id = "c2" type = "text" class="form-control"/>
-      </div>
-    </div>
-    
-    <h4> Students </h4>
-    <div class = "col-sm-9">
-      <input  name = "numberStudents"
-              id = "numberStudents" 
-              type = "number" 
-              min = "1" 
-              step ="1"
+  <div class = "form-group"  >
+    <div class = "col-sm-offset-8 col-sm-2" 
+         id = "submitButton"
+         style = "display: none;">
+      <button id = "submit" 
+              type = "button" 
+              class="btn btn-block btn-primary"
+              onClick = "submitData();"
+              class = "form-control"
               />
+        Submit
+      </button>
     </div>
-    -->
   </div>
 </form>
 
@@ -71,7 +170,8 @@
   var submitData = function () {
     var obj = formToObj(document.querySelector("form"));
     console.log(obj);
-    api.set.start(username, obj, show); 
+    api.set.people (username, obj, show); 
+    api.go();
   };
 </script>
 
@@ -95,9 +195,17 @@
   // This API call asks the server for the project title.
   api.projects.get(username, setNumberOfStudents);
   
-  var prevCollab = 0;
+  var prevSpin = 0;
   
   /* global Mustache */
+  var stuSpin = $("#numStu")
+    .TouchSpin( {
+      verticalbuttons: true,
+      min: 1,
+      step: 1,
+      initval: 1
+    });
+
   var collabSpin = $("#numCollab")
     .TouchSpin( {
       verticalbuttons: true,
@@ -110,27 +218,84 @@
     var spin = $("#numCollab").val();
     var dir  = 0;
     
-    if (spin > prevCollab) {
+    if (spin > prevSpin) {
       var tmpl = $("#collabInputT").html();
-      var view = { "id" : "" + spin };
+      var view = { "count": spin, "id" : "" + spin - 1};
       var rendered = Mustache.render(tmpl, view);
-      console.log("> spin: " + spin + " prev: " + prevCollab);
+      console.log("> spin: " + spin + " prev: " + prevSpin);
       $("#moreCollaborators").append(rendered);
     } else {
-      var removeMe = "#cgroup" + prevCollab;
-      console.log("Remove: " + removeMe)
-      $(removeMe).remove();
-      console.log("< spin: " + spin + " prev: " + prevCollab);
+      if (prevSpin > 0) {
+        
+        var removeMe = "#cgroup" + (prevSpin - 1); 
+        console.log("Removing: " + removeMe)
+        $(removeMe).remove();
+        console.log("< spin: " + spin + " prev: " + prevSpin);
+      }
     }
     
-    prevCollab = spin;
+    prevSpin = spin;
     
   });
+</script>
+
+<!-- API Calls for populating / saving -->
+<script type = "text/javascript">
+  /* global username, urcpp, Mustache, prevSpin */
   
+  var api = urcpp("v1");
+  var project = null;
+
+  var setNumberOfStudents = function (data) {
+    var numStudents = data.project.numberStudents;
+    console.log(data);
+    console.log("Number of students: " + numStudents);
+    $("#numStu").val(numStudents);
+  };
+  
+  var setCollaborators = function (data) {
+    var collabs = data.collaborators;
+    console.log ("Collaborators: " + collabs);
+    
+    prevSpin = collabs.length;
+    
+    for (var ndx = 0 ; ndx < collabs.length; ndx++ ) {
+      var offset = ndx + 1;
+      $("#numCollab").val(offset);
+            
+      var tmpl = $("#collabInputT").html();
+      var view = { 
+        "count" : ndx + 1,
+        "id" : ndx,
+        "collab" : collabs[ndx]
+      };
+      
+      console.log("View: " + view);
+      
+      var rendered = Mustache.render(tmpl, view);
+      
+      console.log("Rendered: " + rendered);
+      
+      $("#moreCollaborators").append(rendered);
+
+    }
+  };
+
+  var showHidden = 
+    function (element) {
+      return { go: function () {
+                    $("#" + element).show(); 
+              }};
+    };
+
   $(document).ready(function () {
+    api.projects.get (username, setNumberOfStudents);
+    api.collaborators.get (username, setCollaborators);
+    api.enqueue (showHidden("submitButton"));
+    api.go();
   });
 
-
 </script>
+  
 
 {% endblock %}

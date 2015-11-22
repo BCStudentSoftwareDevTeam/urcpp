@@ -37,3 +37,16 @@ def faculty_get (username):
                  "details": "No faculty found for username {0}.".format(username)
                  }
     return jsonify(response)  
+
+@app.route("/urcpp/v1/faculty/checkBNumber/<bnumber>", methods = ["POST"])
+def faculty_checkBNumber (bnumber):
+  # We are assuming BNumbers are less than 10 characters
+  if (len(bnumber) < 10) and (bnumber.find("B") == 0):
+    facQ = (LDAPFaculty.select()
+      .where (LDAPFaculty.bnumber == bnumber)
+      )
+    if facQ.exists():
+      return jsonify({ "response" : "OK" })
+    else:
+      return jsonify({ "response" : "NOTFOUND" })
+
