@@ -2,62 +2,157 @@
 
 {% block body %}
 
-<div class = "row">
-  <div class = "col-md-3">
-    Budget
+<h1> Budget </h1>
+<p>
+  Some introductory text.
+</p>
+
+<script id = "inputPair"  type = "x-tmpl-mustache">
+  {% raw %}
+  <div class = 'form-group' id = "inputGroup{{id}}" >
+    <div class = "row" style = "padding-bottom: 10px; padding-top: 30px;">
+        <label for='{{name}}{{id}}' class = 'col-sm-4 control-label'>
+          {{name}}
+        </label>
+    
+        <div class = 'col-sm-8'>
+          <input  name  = 'quantity' 
+                  id    = '{{name}}{{id}}' 
+                  type  = 'text' 
+                  class = 'form-control'
+                  value = ""
+                  onchange = "findTotal()" 
+                  // These don't seem to do anything right now.
+                  // min = "0.01" 
+                  // step = "0.01" 
+                  // max = "100000" 
+                  />
+        </div>
+    </div>    
+    <div class = "row">
+      <label for='{{name}}{{id}}' class = 'col-sm-4 control-label'>
+        {{name}} Description
+      </label>
+      <div class = "col-sm-8">
+        <textarea class="form-control" 
+                  style="min-width: 100%"
+                  rows = "3" 
+                  id = "{{name}}Description"></textarea> 
+      </div>
+    </div>
   </div>
-  <div class = "col-md-6">
-    Faculty Stipend
-    <br>
-    <input onchange = "findTotal()" type = "number" name = "qty" min = "0.01" step = "0.01" max = "100000" id = "facStipend"/>
-    <br><br>
-    Equipment
-    <br>
-    <input onchange = "findTotal()" type = "number" name = "qty" min = "0.01" step = "0.01" max = "100000" id = "equipment"/>
-    <br>
-    Description<br><textarea rows = "3" id = "equipmentDes"></textarea>
-    <br><br>
-    Materials
-    <br>
-    <input onchange = "findTotal()" type = "number" name = "qty" min = "0.01" step = "0.01" max = "100000" id = "materials"/>
-    <br>
-    Description<br><textarea rows = "3" id = "materialsDes"></textarea>
-    <br><br>
-    Travel
-    <br>
-    <input onchange = "findTotal()" type = "number" name = "qty" min = "0.01" step = "0.01" max = "100000" id = "travel"/>
-    <br>
-    Description<br><textarea rows = "3" id = "travelDes"></textarea>
-    <br><br>
-    Miles
-    <br>
-    <input type = "number" min = "0.01" step = "0.01" id = "miles"/>
-    <br>
-    Description<br><textarea rows = "3" id = "milesDes"></textarea>
-    <br><br>
-    Other
-    <br>
-    <input onchange = "findTotal()" type = "number" name = "qty" min = "0.01" step = "0.01" max = "100000" id = "other"/>
-    <br>
-    Description<br><textarea rows = "3" id = "otherDes"></textarea>
-    <br><br>
-    Total
-    <label id="total">0</label>
-  </div>
-  
-  <script type = "text/javascript">
-  
-    function findTotal(){
-      var arr = document.getElementsByName("qty");
-      var tot=0;
-      for(var i=0; i<arr.length; i++){
-        if(parseInt(arr[i].value))
-            tot += parseInt(arr[i].value);
-      }
-    document.getElementById("total").innerHTML = tot;
-    console.log(tot)
+  {% endraw %}
+</script>
+
+<!-- Load all of the form elements. 
+     Rendering them programmatically here.
+     -->
+<script type = "text/javascript">
+  $(document).ready( function () {
+    // In revese order... we're pre-pending
+    var elements = [  "Other",
+                      "Miles",
+                      "Materials",
+                      "Equipment", 
+                      "Faculty Stipend"
+                    ]
+
+  for (var ndx = 0 ; ndx < elements.length ; ndx++ ) {
+    var data = { "name" : elements[ndx], "id" : ndx };
+    rendered = Mustache.render($("#inputPair").html(), data);
+    $("#budgetForm").prepend(rendered);
+          
+    // This is how to select these elements now...
+    // $("[id='Faculty Stipend{{1}}']").val(1000);
     }
     
-  </script>
+  console.log("Done Appending.");  
+  // End Ready
+  });
   
+</script>
+
+<div class = "row">
+  <form id = "budgetForm"
+        class = "form-horizontal col-sm-10 col-sm-offset-1">
+    <div class = 'form-group has-success' id = "totalGroup" >
+      <div class = "row">
+        <label for='total' class = 'col-sm-4 control-label'>
+          Total
+        </label>
+        <div class = 'col-sm-8'>
+          <input  name  = 'total' 
+                  id    = 'total' 
+                  type  = 'text' 
+                  class = 'form-control'
+                  value = ""
+                  />
+        </div>
+      </div>
+    </div>
+  
+    <div class = "form-group"  >
+    <div class = "col-sm-offset-10 col-sm-2" 
+         id = "submitButton"
+         style = "display: none;">
+      <button id = "submit" 
+              type = "button" 
+              class="btn btn-block btn-primary"
+              onClick = "submitData();"
+              class = "form-control"
+              />
+        Submit
+      </button>
+    </div>
+  </div>
+</form>
+  
+<script type = "text/javascript">
+
+  function findTotal(){
+    var arr = document.getElementsByName("quantity");
+    var tot = 0;
+    
+    for(var i = 0; i < arr.length; i++){
+      var value = arr[i].value;
+      // console.log("Element value: " + value)
+      if(parseInt(value))
+          tot += parseInt(value);
+    }
+    
+  // Set the total.
+  $("#total").val(tot);
+  console.log(tot)
+  }
+  
+</script>
+
+<!-- JQuery Init -->
+<script type = "text/javascript">
+   /* global urcpp */
+  var api = urcpp('v1');
+
+</script>
+
+<!-- Submit data to server -->
+<script type = "text/javascript">
+   /* global api, username, formToObj, show */
+  var submitData = function () {
+    var obj = formToObj(document.querySelector("form"));
+    console.log(obj);
+    // api.set.people (username, obj, show); 
+    // api.go();
+  };
+</script>
+
+<script type = "text/javascript">
+  $("document").ready (
+    function () {
+      // This is where we run our getters.
+      // The last thing is to show the submit button.
+      api.showHidden("submitButton");
+      api.go();
+    });
+</script>
+
 {% endblock %}

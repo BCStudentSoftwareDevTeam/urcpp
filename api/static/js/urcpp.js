@@ -28,6 +28,15 @@ var urcpp = function (version) {
       addToQueue(version, fun);
     },
     
+    showHidden: function (element) {
+      var forqueue = { go: function () {
+                              $("#" + element).show(); 
+                            },
+                      };
+      addToQueue (version, forqueue );
+    },
+
+    
     //////////////////////////////////////////////
     // COLLABORATORS
     collaborators: {

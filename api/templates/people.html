@@ -95,7 +95,7 @@
   How many students will you be working with? And, if you are going to be collaborating with other faculty or staff on this project, indicate their names and BNumbers here.
 </p>
 
-<form class = "form-horizontal well">
+<form class = "form-horizontal col-sm-8 col-sm-offset-2">
   <div id = "numStudents">
     <h4> Students </h4>
     <p> Indicate how many students you intend to work with here. </p>
@@ -142,7 +142,7 @@
   </div>
   
   <div class = "form-group"  >
-    <div class = "col-sm-offset-8 col-sm-2" 
+    <div class = "col-sm-offset-9 col-sm-2" 
          id = "submitButton"
          style = "display: none;">
       <button id = "submit" 
@@ -281,17 +281,10 @@
     }
   };
 
-  var showHidden = 
-    function (element) {
-      return { go: function () {
-                    $("#" + element).show(); 
-              }};
-    };
-
   $(document).ready(function () {
     api.projects.get (username, setNumberOfStudents);
     api.collaborators.get (username, setCollaborators);
-    api.enqueue (showHidden("submitButton"));
+    api.showHidden("submitButton");
     api.go();
   });
 
