@@ -7,6 +7,9 @@ def getBudget (username):
    
    if facQ.exists():
       fac = facQ.get()
-      return fac.pID.budgetID
+      if fac.pID:
+        if fac.piD.budgetID
+          return fac.pID.budgetID
+      return None
    else:
       return None
