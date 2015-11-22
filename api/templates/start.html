@@ -148,7 +148,7 @@
   function setFacultyProgram (data) {
     console.log("Using faculty to set things: " + JSON.stringify(data));
     console.log("\n");
-    if (data.faculty.programID.pID) {
+    if (data.faculty && data.faculty.programID.pID) {
       var index = parseInt(data.faculty.programID.pID);
       console.log("Index for Program: " + index)
       $("#program").val(index);

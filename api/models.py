@@ -48,18 +48,18 @@ class Programs (StaticModel):
 
 class Budget (DynamicModel):
   bID                 = PrimaryKeyField()
-  facultyStipend      = IntegerField()
-  facultyStipendDesc  = TextField()
-  miles               = IntegerField()
-  milesDesc           = TextField()
-  otherTravel         = IntegerField()
-  otherTravelDesc     = TextField()
-  equipment           = IntegerField()
-  equipmentDesc       = TextField()
-  materials           = IntegerField()
-  materialsDesc       = TextField()
-  other               = IntegerField()
-  otherDesc           = TextField()
+  facultyStipend      = IntegerField(default = 0)
+  facultyStipendDesc  = TextField(default = "")
+  miles               = IntegerField(default = 0)
+  milesDesc           = TextField(default = "")
+  otherTravel         = IntegerField(default = 0)
+  otherTravelDesc     = TextField(default = "")
+  equipment           = IntegerField(default = 0)
+  equipmentDesc       = TextField(default = "")
+  materials           = IntegerField(default = 0)
+  materialsDesc       = TextField(default = "")
+  other               = IntegerField(default = 0)
+  otherDesc           = TextField(default = "")
   
 class PreSurvey (DynamicModel):
   psID              = PrimaryKeyField()
@@ -77,13 +77,13 @@ class Projects (DynamicModel):
   # Like the vitae; the file is in a folder.
   # /year/projid/title.pdf
   #proposal     = BlobField()
-  hasCommunityPartner   = BooleanField()
-  isServiceToCommunity  = BooleanField()
-  humanSubjects         = BooleanField()
+  hasCommunityPartner   = BooleanField(default = False)
+  isServiceToCommunity  = BooleanField(default = False)
+  humanSubjects         = BooleanField(null = True)
   # Like the vitae
   # /year/projid/irb.something
   # irb               = BlobField()
-  numberStudents    = IntegerField()
+  numberStudents    = IntegerField(default = 1)
   # Stati are in the config under the key
   # projectstatus: ... it is a list.
   status            = TextField(default = cfg["projectStatus"]["pending"])
@@ -99,7 +99,7 @@ class URCPPStudents (DynamicModel):
 
 class URCPPFaculty (DynamicModel):
   fID               = PrimaryKeyField()
-  pID               = ForeignKeyField(Projects)
+  pID               = ForeignKeyField(Projects, related_name = "project")
   username          = ForeignKeyField(LDAPFaculty, to_field = "username")
   # We will always name these ourselves, and 
   # choose where they go. It is in our config[] YAML.

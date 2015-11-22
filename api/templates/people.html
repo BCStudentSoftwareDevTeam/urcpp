@@ -245,11 +245,19 @@
   
   function setCollaborators (data) {
     var collabs = data.collaborators;
+    var collabslength = 0;
+    
     console.log ("Collaborators: " + collabs);
     
-    prevSpin = collabs.length;
+    if (collabs != null) {
+      prevSpin = collabs.length;
+      collabslength = collabs.length;
+    } else {
+      prevSpin = 0;
+      collabslength = 0;
+    }
     
-    for (var ndx = 0 ; ndx < collabs.length; ndx++ ) {
+    for (var ndx = 0 ; ndx < collabslength; ndx++ ) {
       var offset = ndx + 1;
       $("#numCollab").val(offset);
             

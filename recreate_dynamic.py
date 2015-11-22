@@ -51,7 +51,7 @@ dynamicDB.create_tables(get_classes('dynamic'))
 # Add some dummy data.
 
 proj = Projects (
-  title                 = "Super Duper Robots",
+  title                 = "Super Dooper Robots",
   budgetID              = 0,
   duration              = 8,
   startDate             = "5/1/2016",
@@ -66,7 +66,8 @@ proj.save()
 fac = URCPPFaculty (
   pID               = proj.pID,
   username          = "jadudm",
-  yearsFunded       = "{oneyr:1,twoyr:1,threeToFiveyr:1,sixToTenyr:1,elevenPlus:1}",        # Possible values: oneyr, twoyr, threeToFiveyr, sixToTenyr, elevenPlus
+  # Possible values: oneyr, twoyr, threeToFiveyr, sixToTenyr, elevenPlus
+  yearsFunded       = "{oneyr:1,twoyr:1,threeToFiveyr:1,sixToTenyr:1,elevenPlus:1}",
   relatedFunding    = "I got big bucks and I cannot lie."
   )
 fac.save()
