@@ -41,31 +41,28 @@
    /* global api, username, formToObj, show */
   var submitData = function () {
     var obj = formToObj(document.querySelector("form"));
-    console.log(obj);
-    api.set.start(username, obj, show); 
+    console.log("Sending data to server: " + JSON.stringify(obj) + "\n\n");
+    api.set.start(username, obj, function (data) { console.log (data); } ); 
+    api.go();
   };
 </script>
 
 <!-- Loading data from the server -->
 <script type = "text/javascript">
   /* global api, username */
-  
-  var show = function (d) {
-    console.log (d);
-    $("#echo").text(JSON.stringify (d));
-  };
 
   // This function sets the project title field
   var setTitleAndStartDate = function (data) {
     // console.log(JSON.stringify(data));
     if ("project" in data) {
+      console.log("Using project to set things: " + data);
+      
       $("#title").val(data.project.title);
       $("#startDate").val(data.project.startDate);
+      $("#duration").val(data.project.duration);
     }
   };
-  // This API call asks the server for the project title.
-  api.projects.getProject (username, setTitleAndStartDate);
-  
+
   var setOptions = function (element, options) {
     var $el = $("#" + element);
     $el.empty(); // remove old options
@@ -92,7 +89,17 @@
     setOptions ("program", options);
   };
   
-  api.programs.getAll(setProgram);
+  var setFacultyProgram = function (data) {
+    console.log("Using faculty to set things: " + JSON.stringify(data));
+    console.log("\n");
+    if (data.faculty.programID.pID) {
+      var index = parseInt(data.faculty.programID.pID);
+      console.log("Index for Program: " + index)
+      $("#program").val(index);
+    } else {
+      $("#program").val(0); 
+    }
+  };
   
   var setDuration = function (data) {
     var durations = data.durations;
@@ -106,14 +113,22 @@
     setOptions("duration", options);
   };
   
-  api.projects.getPossibleDurations(setDuration);
-  
   var setDate = function (data) {
     // console.log(JSON.stringify(data));
     if ("startDate" in data) {
       $("#startDate").val(data.project.startDate);
     }
   }
+  
+  // API calls happen in-order.
+  // First, we queue up the actions we want to take.
+  api.programs.getAll(setProgram);
+  api.projects.getPossibleDurations(setDuration);
+  api.projects.get(username, setTitleAndStartDate);
+  api.faculty.get(username, setFacultyProgram);
+  // Then, we set them all in motion.
+  api.go();
+  
 </script>
 
 {% endblock %}

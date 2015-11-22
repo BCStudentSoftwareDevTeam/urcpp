@@ -5,7 +5,6 @@ def getProject (username):
   projQ = (Projects.select()
     .join (URCPPFaculty, on = (URCPPFaculty.pID == Projects.pID))
     .where (URCPPFaculty.username == username)
-    .where (URCPPFaculty.corresponding == True)
   )
   
   if projQ.exists():
@@ -14,12 +13,12 @@ def getProject (username):
   else:
     return None
     
-@app.route("/urcpp/v1/projects/getProject/<username>", methods = ["POST"])
-def projects_getProject (username):
+@app.route("/urcpp/v1/projects/get/<username>", methods = ["POST"])
+def projects_get (username):
   if username != os.getenv("USER"):
     return { "response": cfg["response"]["badUsername"] }
   
-  # Look up the project title for this user.
+  # Look up the project for this user.
   proj = getProject(username)
 
   if proj:

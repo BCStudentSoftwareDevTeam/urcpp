@@ -6,7 +6,7 @@
   <div class = "col-md-3">
     Previous URCPP Funding Years
   </div>
-  <div class = "col-md-6" id = "previousYearsFieldset">
+  <div class = "col-md-6">
     <input type = "checkbox" name = "previousYears" id = "oneyr" value = "1" >Last Year
     <br> 
     <input type = "checkbox" name = "previousYears"  id = "twoyr" value = "2" >2 Years Ago
@@ -19,15 +19,15 @@
     <br>
     Will your project be involved with a non-religious non-profit, or government agency?
     <br>
-    <input type = "radio" name = "relOrGov" id = "relOrGovYes" value = "Yes" onChange = "">Yes
+    <input type = "radio" name = "relOrGov" id = "communityPartnerYes" value = "Yes" onChange = "">Yes
     <br> 
-    <input type = "radio" name = "relOrGov"  id = "relOrGovNo" value = "No" onChange = "">No
+    <input type = "radio" name = "relOrGov"  id = "communityPartnerNo" value = "No" onChange = "">No
     <br>
     Does you project qualify as a service to the community?
     <br>
-    <input type = "radio" name = "community" id = "communityYes" value = "Yes" onChange = "">Yes
+    <input type = "radio" name = "community" id = "isServiceToCommunityYes" value = "Yes" onChange = "">Yes
     <br> 
-    <input type = "radio" name = "community"  id = "communityNo" value = "No" onChange = "">No
+    <input type = "radio" name = "community"  id = "isServiceToCommunityNo" value = "No" onChange = "">No
     <br>
   </div>
 </div>
@@ -55,30 +55,53 @@
      $("#echo").text(JSON.stringify (d));
      };
   
-  var setFields = function (fields) {
+  var setPreviousFunding = function (fields) {
     return function (data) {
       // Set previous year checkboxes based on response
       if (data.response == "OK") {
+        // Populates the checkboxes for previous years funded
         if (data.urcppFaculty.oneyr) {
-           $("#oneyr").prop( "checked" , true);
+          $("#oneyr").prop( "checked" , true);
         } 
         if (data.urcppFaculty.twoyr) {
-           $("#twoyr").prop( "checked" , true);
+          $("#twoyr").prop( "checked" , true);
         } 
         if (data.urcppFaculty.threeToFiveyr) {
-           $("#threeToFiveyr").prop( "checked" , true);
+          $("#threeToFiveyr").prop( "checked" , true);
         } 
         if (data.urcppFaculty.sixToTenyr) {
-           $("#sixToTenyr").prop( "checked" , true);
+          $("#sixToTenyr").prop( "checked" , true);
         } 
         if (data.urcppFaculty.elevenPlus) {
-           $("#elevenPlus").prop( "checked" , true);
+          $("#elevenPlus").prop( "checked" , true);
         } 
+        
+        // Populates the current/pending funding textarea
+
+
+      }
+    }
+  }
+  api.faculty.previousYearsFunded(username, setPreviousFunding);
+  
+  
+  var setAgencyRadios = function (fields) {
+    return function (data) {
+      // Populates the radios for Nonprofit etc.
+      if (data.projects.hasCommunityPartner) {
+        $("#communityPartnerYes").prop("checked", true);
+      }
+      
+      // Populates the radios for service to the community
+      if (data.projects.isServiceToCommunity) {
+        $("#isServiceToCommunityYes").prop("checked", true);
       }
     }
   }
   
-  api.faculty.previousYearsFunded(username, setFields(['urcppFaculty']));
+  api.projects.getAgencyAndServiceCommunity(username, setAgencyRadios);
+  
+
   
 </script>
 

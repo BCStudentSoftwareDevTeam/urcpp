@@ -5,32 +5,29 @@
 <form>
   <div class = "row">
     <div class = "col-md-3">
-      Project Title
+      Professors
     </div>
-    <div class = "col-md-6">
-      Title: <input name = "title" id = "title" type = "text" />
+    <div class = "col-md-3">
+      Professor 1: <input name = "professor1" id = "professor1" type = "text" />
     </div>
-    <div class = "row">
-      Program: <select name = "program" id = "program"> </select>
+    <div class = "col-md-3">
+      Professor 2: <input name = "professor2" id = "professor2" type = "text" />
+    </div >
+    <div class = "col-md-3"> 
+      Professor 3: <input name = "professor3" id = "professor3" type = "text" />
     </div>
-    <div class = "row"> 
-      Duration: <select name = "duration" id = "duration"> </select>
-    </div>
-    <div class = "row">
-      Start Date: <input name = "startDate" id = "startDate" type = "text"  />
+    <div class = "col-md-3">
+      Professor 4: <input name = "professor4" id = "professor4" type = "text"  />
     </div>
   </div>
 </form>
 
-<div class = "row">
-  <input id = "submit" type = "button" value = "Submit" onClick = "submitData();" />
+<div class = "col-md-3">
+  Number of students: <input name = "numberStudents"id = "numberStudents" type = "number" min = "1" step ="1" />
 </div>
 
 <!-- JQuery Init -->
 <script type = "text/javascript">
-  $(function() {
-    $( "#startDate" ).datepicker();
-  });
    /* global urcpp */
   var api = urcpp('v1');
 
@@ -56,17 +53,17 @@
   };
 
   // This function sets the project title field
-  var setTitleAndStartDate = function (data) {
+  var setNumberOfStudents = function (data) {
     // console.log(JSON.stringify(data));
     if ("project" in data) {
-      $("#title").val(data.project.title);
-      $("#startDate").val(data.project.startDate);
+      $("#numberStudents").val(data.project.numberStudents);
+      //$("#startDate").val(data.project.startDate);
     }
   };
   // This API call asks the server for the project title.
-  api.projects.getProject (username, setTitleAndStartDate);
+  api.projects.get(username, setNumberOfStudents);
   
-  var setOptions = function (element, options) {
+  /*var setOptions = function (element, options) {
     var $el = $("#" + element);
     $el.empty(); // remove old options
     $.each(
@@ -113,7 +110,7 @@
     if ("startDate" in data) {
       $("#startDate").val(data.project.startDate);
     }
-  }
+  }*/
 </script>
 
 {% endblock %}

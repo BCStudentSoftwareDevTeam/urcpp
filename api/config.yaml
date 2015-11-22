@@ -14,13 +14,14 @@ models:
     - LDAPStudents
     - Programs
   dynamic:
+    - Budget
+    - Collaborators
+    - Parameters
+    - PostSurvey
+    - PreSurvey
+    - Projects
     - URCPPFaculty
     - URCPPStudents
-    - PreSurvey
-    - PostSurvey
-    - Projects
-    - Budget
-    - Parameters
     
 log:
   filename: "urcpp.log"
@@ -31,7 +32,7 @@ tag: "urcpp"
 
 timeout: 10
 
-projectstatus:
+projectStatus:
   accept: Accept
   reject: Reject
   withdrawn: Withdrawn
@@ -45,8 +46,11 @@ response:
   noResults: "No Results"
 
 filepaths:
-  directory: "api/static/%%applicationCycle%%/%%username%%"
-  vitae: "%%username%%-vitae.%%thing%%"
-  narrative: "%%username%%-narrative.%%thing%%"
-  irb: "%%username%%-irb.%%thing%%"
+  directory: "api/static/files/%%applicationCycle%%/%%username%%"
+# We don't know if these are needed, but they do document the 
+# directory paths/layout that we intend...
+#  filesInDirectory:
+#    vitae: "%%username%%-vitae.%%thing%%"
+#    narrative: "%%username%%-narrative.%%thing%%"
+#    irb: "%%username%%-irb.%%thing%%"
   

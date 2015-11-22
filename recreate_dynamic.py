@@ -49,9 +49,29 @@ def get_classes (db):
 dynamicDB.create_tables(get_classes('dynamic'))
 
 # Add some dummy data.
-# fac = LDAPFaculty ( firstname     = "Matt",
-#                     lastname      = "Jadud",
-#                     username      = "jadudm",
-#                     bnumber       = "B00669796"
-#                 )
-# fac.save()
+
+proj = Projects (
+  title                 = "Super Duper Robots",
+  budgetID              = 0,
+  duration              = 8,
+  startDate             = "5/1/2016",
+  year                  = 2016,
+  hasCommunityPartner   = False,
+  isServiceToCommunity  = True,
+  humanSubjects         = False,
+  numberStudents        = 3
+  )
+proj.save()
+
+fac = URCPPFaculty (
+  pID               = proj.pID,
+  username          = "jadudm",
+  yearsFunded       = "\"{oneyr:1}\""
+  )
+fac.save()
+
+collab = Collaborators (
+  pID = proj.pID,
+  username = "heggens"
+  )
+collab.save()

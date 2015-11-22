@@ -3,26 +3,46 @@
 var urcpp = function (version) {
   
   var url = function (ls) { return ls.join('/'); };
+  
+  var addToQueue = function (version, postAction) {
+    $(document).queue(version, function () {
+      postAction.go();
+    });
+  }
 
+  var dq = function (callback) {
+    return function (data) {
+      callback(data);
+      $(document).dequeue(version);
+    };
+  }
+  
   var h =  {
+    go: function () {
+      $(document).dequeue(version);
+    },
 
     //////////////////////////////////////////////
     // FACULTY
     faculty: {
-      details: function (username, callback) {
-        aja()
+      get: function (username, callback) {
+        var post = aja()
           .method ('POST')
-          .url (url(['/urcpp', version, 'faculty', 'details', username]))
-          .body ( { username: username })
-          .on ('success', callback).go();
+          .url (url(['/urcpp', version, 'faculty', 'get', username]))
+          .body ({})
+          .on ('success', dq(callback) );
+          
+        addToQueue(version, post);
       },
       
       previousYearsFunded: function(username, callback) {
-        aja()
+        var post = aja()
           .method ('POST')
           .url (url(['/urcpp', version, 'faculty', 'previousYearsFunded', username]))
           .body ({ })
-          .on ('success', callback).go();
+          .on ('success', dq(callback));
+          
+        addToQueue(version, post);
       }
     },
     
@@ -30,11 +50,12 @@ var urcpp = function (version) {
     // PROGRAMS
     programs: {
       getAll: function (callback) {
-        aja()
+        var post = aja()
           .method ('POST')
           .url (url(['/urcpp', version, 'programs', 'getAll']))
           .body ({})
-          .on ('success', callback).go();
+          .on ('success', dq(callback));
+        addToQueue(version, post);  
       }
     },
     
@@ -42,46 +63,58 @@ var urcpp = function (version) {
     // PROJECTS
     projects: {
       getPossibleDurations: function (callback) {
-        aja()
+        var post = aja()
           .method ('POST')
           .url (url(['/urcpp', version, 'projects', 'getPossibleDurations']))
           .body ({})
-          .on ('success', callback).go();
+          .on ('success', dq(callback));
+        addToQueue(version, post);
       },
       
-      getProject: function (username, callback) {
-        aja()
+      get: function (username, callback) {
+        var post = aja()
           .method ('POST')
-          .url (url(['/urcpp', version, 'projects', 'getProject', username]))
+          .url (url(['/urcpp', version, 'projects', 'get', username]))
           .body ({})
-          .on ('success', callback).go();
+          .on ('success', dq(callback));
+        addToQueue(version, post);
       },
       
       getNarrative: function (username, callback) {
-        aja()
+        var post = aja()
           .method ('POST')
           .url (url(['/urcpp', version, 'projects', 'getNarrative', username]))
           .body ({})
-          .on ('success', callback).go();
+          .on ('success', dq(callback));
+        addToQueue(version, post);
       },
       
       getIRB: function (username, callback) {
-        aja()
+        var post = aja()
           .method ('POST')
           .url (url(['/urcpp', version, 'projects', 'getIRB', username]))
           .body ({})
-          .on ('success', callback).go();
+          .on ('success', dq(callback));
+        addToQueue(version, post);
+      },
+      getAgencyAndServiceCommunity: function(username, callback) {
+        var post = aja()
+          .method ('POST')
+          .url (url(['/urcpp', version, 'projects', 'get', username]))
+          .body ({ })
+          .on ('success', dq(callback));
+        addToQueue(version, post);
       },
     },
     
-    
     set: {
       start: function(username, body, callback) {
-        aja()
+        var post = aja()
           .method ('POST')
           .url (url(['/urcpp', version, 'set', 'start', username]))
           .body (body)
-          .on ('success', callback).go();
+          .on ('success', dq(callback));
+        addToQueue(version, post);
       }
     }
   }

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class = "row">
+  <div class = "col-md-3">
+    Budget
+  </div>
+  <div class = "col-md-6">
+    Faculty Stipend
+    <br>
+    <input onchange = "findTotal()" type = "number" name = "qty" min = "0.01" step = "0.01" max = "100000" id = "facStipend"/>
+    <br><br>
+    Equipment
+    <br>
+    <input onchange = "findTotal()" type = "number" name = "qty" min = "0.01" step = "0.01" max = "100000" id = "equipment"/>
+    <br>
+    Description<br><textarea rows = "3" id = "equipmentDes"></textarea>
+    <br><br>
+    Materials
+    <br>
+    <input onchange = "findTotal()" type = "number" name = "qty" min = "0.01" step = "0.01" max = "100000" id = "materials"/>
+    <br>
+    Description<br><textarea rows = "3" id = "materialsDes"></textarea>
+    <br><br>
+    Travel
+    <br>
+    <input onchange = "findTotal()" type = "number" name = "qty" min = "0.01" step = "0.01" max = "100000" id = "travel"/>
+    <br>
+    Description<br><textarea rows = "3" id = "travelDes"></textarea>
+    <br><br>
+    Miles
+    <br>
+    <input type = "number" min = "0.01" step = "0.01" id = "miles"/>
+    <br>
+    Description<br><textarea rows = "3" id = "milesDes"></textarea>
+    <br><br>
+    Other
+    <br>
+    <input onchange = "findTotal()" type = "number" name = "qty" min = "0.01" step = "0.01" max = "100000" id = "other"/>
+    <br>
+    Description<br><textarea rows = "3" id = "otherDes"></textarea>
+    <br><br>
+    Total
+    <label id="total">0</label>
+  </div>
+  
+  <script type = "text/javascript">
+  
+    function findTotal(){
+      var arr = document.getElementsByName("qty");
+      var tot=0;
+      for(var i=0; i<arr.length; i++){
+        if(parseInt(arr[i].value))
+            tot += parseInt(arr[i].value);
+      }
+    document.getElementById("total").innerHTML = tot;
+    console.log(tot)
+    }
+    
+  </script>
+  
+{% endblock %}
