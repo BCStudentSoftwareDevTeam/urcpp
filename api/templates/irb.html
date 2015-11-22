@@ -29,21 +29,21 @@
      $("#echo").text(JSON.stringify (d));
      };
   
-  var setFields = function (fields) {
-    return function (data) {
-      if (data.response == "OK") {
-        $("#fileLabel").text(data.irb);
-        showFileUpload();
-        $("#irbYes").attr('checked', true);
-      }
+  var setFields = function (data) {
+    if (data.response == "OK") {
+      $("#fileLabel").text(data.irb);
+      showFileUpload();
+      $("#irbYes").attr('checked', true);
     }
   }
   
-  api.projects.getIRB (username, setFields(['projectsNarrative']));
+  api.projects.getIRB (username, setFields);
+  
+  api.go();
+  
   
   function showFileUpload() {
     $("#fileUpload").show();
-    
   }
   
   function hideFileUpload() {

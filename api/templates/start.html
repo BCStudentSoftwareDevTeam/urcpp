@@ -2,30 +2,72 @@
 
 {% block body %}
 
-<form>
-  <div class = "row">
-    <div class = "col-md-3">
-      Project Title
+<style>
+</style>
+
+<h1>URCPP Project Basics</h1>
+
+<p>
+  Your project submission will require you to provide:
+</p>
+
+<ol>
+  <li> Project Basics (this page) </li>
+  <li> BNumbers for collaborators (if any) </li>
+  <li> A project budget & number of students </li>
+  <li> A project narrative (.docx or PDF) </li>
+  <li> Something else? </li>
+</ol>
+
+<p>
+  After you are finished, any project collaborators will need to login and submit their CVs as well. At that point, your submission will be complete.  
+</p>
+
+<form class = "form-horizontal well">
+  <div class = "form-group">
+    <label for="title" class = "col-sm-2 control-label">Project Title </label>
+    <div class = "col-sm-8">
+      <input name = "title" id = "title" type = "text" class="form-control"/>
     </div>
-    <div class = "col-md-6">
-      Title: <input name = "title" id = "title" type = "text" />
+  </div>
+  
+  <div class = "form-group">
+    <label for = "program" class = "col-sm-2 control-label">Program </label>
+    <div class = "col-sm-8">
+      <select name = "program" id = "program" class="form-control"> </select>
     </div>
-    <div class = "row">
-      Program: <select name = "program" id = "program"> </select>
+  </div>
+  
+  <div class = "form-group"> 
+    <label for = "duration" class = "col-sm-2 control-label">Duration </label>
+    <div class = "col-sm-8">
+      <select name = "duration" id = "duration" class="form-control"> </select>  
     </div>
-    <div class = "row"> 
-      Duration: <select name = "duration" id = "duration"> </select>
+  </div>
+  
+  <div class = "form-group">
+    <label for = "startDate" class = "col-sm-2 control-label">Start Date </label>
+    <div class = "col-sm-8">
+      <input name = "startDate" id = "startDate" type = "text"  class="form-control"/>
     </div>
-    <div class = "row">
-      Start Date: <input name = "startDate" id = "startDate" type = "text"  />
+  </div>
+
+  <div class = "form-group"  >
+    <div class = "col-sm-offset-8 col-sm-2" 
+         id = "submitButton"
+         style = "display: none;">
+      <button id = "submit" 
+              type = "button" 
+              class="btn btn-block btn-primary"
+              onClick = "submitData();"
+              class = "form-control"
+              />
+        Submit
+      </button>
     </div>
   </div>
 </form>
-
-<div class = "row">
-  <input id = "submit" type = "button" value = "Submit" onClick = "submitData();" />
-</div>
-
+  
 <!-- JQuery Init -->
 <script type = "text/javascript">
   $(function() {
@@ -118,16 +160,26 @@
     if ("startDate" in data) {
       $("#startDate").val(data.project.startDate);
     }
-  }
+  };
   
-  // API calls happen in-order.
-  // First, we queue up the actions we want to take.
-  api.programs.getAll(setProgram);
-  api.projects.getPossibleDurations(setDuration);
-  api.projects.get(username, setTitleAndStartDate);
-  api.faculty.get(username, setFacultyProgram);
-  // Then, we set them all in motion.
-  api.go();
+  var showHidden = 
+    function (element) {
+      return { go: function () {
+                    $("#" + element).show(); 
+              }};
+    };
+    
+  $(document).ready(function () {
+    // API calls happen in-order.
+    // First, we queue up the actions we want to take.
+    api.programs.getAll(setProgram);
+    api.projects.getPossibleDurations(setDuration);
+    api.projects.get(username, setTitleAndStartDate);
+    api.faculty.get(username, setFacultyProgram);
+    api.enqueue (showHidden("submitButton"));
+    // Then, we set them all in motion.
+    api.go();
+  });
   
 </script>
 

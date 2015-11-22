@@ -8,3 +8,6 @@ Both useful for forms.
 * http://microjs.com/#
 
 All the libraries...
+
+How to share terminals:
+http://stackoverflow.com/questions/25153026/cloud9-ide-re-sharing-a-terminal

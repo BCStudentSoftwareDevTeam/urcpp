@@ -21,6 +21,10 @@ var urcpp = function (version) {
     go: function () {
       $(document).dequeue(version);
     },
+    
+    enqueue: function (fun) {
+      addToQueue(version, fun);
+    },
 
     //////////////////////////////////////////////
     // FACULTY
@@ -31,16 +35,6 @@ var urcpp = function (version) {
           .url (url(['/urcpp', version, 'faculty', 'get', username]))
           .body ({})
           .on ('success', dq(callback) );
-          
-        addToQueue(version, post);
-      },
-      
-      previousYearsFunded: function(username, callback) {
-        var post = aja()
-          .method ('POST')
-          .url (url(['/urcpp', version, 'faculty', 'previousYearsFunded', username]))
-          .body ({ })
-          .on ('success', dq(callback));
           
         addToQueue(version, post);
       }
@@ -97,6 +91,7 @@ var urcpp = function (version) {
           .on ('success', dq(callback));
         addToQueue(version, post);
       },
+      
       getAgencyAndServiceCommunity: function(username, callback) {
         var post = aja()
           .method ('POST')

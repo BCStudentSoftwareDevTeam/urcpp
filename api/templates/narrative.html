@@ -20,14 +20,15 @@
      $("#echo").text(JSON.stringify (d));
      };
   
-  var setFields = function (fields) {
-    return function (data) {
+  var setFields = function (data) {
+    if (data.response = "OK") {
       $("#fileLabel").text(data.narrative);
     }
   }
   
-  api.projects.getNarrative (username, setFields(['projectsNarrative']));
+  api.projects.getNarrative (username, setFields);
   
+  api.go();
 </script>
 
 {% endblock %}

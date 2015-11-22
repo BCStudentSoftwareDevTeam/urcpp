@@ -56,9 +56,9 @@ proj = Projects (
   duration              = 8,
   startDate             = "5/1/2016",
   year                  = 2016,
-  hasCommunityPartner   = False,
+  hasCommunityPartner   = True,
   isServiceToCommunity  = True,
-  humanSubjects         = False,
+  humanSubjects         = True,
   numberStudents        = 3
   )
 proj.save()
@@ -66,7 +66,8 @@ proj.save()
 fac = URCPPFaculty (
   pID               = proj.pID,
   username          = "jadudm",
-  yearsFunded       = "\"{oneyr:1}\""
+  yearsFunded       = "{oneyr:1,twoyr:1,threeToFiveyr:1,sixToTenyr:1,elevenPlus:1}",        # Possible values: oneyr, twoyr, threeToFiveyr, sixToTenyr, elevenPlus
+  relatedFunding    = "I got big bucks and I cannot lie."
   )
 fac.save()
 

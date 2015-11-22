@@ -51,7 +51,7 @@ def projects_getNarrative (username):
   path = cfg["filepaths"]["directory"]
   path = path.replace("%%username%%", username)
   path = path.replace("%%applicationCycle%%", applicationCycle)
-  
+
   knownFiles = os.listdir(path)
   
   for filenames in knownFiles:
@@ -59,11 +59,10 @@ def projects_getNarrative (username):
       response = {"response": "OK",
       "narrative": filenames}
       return jsonify(response)
-    else:
-      response = { "response": cfg["response"]["noResults"],
-                "details": "No results found for project Narrative." }
-      return jsonify(response) 
-  
+  response = { "response": cfg["response"]["noResults"],
+            "details": "No results found for project Narrative." }
+  return jsonify(response) 
+
   
   
 ### Get IRB ###  
