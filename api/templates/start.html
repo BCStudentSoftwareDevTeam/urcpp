@@ -55,7 +55,7 @@
   <div class = "form-group"  >
     <div class = "col-sm-offset-8 col-sm-2" 
          id = "submitButton"
-         style = "display: none;">
+         >
       <button id = "submit" 
               type = "button" 
               class="btn btn-block btn-primary"
@@ -81,10 +81,24 @@
 <!-- Submit data to server -->
 <script type = "text/javascript">
    /* global api, username, formToObj, show */
-  var submitData = function () {
+   
+  function handleResponse (data) {
+    if (data.response == "OK") {
+      window.location.href = window.location.href = api.next();
+    } else {
+      /* global swal, urcpp */
+      swal({  title: "Please contact " + urcpp.constants.alertEmail,   
+              text: data["details"],   
+              type: "error",   
+              confirmButtonText: "Uh-Oh." 
+      });
+    }
+  };
+   
+  function submitData () {
     var obj = formToObj(document.querySelector("form"));
     console.log("Sending data to server: " + JSON.stringify(obj) + "\n\n");
-    api.set.start(username, obj, function (data) { console.log (data); } ); 
+    api.set.start(username, obj, handleResponse ); 
     api.go();
   };
 </script>
@@ -94,7 +108,7 @@
   /* global api, username */
 
   // This function sets the project title field
-  var setTitleAndStartDate = function (data) {
+  function setTitleAndStartDate (data) {
     // console.log(JSON.stringify(data));
     if ("project" in data) {
       console.log("Using project to set things: " + data);
@@ -105,7 +119,7 @@
     }
   };
 
-  var setOptions = function (element, options) {
+  function setOptions (element, options) {
     var $el = $("#" + element);
     $el.empty(); // remove old options
     $.each(
@@ -117,7 +131,7 @@
     );  
   }
   
-  var setProgram = function (data) {
+  function setProgram (data) {
     var programs = data.programs;
     // console.log(JSON.stringify(programs));
 
@@ -131,7 +145,7 @@
     setOptions ("program", options);
   };
   
-  var setFacultyProgram = function (data) {
+  function setFacultyProgram (data) {
     console.log("Using faculty to set things: " + JSON.stringify(data));
     console.log("\n");
     if (data.faculty.programID.pID) {
@@ -143,7 +157,7 @@
     }
   };
   
-  var setDuration = function (data) {
+  function setDuration (data) {
     var durations = data.durations;
     
     var options = {};
@@ -155,20 +169,13 @@
     setOptions("duration", options);
   };
   
-  var setDate = function (data) {
+  function setDate (data) {
     // console.log(JSON.stringify(data));
     if ("startDate" in data) {
       $("#startDate").val(data.project.startDate);
     }
   };
   
-  var showHidden = 
-    function (element) {
-      return { go: function () {
-                    $("#" + element).show(); 
-              }};
-    };
-    
   $(document).ready(function () {
     // API calls happen in-order.
     // First, we queue up the actions we want to take.
@@ -176,7 +183,6 @@
     api.projects.getPossibleDurations(setDuration);
     api.projects.get(username, setTitleAndStartDate);
     api.faculty.get(username, setFacultyProgram);
-    api.enqueue (showHidden("submitButton"));
     // Then, we set them all in motion.
     api.go();
   });

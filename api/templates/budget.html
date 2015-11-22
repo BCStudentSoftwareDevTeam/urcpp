@@ -44,34 +44,8 @@
   {% endraw %}
 </script>
 
-<!-- Load all of the form elements. 
-     Rendering them programmatically here.
-     -->
-<script type = "text/javascript">
-  $(document).ready( function () {
-    // In revese order... we're pre-pending
-    var elements = [  "Other",
-                      "Miles",
-                      "Materials",
-                      "Equipment", 
-                      "Faculty Stipend"
-                    ]
-
-  for (var ndx = 0 ; ndx < elements.length ; ndx++ ) {
-    var data = { "name" : elements[ndx], "id" : ndx };
-    rendered = Mustache.render($("#inputPair").html(), data);
-    $("#budgetForm").prepend(rendered);
-          
-    // This is how to select these elements now...
-    // $("[id='Faculty Stipend{{1}}']").val(1000);
-    }
-    
-  console.log("Done Appending.");  
-  // End Ready
-  });
-  
-</script>
-
+<!-- This is the only actual HTML on the page.
+     The rest of it is JavaScript. -->
 <div class = "row">
   <form id = "budgetForm"
         class = "form-horizontal col-sm-10 col-sm-offset-1">
@@ -94,7 +68,7 @@
     <div class = "form-group"  >
     <div class = "col-sm-offset-10 col-sm-2" 
          id = "submitButton"
-         style = "display: none;">
+         >
       <button id = "submit" 
               type = "button" 
               class="btn btn-block btn-primary"
@@ -106,10 +80,39 @@
     </div>
   </div>
 </form>
-  
-<script type = "text/javascript">
 
-  function findTotal(){
+
+<!-- Load all of the form elements. 
+     Rendering them programmatically here.
+     -->
+<script type = "text/javascript">
+  $(document).ready( function () {
+    // In revese order... we're pre-pending
+    var elements = [  "Other",
+                      "Miles",
+                      "Materials",
+                      "Equipment", 
+                      "Faculty Stipend"
+                    ]
+
+  for (var ndx = 0 ; ndx < elements.length ; ndx++ ) {
+    var data = { "name" : elements[ndx], "id" : ndx };
+    rendered = Mustache.render($("#inputPair").html(), data);
+    $("#budgetForm").prepend(rendered);
+    // This is how to select these elements now...
+    // They all have spaces in their id's.
+    // $("[id='Faculty Stipend{{1}}']").val(1000);
+    }
+    
+  console.log("Done Appending.");  
+  // End Ready
+  });
+</script>
+
+<script type = "text/javascript">
+  // This little bit of script totals things up as 
+  // people enter their budget items.
+  function findTotal() {
     var arr = document.getElementsByName("quantity");
     var tot = 0;
     
@@ -122,9 +125,7 @@
     
   // Set the total.
   $("#total").val(tot);
-  console.log(tot)
-  }
-  
+  };
 </script>
 
 <!-- JQuery Init -->
@@ -137,7 +138,7 @@
 <!-- Submit data to server -->
 <script type = "text/javascript">
    /* global api, username, formToObj, show */
-  var submitData = function () {
+  function submitData() {
     var obj = formToObj(document.querySelector("form"));
     console.log(obj);
     // api.set.people (username, obj, show); 
@@ -149,9 +150,8 @@
   $("document").ready (
     function () {
       // This is where we run our getters.
-      // The last thing is to show the submit button.
-      api.showHidden("submitButton");
-      api.go();
+      
+      // api.go();
     });
 </script>
 

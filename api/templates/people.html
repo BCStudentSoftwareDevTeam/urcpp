@@ -13,7 +13,7 @@
     };
   })();
   
-  var setBNumberStatus = function (id) {
+  function setBNumberStatus (id) {
     return function (data) {
       console.log("BNumber Status: " + JSON.stringify(data));  
       var selector = "#cgroup" + id;
@@ -26,7 +26,7 @@
       }
     };};
   
-  var checkValidBNumber = function (id) {
+  function checkValidBNumber (id) {
     /* global api */
     var bnumber = $("#cbnumber" + id).val();
     api.faculty.checkBNumber(bnumber, setBNumberStatus(id));
@@ -40,31 +40,7 @@
   {% raw %}
   <div class = 'form-group' id = "cgroup{{id}}" >
   <h4>Collaborator #{{count}}</h4>
-  <!--
-    <label for='cfirstname{{id}}' class = 'col-sm-3 control-label'>
-      First Name
-    </label>
-    <div class = 'col-sm-8'>
-      <input  name    = 'cfirstname{{id}}' 
-              id      = 'cfirstname{{id}}' 
-              type    = 'text' 
-              class   = 'form-control'
-              value   = "{{collab.firstname}}"
-              />
-    </div>
-
-    <label for='clastname{{id}}' class = 'col-sm-3 control-label'>
-      Last Name
-    </label>
-    <div class = 'col-sm-8'>
-      <input  name    = 'clastname{{id}}' 
-              id      = 'clastname{{id}}' 
-              type    = 'text' 
-              class   = 'form-control'
-              value   = "{{collab.lastname}}"
-              />
-    </div>
-    -->
+    <!-- {{collab.firstname}} {{collab.lastname}} -->
     <label for='cbnumber{{id}}' class = 'col-sm-3 control-label'>
       B-Number
     </label>
@@ -144,7 +120,7 @@
   <div class = "form-group"  >
     <div class = "col-sm-offset-9 col-sm-2" 
          id = "submitButton"
-         style = "display: none;">
+         >
       <button id = "submit" 
               type = "button" 
               class="btn btn-block btn-primary"
@@ -167,10 +143,24 @@
 <!-- Submit data to server -->
 <script type = "text/javascript">
    /* global api, username, formToObj, show */
-  var submitData = function () {
+   
+  function handleResponse (data) {
+    if (data.response == "OK") {
+      window.location.href = api.next();
+    } else {
+      /* global swal, urcpp */
+      swal({  title: "Please contact " + urcpp.constants.alertEmail,   
+              text: data["details"],   
+              type: "error",   
+              confirmButtonText: "Uh-Oh." 
+      });
+    }
+  };
+   
+  function submitData () {
     var obj = formToObj(document.querySelector("form"));
-    console.log(obj);
-    api.set.people (username, obj, show); 
+    console.log("Sending data to server: " + JSON.stringify(obj) + "\n\n");
+    api.set.people (username, obj, handleResponse ); 
     api.go();
   };
 </script>
@@ -179,13 +169,13 @@
 <script type = "text/javascript">
   /* global api, username */
   
-  var show = function (d) {
+  function show (d) {
     console.log (d);
     $("#echo").text(JSON.stringify (d));
   };
 
   // This function sets the project title field
-  var setNumberOfStudents = function (data) {
+  function setNumberOfStudents (data) {
     // console.log(JSON.stringify(data));
     if ("project" in data) {
       $("#numberStudents").val(data.project.numberStudents);
@@ -246,14 +236,14 @@
   var api = urcpp("v1");
   var project = null;
 
-  var setNumberOfStudents = function (data) {
+  function setNumberOfStudents (data) {
     var numStudents = data.project.numberStudents;
     console.log(data);
     console.log("Number of students: " + numStudents);
     $("#numStu").val(numStudents);
   };
   
-  var setCollaborators = function (data) {
+  function setCollaborators (data) {
     var collabs = data.collaborators;
     console.log ("Collaborators: " + collabs);
     
@@ -284,7 +274,6 @@
   $(document).ready(function () {
     api.projects.get (username, setNumberOfStudents);
     api.collaborators.get (username, setCollaborators);
-    api.showHidden("submitButton");
     api.go();
   });
 

@@ -20,6 +20,20 @@ var urcpp = function (version) {
   }
   
   var h =  {
+    constants: {
+      alertEmail: "heggens@berea.edu"
+    },
+    
+    next: function () {
+      var sequence = {  "start.html"    : "/t/people.html",
+                        "people.html"     : "/t/budget.html",
+                        "budget.html"   : "/t/start.html"
+                      };
+      var current = document.location.href.match(/[^\/]+$/)[0];
+      console.log("Current Page: " + current);
+      return sequence[current];
+    },
+    
     go: function () {
       $(document).dequeue(version);
     },
