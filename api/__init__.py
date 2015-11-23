@@ -13,6 +13,7 @@ import api.projects
 import api.faculty
 import api.programs
 import api.collaborators
+import api.files
 
 # Our setters, so pages can submit data
 import api.set

@@ -25,9 +25,12 @@ var urcpp = function (version) {
     },
     
     next: function () {
-      var sequence = {  "start.html"    : "/t/people.html",
+      var sequence = {  "start.html"      : "/t/create.html",
+                        "create.html"     : "/t/people.html",
                         "people.html"     : "/t/budget.html",
-                        "budget.html"   : "/t/start.html"
+                        "budget.html"     : "/t/vitae.html",
+                        "vitae.html"      : "/t/narrative.html",
+                        "narrative.html"  : "/t/done.html"
                       };
       var current = document.location.href.match(/[^\/]+$/)[0];
       console.log("Current Page: " + current);
@@ -152,7 +155,7 @@ var urcpp = function (version) {
     },
     
     set: {
-      start: function(username, body, callback) {
+      create: function(username, body, callback) {
         var post = aja()
           .method ('POST')
           .url (url(['/urcpp', version, 'set', 'start', username]))

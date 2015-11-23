@@ -96,7 +96,7 @@ def set_people (username):
   response = { "response" : "OK" }
   return jsonify(response)
 
-@app.route("/urcpp/v1/set/start/<username>", methods = ["POST"])
+@app.route("/urcpp/v1/set/create/<username>", methods = ["POST"])
 def set_start (username):
   if username != os.getenv("USER"):
     return { "response": cfg["response"]["badUsername"] }

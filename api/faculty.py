@@ -11,12 +11,26 @@ def previousYearsFunded (username):
   else:
     return None
 
+def getLDAPFaculty (username):
+    
+  ldapQ = (LDAPFaculty.select()
+    .where (LDAPFaculty.username == username)
+    )
+  
+  if ldapQ.exists():
+    ldap = ldapQ.get()
+    return ldap
+  else:
+    return None
+  
+
 def getFaculty (username):
   facQ = (URCPPFaculty.select()
     .where (URCPPFaculty.username == username)
     )
-  
+
   if facQ.exists():
+    fac  = facQ.get()
     return facQ.get()
   else:
     return None
@@ -27,10 +41,12 @@ def faculty_get (username):
     return { "response": cfg["response"]["badUsername"] }
   
   fac = getFaculty(username)  
+  ldap = getLDAPFaculty(username)
   
-  if fac:
+  if fac and ldap:
     response = {  "response" : "OK" }
     response["faculty"] = m2d(fac)
+    response["details"] = m2d(ldap)
     return jsonify(response)
   else:
     response = { "response": cfg["response"]["noResults"],

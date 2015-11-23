@@ -47,6 +47,16 @@ response:
 
 filepaths:
   directory: "api/static/files/%%applicationCycle%%/%%username%%"
+  allowedFileExtensions:
+    rtf: "Rich Text Foramt"
+    pdf: "Portable Document Format"
+    doc: "Old Word"
+    docx: "New Word"
+    odt: "Libre Office"
+  allowedFileNames:
+    - vitae
+    - narrative
+    - irb
 # We don't know if these are needed, but they do document the 
 # directory paths/layout that we intend...
 #  filesInDirectory:

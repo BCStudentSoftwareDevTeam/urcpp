@@ -14,6 +14,7 @@ from flask import url_for
 from flask import g
 from flask import session
 from flask import jsonify
+from werkzeug import secure_filename
 
 # We need peewee's playhouse to help us serialize results
 from playhouse.shortcuts import model_to_dict as m2d
@@ -28,6 +29,7 @@ import uuid
 # SETUP
 ######################################################
 # Set up the Flask app
+
 app = Flask(__name__)
 
 from api.switch import switch

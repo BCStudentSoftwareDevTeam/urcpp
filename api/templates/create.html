@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %} URCPP Project Basics {% endblock %}
+
+{% block body %}
+
+<h1>URCPP Project Basics</h1>
+
+<p>
+  Your project submission will require you to provide:
+</p>
+
+<ol>
+  <li> Project Basics (this page) </li>
+  <li> BNumbers for collaborators (if any) </li>
+  <li> A project budget & number of students </li>
+  <li> A project narrative (.docx or PDF) </li>
+  <li> Something else? </li>
+</ol>
+
+<p>
+  After you are finished, any project collaborators will need to login and submit their CVs as well. At that point, your submission will be complete.  
+</p>
+
+<form class = "form-horizontal">
+  <div class = "form-group">
+    <label for="title" class = "col-sm-2 control-label">Project Title </label>
+    <div class = "col-sm-9">
+      <input name = "title" id = "title" type = "text" class="form-control"/>
+    </div>
+  </div>
+  
+  <div class = "form-group">
+    <label for = "program" class = "col-sm-2 control-label">Program </label>
+    <div class = "col-sm-9">
+      <select name = "program" id = "program" class="form-control"> </select>
+    </div>
+  </div>
+  
+  <div class = "form-group"> 
+    <label for = "duration" class = "col-sm-2 control-label">Duration </label>
+    <div class = "col-sm-9">
+      <select name = "duration" id = "duration" class="form-control"> </select>  
+    </div>
+  </div>
+  
+  <div class = "form-group">
+    <label for = "startDate" class = "col-sm-2 control-label">Start Date </label>
+    <div class = "col-sm-9">
+      <input name = "startDate" id = "startDate" type = "text"  class="form-control"/>
+    </div>
+  </div>
+  
+  <script type = "text/javascript">
+    $(function() {
+      $( "#startDate" ).datepicker();
+    });
+  </script>
+  
+  <div class = "form-group"  >
+    <div class = "col-sm-offset-9 col-sm-2" 
+         id = "submitButton"
+         >
+      <button id = "submit" 
+              type = "button" 
+              class="btn btn-block btn-primary"
+              onClick = "submitData();"
+              class = "form-control"
+              />
+        Submit
+      </button>
+    </div>
+  </div>
+</form>
+
+<!-- Load this page's JavaScript -->
+<script src = "/s/pages/create.js" type = "text/javascript"> </script>
+
+{% endblock %}

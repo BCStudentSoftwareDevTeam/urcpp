@@ -22,7 +22,7 @@ function handleResponse (data) {
 function submitData () {
   var obj = formToObj(document.querySelector("form"));
   console.log("Sending data to server: " + JSON.stringify(obj) + "\n\n");
-  api.set.start(username, obj, handleResponse ); 
+  api.set.create (username, obj, handleResponse ); 
   api.go();
 };
 

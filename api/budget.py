@@ -1,15 +1,16 @@
 from everything import *
 
 def getBudget (username):
-   facQ = (URCPPFaculty.select()
+   
+   budgQ = (Budget.select()
+      .join (URCPPFaculty, on = (URCPPFaculty.pID == Projects.pID))
+      .join (Projects, on = (Projects.budgetID == Budget.bID))
       .where (URCPPFaculty.username == username)
       )
    
-   if facQ.exists():
-      fac = facQ.get()
-      if fac.pID:
-        if fac.piD.budgetID
-          return fac.pID.budgetID
-      return None
+   app.logger.info("Looking for budget with query:\n\n" + budgQ + "\n\n")
+   
+   if budgQ.exists():
+      return budgQ.get()
    else:
       return None
