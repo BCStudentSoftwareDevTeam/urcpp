@@ -27,7 +27,7 @@ function submitData () {
 };
 
 //********************************************
-// PAGE INTERACTIONS (GETETING DATA)
+// PAGE INTERACTIONS (GETTING DATA)
 //********************************************
  
 // This function sets the project title field
@@ -37,6 +37,7 @@ function setTitleAndStartDate (data) {
     console.log("Using project to set things: " + data);
     
     $("#title").val(data.project.title);
+    console.log(data.project.title);
     $("#startDate").val(data.project.startDate);
     $("#duration").val(data.project.duration);
   }
@@ -100,10 +101,11 @@ function setDate (data) {
 };
 
 $(document).ready(function () {
+  /* global username */
   // API calls happen in-order.
   // First, we queue up the actions we want to take.
   api.programs.getAll(setProgram);
-  api.projects.getPossibleDurations(setDuration);
+  api.projects.getPossibleDurations(setDuration);  
   api.projects.get(username, setTitleAndStartDate);
   api.faculty.get(username, setFacultyProgram);
   // Then, we set them all in motion.

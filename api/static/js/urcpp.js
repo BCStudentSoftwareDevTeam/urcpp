@@ -158,7 +158,7 @@ var urcpp = function (version) {
       create: function(username, body, callback) {
         var post = aja()
           .method ('POST')
-          .url (url(['/urcpp', version, 'set', 'start', username]))
+          .url (url(['/urcpp', version, 'set', 'create', username]))
           .body (body)
           .on ('success', dq(callback));
         addToQueue(version, post);

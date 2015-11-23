@@ -1,15 +1,20 @@
 from everything import *
 
-@app.route ("/urcpp/v1/programs/getAll", methods = ["POST"])
-def programs_getAll ():
+def getAllPrograms ():
   # This returns the program table
-  
   progQ = (Programs.select())
   
   if progQ.exists():
+    return progQ.select()
+  else:
+    return None
+
+@app.route ("/urcpp/v1/programs/getAll", methods = ["POST"])
+def programs_getAll ():
+  progs = getAllPrograms()
+  
+  if progs:
     response = {  "response" : "OK" }
-    progs = progQ.select()
-    
     dicts = map(m2d, progs)
     app.logger.info("Programs: {0}".format(dicts))
     

@@ -15,5 +15,7 @@ import api.programs
 import api.collaborators
 import api.files
 
+import api.pages
+
 # Our setters, so pages can submit data
 import api.set

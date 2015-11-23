@@ -12,7 +12,7 @@
   <div class = 'form-group' id = "inputGroup{{id}}" >
     <div class = "row" style = "padding-bottom: 10px; padding-top: 30px;">
         <label for='{{name}}{{id}}' class = 'col-sm-4 control-label'>
-          {{name}}
+          {{name}} ($)
         </label>
     
         <div class = 'col-sm-8'>
@@ -52,14 +52,14 @@
     <div class = 'form-group has-success' id = "totalGroup" >
       <div class = "row">
         <label for='total' class = 'col-sm-4 control-label'>
-          Total
+          Total ($)
         </label>
         <div class = 'col-sm-8'>
           <input  name  = 'total' 
                   id    = 'total' 
                   type  = 'text' 
                   class = 'form-control'
-                  value = ""
+                  value = "0"
                   />
         </div>
       </div>
@@ -89,7 +89,7 @@
   $(document).ready( function () {
     // In revese order... we're pre-pending
     var elements = [  "Other",
-                      "Miles",
+                      "Travel",
                       "Materials",
                       "Equipment", 
                       "Faculty Stipend"
