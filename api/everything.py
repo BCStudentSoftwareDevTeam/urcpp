@@ -14,6 +14,7 @@ from flask import url_for
 from flask import g
 from flask import session
 from flask import jsonify
+from flask import send_from_directory
 from werkzeug import secure_filename
 
 # We need peewee's playhouse to help us serialize results
