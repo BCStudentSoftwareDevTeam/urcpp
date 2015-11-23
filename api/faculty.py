@@ -57,7 +57,7 @@ def faculty_get (username):
 @app.route("/urcpp/v1/faculty/checkBNumber/<bnumber>", methods = ["POST"])
 def faculty_checkBNumber (bnumber):
   # We are assuming BNumbers are less than 10 characters
-  if (len(bnumber) < 10) and (bnumber.find("B") == 0):
+  if (len(bnumber) < 12) and (bnumber.find("B") == 0):
     facQ = (LDAPFaculty.select()
       .where (LDAPFaculty.bnumber == bnumber)
       )
@@ -65,4 +65,6 @@ def faculty_checkBNumber (bnumber):
       return jsonify({ "response" : "OK" })
     else:
       return jsonify({ "response" : "NOTFOUND" })
+  else:
+    return jsonify({ "response" : "NOTFOUND" })
 

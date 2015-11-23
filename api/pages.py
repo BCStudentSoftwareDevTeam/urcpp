@@ -9,7 +9,7 @@ def validPageTemplate (page):
   return page in os.listdir(cfg["filepaths"]["pageTemplates"])
 
 @app.route("/urcpp/<username>/<page>", methods = ["GET"])
-def create (username, page):
+def generic_page_get (username, page):
   if validPageTemplate (page + ".html"):
     fac = getFaculty(username)
     ldap = getLDAPFaculty(username)
