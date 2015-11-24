@@ -1,0 +1,12 @@
+
+<div class = "row">
+   <p>
+      We are able to accept files with the following  extensions:
+      <ul>  
+      {% for filetype in cfg["filepaths"]["allowedFileExtensions"].keys() | sort %}
+         <li>  {{filetype}} 
+               ({{cfg["filepaths"]["allowedFileExtensions"][filetype]}}) </li>
+      {% endfor %}
+      </ul>
+   </p>
+</div>

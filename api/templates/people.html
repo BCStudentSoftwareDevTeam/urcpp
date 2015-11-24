@@ -49,7 +49,7 @@
               id    = 'cbnumber{{id}}' 
               type  = 'text' 
               class = 'form-control'
-              value = "{{collab.bnumber}}"
+              value = "{{collabs.bnumber}}"
               />
       <script type = "text/javascript">
         /* global delay, checkValidBNumber, BNUMBERCHECKDELAY */
@@ -85,7 +85,7 @@
       <div class = "col-sm-8">
         <input  id = "numStu" 
                 type = "text" 
-                value = "" 
+                value = "{{proj.numberStudents}}" 
                 name = "numStu"
                 style = "text-align: right;"
                 > </input>
@@ -109,7 +109,10 @@
       <div class = "col-sm-8">
         <input  id = "numCollab" 
                 type = "text" 
-                value = "" 
+                value = "{% if collabs is not none %}
+                          {{collabs|length}}
+                         {% endif %}  
+                        "
                 name = "numCollab"
                 style = "text-align: right;"
                 > </input>
@@ -133,13 +136,7 @@
   </div>
 </form>
 
-<!-- JQuery Init -->
-<script type = "text/javascript">
-   /* global urcpp */
-  var api = urcpp('v1');
-
-</script>
-
+  
 <!-- Submit data to server -->
 <script type = "text/javascript">
    /* global api, username, formToObj, show */
@@ -169,21 +166,21 @@
 <script type = "text/javascript">
   /* global api, username */
   
-  function show (d) {
-    console.log (d);
-    $("#echo").text(JSON.stringify (d));
-  };
+  // function show (d) {
+  //   console.log (d);
+  //   $("#echo").text(JSON.stringify (d));
+  // };
 
-  // This function sets the project title field
-  function setNumberOfStudents (data) {
-    // console.log(JSON.stringify(data));
-    if ("project" in data) {
-      $("#numberStudents").val(data.project.numberStudents);
-      //$("#startDate").val(data.project.startDate);
-    }
-  };
-  // This API call asks the server for the project title.
-  api.projects.get(username, setNumberOfStudents);
+  // // This function sets the project title field
+  // function setNumberOfStudents (data) {
+  //   // console.log(JSON.stringify(data));
+  //   if ("project" in data) {
+  //     $("#numberStudents").val(data.project.numberStudents);
+  //     //$("#startDate").val(data.project.startDate);
+  //   }
+  // };
+  // // This API call asks the server for the project title.
+  // api.projects.get(username, setNumberOfStudents);
   
   var prevSpin = 0;
   
@@ -230,60 +227,60 @@
 </script>
 
 <!-- API Calls for populating / saving -->
-<script type = "text/javascript">
+ <script type = "text/javascript">
   /* global username, urcpp, Mustache, prevSpin */
   
   var api = urcpp("v1");
-  var project = null;
+ // var project = null;
 
-  function setNumberOfStudents (data) {
-    var numStudents = data.project.numberStudents;
-    console.log(data);
-    console.log("Number of students: " + numStudents);
-    $("#numStu").val(numStudents);
-  };
+  // function setNumberOfStudents (data) {
+  //   var numStudents = data.project.numberStudents;
+  //   console.log(data);
+  //   console.log("Number of students: " + numStudents);
+  //   $("#numStu").val(numStudents);
+  // };
   
-  function setCollaborators (data) {
-    var collabs = data.collaborators;
-    var collabslength = 0;
+ // function setCollaborators (data) {
+    // var collabs = data.collaborators;
+    // var collabslength = 0;
     
-    console.log ("Collaborators: " + collabs);
+    // console.log ("Collaborators: " + collabs);
     
-    if (collabs != null) {
-      prevSpin = collabs.length;
-      collabslength = collabs.length;
-    } else {
-      prevSpin = 0;
-      collabslength = 0;
-    }
+    // if (collabs != null) {
+    //   prevSpin = collabs.length;
+    //   collabslength = collabs.length;
+    // } else {
+    //   prevSpin = 0;
+    //   collabslength = 0;
+    // }
     
-    for (var ndx = 0 ; ndx < collabslength; ndx++ ) {
-      var offset = ndx + 1;
-      $("#numCollab").val(offset);
+    // for (var ndx = 0 ; ndx < collabslength; ndx++ ) {
+    //   var offset = ndx + 1;
+    //   $("#numCollab").val(offset);
             
-      var tmpl = $("#collabInputT").html();
-      var view = { 
-        "count" : ndx + 1,
-        "id" : ndx,
-        "collab" : collabs[ndx]
-      };
+    //   var tmpl = $("#collabInputT").html();
+    //   var view = { 
+    //     "count" : ndx + 1,
+    //     "id" : ndx,
+    //     "collab" : collabs[ndx]
+    //   };
       
-      console.log("View: " + view);
+    //   console.log("View: " + view);
       
-      var rendered = Mustache.render(tmpl, view);
+    //   var rendered = Mustache.render(tmpl, view);
       
-      console.log("Rendered: " + rendered);
+    //   console.log("Rendered: " + rendered);
       
-      $("#moreCollaborators").append(rendered);
+    //   $("#moreCollaborators").append(rendered);
 
-    }
-  };
+    // }
+  //};
 
-  $(document).ready(function () {
-    api.projects.get (username, setNumberOfStudents);
-    api.collaborators.get (username, setCollaborators);
-    api.go();
-  });
+  // $(document).ready(function () {
+   // api.projects.get (username, setNumberOfStudents);
+   // api.collaborators.get (username, setCollaborators);
+   // api.go();
+  // });
 
 </script>
   

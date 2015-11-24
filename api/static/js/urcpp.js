@@ -25,16 +25,18 @@ var urcpp = function (version) {
     },
     
     next: function () {
-      var sequence = {  "start.html"      : "/t/create.html",
-                        "create.html"     : "/t/people.html",
-                        "people.html"     : "/t/budget.html",
-                        "budget.html"     : "/t/vitae.html",
-                        "vitae.html"      : "/t/narrative.html",
-                        "narrative.html"  : "/t/done.html"
+      var sequence = {  "start"      : "create",
+                        "create"     : "people",
+                        "people"     : "budget",
+                        "budget"     : "vitae",
+                        "vitae"      : "narrative",
+                        "narrative"  : "irb",
+                        "irb"        : "done"
                       };
+                      
       var current = document.location.href.match(/[^\/]+$/)[0];
       console.log("Current Page: " + current);
-      return sequence[current];
+      return "/urcpp/" + username + "/" + sequence[current];
     },
     
     go: function () {

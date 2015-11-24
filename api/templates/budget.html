@@ -9,38 +9,7 @@
 
 <script id = "inputPair"  type = "x-tmpl-mustache">
   {% raw %}
-  <div class = 'form-group' id = "inputGroup{{id}}" >
-    <div class = "row" style = "padding-bottom: 10px; padding-top: 30px;">
-        <label for='{{name}}{{id}}' class = 'col-sm-4 control-label'>
-          {{name}} ($)
-        </label>
-    
-        <div class = 'col-sm-8'>
-          <input  name  = 'quantity' 
-                  id    = '{{name}}{{id}}' 
-                  type  = 'text' 
-                  class = 'form-control'
-                  value = ""
-                  onchange = "findTotal()" 
-                  // These don't seem to do anything right now.
-                  // min = "0.01" 
-                  // step = "0.01" 
-                  // max = "100000" 
-                  />
-        </div>
-    </div>    
-    <div class = "row">
-      <label for='{{name}}{{id}}' class = 'col-sm-4 control-label'>
-        {{name}} Description
-      </label>
-      <div class = "col-sm-8">
-        <textarea class="form-control" 
-                  style="min-width: 100%"
-                  rows = "3" 
-                  id = "{{name}}Description"></textarea> 
-      </div>
-    </div>
-  </div>
+ 
   {% endraw %}
 </script>
 
@@ -49,6 +18,45 @@
 <div class = "row">
   <form id = "budgetForm"
         class = "form-horizontal col-sm-10 col-sm-offset-1">
+    
+    
+    <!-- Loop starts here for each box -->
+    {% for budget in cfg["budget"] %}
+    <div  class = 'form-group' 
+          id = "inputGroup{{loop.index0}}" >
+      <div  class = "row" 
+            style = "padding-bottom: 10px; padding-top: 30px;">
+          <label  for='{{budget["title"]}}{{loop.index0}}' 
+                  class = 'col-sm-4 control-label'>
+            {{budget["title"]}}
+          </label>
+      
+          <div class = 'col-sm-8'>
+            <input  name  = 'quantity' 
+                    id    = '{{budget["title"]}}{{loop.index0}}' 
+                    type  = 'text' 
+                    class = 'form-control'
+                    value = '{{budg[budget["amountFieldName"]]}}'
+                    onchange = "findTotal()" 
+                    placeholder = {% if budget.title != "Miles " %}'($)' {% else %} "# Miles" {% endif %}
+                    />
+          </div>
+      </div>    
+      <div class = "row">
+        <label for='{{budget["title"]}}{{loop.index0}}' class = 'col-sm-4 control-label'>
+          {{budget.title}} Description
+        </label>
+        <div class = "col-sm-8">
+          <textarea class="form-control" 
+                    style="min-width: 100%"
+                    rows = "3" 
+                    id = '{{budget["title"]}}Description'>{{budg[budget["descFieldName"]]}}</textarea> 
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    <!-- Loop ends here for each box -->
+    
     <div class = 'form-group has-success' id = "totalGroup" >
       <div class = "row">
         <label for='total' class = 'col-sm-4 control-label'>
@@ -81,34 +89,6 @@
   </div>
 </form>
 
-
-<!-- Load all of the form elements. 
-     Rendering them programmatically here.
-     -->
-<script type = "text/javascript">
-  $(document).ready( function () {
-    // In revese order... we're pre-pending
-    var elements = [  "Other",
-                      "Travel",
-                      "Materials",
-                      "Equipment", 
-                      "Faculty Stipend"
-                    ]
-
-  for (var ndx = 0 ; ndx < elements.length ; ndx++ ) {
-    var data = { "name" : elements[ndx], "id" : ndx };
-    rendered = Mustache.render($("#inputPair").html(), data);
-    $("#budgetForm").prepend(rendered);
-    // This is how to select these elements now...
-    // They all have spaces in their id's.
-    // $("[id='Faculty Stipend{{1}}']").val(1000);
-    }
-    
-  console.log("Done Appending.");  
-  // End Ready
-  });
-</script>
-
 <script type = "text/javascript">
   // This little bit of script totals things up as 
   // people enter their budget items.
@@ -126,33 +106,25 @@
   // Set the total.
   $("#total").val(tot);
   };
+  
+  // Need to run on first page load.
+  $(document).ready ( function () {
+    findTotal();
+  });
 </script>
 
-<!-- JQuery Init -->
-<script type = "text/javascript">
-   /* global urcpp */
-  var api = urcpp('v1');
-
-</script>
 
 <!-- Submit data to server -->
 <script type = "text/javascript">
    /* global api, username, formToObj, show */
+  api = urcpp("v1"); 
+  
   function submitData() {
     var obj = formToObj(document.querySelector("form"));
     console.log(obj);
     // api.set.people (username, obj, show); 
     // api.go();
   };
-</script>
-
-<script type = "text/javascript">
-  $("document").ready (
-    function () {
-      // This is where we run our getters.
-      
-      // api.go();
-    });
 </script>
 
 {% endblock %}

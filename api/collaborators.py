@@ -12,7 +12,6 @@ def getCollaborators (username):
     for collab in collabs:
       collaborators.append( collab.username )
     return collaborators
-    
   else:
     return None
 

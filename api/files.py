@@ -20,7 +20,7 @@ def upload_file(whichfile, username):
     app.logger.info("File extension: {0}".format(file_extension))
     
     if ext in allowedExtensions:
-      filename = "{0}-vitae.{1}".format(username, ext)
+      filename = "{0}-{1}.{2}".format(username, whichfile, ext)
     else:
       app.logger.info("Not an allowed extention!")
       return jsonify( { "response" : "BADEXTENSION" } )

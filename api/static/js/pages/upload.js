@@ -22,9 +22,13 @@ function acceptUpload (file, done) {
 var theDrop = null;
 
 function configureDropzone () {
+  /* global uploadType */
+  
   console.log("Setting up dropzone.");
+  console.log("Upload type for this dropzone is '" + uploadType + "'");
+  
   var cfg =  {   
-        url           :   "/urcpp/v1/file/upload/vitae/" + username,
+        url           :   "/urcpp/v1/file/upload/" + uploadType + "/" + username,
         method        :   "POST",
         maxFiles      :   1,
         // This is the "element name" for file transfer
@@ -50,7 +54,7 @@ function configureDropzone () {
 $(document).ready ( function () {
    console.log ("Looking up: " + username);
    configureDropzone();
-   api.faculty.get (username, setPageElements);
-   api.go();
+   // api.faculty.get (username, setPageElements);
+   // api.go();
    
 });

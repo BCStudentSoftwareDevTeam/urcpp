@@ -44,7 +44,7 @@
     <div class = "col-sm-9">
       <select name = "program" id = "program" class="form-control"> 
       {% for prog in progs | sort %}
-        <option>{{prog.abbreviation}}: {{prog.name}}</option>
+        <option value = "{{prog.pID}}">{{prog.abbreviation}}: {{prog.name}}</option>
       {% endfor %}
       </select>
     </div>
@@ -93,5 +93,28 @@
 <!-- Load this page's JavaScript 
 <script src = "/s/js/pages/create.js" type = "text/javascript"> </script>
 -->
+<script>
+  api = urcpp("v1");
+  
+  
+  function handleResponse (data) {
+    if (data.response == "OK") {
+      window.location.href = window.location.href = api.next();
+    } else {
+      /* global swal, urcpp */
+      swal({  title: "Please contact " + urcpp.constants.alertEmail,   
+              text: data["details"],   
+              type: "error",   
+              confirmButtonText: "Uh-Oh." 
+      });
+    }
+  };
+  function submitData () {
+    var obj = formToObj(document.querySelector("form"));
+    console.log("Sending data to server: " + JSON.stringify(obj) + "\n\n");
+    api.set.create (username, obj, handleResponse ); 
+    api.go();
+  };
+</script>
 
 {% endblock %}

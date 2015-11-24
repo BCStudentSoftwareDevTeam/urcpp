@@ -3,6 +3,30 @@ urcpp:
   possibleDurations:
     - 8
     - 10
+
+contacts:
+  irbChairName: "Dan Huck"
+  irbChairEmail: "huckd@berea.edu"
+  
+budget:
+  - title: "Faculty Stipend "
+    amountFieldName: "facultyStipend"
+    descFieldName: "facultyStipendDesc"
+  - title: "Equipment "
+    amountFieldName: "equipment"
+    descFieldName: "equipmentDesc"
+  - title: "Materials "
+    amountFieldName: "materials"
+    descFieldName: "materialsDesc"
+  - title: "Travel "
+    amountFieldName: "otherTravel"
+    descFieldName: "otherTravelDesc"
+  - title: "Miles "
+    amountFieldName: "miles"
+    descFieldName: "milesDesc"
+  - title: "Other "
+    amountFieldName: "other"
+    descFieldName: "otherDesc"
     
 databases:
   dynamic: "data/urcpp.sqlite"
