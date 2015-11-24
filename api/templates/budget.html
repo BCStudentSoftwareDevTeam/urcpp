@@ -4,14 +4,8 @@
 
 <h1> Budget </h1>
 <p>
-  Some introductory text.
+URCPP can provide stipends for you and your students, plus up to $3000 for equipment, supplies, and related travel.
 </p>
-
-<script id = "inputPair"  type = "x-tmpl-mustache">
-  {% raw %}
- 
-  {% endraw %}
-</script>
 
 <!-- This is the only actual HTML on the page.
      The rest of it is JavaScript. -->
@@ -49,7 +43,8 @@
         <div class = "col-sm-8">
           <textarea class="form-control" 
                     style="min-width: 100%"
-                    rows = "3" 
+                    rows = "3"
+                    placeholder = "{{budget['placeholder']}}"
                     id = '{{budget["title"]}}Description'>{{budg[budget["descFieldName"]]}}</textarea> 
         </div>
       </div>
@@ -68,6 +63,7 @@
                   type  = 'text' 
                   class = 'form-control'
                   value = "0"
+                  readonly
                   />
         </div>
       </div>

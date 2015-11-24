@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% set currentPage = "bnumbers" %}
+
+{% block title %} Collaborator BNumbers {% endblock %}
+
+{% block body %}
+
+<div class = "row">
+  <div class = "col-sm-8 col-sm-offset-2">
+    <h1>Collaborator BNumbers </h1>
+    
+  <form class = "form-horizontal"
+      action = "/{{username}}/bnumbers" 
+      method = "POST"
+      >
+
+    <input type = "hidden" name = "numCollab" value = "{{numCollab}}" />
+  
+    {% for id in range (0, numCollab) %}
+      <div class = 'form-group' id = "cgroup{{id}}" style="margin-left:0px;">
+        <h4>Collaborator #{{id + 1}}</h4>
+          
+          <label for='cbnumber{{id}}' class = 'col-sm-3 control-label'>
+            B-Number
+          </label>
+          <div class = 'col-sm-4'>
+            <input  name  = 'cbnumber{{id}}' 
+                    id    = 'cbnumber{{id}}' 
+                    type  = 'text' 
+                    class = 'form-control'
+                    />
+            <script type = "text/javascript">
+              /* global delay, checkValidBNumber, BNUMBERCHECKDELAY */
+              $("#cbnumber{{id}}").keyup ( function() {
+                delay( function () { 
+                          checkValidBNumber("{{id}}"); 
+                      }, BNUMBERCHECKDELAY);
+              });
+            </script>
+          </div>
+      
+        </div>
+    {% endfor %}
+    
+      <div class = "form-group"  >
+    <div class = "col-sm-offset-9 col-sm-2" 
+         id = "submitButton"
+         >
+      <button id = "submit" 
+              type = "submit" 
+              class="btn btn-block btn-primary form-control"
+              
+              />
+        Submit
+      </button>
+    </div>
+  </div>
+
+    </form>
+  </div>
+</div>
+
+{% endblock %}

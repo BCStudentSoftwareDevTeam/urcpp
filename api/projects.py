@@ -39,28 +39,29 @@ def projects_getPossibleDurations ():
   response["durations"] = cfg["urcpp"]["possibleDurations"]
   return jsonify(response)
 
+
 ### Get Narrative ###  
-@app.route("/urcpp/v1/projects/getNarrative/<username>", methods = ["POST"])
-def projects_getNarrative (username):
+@app.route("/urcpp/v1/projects/getNarrative/<username>/<path>", methods = ["POST"])
+def projects_getNarrative (username, path):
   if username != os.getenv("USER"):
     return { "response": cfg["response"]["badUsername"] }
   
   
   applicationCycle = str(cfg['urcpp']['applicationCycle'])
+  dirPath = cfg["filepaths"]["directory"]
+  dirPath = dirPath.replace("%%username%%", username)
+  dirPath = dirPath.replace("%%applicationCycle%%", applicationCycle)
 
-  path = cfg["filepaths"]["directory"]
-  path = path.replace("%%username%%", username)
-  path = path.replace("%%applicationCycle%%", applicationCycle)
+  knownFiles = os.listdir(dirPath)
 
-  knownFiles = os.listdir(path)
-  
   for filenames in knownFiles:
-    if "narrative" in filenames:
+    if path in filenames:
       response = {"response": "OK",
-      "narrative": filenames}
+      "uploadType": filenames}
+      print "Path exists"
       return jsonify(response)
   response = { "response": cfg["response"]["noResults"],
-            "details": "No results found for project Narrative." }
+            "details": "No results found for project file." }
   return jsonify(response) 
 
   

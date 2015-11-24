@@ -14,11 +14,14 @@
    in a div. Or, it is only exceptional circumstances that they don't.
 #}
 
-{% include "snips/" ~ uploadType ~ "-info.html" ignore missing %}
+<!-- My name is {{ldap.firstname}}, but it doesn't show up in the snip? -->
+
+{% include "snips/" ~ uploadType ~ "-info.html" ignore missing with context %}
 
 <div class = "row">
    <div class = "col-sm-8 col-sm-offset-2">
       <div class="dropzone dropzone-previews" id = "drop" > </div>
+      <label>Current File:&nbsp; </label><label id="fileLabel">None yet</label>
    </div>
 </div>
 
@@ -28,11 +31,10 @@
 
 {% include "snips/allowed-file-types.html" %}
 
-
 <script>
-   // Currently not working...
-   // Passing things through to JavaScript...
-   var uploadType = "{{uploadType}}";
+  // Currently not working...
+  // Passing things through to JavaScript...
+  var uploadType = "{{uploadType}}";
 </script>
 <script src = "/s/js/pages/upload.js" type = "text/javascript"> </script>
 

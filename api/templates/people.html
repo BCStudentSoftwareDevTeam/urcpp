@@ -1,77 +1,19 @@
 {% extends "base.html" %}
+{% set currentPage = "people" %}
+
 {% block body %}
-
-<script type = "text/javascript">
-  // In milliseconds
-  var BNUMBERCHECKDELAY = 250;
-  
-  var delay = (function(){
-    var timer = 0;
-    return function(callback, ms){
-      clearTimeout (timer);
-      timer = setTimeout(callback, ms);
-    };
-  })();
-  
-  function setBNumberStatus (id) {
-    return function (data) {
-      console.log("BNumber Status: " + JSON.stringify(data));  
-      var selector = "#cgroup" + id;
-      if (data["response"] == "OK") {
-        $(selector).removeClass("has-error");
-        $(selector).addClass("has-success");
-      } else {
-        $(selector).removeClass("has-success");
-        $(selector).addClass("has-error");
-      }
-    };};
-  
-  function checkValidBNumber (id) {
-    /* global api */
-    var bnumber = $("#cbnumber" + id).val();
-    api.faculty.checkBNumber(bnumber, setBNumberStatus(id));
-    api.go()
-  };
-  
-</script>
-
-<!-- http://shekhargulati.com/2014/05/07/using-python-flask-jinja2-with-mustache/ -->
-<script id = "collabInputT"  type = "x-tmpl-mustache">
-  {% raw %}
-  <div class = 'form-group' id = "cgroup{{id}}" style="margin-left:0px;">
-  <h4>Collaborator #{{count}}</h4>
-    <!-- {{collab.firstname}} {{collab.lastname}} -->
-    <label for='cbnumber{{id}}' class = 'col-sm-3 control-label'>
-      B-Number
-    </label>
-    <div class = 'col-sm-8'>
-      <input  name  = 'cbnumber{{id}}' 
-              id    = 'cbnumber{{id}}' 
-              type  = 'text' 
-              class = 'form-control'
-              value = "{{collabs.bnumber}}"
-              />
-      <script type = "text/javascript">
-        /* global delay, checkValidBNumber, BNUMBERCHECKDELAY */
-        $("#cbnumber{{id}}").keyup ( function() {
-          delay( function () { 
-                    checkValidBNumber("{{id}}"); 
-                }, BNUMBERCHECKDELAY);
-        });
-      </script>
-    </div>
-
-  </div>
-  {% endraw %}
-</script>
 
 <h1> Students and Collaborators </h1>
 
 <p>
-  How many students will you be working with? And, if you are going to be collaborating with other faculty or staff on this project, indicate their names and BNumbers here.
+  How many students will you be working with?
 </p>
 
-<form class = "form-horizontal col-sm-8 col-sm-offset-2">
+<form class = "form-horizontal col-sm-8 col-sm-offset-2"
+      action = "/{{username}}/people" 
+      method = "POST"
+      >
+  
   <div id = "numStudents">
     <h3> Students </h3>
     <p> Indicate how many students you intend to work with here. </p>
@@ -96,9 +38,9 @@
   <div id = "moreCollaborators">
     <h3> Collaborators </h3>
     <p> 
-      If you intend to work as a collaborative team with other faculty/staff,
-      indicate their names and BNumbers here. 
+      How many faculty/staff collaborators (if any) do you intend to have on this project?
     </p>
+    
     <div class = "form-group spinner">
       <label  for = "numberOfCollaborators"
               name = "numberOfCollaborators"
@@ -118,171 +60,23 @@
                 > </input>
       </div>
     </div>
-  </div>
-  
+      
   <div class = "form-group"  >
     <div class = "col-sm-offset-9 col-sm-2" 
          id = "submitButton"
          >
       <button id = "submit" 
-              type = "button" 
-              class="btn btn-block btn-primary"
-              onClick = "submitData();"
-              class = "form-control"
+              type = "submit" 
+              class="btn btn-block btn-primary form-control"
+              
               />
         Submit
       </button>
     </div>
   </div>
+
 </form>
 
-  
-<!-- Submit data to server -->
-<script type = "text/javascript">
-   /* global api, username, formToObj, show */
-   
-  function handleResponse (data) {
-    if (data.response == "OK") {
-      window.location.href = api.next();
-    } else {
-      /* global swal, urcpp */
-      swal({  title: "Please contact " + urcpp.constants.alertEmail,   
-              text: data["details"],   
-              type: "error",   
-              confirmButtonText: "Uh-Oh." 
-      });
-    }
-  };
-   
-  function submitData () {
-    var obj = formToObj(document.querySelector("form"));
-    console.log("Sending data to server: " + JSON.stringify(obj) + "\n\n");
-    api.set.people (username, obj, handleResponse ); 
-    api.go();
-  };
-</script>
-
-<!-- Loading data from the server -->
-<script type = "text/javascript">
-  /* global api, username */
-  
-  // function show (d) {
-  //   console.log (d);
-  //   $("#echo").text(JSON.stringify (d));
-  // };
-
-  // // This function sets the project title field
-  // function setNumberOfStudents (data) {
-  //   // console.log(JSON.stringify(data));
-  //   if ("project" in data) {
-  //     $("#numberStudents").val(data.project.numberStudents);
-  //     //$("#startDate").val(data.project.startDate);
-  //   }
-  // };
-  // // This API call asks the server for the project title.
-  // api.projects.get(username, setNumberOfStudents);
-  
-  var prevSpin = 0;
-  
-  /* global Mustache */
-  var stuSpin = $("#numStu")
-    .TouchSpin( {
-      verticalbuttons: true,
-      min: 1,
-      step: 1,
-      initval: 1
-    });
-
-  var collabSpin = $("#numCollab")
-    .TouchSpin( {
-      verticalbuttons: true,
-      min: 0,
-      step: 1,
-      initval: 0
-    });
-
-  collabSpin.on("change", function () {
-    var spin = $("#numCollab").val();
-    var dir  = 0;
-    
-    if (spin > prevSpin) {
-      var tmpl = $("#collabInputT").html();
-      var view = { "count": spin, "id" : "" + spin - 1};
-      var rendered = Mustache.render(tmpl, view);
-      console.log("> spin: " + spin + " prev: " + prevSpin);
-      $("#moreCollaborators").append(rendered);
-    } else {
-      if (prevSpin > 0) {
-        
-        var removeMe = "#cgroup" + (prevSpin - 1); 
-        console.log("Removing: " + removeMe)
-        $(removeMe).remove();
-        console.log("< spin: " + spin + " prev: " + prevSpin);
-      }
-    }
-    
-    prevSpin = spin;
-    
-  });
-</script>
-
-<!-- API Calls for populating / saving -->
- <script type = "text/javascript">
-  /* global username, urcpp, Mustache, prevSpin */
-  
-  var api = urcpp("v1");
- // var project = null;
-
-  // function setNumberOfStudents (data) {
-  //   var numStudents = data.project.numberStudents;
-  //   console.log(data);
-  //   console.log("Number of students: " + numStudents);
-  //   $("#numStu").val(numStudents);
-  // };
-  
- // function setCollaborators (data) {
-    // var collabs = data.collaborators;
-    // var collabslength = 0;
-    
-    // console.log ("Collaborators: " + collabs);
-    
-    // if (collabs != null) {
-    //   prevSpin = collabs.length;
-    //   collabslength = collabs.length;
-    // } else {
-    //   prevSpin = 0;
-    //   collabslength = 0;
-    // }
-    
-    // for (var ndx = 0 ; ndx < collabslength; ndx++ ) {
-    //   var offset = ndx + 1;
-    //   $("#numCollab").val(offset);
-            
-    //   var tmpl = $("#collabInputT").html();
-    //   var view = { 
-    //     "count" : ndx + 1,
-    //     "id" : ndx,
-    //     "collab" : collabs[ndx]
-    //   };
-      
-    //   console.log("View: " + view);
-      
-    //   var rendered = Mustache.render(tmpl, view);
-      
-    //   console.log("Rendered: " + rendered);
-      
-    //   $("#moreCollaborators").append(rendered);
-
-    // }
-  //};
-
-  // $(document).ready(function () {
-   // api.projects.get (username, setNumberOfStudents);
-   // api.collaborators.get (username, setCollaborators);
-   // api.go();
-  // });
-
-</script>
-  
+<!-- currentPage: {{currentPage}} -->
 
 {% endblock %}

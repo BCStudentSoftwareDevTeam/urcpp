@@ -4,27 +4,56 @@ urcpp:
     - 8
     - 10
 
+history:
+  - db: "oneyr"
+    desc: "Last year"
+  - db: "twoyr"
+    desc: "2 years ago"
+  - db: "threeToFiveyr"
+    desc: "3-5 years ago"
+  - db: "sixToTenyr"
+    desc: "6-10 years ago"
+  - db: "elevenPlus"
+    desc: "11+ years ago"
+
+flow:
+  start:        "create"
+  create:       "people"
+  people:       "history"
+  history:      "vitae"
+  vitae:        "upload/narrative"
+  narrative:    "irbyn"
+  irbyn:        "upload/irb"
+  irb:          "done"
+  
+
 contacts:
   irbChairName: "Dan Huck"
   irbChairEmail: "huckd@berea.edu"
   
 budget:
   - title: "Faculty Stipend "
+    placeholder: "Indicate the amount each faculty member will receive as a stipend, up to $5,300"
     amountFieldName: "facultyStipend"
     descFieldName: "facultyStipendDesc"
   - title: "Equipment "
+    placeholder: "Indicate the equipment you will to conduct your research"
     amountFieldName: "equipment"
     descFieldName: "equipmentDesc"
   - title: "Materials "
+    placeholder: "Indicate the materials and supplies you know will be needed to conduct your research."
     amountFieldName: "materials"
     descFieldName: "materialsDesc"
   - title: "Travel "
+    placeholder: "Describe the types of travel necessary to conduct the research (airfare, hotel, etc.). Exclude any travel done by car (see the next section)"
     amountFieldName: "otherTravel"
     descFieldName: "otherTravelDesc"
   - title: "Miles "
+    placeholder: "Describe the miles you and students will be traveling to conduct your research"
     amountFieldName: "miles"
     descFieldName: "milesDesc"
   - title: "Other "
+    placeholder: "Describe any funding needed for things that do not fit into the categories above"
     amountFieldName: "other"
     descFieldName: "otherDesc"
     

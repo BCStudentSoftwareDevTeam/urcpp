@@ -20,25 +20,6 @@ var urcpp = function (version) {
   }
   
   var h =  {
-    constants: {
-      alertEmail: "heggens@berea.edu"
-    },
-    
-    next: function () {
-      var sequence = {  "start"      : "create",
-                        "create"     : "people",
-                        "people"     : "budget",
-                        "budget"     : "vitae",
-                        "vitae"      : "narrative",
-                        "narrative"  : "irb",
-                        "irb"        : "done"
-                      };
-                      
-      var current = document.location.href.match(/[^\/]+$/)[0];
-      console.log("Current Page: " + current);
-      return "/urcpp/" + username + "/" + sequence[current];
-    },
-    
     go: function () {
       $(document).dequeue(version);
     },
@@ -54,15 +35,25 @@ var urcpp = function (version) {
                       };
       addToQueue (version, forqueue );
     },
-
     
+    checkBNumber: function (bnumber, callback) {
+      var post = aja()
+        .method ('POST')
+        .url (url([version, 'checkBNumber', bnumber]))
+        .body ({})
+        .on ('success', dq(callback) );
+      addToQueue(version, post);
+    },
+    
+    
+    /*
     //////////////////////////////////////////////
     // COLLABORATORS
     collaborators: {
       get: function (username, callback) {
         var post = aja()
           .method ('POST')
-          .url (url(['/urcpp', version, 'collaborators', 'get', username]))
+          .url (url([version, 'collaborators', 'get', username]))
           .body ({})
           .on ('success', dq(callback) );
         addToQueue(version, post);
@@ -75,21 +66,14 @@ var urcpp = function (version) {
       get: function (username, callback) {
         var post = aja()
           .method ('POST')
-          .url (url(['/urcpp', version, 'faculty', 'get', username]))
+          .url (url([version, 'faculty', 'get', username]))
           .body ({})
           .on ('success', dq(callback) );
           
         addToQueue(version, post);
       },
       
-      checkBNumber: function (bnumber, callback) {
-        var post = aja()
-          .method ('POST')
-          .url (url(['/urcpp', version, 'faculty', 'checkBNumber', bnumber]))
-          .body ({})
-          .on ('success', dq(callback) );
-        addToQueue(version, post);
-      },
+
       
       
     },
@@ -100,7 +84,7 @@ var urcpp = function (version) {
       getAll: function (callback) {
         var post = aja()
           .method ('POST')
-          .url (url(['/urcpp', version, 'programs', 'getAll']))
+          .url (url([version, 'programs', 'getAll']))
           .body ({})
           .on ('success', dq(callback));
         addToQueue(version, post);  
@@ -113,7 +97,7 @@ var urcpp = function (version) {
       getPossibleDurations: function (callback) {
         var post = aja()
           .method ('POST')
-          .url (url(['/urcpp', version, 'projects', 'getPossibleDurations']))
+          .url (url([version, 'projects', 'getPossibleDurations']))
           .body ({})
           .on ('success', dq(callback));
         addToQueue(version, post);
@@ -122,16 +106,16 @@ var urcpp = function (version) {
       get: function (username, callback) {
         var post = aja()
           .method ('POST')
-          .url (url(['/urcpp', version, 'projects', 'get', username]))
+          .url (url([version, 'projects', 'get', username]))
           .body ({})
           .on ('success', dq(callback));
         addToQueue(version, post);
       },
       
-      getNarrative: function (username, callback) {
+      getNarrative: function (username, path, callback) {
         var post = aja()
           .method ('POST')
-          .url (url(['/urcpp', version, 'projects', 'getNarrative', username]))
+          .url (url([version, 'projects', 'getNarrative', username, path]))
           .body ({})
           .on ('success', dq(callback));
         addToQueue(version, post);
@@ -140,7 +124,7 @@ var urcpp = function (version) {
       getIRB: function (username, callback) {
         var post = aja()
           .method ('POST')
-          .url (url(['/urcpp', version, 'projects', 'getIRB', username]))
+          .url (url([version, 'projects', 'getIRB', username]))
           .body ({})
           .on ('success', dq(callback));
         addToQueue(version, post);
@@ -149,7 +133,7 @@ var urcpp = function (version) {
       getAgencyAndServiceCommunity: function(username, callback) {
         var post = aja()
           .method ('POST')
-          .url (url(['/urcpp', version, 'projects', 'get', username]))
+          .url (url([version, 'projects', 'get', username]))
           .body ({ })
           .on ('success', dq(callback));
         addToQueue(version, post);
@@ -160,7 +144,7 @@ var urcpp = function (version) {
       create: function(username, body, callback) {
         var post = aja()
           .method ('POST')
-          .url (url(['/urcpp', version, 'set', 'create', username]))
+          .url (url([version, 'set', 'create', username]))
           .body (body)
           .on ('success', dq(callback));
         addToQueue(version, post);
@@ -169,13 +153,14 @@ var urcpp = function (version) {
       people: function(username, body, callback) {
         var post = aja()
           .method ('POST')
-          .url (url(['/urcpp', version, 'set', 'people', username]))
+          .url (url([version, 'set', 'people', username]))
           .body (body)
           .on ('success', dq(callback));
         addToQueue(version, post);
       },
       
     }
+    */
   }
 
   return h;

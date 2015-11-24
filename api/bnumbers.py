@@ -1,42 +1,25 @@
 from everything import *
+from faculty import getFaculty, getLDAPFaculty
 from projects import getProject
-from faculty import getFaculty
+from programs import getAllPrograms
+from collaborators import getCollaborators
 from budget import getBudget
 
-# FIXME: I'm pretty sure there are better ways to do almost 
-# everything in here... probably some nice SQL ways to search
-# better, etc. Also, I don't handle the case that someone
-# got the BNumber wrong. The user can enter a bogus BNumber,
-# and they have no idea it happened.
-@app.route("/urcpp/v1/set/people/<username>", methods = ["POST"])
-def set_people (username):
-  if username != os.getenv("USER"):
-    return { "response": cfg["response"]["badUsername"] }
-  # Grab the .body() from the aja() POST
-  data = request.get_json()
+from pages import validPageTemplate
+
+@app.route("/<username>/bnumbers", methods = ["POST"])
+def bnumbers_POST (username):
   
-  # This is what our post from this page looks like
-  # {cbnumber0: "B00660000", cname0: "Scott Heggen", numCollab: "1", numStu: "3"}
+  data = request.form
+  numCollab = int(data["numCollab"])
   
-  app.logger.info("Setting people page: " + json.dumps(data))
-  
-  # We want to insert the number of students into the projects table,
-  # and the collaborators into the collab table... if they don't 
-  # already exist.
-  
-  # Update project
   proj = getProject(username)
-  if proj is None:
-    proj = Project()
-  
-  proj.numberStudents = data["numStu"]
-  proj.save()
   
   # So we can do a remove...
   submittedBNumbers = []
   
   # Now, update the collaborators.
-  for ndx in range(0, int(data["numCollab"])):
+  for ndx in range(0, numCollab + 1):
     if ("cbnumber" + str(ndx)) in data:
       bnumber = data["cbnumber" + str(ndx)]
       submittedBNumbers.append(bnumber)
@@ -90,19 +73,21 @@ def set_people (username):
       # If their bnumber is not in my submitted list...
       if fac.bnumber not in submittedBNumbers:
         app.logger.info ("Deleting collaborator: " + fac.username)
-        # FIXME: This is not deleting anything from the table.
         c.delete_instance()
-      
-  response = { "response" : "OK" }
-  return jsonify(response)
 
-@app.route("/urcpp/v1/set/finalize/<username>", methods = ["POST"])
-def set_finalize (username):
-  if username != os.getenv("USER"):
-    return { "response": cfg["response"]["badUsername"] }
-  
-  proj = getProject()
-  proj.status = cfg["projectStatus"]["pending"]
-  response = { "response" : "OK" }
-  return jsonify(response)
+  return redirect (  "/{0}/history".format(username) )
+
+@app.route("/v1/checkBNumber/<bnumber>", methods = ["POST"])
+def faculty_checkBNumber (bnumber):
+  # We are assuming BNumbers are less than 10 characters
+  if (len(bnumber) < 12) and (bnumber.find("B") == 0):
+    facQ = (LDAPFaculty.select()
+      .where (LDAPFaculty.bnumber == bnumber)
+      )
+    if facQ.exists():
+      return jsonify({ "response" : "OK" })
+    else:
+      return jsonify({ "response" : "NOTFOUND" })
+  else:
+    return jsonify({ "response" : "NOTFOUND" })
 

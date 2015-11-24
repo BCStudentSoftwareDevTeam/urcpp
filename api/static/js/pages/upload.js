@@ -51,10 +51,18 @@ function configureDropzone () {
   });
 }
 
+var setFields = function (data) {
+  if (data.response = "OK") {
+    $("#fileLabel").text(data.uploadType);
+  }
+}
+  
 $(document).ready ( function () {
    console.log ("Looking up: " + username);
    configureDropzone();
    // api.faculty.get (username, setPageElements);
    // api.go();
+  api.projects.getNarrative (username, (location.pathname).split("/").pop(), setFields);
+  api.go();
    
 });

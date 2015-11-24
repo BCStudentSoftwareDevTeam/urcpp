@@ -8,6 +8,7 @@
 #}
 
 {% extends "base.html" %}
+{% set currentPage = "create" %}
 
 {% block title %} URCPP Project Basics {% endblock %}
 
@@ -21,17 +22,21 @@
 
 <ol>
   <li> Project Basics (this page) </li>
-  <li> BNumbers for collaborators (if any) </li>
-  <li> A project budget & number of students </li>
+  <li> Collaborators (students & faculty (if any)) </li>
+  <li> A project budget </li>
   <li> A project narrative (.docx or PDF) </li>
-  <li> Something else? </li>
+  <li> A CV </li>
+  <li> An IRB (if necessary) </li>
 </ol>
 
 <p>
   After you are finished, any project collaborators will need to login and submit their CVs as well. At that point, your submission will be complete.  
 </p>
 
-<form class = "form-horizontal">
+<form class = "form-horizontal col-sm-8 col-sm-offset-2"
+      action = "/{{username}}/create" 
+      method = "POST"
+      >
   <div class = "form-group">
     <label for="title" class = "col-sm-2 control-label">Project Title </label>
     <div class = "col-sm-9">
@@ -78,43 +83,15 @@
     <div class = "col-sm-offset-9 col-sm-2" 
          id = "submitButton"
          >
-      <button id = "submit" 
-              type = "button" 
+      <button id = "submit"  
               class="btn btn-block btn-primary"
-              onClick = "submitData();"
               class = "form-control"
+              type = "submit"
               />
         Submit
       </button>
     </div>
   </div>
 </form>
-
-<!-- Load this page's JavaScript 
-<script src = "/s/js/pages/create.js" type = "text/javascript"> </script>
--->
-<script>
-  api = urcpp("v1");
-  
-  
-  function handleResponse (data) {
-    if (data.response == "OK") {
-      window.location.href = window.location.href = api.next();
-    } else {
-      /* global swal, urcpp */
-      swal({  title: "Please contact " + urcpp.constants.alertEmail,   
-              text: data["details"],   
-              type: "error",   
-              confirmButtonText: "Uh-Oh." 
-      });
-    }
-  };
-  function submitData () {
-    var obj = formToObj(document.querySelector("form"));
-    console.log("Sending data to server: " + JSON.stringify(obj) + "\n\n");
-    api.set.create (username, obj, handleResponse ); 
-    api.go();
-  };
-</script>
 
 {% endblock %}

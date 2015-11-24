@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% set currentPage = "history" %}
+
+{% block body %}
+
+<h1>Previous URCPP Funding</h1>
+
+Please indicate when you and your colleagues last received funding support through the URCPP program.
+
+{% macro checkblock (ldap) -%}
+  <h4 style = "margin-top: 20px;">{{ldap.firstname}} {{ldap.lastname}}</h4>
+  {% for when in cfg["history"] %}
+    <div class="checkbox">
+      <label>
+        <input id = "{{ldap.fID}}-{{when['db']}}" type="checkbox"> {{when["desc"]}}
+      </label>
+    </div>
+  {% endfor %}
+{%- endmacro %}
+
+<div class = "row">
+  <form class = "form-horizontal col-sm-8 col-sm-offset-1"
+      action = "/{{username}}/{{currentPage}}" 
+      method = "POST"
+      >
+
+    
+    {{ checkblock (ldap) }}
+    
+    {% for collab in collabs %}
+      {{ checkblock (collab) }}
+    {% endfor %}
+
+      
+  <div class = "form-group"  >
+    <div class = "col-sm-offset-9 col-sm-2" 
+         id = "submitButton"
+         >
+      <button id = "submit" 
+              type = "submit" 
+              class="btn btn-block btn-primary form-control"
+              
+              />
+        Submit
+      </button>
+    </div>
+  </div>
+
+
+  </form>
+</div>
+
+
+{% endblock %}

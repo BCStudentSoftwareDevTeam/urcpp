@@ -17,13 +17,12 @@
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel = "stylesheet" href = "/s/css/jquery.bootstrap-touchspin.css" />
-    <script src = "/s/js/jquery.bootstrap-touchspin.js"> </script>
+    <script src = "/s/js/ext/jquery.bootstrap-touchspin.js"> </script>
     
-    <script src = "/s/js/aja.min.js"> </script>
-    <script src = "/s/js/f2o/form-to-obj.min.js"> </script>
-    <script src = "/s/js/mustache.js"> </script>
-    <script src = "/s/js/sweetalert.min.js"> </script>
-    <script src = "/s/js/dropzone.js"> </script>
+    <script src = "/s/js/ext/aja.min.js"> </script>
+    <script src = "/s/js/ext/f2o/form-to-obj.min.js"> </script>
+    <script src = "/s/js/ext/sweetalert.min.js"> </script>
+    <script src = "/s/js/ext/dropzone.js"> </script>
     
     <link rel = "stylesheet" href = "/s/css/sweetalert.css" />    
     <link rel = "stylesheet" href = "/s/css/dropzone.css" />    
@@ -32,7 +31,6 @@
     
 
   </head>
-  
   <body>
     <script type = "text/javascript">
       var username = "{{username}}";
@@ -41,5 +39,10 @@
     <div class="container">
       {% block body %} {% endblock %}  
     </div>
+    
+    <!-- Template rendered: {{currentPage}} -->
+    <script type = "text/javascript"
+            src  = "/s/js/pages/{{currentPage}}.js"
+            > </script>
   </body>
 </html>
