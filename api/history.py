@@ -19,7 +19,8 @@ def history_GET (username):
   # as LDAPFaculty objects...
   collaborators = getCollaborators(username)
   budget = getBudget(username)
-  
+  if collaborators is None:
+    collaborators = []    # Deals with null value
   
   return render_template (  "history.html",
                             proj = proj,
@@ -46,4 +47,5 @@ def history_POST (username):
   # it would be good. I just might be tired.
   # nextPage = cfg["flow"]["people"]
   
-  return redirect (  "/{0}/upload/vitae".format(username) )
+  # return redirect (  "/{0}/upload/vitae".format(username) )
+  return redirect (  "/{0}/irbyn".format(username) )

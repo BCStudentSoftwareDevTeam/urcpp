@@ -1,68 +1,31 @@
-/* global username, urcpp, Dropzone */
-var api = urcpp("v1");
+/* global username, urcpp, Dropzone, referrer */
 
-// This turns out to be annoying...
-Dropzone.autoDiscover = false;
-
-function setPageElements (data) {
-   console.log(data);
-   var fac = data["details"];
-   $("#firstname").html(fac["firstname"]);
-}
-
-//********************************************
-// DATA SUBMISSION
-//********************************************
-
-function acceptUpload (file, done) {
-  console.log("Done with: " + file);
-  done();
-}
-
-var theDrop = null;
-
-function configureDropzone () {
-  /* global uploadType */
-  
-  console.log("Setting up dropzone.");
-  console.log("Upload type for this dropzone is '" + uploadType + "'");
-  
-  var cfg =  {   
-        url           :   "/urcpp/v1/file/upload/" + uploadType + "/" + username,
-        method        :   "POST",
-        maxFiles      :   1,
-        // This is the "element name" for file transfer
-        paramName     : "file",
-        // In megabytes
-        maxFilesize   :   5,
-        accept        : acceptUpload
-        
-    };
-    
-  theDrop = new Dropzone("#drop", cfg);
-  
-  theDrop.on ("complete", function (file, done) {
-    console.log("File upload complete");
-    done();
-  });
-  
-  theDrop.on ("success", function (response) {
-    window.location.href = window.location.href = api.next();
-  });
-}
-
-var setFields = function (data) {
-  if (data.response = "OK") {
-    $("#fileLabel").text(data.uploadType);
-  }
-}
-  
 $(document).ready ( function () {
-   console.log ("Looking up: " + username);
-   configureDropzone();
-   // api.faculty.get (username, setPageElements);
-   // api.go();
-  api.projects.getNarrative (username, (location.pathname).split("/").pop(), setFields);
-  api.go();
-   
+  /*global nextPage*/
+  console.log ("Looking up: " + username);
+  
+  // If coming from the home page to upload CV, this takes you back there
+  var localNextPage = "/";
+  if (referrer != "") {
+    console.log("Coming from [inside referrer check]: " + referrer);
+    localNextPage = localNextPage.concat(username + "/" + nextPage);
+    console.log("Local next page: " + localNextPage);
+  }
+  
+  Dropzone.options.drop = {
+    paramName: "file",
+    maxFilesize: 25,
+    accept: function (file, done) {
+      console.log("File upload complete");
+      console.log("Next page: " + nextPage);
+      console.log("Actual next page: " + localNextPage);
+      done();
+    },
+    
+    init: function () {
+      this.on("success", function (file, serverResponse) {       
+                                        window.location.href =  localNextPage;
+      });
+    },
+  };
 });

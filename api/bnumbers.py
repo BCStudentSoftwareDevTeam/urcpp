@@ -78,7 +78,7 @@ def bnumbers_POST (username):
   return redirect (  "/{0}/history".format(username) )
 
 @app.route("/v1/checkBNumber/<bnumber>", methods = ["POST"])
-def faculty_checkBNumber (bnumber):
+def checkBNumber (bnumber):
   # We are assuming BNumbers are less than 10 characters
   if (len(bnumber) < 12) and (bnumber.find("B") == 0):
     facQ = (LDAPFaculty.select()

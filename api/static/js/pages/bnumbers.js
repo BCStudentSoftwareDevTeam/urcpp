@@ -28,7 +28,13 @@ function checkValidBNumber (id) {
   /* global api */
   var bnumber = $("#cbnumber" + id).val();
   console.log("About to check " + bnumber);
-  api.checkBNumber(bnumber, setBNumberStatus(id));
-  api.go()
+  
+  var post = aja()
+    .method ('POST')
+    .url ("/v1/checkBNumber/" + bnumber)
+    .body ({})
+    .on ('success', setBNumberStatus(id) )
+    .go();
+  
 };
    

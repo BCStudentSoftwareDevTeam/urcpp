@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% set currentPage = "done" %}
 {% block title %} Review Your Application {% endblock %}
 
 {% block body %}
@@ -32,25 +32,32 @@
          {% endif %}
        </dd>
        <dd>Date Submitted: {{proj.createdDate}}</dd>
-       {% if collabs is not none %}
-       <dt>Collaborators</dt>
-         {% for collaborator in collabs %}
-           <dd>{{collaborator.firstname}} {{collaborator.lastname}}</dd>
-         {% endfor %}
-       {% endif %}
-       <dt>Budget</dt>
-       <dt>Faculty Stipend: ${{budg.facultyStipend}}</dt>
+     <br />
+     {% if collabs is not none %} <!--FIX ME-->
+     <dt>Collaborators</dt>
+       {% for collaborator in collabs %}
+         <dd>{{collaborator.firstname}} {{collaborator.lastname}}</dd>
+       {% endfor %}
+     {% endif %}
+     <br />
+     <dt>Budget</dt>
+     <dt>Faculty Stipend: ${{budg.facultyStipend}}</dt>
        <dd>Description: {{budg.facultyStipendDesc}}</dd>
-       <dt>Equipment: ${{budg.equipment}}</dt>
+     <dt>Equipment: ${{budg.equipment}}</dt>
        <dd>Description: {{budg.equipmentDesc}}</dd>
-       <dt>Materials: ${{budg.materials}}</dt>
+     <dt>Materials: ${{budg.materials}}</dt>
        <dd>Description: {{budg.materialsDesc}}</dd>
-       <dt>Travel: ${{budg.otherTravel}}</dt>
+     <dt>Travel: ${{budg.otherTravel}}</dt>
        <dd>Description: {{budg.otherTravelDesc}}</dd>
-       <dt>Mileage: {{budg.miles}} miles</dt>
+     <dt>Mileage: {{budg.miles}} miles</dt>
        <dd>Description: {{budg.milesDesc}}</dd>
-       <dt>Other: ${{budg.other}}</dt>
+     <dt>Other: ${{budg.other}}</dt>
        <dd>Description: {{budg.otherDesc}}</dd>
+     <br />
+     <dt>Files</dt>
+       {% for item in uploadedFiles %}
+       <dd><a href = "/static/files/{{cfg['urcpp']['applicationCycle']}}/{{username}}/{{item}}" target = "_blank">{{item}}</a></dd>
+       {% endfor %}
    </dl>
       
   <div class = "form-group"  >
@@ -59,11 +66,11 @@
          >
       <button id = "submit" 
               type = "button" 
-              class="btn btn-block btn-primary"
+              class="btn btn-primary"
               onClick = "finalizeSubmission();"
               class = "form-control"
               />
-        Submit
+        Submit Your Application
       </button>
     </div>
   </div>

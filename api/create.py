@@ -14,7 +14,6 @@ def create_GET (username):
   proj = getProject(username)
   programs = getAllPrograms()
   
-  
   return render_template (  "create.html",
                             proj = proj,
                             username = username,
@@ -74,11 +73,13 @@ def create_POST (username):
   #response = { "response" : "OK" }
   #return jsonify(response)
   
-  return render_template (  "people.html",
-                            proj = proj,
-                            username = username,
-                            cfg = cfg,
-                            fac = faculty,
-                            ldap = ldapFaculty,
-                            progs = programs,
-                          )
+  # return render_template (  "people.html",
+  #                           proj = proj,
+  #                           username = username,
+  #                           cfg = cfg,
+  #                           fac = faculty,
+  #                           ldap = ldapFaculty,
+  #                           progs = programs,
+  #                         )
+
+  return redirect(username + '/people')

@@ -13,13 +13,15 @@ import api.globalroutes
 #import api.faculty
 #import api.programs
 #import api.collaborators
-#import api.files
+import api.files
 
 import api.create
 import api.people
 import api.bnumbers
 import api.history
-
+import api.irbyn
+import api.upload
+import api.done
 
 import api.pages
 import api.filters
