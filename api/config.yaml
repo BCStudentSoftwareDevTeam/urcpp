@@ -16,7 +16,7 @@ history:
   - db: "elevenPlus"
     desc: "11+ years ago"
 
-# NO MAS; Still need this to get through the upload sequence
+# NO MAS, sorta; Still need this to get through the upload sequence
 # Scott: Changed the order to history, irbyn, irb(if yes), vitae, narrative, done.
 # Makes the upload sequence less painful as all three are together, which is important 
 # for technical reasons, not usability.  
@@ -28,7 +28,8 @@ flow:
   irbyn:        "upload/irb"
   irb:          "upload/vitae"
   vitae:        "upload/narrative"
-  narrative:    "done"
+  narrative:    "budget"
+  budget:       "done"
   done:         "start"
 # END NO MAS
 
@@ -37,7 +38,7 @@ contacts:
   irbChairEmail: "huckd@berea.edu"
   
 budget:
-  - title: "Faculty Stipend "
+  - title: "Faculty Stipend(s) "
     placeholder: "Indicate the amount each faculty member will receive as a stipend, up to $5,300"
     amountFieldName: "facultyStipend"
     descFieldName: "facultyStipendDesc"

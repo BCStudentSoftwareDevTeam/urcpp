@@ -80,6 +80,18 @@
     });
   </script>
   
+  <div class = "row col-md-offset-1" style="font-size:1.4em;">
+    <div class = "checkbox">
+      <label><input name = "isServiceToCommunity" {% if proj.isServiceToCommunity %} checked {% endif %} id = "isServiceToCommunity" type = "checkbox"  class="checkbox" value = "{{proj.isServiceToCommunity}}">Does your project provide a service to the community?</label>
+    </div>
+  </div>
+  
+  <div class = "row col-md-offset-1" style="font-size:1.4em;">
+    <div class = "checkbox">
+      <label><input name = "hasCommunityPartner" {% if proj.hasCommunityPartner %} checked {% endif %} id = "hasCommunityPartner" type = "checkbox"  class="checkbox" value = "{{proj.hasCommunityPartner}}">Does your project involve working with community partners? </label>
+    </div>
+  </div>
+  <br />
   <div class = "form-group"  >
     <div class = "col-sm-offset-9 col-sm-2" 
          id = "submitButton"

@@ -17,7 +17,6 @@ $(document).ready ( function () {
     maxFilesize: 25,
     accept: function (file, done) {
       console.log("File upload complete");
-      console.log("Next page: " + nextPage);
       console.log("Actual next page: " + localNextPage);
       done();
     },

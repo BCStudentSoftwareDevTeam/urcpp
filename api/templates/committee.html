@@ -1,0 +1,30 @@
+{#
+  Variables needed for this page: 
+    - proj (a complete Projects object)
+    - ldap (a complete LDAPFaculty object)
+    - fac (a complete URCPPFaculty object)
+    - progs (a list of programs)
+    - cfg
+#}
+
+{% extends "base.html" %}
+{% set currentPage = "committee" %}
+
+{% block title %} URCPP Project Basics {% endblock %}
+
+{% block body %}
+
+<h1>URCPP Committee</h1>
+
+<p>
+  Welcome {{ldap.firstname}}. What would you like to do?
+</p>
+<div class = "col-sm-8 col-sm-offset-2">
+   <ul style = "font-size: 150%;">
+    <li> <a href="/{username}}/committee/allProjects">View All Projects</a> </li>
+    <li> <a href="/{{username}}/committee/allBudget">View Overall Budget</a> </li>
+    <li> <a href="/{{username}}/committee/allLabor">View Student Labor Budget</a> </li>
+    <li> <a href="/{{username}}/committee/allFiles">Download All Project Files</a> </li>
+  </ul>
+</div>
+{% endblock %}

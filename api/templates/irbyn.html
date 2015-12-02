@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% set currentPage = "irbyn" %}
+{% block body %}
+
+
+<div class = "row">
+  <div class = "col-sm-10 col-sm-offset-1">
+    <h1>Ethics in Research</h1>
+  </div>
+</div>
+
+
+<div class = "row">
+  <div class = "col-sm-10 col-sm-offset-1">
+    <p>
+      Berea College takes its commitment to ethical considerations regarding 
+      research involving human subjects very seriously. In 2015, policies were updated 
+      regarding how research involving human subjects is reviewed and approved at the
+      College. If your study involves human subjects in any way, it would be wise
+      to <a href   = "http://catalog.berea.edu/en/Current/Student-Handbook/Student-Rights-and-Responsibilities/Research-Involving-Human-Subjects"
+            target = "_blank">
+      review those guidelines now.</a>
+    </p>
+    <p>
+      All URCPP proposals involving human subjects requre (at least) a draft IRB application at this time. 
+      If you have any questions or uncertainty in this regard, it is highly recommended that you discuss your 
+      work with <a href = 'mailto:{{cfg["contacts"]["irbChairEmail"]}}'>{{cfg["contacts"]["irbChairName"]}}</a>, the current IRB chair.
+    </p>
+  </div>
+</div>
+<br />
+
+<form id = "setIRB" class = "col-sm-8 col-sm-offset-2" style = "font-size: 1.5em;" method = "POST" action="irbyn">
+  <div class = "row">
+      <div class = "row" >
+        <b>Does your research require IRB approval according to Berea College policy?</b>
+      </div>
+      <div class = "radio">
+        <label>
+          <input type = "radio" name = "irb" id = "irbYes" value = "Yes" style = "width: .8em; height: .8em;"/>
+          <label for = "irbYes">Yes</label>
+        </label>
+      </div>
+      <div class = "radio">
+        <label>
+          <input required type = "radio" name = "irb"  id = "irbNo" value = "No" style = "width: .8em; height: .8em;"/>
+          <label for "irbNo">No</label>
+        </label>
+      </div>
+  </div>
+  
+  <div class = "form-group"  >
+      <div class = "col-sm-offset-9 col-sm-2" 
+           id = "submitButton"
+           >
+        <button id = "submit"  
+                class="btn btn-block btn-primary"
+                class = "form-control"
+                type = "submit"
+                />
+          Submit
+        </button>
+      </div>
+  </div>
+</form>
+
+{% endblock %}

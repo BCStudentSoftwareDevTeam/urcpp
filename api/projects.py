@@ -12,6 +12,15 @@ def getProject (username):
     return proj
   else:
     return None
+
+def getAllProjects ():
+  allProjQ = (Projects.select())
+  
+  if allProjQ.exists():
+    projs = allProjQ.execute()
+    return projs
+  else:
+    return None
     
 @app.route("/urcpp/v1/projects/get/<username>", methods = ["POST"])
 def projects_get (username):
