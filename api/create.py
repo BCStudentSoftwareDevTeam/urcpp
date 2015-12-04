@@ -8,6 +8,9 @@ from pages import *
 
 @app.route("/<username>/create", methods = ["GET"])
 def create_GET (username):
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
+
   # All of our queries
   faculty = getFaculty(username)
   ldapFaculty = getLDAPFaculty(username)
@@ -26,7 +29,7 @@ def create_GET (username):
 
 @app.route("/<username>/create", methods = ["POST"])
 def create_POST (username):
-  if username != os.getenv("USER"):
+  if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
 
   # Grab the .body() from the aja() POST

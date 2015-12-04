@@ -48,7 +48,7 @@
     <label for = "program" class = "col-sm-2 control-label">Program </label>
     <div class = "col-sm-9">
       <select name = "program" id = "program" class="form-control"> 
-      {% for prog in progs | sort %}
+      {% for prog in progs %}
         <option value = "{{prog.pID}}">{{prog.abbreviation}}: {{prog.name}}</option>
       {% endfor %}
       </select>

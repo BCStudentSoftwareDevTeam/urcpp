@@ -7,25 +7,29 @@ from budget import getBudget
 
 from pages import *
 
-# @app.route ("/s/<path:path>", methods = ["GET"])
-# def templates (path):
-#   return send_from_directory (path)
+import pprint
+
+@app.route ("/s/<path:path>", methods = ["GET"])
+def statics (path):
+  return app.send_static_file (path)
 
 @app.route ("/t/<path:path>", methods = ["GET"])
 def templates (path):
   return render_template ( path, 
-                           username = os.getenv('USER'),
+                           username = authUser(request.environ),
                            cfg = cfg
                         )
 
 @app.route("/", methods = ["GET"])
 def main ():
-  username = os.getenv("USER")
+  username = authUser(request.environ)
+
+  # print(pprint.pformat (request.environ, depth = 5))
   
   ldap = getLDAPFaculty(username)
   
   return render_template ("start.html", 
-                           username = os.getenv('USER'),
+                           username = username,
                            ldap = ldap
                            )
 

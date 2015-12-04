@@ -17,6 +17,8 @@ pip install pyopenssl ndg-httpsclient pyasn1
 pip install ldap3
 # For docs
 pip install mkdocs
+pip install gunicorn
+pip install tornado
 
 # For QR Codes
 #pip install sqlite-web

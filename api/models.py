@@ -1,13 +1,18 @@
 import datetime
 from peewee import *
+import os
 
 # Create a database
 from api.config import load_config
 
 # The path is relative to the top of the project.
+print("GETCWD MODELS: " + os.getcwd())
+
 cfg = load_config('api/config.yaml')
 staticDB  = SqliteDatabase(cfg['databases']['static'])
 dynamicDB = SqliteDatabase(cfg['databases']['dynamic'])
+
+print ("SQLITE DATABASES LOADED.")
 
 class StaticModel (Model):
   class Meta:

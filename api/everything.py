@@ -26,6 +26,9 @@ from models import *
 # For unique values
 import uuid
 
+def authUser (env):
+  return env.get("HTTP_X_REMOTE_USER")
+
 ######################################################
 # SETUP
 ######################################################
