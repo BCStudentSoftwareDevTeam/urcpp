@@ -12,6 +12,15 @@ def getProject (username):
     return proj
   else:
     return None
+
+def getAllProjects ():
+  allProjQ = (Projects.select())
+  
+  if allProjQ.exists():
+    projs = allProjQ.execute()
+    return projs
+  else:
+    return None
     
 @app.route("/urcpp/v1/projects/get/<username>", methods = ["POST"])
 def projects_get (username):
@@ -66,28 +75,28 @@ def projects_getNarrative (username, path):
 
   
   
-### Get IRB ###  
-@app.route("/urcpp/v1/projects/getIRB/<username>", methods = ["POST"])
-def projects_getIRB (username):
-  if username != os.getenv("USER"):
-    return { "response": cfg["response"]["badUsername"] }
+# ### Get IRB ###  
+# @app.route("/urcpp/v1/projects/getIRB/<username>", methods = ["POST"])
+# def projects_getIRB (username):
+#   if username != os.getenv("USER"):
+#     return { "response": cfg["response"]["badUsername"] }
   
 
-  applicationCycle = str(cfg['urcpp']['applicationCycle'])
+#   applicationCycle = str(cfg['urcpp']['applicationCycle'])
   
-  path = cfg["filepaths"]["directory"]
-  path = path.replace("%%username%%", username)
-  path = path.replace("%%applicationCycle%%", applicationCycle)
+#   path = cfg["filepaths"]["directory"]
+#   path = path.replace("%%username%%", username)
+#   path = path.replace("%%applicationCycle%%", applicationCycle)
   
-  knownFiles = os.listdir(path)
+#   knownFiles = os.listdir(path)
   
-  for filenames in knownFiles:
-    print filenames
-    if "irb" in filenames:
-      response = {"response": "OK",
-      "irb": filenames}
-      return jsonify(response)
+#   for filenames in knownFiles:
+#     print filenames
+#     if "irb" in filenames:
+#       response = {"response": "OK",
+#       "irb": filenames}
+#       return jsonify(response)
     
-  response = { "response": cfg["response"]["noResults"],
-            "details": "No results found for project IRB." }
-  return jsonify(response) 
+#   response = { "response": cfg["response"]["noResults"],
+#             "details": "No results found for project IRB." }
+#   return jsonify(response) 

@@ -19,7 +19,6 @@ def people_GET (username):
   collaborators = getCollaborators(username)
   budget = getBudget(username)
   
-  
   return render_template (  "people.html",
                             proj = proj,
                             username = username,
@@ -28,6 +27,7 @@ def people_GET (username):
                             ldap = ldapFaculty,
                             progs = programs,
                           )
+
 
 @app.route("/<username>/people", methods = ["POST"])
 def people_POST (username):
@@ -44,9 +44,11 @@ def people_POST (username):
   
   proj.numberStudents = numStu
   proj.save()
-
-  return render_template (  "bnumbers.html",
+  if numCollab > 0:
+    return render_template (  "bnumbers.html",
                             username = username,
                             cfg = cfg,
                             numCollab = numCollab
                           )
+  else:
+    return redirect(username + "/history")

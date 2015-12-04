@@ -26,11 +26,11 @@ Please indicate when you and your colleagues last received funding support throu
 
     
     {{ checkblock (ldap) }}
-    
-    {% for collab in collabs %}
-      {{ checkblock (collab) }}
-    {% endfor %}
-
+    {% if collabs is defined %}
+      {% for collab in collabs %}
+        {{ checkblock (collab) }}
+      {% endfor %}
+    {% endif%}
       
   <div class = "form-group"  >
     <div class = "col-sm-offset-9 col-sm-2" 

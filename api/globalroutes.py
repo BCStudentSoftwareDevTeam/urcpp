@@ -32,30 +32,7 @@ def main ():
                            username = username,
                            ldap = ldap
                            )
-
-# This looks like file upload, but it isn't.
-# This renders a "generic" upload page, where the upload type
-# is one of three types. The page configures itself based 
-# on the type of upload being requested.
-@app.route("/<username>/upload/<uploadType>", methods = ["GET"])
-def generic_file_upload (username, uploadType):
-  if uploadType in cfg["filepaths"]["allowedFileNames"]:
-    # All of our queries
-    faculty = getFaculty(username)
-    ldapFaculty = getLDAPFaculty(username)
-    proj = getProject(username)
-    programs = getAllPrograms()
-    collaborators = getCollaborators(username)
-    budget = getBudget(username)
-    
-    
-    return render_template (  "upload.html",
-                              proj = proj,
-                              username = username,
-                              cfg = cfg,
-                              fac = faculty,
-                              ldap = ldapFaculty,
-                              uploadType = uploadType
-                            )
-  else:
-    return "File upload type not recognized."
+@app.route("/<username>", methods = ["GET"])
+def main_with_username (username):
+  print "Going home"
+  return redirect('/')

@@ -17,7 +17,6 @@ def create_GET (username):
   proj = getProject(username)
   programs = getAllPrograms()
   
-  
   return render_template (  "create.html",
                             proj = proj,
                             username = username,
@@ -34,7 +33,7 @@ def create_POST (username):
 
   # Grab the .body() from the aja() POST
   data = request.form
-
+  print data
   # This is what our post from this page looks like
   # {duration: "8", program: "1", startDate: "May 1", title: "URCPP Software Also"}
   
@@ -58,6 +57,11 @@ def create_POST (username):
   proj.startDate  = data["startDate"]
   proj.duration   = int(data["duration"])
   proj.budgetID   = budg.bID
+
+  # print (data["isServiceToCommunity"] if data["isServiceToCommunity"] is not None else False)
+  # print (data["hasCommunityPartner"] if data["hasCommunityPartner"] is not None else False)
+  proj.isServiceToCommunity = data["isServiceToCommunity"] if "isServiceToCommunity" in data is not None else False 
+  proj.hasCommunityPartner = data["hasCommunityPartner"] if "hasCommunityPartner" in data is not None else False
   proj.save()  
   
   # Next, update the faculty's program
@@ -71,17 +75,5 @@ def create_POST (username):
   fac.pID       = proj.pID
   fac.programID = int(data["program"])
   fac.save()
-  
-  # Next, we need 
-  
-  #response = { "response" : "OK" }
-  #return jsonify(response)
-  
-  return render_template (  "people.html",
-                            proj = proj,
-                            username = username,
-                            cfg = cfg,
-                            fac = faculty,
-                            ldap = ldapFaculty,
-                            progs = programs,
-                          )
+
+  return redirect(username + '/people')

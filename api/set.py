@@ -95,14 +95,3 @@ def set_people (username):
       
   response = { "response" : "OK" }
   return jsonify(response)
-
-@app.route("/urcpp/v1/set/finalize/<username>", methods = ["POST"])
-def set_finalize (username):
-  if username != os.getenv("USER"):
-    return { "response": cfg["response"]["badUsername"] }
-  
-  proj = getProject()
-  proj.status = cfg["projectStatus"]["pending"]
-  response = { "response" : "OK" }
-  return jsonify(response)
-
