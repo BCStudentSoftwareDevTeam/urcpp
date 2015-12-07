@@ -23,8 +23,7 @@ def templates (path):
 @app.route("/", methods = ["GET"])
 def main ():
   username = authUser(request.environ)
-
-  # print(pprint.pformat (request.environ, depth = 5))
+  print(pprint.pformat (request.environ, depth = 5))
   
   ldap = getLDAPFaculty(username)
   

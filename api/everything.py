@@ -27,8 +27,8 @@ from models import *
 import uuid
 
 def authUser (env):
-  return env.get("HTTP_X_REMOTE_USER")
-
+  if env.get("HTTP_X_PROXY_REMOTE_USER"):
+    return env.get("HTTP_X_PROXY_REMOTE_USER")
 ######################################################
 # SETUP
 ######################################################
