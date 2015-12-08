@@ -3,13 +3,14 @@ from peewee import *
 from api.everything import *
 
 cfg = load_config('api/config.yaml')
-skt = load_config('api/secret_config.yaml')
+# skt = load_config('api/secret_config.yaml')
 
 theStaticDB = SqliteDatabase(cfg['databases']['static'])
 theStaticDB.drop_table(LDAPFaculty)
 
 server = Server ('berea.edu', port=389, use_ssl=False, get_info='ALL')
-conn   = Connection (server, user=skt['ldap']['user'], password=skt['ldap']['pass'])
+# conn   = Connection (server, user=skt['ldap']['user'], password=skt['ldap']['pass'])
+conn   = Connection (server, user="BPLP", password="Ol1v4r!Tun4bp")
 if not conn.bind():
     print('error in bind', conn.result)
 
