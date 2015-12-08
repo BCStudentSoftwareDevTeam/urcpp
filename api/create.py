@@ -3,6 +3,7 @@ from faculty import getFaculty, getLDAPFaculty
 from projects import getProject
 from programs import getAllPrograms
 from budget import getBudget
+from parameters import getParameters
 
 from pages import *
 
@@ -16,6 +17,7 @@ def create_GET (username):
   ldapFaculty = getLDAPFaculty(username)
   proj = getProject(username)
   progs = getAllPrograms()
+  parameters = getParameters()
   
   return render_template (  "create.html",
                             proj = proj,
@@ -24,6 +26,7 @@ def create_GET (username):
                             fac = faculty,
                             ldap = ldapFaculty,
                             progs = progs,
+                            params = parameters
                           )
 
 @app.route("/<username>/create", methods = ["POST"])

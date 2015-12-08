@@ -71,13 +71,21 @@
   <div class = "form-group">
     <label for = "startDate" class = "col-sm-2 control-label">Start Date </label>
     <div class = "col-sm-9">
-      <input name = "startDate" id = "startDate" type = "date"  class="form-control" value = "{{proj.startDate}}" required> </input>
+      <input  name = "startDate" 
+              id = "startDate" 
+              type = "date"  
+              class="form-control" 
+              value = "{{proj.startDate.strftime('%Y-%m-%d')}}" 
+              required
+              min = "{{params.year}}-01-01"
+              max = "{{params.year}}-12-31"
+      ></input>
     </div>
   </div>
   
   <script type = "text/javascript">
     $(function() {
-      $( "#startDate" ).datepicker("option", "dateFormat", "yyyy-mm-dd");
+      $( "#startDate" ).datepicker("option", "dateFormat", "mm/dd/yyyy");
     });
   </script>
   
