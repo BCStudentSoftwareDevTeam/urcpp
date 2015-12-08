@@ -17,7 +17,7 @@ def getCollaborators (username):
 
 @app.route ("/urcpp/v1/collaborators/get/<username>", methods = ["POST"])
 def collaborators_get (username):
-  if username != os.getenv("USER"):
+  if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
 
   collabs = getCollaborators(username)

@@ -49,6 +49,8 @@ def history_GET (username):
                           
 @app.route("/<username>/history", methods = ["POST"])
 def history_POST (username):
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
   # Form data looks like... 
   # [('oneyr', u'oneyr'), ('sixToTenyr', u'sixToTenyr'), ('twoyr', u'twoyr'), ('threeToFiveyr', u'threeToFiveyr')]
   # If the tag exists, the box was checked; otherwise, not checked

@@ -41,7 +41,7 @@ def done_GET (username):
 
 @app.route("/<username>/finalize", methods = ["POST"])
 def finalize_POST (username):
-  if username != os.getenv("USER"):
+  if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
   
   proj = getProject(username)

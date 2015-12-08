@@ -31,6 +31,9 @@ def people_GET (username):
 
 @app.route("/<username>/people", methods = ["POST"])
 def people_POST (username):
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
+    
   numStu    = int(request.form["numStu"])
   numCollab = int(request.form["numCollab"])
   

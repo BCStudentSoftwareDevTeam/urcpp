@@ -24,7 +24,7 @@ def getAllProjects ():
     
 @app.route("/urcpp/v1/projects/get/<username>", methods = ["POST"])
 def projects_get (username):
-  if username != os.getenv("USER"):
+  if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
   
   # Look up the project for this user.

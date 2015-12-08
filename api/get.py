@@ -55,7 +55,7 @@ def projects_getTitle (username):
 ### Get Narrative ###  
 @app.route("/urcpp/v1/projects/getNarrative/<username>", methods = ["POST"])
 def getNarrative (username):
-  if username != os.getenv("USER"):
+  if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
   
 
@@ -93,6 +93,8 @@ def getNarrative (username):
 
 @app.route ("/urcpp/v1/faculty/details/<username>", methods = ["POST"])
 def getFacultyDetails (username):
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
   # FIXME: The funny library pushes things through as... form data?
   # force is for ignoring headers
   # data = request.get_json (force = True)

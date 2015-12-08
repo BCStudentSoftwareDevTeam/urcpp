@@ -35,7 +35,7 @@ def getFaculty (username):
     
 @app.route("/urcpp/v1/faculty/get/<username>", methods = ["POST"])
 def faculty_get (username):
-  if username != os.getenv("USER"):
+  if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
   
   fac = getFaculty(username)  

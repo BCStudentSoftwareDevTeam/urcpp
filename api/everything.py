@@ -26,7 +26,7 @@ from models import *
 # For unique values
 import uuid
 
-def authUser (env):
+def authUser(env):
   # app.logger.info("Found remote user: " + env.get("HTTP_X_REMOTE_USER"))
   if env.get("HTTP_X_PROXY_REMOTE_USER"):
     return env.get("HTTP_X_PROXY_REMOTE_USER")

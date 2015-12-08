@@ -9,7 +9,10 @@ from pages import validPageTemplate
 
 @app.route("/<username>/bnumbers", methods = ["POST"])
 def bnumbers_POST (username):
-  
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
+    
+    
   data = request.form
   numCollab = int(data["numCollab"])
   
@@ -79,6 +82,9 @@ def bnumbers_POST (username):
 
 @app.route("/v1/checkBNumber/<bnumber>", methods = ["POST"])
 def checkBNumber (bnumber):
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
+    
   # We are assuming BNumbers are less than 10 characters
   if (len(bnumber) < 12) and (bnumber.find("B") == 0):
     facQ = (LDAPFaculty.select()

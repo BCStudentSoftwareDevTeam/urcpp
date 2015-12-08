@@ -26,7 +26,7 @@ def irbyn_GET (username):
 # Sets the flag in the DB for IRB, and redirects to upload page.
 @app.route("/<username>/irbyn", methods = ["POST"])
 def irbyn_POST (username):
-  if username != os.getenv("USER"):
+  if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
   
   

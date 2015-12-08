@@ -12,6 +12,8 @@ def getAllPrograms ():
 
 @app.route ("/urcpp/v1/programs/getAll", methods = ["POST"])
 def programs_getAll ():
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
   progs = getAllPrograms()
   
   if progs:

@@ -51,7 +51,7 @@ def budget_GET (username):
                           
 @app.route("/<username>/budget", methods = ["POST"])
 def budget_POST (username):
-  if username != os.getenv("USER"):
+  if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
   
   data = request.form

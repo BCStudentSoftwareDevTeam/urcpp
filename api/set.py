@@ -10,7 +10,7 @@ from budget import getBudget
 # and they have no idea it happened.
 @app.route("/urcpp/v1/set/people/<username>", methods = ["POST"])
 def set_people (username):
-  if username != os.getenv("USER"):
+  if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
   # Grab the .body() from the aja() POST
   data = request.get_json()
