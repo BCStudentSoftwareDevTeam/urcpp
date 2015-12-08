@@ -75,7 +75,7 @@
               id = "startDate" 
               type = "date"  
               class="form-control" 
-              value = "{{proj.startDate.strftime('%Y-%m-%d')}}" 
+              {% if proj %}value = "{{proj.startDate.strftime('%Y-%m-%d')}}"{% endif %} 
               required
               min = "{{params.year}}-01-01"
               max = "{{params.year}}-12-31"
