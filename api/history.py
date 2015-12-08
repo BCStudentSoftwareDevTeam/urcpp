@@ -7,6 +7,21 @@ from budget import getBudget
 
 from pages import validPageTemplate
 
+def buildJSONHistory (data, username):
+  print "Starting JSON build for " + username
+  jsonOut  = "{\n"
+
+  for h in cfg["history"]:
+    result = data.get((username + "-" + h["db"]), default = "")  
+    # print "Result: " + result
+    # print "Against: " + username + "-" + h["db"]
+    if result == username + "-" + h["db"]:
+      jsonOut += h["db"] + ": true, \n"
+      # print "JSON LOOKS LIKE: " +jsonOut + "\n"
+    
+  jsonOut += "}"
+  # print "JSON finale: " + jsonOut
+  return (jsonOut)
 
 @app.route("/<username>/history", methods = ["GET"])
 def history_GET (username):
@@ -29,23 +44,30 @@ def history_GET (username):
                             fac = faculty,
                             ldap = ldapFaculty,
                             progs = programs,
-                            collabs = collaborators
+                            collabs = collaborators,
                           )
                           
 @app.route("/<username>/history", methods = ["POST"])
 def history_POST (username):
-  # Form data looks like...
+  # Form data looks like... 
+  # [('oneyr', u'oneyr'), ('sixToTenyr', u'sixToTenyr'), ('twoyr', u'twoyr'), ('threeToFiveyr', u'threeToFiveyr')]
+  # If the tag exists, the box was checked; otherwise, not checked
+  faculty = getFaculty(username)
+  collaborators = getCollaborators(username)
   
-  # name={{fid}}-{{when}}
-  # where the when items are from the config for history.
+  data = request.form
   
+  # print data
+  #Creates yearsFunded value for faculty member
+  faculty.yearsFunded = buildJSONHistory(data, faculty.username.username)
+  faculty.save()
   
-  
-  # FIXME (minor)
-  # I haven't been having luck with redirecting automatically
-  # from the POST pages... if someone can focus on that, 
-  # it would be good. I just might be tired.
-  # nextPage = cfg["flow"]["people"]
-  
-  # return redirect (  "/{0}/upload/vitae".format(username) )
+  # Creates yearsFunded value for collaborators
+  for collab in collaborators:
+    # print "Output: " + buildJSONHistory(data, collab.username.username)
+    collab.yearsFunded = buildJSONHistory(data, collab.username.username)
+    
+    # print "Before Save: " + collab.yearsFunded
+    collab.save()
+    # print "User saved: " + collab.username.username + ": " + collab.yearsFunded
   return redirect (  "/{0}/irbyn".format(username) )

@@ -50,7 +50,7 @@
       <button id = "submit" 
               type = "submit" 
               class="btn btn-block btn-primary form-control"
-              
+              disabled
               />
         Submit
       </button>
@@ -61,4 +61,7 @@
   </div>
 </div>
 
+<script>
+  var numCollabs = parseInt("{{numCollab}}");
+</script>
 {% endblock %}

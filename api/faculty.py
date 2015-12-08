@@ -18,8 +18,7 @@ def getLDAPFaculty (username):
     )
   
   if ldapQ.exists():
-    ldap = ldapQ.get()
-    return ldap
+    return ldapQ.get()
   else:
     return None
   
@@ -30,7 +29,6 @@ def getFaculty (username):
     )
 
   if facQ.exists():
-    fac  = facQ.get()
     return facQ.get()
   else:
     return None

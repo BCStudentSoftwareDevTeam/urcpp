@@ -27,7 +27,13 @@ from models import *
 import uuid
 
 def authUser (env):
-  return env.get("HTTP_X_REMOTE_USER")
+  # app.logger.info("Found remote user: " + env.get("HTTP_X_REMOTE_USER"))
+  if env.get("HTTP_X_PROXY_REMOTE_USER"):
+    return env.get("HTTP_X_PROXY_REMOTE_USER")
+  elif os.getenv('USER'):
+    return os.getenv('USER')    #TODO This is a bad idea. I think it makes the user the server's user in production. I think.... that, or it does nothing in production (which is okay).
+  else:
+    return None
 
 ######################################################
 # SETUP

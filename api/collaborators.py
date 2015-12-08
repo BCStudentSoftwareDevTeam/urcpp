@@ -10,7 +10,7 @@ def getCollaborators (username):
     collaborators = []
     collabs = collabQ.select()
     for collab in collabs:
-      collaborators.append( collab.username )
+      collaborators.append( collab )
     return collaborators
   else:
     return None

@@ -14,3 +14,4 @@ var collabSpin = $("#numCollab")
     step: 1,
     initval: 0
   });
+
