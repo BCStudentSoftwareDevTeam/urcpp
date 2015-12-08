@@ -31,12 +31,12 @@
            No 
          {% endif %}
        </dd>
-       <dd>Date Submitted: {{proj.createdDate}}</dd>
+       <dd>Date Submitted: {{proj.createdDate.strftime('%Y-%m-%d @ %I:%m %p')}}</dd>
      <br />
      {% if collabs is not none %}
      <dt>Collaborators</dt>
        {% for collaborator in collabs %}
-         <dd>{{collaborator.firstname}} {{collaborator.lastname}}</dd>
+         <dd>{{collaborator.username.firstname}} {{collaborator.username.lastname}}</dd>
        {% endfor %}
        <br />
      {% endif %}
@@ -69,12 +69,15 @@
     <div class = "col-sm-offset-9 col-sm-2" 
          id = "submitButton"
          >
-      <button id = "submit" 
-              type = "button" 
-              class="btn btn-primary"
-              onClick = "finalizeSubmission();"
-              class = "form-control"
-              />
+      <form id = "doneForm"
+        class = "form-horizontal col-sm-10 col-sm-offset-1"
+        action = "/{{username}}/finalize"
+        method = "POST">
+        <button id = "submit" 
+                type = "submit" 
+                class="btn btn-primary"
+                class = "form-control"
+                />
         Submit Your Application
       </button>
     </div>
@@ -83,27 +86,7 @@
 
 
 <script>
-  /* global api, swal, urcpp */
-  api = urcpp("v1");
-  
-  function handleResponse (data) {
-    if (data.response == "OK") {
-      window.location.href = window.location.href = api.next();
-    } else {
-     
-      swal({  title: "Please contact " + urcpp.constants.alertEmail,   
-              text: data["details"],   
-              type: "error",   
-              confirmButtonText: "Uh-Oh." 
-      });
-    }
-  };
-  
-  function finalizeSubmission() {
-    console.log("Finalizing application");
-    api.set.finalize(username, handleResponse); 
-    api.go();
-  };
+  var username = "{{username}}";
 </script>
 
 {% endblock %}

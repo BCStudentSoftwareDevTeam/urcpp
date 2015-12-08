@@ -15,7 +15,7 @@ def create_GET (username):
   faculty = getFaculty(username)
   ldapFaculty = getLDAPFaculty(username)
   proj = getProject(username)
-  programs = getAllPrograms()
+  progs = getAllPrograms()
   
   return render_template (  "create.html",
                             proj = proj,
@@ -23,7 +23,7 @@ def create_GET (username):
                             cfg = cfg,
                             fac = faculty,
                             ldap = ldapFaculty,
-                            progs = programs,
+                            progs = progs,
                           )
 
 @app.route("/<username>/create", methods = ["POST"])

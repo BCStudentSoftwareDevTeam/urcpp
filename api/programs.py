@@ -2,7 +2,8 @@ from everything import *
 
 def getAllPrograms ():
   # This returns the program table
-  progQ = (Programs.select())
+  progQ = (Programs.select()
+                   .order_by(+Programs.abbreviation))
   
   if progQ.exists():
     return progQ.select()

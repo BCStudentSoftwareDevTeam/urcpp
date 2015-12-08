@@ -53,17 +53,17 @@ class Programs (StaticModel):
 
 class Budget (DynamicModel):
   bID                 = PrimaryKeyField()
-  facultyStipend      = IntegerField(default = 0)
+  facultyStipend      = IntegerField(null = True)
   facultyStipendDesc  = TextField(default = "")
-  miles               = IntegerField(default = 0)
+  miles               = IntegerField(null = True)
   milesDesc           = TextField(default = "")
-  otherTravel         = IntegerField(default = 0)
+  otherTravel         = IntegerField(null = True)
   otherTravelDesc     = TextField(default = "")
-  equipment           = IntegerField(default = 0)
+  equipment           = IntegerField(null = True)
   equipmentDesc       = TextField(default = "")
-  materials           = IntegerField(default = 0)
+  materials           = IntegerField(null = True)
   materialsDesc       = TextField(default = "")
-  other               = IntegerField(default = 0)
+  other               = IntegerField(null = True)
   otherDesc           = TextField(default = "")
   
 class PreSurvey (DynamicModel):
@@ -91,7 +91,7 @@ class Projects (DynamicModel):
   numberStudents    = IntegerField(default = 1)
   # Stati are in the config under the key
   # projectstatus: ... it is a list.
-  status            = TextField(default = cfg["projectStatus"]["pending"])
+  status            = TextField(default = cfg["projectStatus"]["incomplete"])
   createdDate       = DateTimeField(default = datetime.datetime.now)
 
 class URCPPStudents (DynamicModel):

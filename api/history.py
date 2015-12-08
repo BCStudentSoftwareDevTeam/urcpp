@@ -63,11 +63,12 @@ def history_POST (username):
   faculty.save()
   
   # Creates yearsFunded value for collaborators
-  for collab in collaborators:
-    # print "Output: " + buildJSONHistory(data, collab.username.username)
-    collab.yearsFunded = buildJSONHistory(data, collab.username.username)
-    
-    # print "Before Save: " + collab.yearsFunded
-    collab.save()
-    # print "User saved: " + collab.username.username + ": " + collab.yearsFunded
+  if collaborators:
+    for collab in collaborators:
+      # print "Output: " + buildJSONHistory(data, collab.username.username)
+      collab.yearsFunded = buildJSONHistory(data, collab.username.username)
+      
+      # print "Before Save: " + collab.yearsFunded
+      collab.save()
+      # print "User saved: " + collab.username.username + ": " + collab.yearsFunded
   return redirect (  "/{0}/irbyn".format(username) )

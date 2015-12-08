@@ -39,12 +39,13 @@ def done_GET (username):
                           )
 
 
-@app.route("/urcpp/v1/set/finalize/<username>", methods = ["POST"])
-def set_finalize (username):
+@app.route("/<username>/finalize", methods = ["POST"])
+def finalize_POST (username):
   if username != os.getenv("USER"):
     return { "response": cfg["response"]["badUsername"] }
   
-  proj = getProject()
+  proj = getProject(username)
   proj.status = cfg["projectStatus"]["pending"]
-  response = { "response" : "OK" }
-  return jsonify(response)
+  proj.save()
+  
+  return redirect('/')

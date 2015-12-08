@@ -25,13 +25,12 @@ URCPP can provide stipends for you (up to $5300 per faculty) and your students, 
                   class = 'col-sm-4 control-label'>
             {{budget["title"]}} 
           </label>
-      
           <div class = 'col-sm-8'>
             <input  name  = '{{budget["amountFieldName"]}}' 
-                    id    = '{{budget["title"]}}{{loop.index0}}' 
+                    id    = '{{budget["title"]|lower}}' 
                     type  = 'number' 
                     class = 'form-control quantity'
-                    value = '{{budg[budget["amountFieldName"]]}}'
+                    {% if budg[budget["amountFieldName"]] %}value = '{{budg[budget["amountFieldName"]]|int}}'{%endif%}
                     onchange = "findTotal()"
                     required
                     placeholder = {% if budget.title != "Miles " %}'($)' {% else %} "# Miles" {% endif %}
@@ -71,6 +70,13 @@ URCPP can provide stipends for you (up to $5300 per faculty) and your students, 
         </div>
       </div>
     </div>
+      <div class = "row" id = "mileageWarning" hidden>
+        <div class = 'col-sm-offset-9 col-sm-4'>
+          <p >WARNING: Excludes mileage costs.</p>
+        </div>
+      </div>
+
+   
   
     <div class = "form-group"  >
     <div class = "col-sm-offset-10 col-sm-2" 
@@ -89,42 +95,7 @@ URCPP can provide stipends for you (up to $5300 per faculty) and your students, 
 </form>
 
 <script type = "text/javascript">
-  // This little bit of script totals things up as 
-  // people enter their budget items.
-  function findTotal() {
-    var arr = document.getElementsByClassName("quantity");
-    var tot = 0;
-    
-    for(var i = 0; i < arr.length; i++){
-      var value = arr[i].value;
-      // console.log("Element value: " + value)
-      if(parseInt(value))
-          tot += parseInt(value);
-    }
-    
-  // Set the total.
-  $("#total").val(tot);
-  };
-  
-  // Need to run on first page load.
-  $(document).ready ( function () {
-    findTotal();
-  });
-</script>
-
-
-<!-- Submit data to server -->
-<script type = "text/javascript">
-   /* global api, username, formToObj, show */
-  api = urcpp("v1"); 
-  
-  function submitData() {
-    var obj = formToObj(document.querySelector("form"));
-    console.log(obj);
-    // DOES NOT SUBMIT TO DB
-    // api.set.people (username, obj, show); 
-    // api.go();
-  };
+  var mileageRate = parseFloat("{% if params.mileageRate %}{{params.mileageRate}}{% else %} 0 {% endif %}");
 </script>
 
 {% endblock %}

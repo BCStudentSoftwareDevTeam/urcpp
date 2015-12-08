@@ -31,11 +31,24 @@
 &nbsp;
 </div>
 
-<!-- DO CHECK FOR EXISTING FILE HERE -->
 
-<!-- DONE -->
 
 {% include "snips/allowed-file-types.html" %}
+<div class = "form-group"  >
+ <div class = "col-sm-offset-9 col-sm-2" 
+      id = "moveForwardButton"
+      >
+   <button id = "moveForward"  
+           class="btn btn-block btn-primary"
+           class = "form-control"
+           type = "button"
+           {% if prevFilepath == "" %} disabled {% endif %}
+           onclick = "buttonMoveForward()"
+           />
+     Submit
+   </button>
+ </div>
+</div>
 
 <script>
   var uploadType = "{{uploadType}}";

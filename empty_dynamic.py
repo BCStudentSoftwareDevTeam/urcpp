@@ -47,7 +47,18 @@ def get_classes (db):
 
 # staticDB.create_tables(get_classes('static'))
 dynamicDB.create_tables(get_classes('dynamic'))
+
+parameters = Parameters(
+  year = 2016,
+  appOpenDate = "2015-12-07",
+  appCloseDate = "2016-01-31",
+  mileageRate = 0.53,
+  laborRate = 7.25
+  )
+parameters.save()
 exit()
+############### STOPS HERE ####################
+
 # Add some dummy data.
 
 proj = Projects (

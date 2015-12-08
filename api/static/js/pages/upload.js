@@ -1,5 +1,13 @@
 /* global username, urcpp, Dropzone, referrer */
 
+function buttonMoveForward () {
+  var localNextPage = "/";
+  if (referrer != "") {
+    localNextPage = localNextPage.concat(username + "/" + nextPage);
+    window.location.href =  localNextPage;
+  }
+};
+
 $(document).ready ( function () {
   /*global nextPage*/
   console.log ("Looking up: " + username);

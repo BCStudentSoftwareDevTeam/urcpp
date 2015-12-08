@@ -1,5 +1,5 @@
 from everything import *
-import os, re
+import os, re, errno
 from pages import *
 from faculty import getFaculty, getLDAPFaculty
 from projects import getProject
@@ -87,7 +87,14 @@ def upload_file(whichfile, username):
     path    = rawpath.replace("%%username%%", username)
     
     app.logger.info("{0} saving {1} to {2}.".format(username, filename, path))
-      
+    
+    try:
+      os.makedirs("api/static/files/" + str(cfg["urcpp"]["applicationCycle"]) + "/" + username + "/")
+    except OSError as exc: # Python >2.5
+      if exc.errno == errno.EEXIST and os.path.isdir(path):
+          pass
+      else: raise
+    
     file.save(os.path.join(path, filename))
     
     return jsonify( { "response" : "OK" } )

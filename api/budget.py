@@ -2,6 +2,7 @@ from everything import *
 from faculty import getFaculty, getLDAPFaculty
 from projects import getProject
 from programs import getAllPrograms
+from parameters import getParameters
 
 def getBudget (username):
    budgQ = (Budget.select()
@@ -35,6 +36,7 @@ def budget_GET (username):
   proj = getProject(username)
   programs = getAllPrograms()
   budget = getBudget(username)
+  parameters = getParameters()
 
   return render_template (  "budget.html",
                             proj = proj,
@@ -43,7 +45,8 @@ def budget_GET (username):
                             fac = faculty,
                             ldap = ldapFaculty,
                             progs = programs,
-                            budg = budget,                          
+                            budg = budget,
+                            params = parameters
                           )
                           
 @app.route("/<username>/budget", methods = ["POST"])

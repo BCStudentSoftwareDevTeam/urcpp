@@ -4,7 +4,6 @@ from projects import getProject
 from programs import getAllPrograms
 from collaborators import getCollaborators
 from budget import getBudget
-
 from pages import *
 
 import pprint
@@ -23,13 +22,15 @@ def templates (path):
 @app.route("/", methods = ["GET"])
 def main ():
   username = authUser(request.environ)
-  print(pprint.pformat (request.environ, depth = 5))
+  # print(pprint.pformat (request.environ, depth = 5))
   
   ldap = getLDAPFaculty(username)
+  project = getProject(username)
   
   return render_template ("start.html", 
                            username = username,
-                           ldap = ldap
+                           ldap = ldap,
+                           proj = project
                            )
 @app.route("/<username>", methods = ["GET"])
 def main_with_username (username):
