@@ -30,9 +30,10 @@ URCPP can provide stipends for you (up to $5300 per faculty) and your students, 
                     id    = '{{budget["title"]|lower}}' 
                     type  = 'number' 
                     class = 'form-control quantity'
-                    {% if budg[budget["amountFieldName"]] %}value = '{{budg[budget["amountFieldName"]]|int}}'{%endif%}
+                    {% if budg[budget["amountFieldName"]] is defined %}value = '{{budg[budget["amountFieldName"]]|int}}'{%endif%}
                     onchange = "findTotal()"
                     required
+		    step  = "1"
                     placeholder = {% if budget.title != "Miles " %}'($)' {% else %} "# Miles" {% endif %}
                     />
           </div>
@@ -65,6 +66,7 @@ URCPP can provide stipends for you (up to $5300 per faculty) and your students, 
                   type  = 'text' 
                   class = 'form-control'
                   value = "0"
+		  step = "0.01"
                   readonly
                   />
         </div>

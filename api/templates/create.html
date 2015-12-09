@@ -68,24 +68,25 @@
     </div>
   </div>
   
-  <div class = "form-group">
+  <div class="form-group">
     <label for = "startDate" class = "col-sm-2 control-label">Start Date </label>
+    <div class = "input-group date">
+
     <div class = "col-sm-9">
-      <input  name = "startDate" 
-              id = "startDate" 
-              type = "date"  
-              class="form-control" 
-              {% if proj %}value = "{{proj.startDate.strftime('%Y-%m-%d')}}"{% endif %} 
-              required
-              min = "{{params.year}}-01-01"
-              max = "{{params.year}}-12-31"
-      ></input>
+      <input id    = "startDate"
+	     name  = "startDate"  
+	     type  = "text" 
+ 	     class = "form-control" 
+ 	     value = "{% if proj.startDate is defined %}{{proj.startDate.strftime('%m-%d-%Y')}}{% endif %}" 
+             required>
     </div>
+</div>
   </div>
-  
+
   <script type = "text/javascript">
     $(function() {
-      $( "#startDate" ).datepicker("option", "dateFormat", "mm/dd/yyyy");
+      $("#startDate").datepicker({dateFormat: "mm-dd-yy", startDate: "01-01-{{params.year}}", endDate: "12-31-{{params.year}}"});
+
     });
   </script>
   

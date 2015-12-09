@@ -15,6 +15,7 @@ var delay = (function(){
 
 function setBNumberStatus (id) {
   return function (data) {
+    console.log("Response: " + data["response"]);
     console.log("BNumber Status: " + JSON.stringify(data));  
     var selector = "#cgroup" + id;
     if (data["response"] == "OK") {
@@ -44,7 +45,7 @@ function checkValidBNumber (id) {
   
   var post = aja()
     .method ('POST')
-    .url ("/v1/checkBNumber/" + bnumber)
+    .url ("/" + username + "/checkBNumber/" + bnumber)
     .body ({})
     .on ('success', setBNumberStatus(id) )
     .go();

@@ -47,7 +47,7 @@ def bnumbers_POST (username):
         # At this point, we need to see if they're in
         # the Collaborators table already.
         centryQ = (Collaborators.select()
-          .where (Collaborators.username == collabFac.username)
+          .where (Collaborators.username.username == collabFac.username.username)
           .where (Collaborators.pID == proj.pID)
           )
         
@@ -55,7 +55,7 @@ def bnumbers_POST (username):
         # do anything. If they're not, we do.
         if not centryQ.exists():
           c = Collaborators()
-          c.username = collabFac.username
+          c.username = collabFac.username.username
           c.pID = proj.pID
           # And, save.
           c.save()
@@ -72,16 +72,16 @@ def bnumbers_POST (username):
     # of submittedBNumbers, they need to go.
     
     for c in collabs:
-      fac = c.username  
+      fac = c.username.username  
       # If their bnumber is not in my submitted list...
       if fac.bnumber not in submittedBNumbers:
-        app.logger.info ("Deleting collaborator: " + fac.username)
+        app.logger.info ("Deleting collaborator: " + fac.username.username)
         c.delete_instance()
 
   return redirect (  "/{0}/history".format(username) )
 
-@app.route("/v1/checkBNumber/<bnumber>", methods = ["POST"])
-def checkBNumber (bnumber):
+@app.route("/<username>/checkBNumber/<bnumber>", methods = ["POST"])
+def checkBNumber (username, bnumber):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
     
