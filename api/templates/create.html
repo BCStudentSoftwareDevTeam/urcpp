@@ -78,7 +78,9 @@
 	     type  = "text" 
  	     class = "form-control" 
  	     value = "{% if proj.startDate is defined %}{{proj.startDate.strftime('%m-%d-%Y')}}{% endif %}" 
-             required>
+             placeholder = "mm-dd-yyyy"
+	     onkeydown="return false" 
+	     required>
     </div>
 </div>
   </div>
