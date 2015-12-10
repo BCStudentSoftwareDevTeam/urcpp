@@ -8,6 +8,7 @@ from pages import *
 
 import pprint
 
+
 @app.route ("/s/<path:path>", methods = ["GET"])
 def statics (path):
   return app.send_static_file (path)
@@ -18,6 +19,7 @@ def templates (path):
                            username = authUser(request.environ),
                            cfg = cfg
                         )
+
 
 @app.route("/", methods = ["GET"])
 def main ():
@@ -38,8 +40,17 @@ def main_with_username (username):
   return redirect('/')
 
 
+# Tests the application's liveness
 @app.route("/ping", methods = ["GET", "POST"])
 def ping ():
   return jsonify({"response" : "OK"})
 
 
+# Tests the application's database response  
+@app.route("/stress", methods = ["GET", "POST"])
+def stress ():
+  ldap = getLDAPFaculty("heggens")
+  if ldap is not None:
+    return jsonify({"response" : "OK"})
+  else:
+    return jsonify({"response" : "NOTFOUND"})

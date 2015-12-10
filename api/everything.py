@@ -30,10 +30,10 @@ def authUser(env):
   envK = "HTTP_X_PROXY_REMOTE_USER"
   # app.logger.info("Found remote user: " + env.get("HTTP_X_REMOTE_USER"))
   if (envK in env) and env.get(envK):
-    print("We're live")
+    # print("We're live")
     return env.get(envK)
   elif ("DEBUG" in app.config) and app.config["DEBUG"]:
-    print("We're in debug: " + cfg["DEBUG"]["user"])
+    # print("We're in debug: " + cfg["DEBUG"]["user"])
     return cfg["DEBUG"]["user"]
   else:
     return None
@@ -48,3 +48,17 @@ app = Flask(__name__)
 from api.switch import switch
 from api.config import load_config
 cfg = load_config('api/config.yaml')
+
+@app.before_request
+def before_request():
+    g.dbStatic =  staticDB.connect()
+    g.dbDynamic = dynamicDB.connect()
+    
+@app.teardown_request
+def teardown_request(exception):
+    dbS = getattr(g, 'dbStatic', None)
+    dbD = getattr(g, 'dbDynamic', None)
+    if (dbS is not None) and (not dbS.is_closed()):
+      dbS.close()
+    if (dbD is not None) and (not dbD.is_closed()):
+      dbD.close()  
