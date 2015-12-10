@@ -36,3 +36,10 @@ def main ():
 def main_with_username (username):
   print "Going home"
   return redirect('/')
+
+
+@app.route("/ping", methods = ["GET", "POST"])
+def ping ():
+  return jsonify({"response" : "OK"})
+
+
