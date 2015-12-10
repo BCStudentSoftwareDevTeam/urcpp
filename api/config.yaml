@@ -42,11 +42,11 @@ contacts:
   
 budget:
   - title: "Faculty Stipend(s) "
-    placeholder: "Indicate the amount each faculty member will receive as a stipend, up to $5,300"
+    placeholder: "Indicate the amount each faculty member will receive as a stipend, up to $5,300 per faculty member"
     amountFieldName: "facultyStipend"
     descFieldName: "facultyStipendDesc"
   - title: "Equipment "
-    placeholder: "Indicate the equipment you will to conduct your research"
+    placeholder: "Indicate the equipment you will need to purchase for your research"
     amountFieldName: "equipment"
     descFieldName: "equipmentDesc"
   - title: "Materials "

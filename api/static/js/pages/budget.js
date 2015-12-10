@@ -22,7 +22,7 @@ function findTotal() {
   }
   
 // Set the total.
-$("#total").val(tot);
+$("#total").val(tot.toFixed(2));
 };
 
 // Need to run on first page load.

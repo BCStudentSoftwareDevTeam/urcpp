@@ -1,3 +1,4 @@
+import datetime
 from everything import *
 from faculty import getFaculty, getLDAPFaculty
 from projects import getProject
@@ -36,7 +37,7 @@ def create_POST (username):
 
   # Grab the .body() from the aja() POST
   data = request.form
-  print data
+  print "Post data is: " + str(data)
   # This is what our post from this page looks like
   # {duration: "8", program: "1", startDate: "May 1", title: "URCPP Software Also"}
   
@@ -44,9 +45,7 @@ def create_POST (username):
   faculty = getFaculty(username)
   ldapFaculty = getLDAPFaculty(username)
   proj = getProject(username)
-  programs = getAllPrograms()
-  
-  proj = getProject(username)
+  programs = getAllPrograms()  
   budg = getBudget(username)
   
   if proj is None:
@@ -57,7 +56,8 @@ def create_POST (username):
     budg.save()
   
   proj.title      = data["title"]
-  proj.startDate  = data["startDate"]
+  #  print "Date is: " + data["startDate"]
+  proj.startDate  = datetime.datetime.strptime(data["startDate"], '%m-%d-%Y')
   proj.duration   = int(data["duration"])
   proj.budgetID   = budg.bID
 

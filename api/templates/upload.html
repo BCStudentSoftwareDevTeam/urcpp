@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% set currentPage = cfg["flow"][uploadType] %}  <!--Needs fixed; relies on flow-->
-
 {% block title %} Upload a {{ uploadType | capitalize }} {% endblock %}
 
 {% block body %}
@@ -18,7 +17,9 @@
 <!-- My name is {{ldap.firstname}}, but it doesn't show up in the snip? -->
 
 {% include "snips/" ~ uploadType ~ "-info.html" ignore missing with context %}
-
+<div hidden id = "success" class="alert alert-success">
+  <strong>Success!</strong> Your {{uploadType}} has been uploaded.
+</div>
 <div class = "row">
    <div class = "col-sm-8 col-sm-offset-2">
       <form class = "dropzone" id = "drop" action = "/v1/upload/{{uploadType}}/{{username}}">
@@ -51,9 +52,16 @@
 </div>
 
 <script>
+  var lastPage = "{% if lastpage is defined %}{{lastpage}}{% else %}{% endif %}";
+  console.log(lastPage); 
   var uploadType = "{{uploadType}}";
   var nextPage = "{{currentPage}}";
-  var referrer =  document.referrer.split("/").pop();
+  var referral = document.referrer;
+  if (referral != "") {
+    var referrer =  document.referrer.split("/").pop();
+  } else { 
+    var referrer = "{{currentPage}}";
+  }
   console.log("Coming from " + referrer);
 
 </script>
