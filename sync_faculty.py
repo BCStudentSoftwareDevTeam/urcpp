@@ -48,3 +48,24 @@ for fac in faculty:
     bnumber   = safe (fac, 'employeeid'),
     )
   o.save()
+  
+  
+# Now do Staff
+conn.search('dc=berea,dc=edu', 
+  '(description=Staff)', 
+  attributes = ['samaccountname', 'givenname', 'sn', 'employeeid']
+  )
+
+print ("Found {0} staff.".format(len(conn.entries))) 
+
+
+faculty = conn.entries        #actually staff, but who cares?
+for fac in faculty:
+  print ("Staff: {0}".format(fac.samaccountname))
+  o = LDAPFaculty (
+    lastname  = safe (fac, 'sn'),
+    firstname = safe (fac, 'givenname'),
+    username  = fac.samaccountname,
+    bnumber   = safe (fac, 'employeeid'),
+    )
+  o.save()
