@@ -8,11 +8,12 @@ from pages import *
 
 @app.route("/<username>/committee", methods = ["GET"])
 def committee_GET (username):
-  username = os.getenv("USER")
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
   
   ldap = getLDAPFaculty(username)
   
   return render_template ("committee.html", 
-                           username = os.getenv('USER'),
+                           username = username,
                            ldap = ldap
                            )

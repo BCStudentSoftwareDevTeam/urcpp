@@ -73,34 +73,51 @@
     <div class = "input-group date">
 
     <div class = "col-sm-9">
-      <input id    = "startDate"
-	     name  = "startDate"  
-	     type  = "text" 
- 	     class = "form-control" 
- 	     value = "{% if proj.startDate is defined %}{{proj.startDate.strftime('%m-%d-%Y')}}{% endif %}" 
-             placeholder = "mm-dd-yyyy"
-	     onkeydown="return false" 
-	     required>
+      <input  id    = "startDate"
+	            name  = "startDate"  
+	            type  = "text" 
+ 	            class = "form-control" 
+ 	            value = "{% if proj.startDate is defined %}{{proj.startDate.strftime('%m-%d-%Y')}}{% endif %}" 
+              placeholder = "mm-dd-yyyy"
+	            onkeydown="return false" 
+	            required>
     </div>
 </div>
   </div>
 
   <script type = "text/javascript">
     $(function() {
-      $("#startDate").datepicker({dateFormat: "mm-dd-yy", startDate: "01-01-{{params.year}}", endDate: "12-31-{{params.year}}"});
-
+      $("#startDate").datepicker({
+        dateFormat: "mm-dd-yy", 
+        startDate: "01-01-{{params.year}}", 
+        endDate: "12-31-{{params.year}}"
+      });
     });
   </script>
   
   <div class = "row col-md-offset-1" style="font-size:1.4em;">
     <div class = "checkbox">
-      <label><input name = "isServiceToCommunity" {% if proj.isServiceToCommunity %} checked {% endif %} id = "isServiceToCommunity" type = "checkbox"  class="checkbox" value = "{{proj.isServiceToCommunity}}">Does your project provide a service to the community?</label>
+      <label><input name = "isServiceToCommunity" 
+                    {% if proj.isServiceToCommunity %} checked {% endif %} 
+                    id = "isServiceToCommunity" 
+                    type = "checkbox"  
+                    class="checkbox" 
+                    value = "{{proj.isServiceToCommunity}}">
+        Does your project provide a service to the community?
+      </label>
     </div>
   </div>
   
   <div class = "row col-md-offset-1" style="font-size:1.4em;">
     <div class = "checkbox">
-      <label><input name = "hasCommunityPartner" {% if proj.hasCommunityPartner %} checked {% endif %} id = "hasCommunityPartner" type = "checkbox"  class="checkbox" value = "{{proj.hasCommunityPartner}}">Does your project involve working with community partners? </label>
+      <label><input name = "hasCommunityPartner" 
+                    {% if proj.hasCommunityPartner %} checked {% endif %} 
+                    id = "hasCommunityPartner" 
+                    type = "checkbox"  
+                    class="checkbox" 
+                    value = "{{proj.hasCommunityPartner}}">
+        Does your project involve working with community partners? 
+      </label>
     </div>
   </div>
   <br />

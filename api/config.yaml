@@ -37,7 +37,7 @@ flow:
   done:         "start"
 # END NO MAS
 
-contacts:
+contacts:         # I think this should move to the Parameters table, so it can be more easily configured in the UI by the committee.
   irbChairName: "Dan Huck"
   irbChairEmail: "huckd@berea.edu"
   

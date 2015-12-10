@@ -3,7 +3,7 @@ from everything import *
 def getAllPrograms ():
   # This returns the program table
   progQ = (Programs.select()
-                   .order_by(+Programs.abbreviation))
+                   .order_by(+Programs.abbreviation)) # + is short for Sort ascending
   
   if progQ.exists():
     return progQ.select()
