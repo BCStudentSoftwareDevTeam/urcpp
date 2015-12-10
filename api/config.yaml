@@ -5,6 +5,7 @@ urcpp:
   applicationCycle: 2016
   possibleDurations:
     - 8
+    - 9
     - 10
 
 history:

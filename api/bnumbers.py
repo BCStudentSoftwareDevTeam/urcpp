@@ -84,7 +84,10 @@ def bnumbers_POST (username):
 def checkBNumber (username, bnumber):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
-    
+
+  if bnumber[0] == "b":
+    bnumber = "B" + bnumber[1:]
+    print ("Replaced Bnum: " + bnumber)
   # We are assuming BNumbers are less than 10 characters
   if (len(bnumber) < 12) and (bnumber.find("B") == 0):
     facQ = (LDAPFaculty.select()
