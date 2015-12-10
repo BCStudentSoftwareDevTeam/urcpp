@@ -35,7 +35,6 @@ def generic_file_upload (username, uploadType):
     budget = getBudget(username)
 
     prevFilepath = checkForFile(username, uploadType)
-    
     return render_template (  "upload.html",
                               proj = proj,
                               username = username,
@@ -43,7 +42,8 @@ def generic_file_upload (username, uploadType):
                               fac = faculty,
                               ldap = ldapFaculty,
                               uploadType = uploadType,
-                              prevFilepath = prevFilepath
+                              prevFilepath = prevFilepath,
+			      lastPage = uploadType
                             )
   else:
     return "File upload type not recognized."
