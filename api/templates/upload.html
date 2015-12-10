@@ -52,17 +52,13 @@
 </div>
 
 <script>
-  var lastPage = "{% if lastpage is defined %}{{lastpage}}{% else %}{% endif %}";
-  console.log(lastPage); 
   var uploadType = "{{uploadType}}";
   var nextPage = "{{currentPage}}";
-  var referral = document.referrer;
-  if (referral != "") {
-    var referrer =  document.referrer.split("/").pop();
-  } else { 
-    var referrer = "{{currentPage}}";
-  }
-  console.log("Coming from " + referrer);
+  var getValue = "{{ request.args.get('source') }}";
+  
+  // var referrer =  document.referrer.split("/").pop();
+  
+  // console.log("Coming from " + referrer);
 
 </script>
 <script src = "/s/js/pages/upload.js" type = "text/javascript"> </script>

@@ -1,23 +1,17 @@
-/* global username, urcpp, Dropzone, referrer */
+/* global username, urcpp, Dropzone, referrer, getValue */
 
 function buttonMoveForward () {
   var localNextPage = "/";
-  if (referrer != "") {
-    localNextPage = localNextPage.concat(username + "/" + nextPage);
+  localNextPage = localNextPage.concat(username + "/" + nextPage);
+  if (getValue == "home") {
+   // If coming from the home page to upload CV, this takes you back there
+    window.location.href = "/";
+  } else {
     window.location.href =  localNextPage;
   }
 };
 
 function goNextPage() {
-   // If coming from the home page to upload CV, this takes you back there
-  var localNextPage = "/";
-  if (referrer != "") {
-    console.log("Coming from [inside referrer check]: " + referrer);
-    localNextPage = localNextPage.concat(username + "/" + nextPage);
-    console.log("Local next page: " + localNextPage);
-  }
-  console.log("File upload complete");
-  console.log("Actual next page: " + localNextPage); 
   $("#moveForward").removeAttr('disabled');
   $("#success").removeAttr('hidden');
  // window.location.href =  localNextPage;
@@ -26,7 +20,6 @@ function goNextPage() {
 $(document).ready ( function () {
   /*global nextPage*/
   console.log ("Looking up: " + username);
-  
  
   Dropzone.options.drop = {
     paramName: "file",

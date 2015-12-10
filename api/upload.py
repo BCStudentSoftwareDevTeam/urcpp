@@ -43,7 +43,6 @@ def generic_file_upload (username, uploadType):
                               ldap = ldapFaculty,
                               uploadType = uploadType,
                               prevFilepath = prevFilepath,
-			      lastPage = uploadType
                             )
   else:
     return "File upload type not recognized."

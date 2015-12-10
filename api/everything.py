@@ -30,8 +30,10 @@ def authUser(env):
   envK = "HTTP_X_PROXY_REMOTE_USER"
   # app.logger.info("Found remote user: " + env.get("HTTP_X_REMOTE_USER"))
   if (envK in env) and env.get(envK):
+    print("We're live")
     return env.get(envK)
   elif ("DEBUG" in app.config) and app.config["DEBUG"]:
+    print("We're in debug: " + cfg["DEBUG"]["user"])
     return cfg["DEBUG"]["user"]
   else:
     return None

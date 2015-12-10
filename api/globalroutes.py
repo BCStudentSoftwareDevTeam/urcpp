@@ -21,8 +21,7 @@ def templates (path):
 
 @app.route("/", methods = ["GET"])
 def main ():
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
+  username = authUser(request.environ)
   # print(pprint.pformat (request.environ, depth = 5))
   
   ldap = getLDAPFaculty(username)
