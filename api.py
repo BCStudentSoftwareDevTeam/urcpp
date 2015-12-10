@@ -25,4 +25,4 @@ print ("Running at http://{0}:{1}/".format(IP, PORT))
 #app.secret_key = skt['secret_key']
 app.tag = cfg['tag']
 
-app.run(host = IP, port = PORT, debug = True, processes = 8)
+app.run(host = IP, port = PORT, debug = False, processes = 8)
