@@ -1,3 +1,6 @@
+DEBUG:
+  user: "jadudm"
+
 urcpp:
   applicationCycle: 2016
   possibleDurations:
