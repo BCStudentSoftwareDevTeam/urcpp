@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% set currentPage = "allBudgets" %}
+
+{% block body %}
+<h1> Budget Summary </h1>
+
+<!-- This is the only actual HTML on the page.
+     The rest of it is JavaScript. -->
+<div class = "row">
+  <table class = " table table-striped">
+    <tr>
+      <th>Faculty/Proj. Title</th>
+      {% for title in cfg["budget"]%}
+      <th>
+          {{title["title"]}}
+      </th>
+      {% endfor %}
+      <th>Total</th>
+    </tr>
+    {% for projects in proj%}
+      <tr id="row{{loop.index0}}">
+        <td>
+          {{fac.username.firstname}} {{fac.username.lastname}}<br />{{proj.title}}
+        </td>
+        {% for budget in budg %}
+          
+          {% for field in cfg["budget"] %} 
+            <td name = "rowValue" class = "{{field['amountFieldName']}}" id="col{{loop.index0}}">
+              {{budget[field['amountFieldName']]}}
+            </td>
+          {% endfor %}
+        {% endfor %}
+      <td id = "budgetTotal{{loop.index0}}">
+        <!--Great for columns!{{ budg|sum(attribute='facultyStipend') }}-->
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+<script>
+function countRows () {
+  console.log("Start counting");
+  var numRows = {{budg|count}};
+  console.log("Num rows: " + numRows);
+  for (idx = 0; idx < numRows; idx ++ ){
+    var sum = 0;
+    var rows = $("#row" + idx).find("td[name='rowValue']");
+    rows.each(function (value, i) {
+        sum += parseFloat($(this).text());
+        console.log("Summing: "  + sum);
+    });
+    console.log("Sum: " + sum);
+    $("#budgetTotal" + idx).html(sum);
+  };
+};
+
+$(document).ready(function () {
+  countRows();
+});
+
+</script>
+
+{% endblock %}

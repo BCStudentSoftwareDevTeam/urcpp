@@ -17,7 +17,7 @@ def getAllProjects ():
   allProjQ = (Projects.select())
   
   if allProjQ.exists():
-    projs = allProjQ.execute()
+    projs = allProjQ.select()
     return projs
   else:
     return None
