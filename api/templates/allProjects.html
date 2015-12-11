@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% set currentPage = "allProjects" %}
+
+{% block body %}
+<h1> Projects Summary </h1>
+
+<!-- This is the only actual HTML on the page.
+     The rest of it is JavaScript. -->
+<div class = "row">
+  <table class = " table table-striped">
+    <tr>
+      <th>Faculty/Proj. Title</th>
+      {% for title in fields %}
+      <th>
+        {{title}}
+      </th>
+      {% endfor %}
+    </tr>
+    {% for project in proj%} <!-- iterates through all rows -->
+      
+      <tr id="row{{loop.index0}}">
+        <td>
+          {{fac.username.firstname}} {{fac.username.lastname}}<br />{{project.title}}
+        </td>
+        <td class = "{{project.pID}}">
+          {{project.title}} <!-- that's the title. In the Python, you passed the variable proj, not projects -->
+        </td>
+        <td>
+          {{project.numStudents}}
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}
