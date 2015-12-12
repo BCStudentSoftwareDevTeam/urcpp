@@ -20,37 +20,51 @@
     {% for projects in proj%}
       <tr id="row{{loop.index0}}">
         <td>
-          {{fac.username.firstname}} {{fac.username.lastname}}<br />{{proj.title}}
+          {{fac.username.firstname}} {{fac.username.lastname}}<br />{{projects.title}}
         </td>
-        {% for budget in budg %}
-          
-          {% for field in cfg["budget"] %} 
-            <td name = "rowValue" class = "{{field['amountFieldName']}}" id="col{{loop.index0}}">
-              {{budget[field['amountFieldName']]}}
-            </td>
-          {% endfor %}
+        
+        {% for field in cfg["budget"] %} 
+          <td name = "rowValue" class = "{{field['amountFieldName']}}" id="col{{loop.index0}}">
+            {{projects.budgetID[field['amountFieldName']]}}
+          </td>
         {% endfor %}
-      <td id = "budgetTotal{{loop.index0}}">
-        <!--Great for columns!{{ budg|sum(attribute='facultyStipend') }}-->
-      </td>
-    </tr>
+        
+        <td id = "rowTotal{{loop.index0}}">
+        </td>
+      </tr>
+    
+        
     {% endfor %}
+    
+    <tr>
+      <th>Totals</th>
+      {% for field in cfg["budget"] %} 
+      <th id = "columnTotal{{loop.index0}}">
+          {{ budg|sum(attribute=field['amountFieldName']) }}
+      </th>
+      {% endfor %}
+      <th id = "grandTotal"></th>
+    </tr>
   </table>
 </div>
 <script>
 function countRows () {
-  console.log("Start counting");
+  // console.log("Start counting");
   var numRows = {{budg|count}};
   console.log("Num rows: " + numRows);
+  var grandTotal = 0;
   for (idx = 0; idx < numRows; idx ++ ){
     var sum = 0;
     var rows = $("#row" + idx).find("td[name='rowValue']");
     rows.each(function (value, i) {
         sum += parseFloat($(this).text());
-        console.log("Summing: "  + sum);
+        // console.log("Summing: "  + sum);
+        
     });
-    console.log("Sum: " + sum);
-    $("#budgetTotal" + idx).html(sum);
+    // console.log("Sum: " + sum);
+    $("#rowTotal" + idx).html(sum);
+    grandTotal += sum;
+    $("#grandTotal").text(grandTotal);
   };
 };
 
