@@ -1,10 +1,9 @@
 {% extends "base.html" %}
-{% set currentPage = "allBudgets" %}
+{% set currentPage = "allFiles" %}
 
 {% block body %}
 
-<h1> Budget Summary </h1>
-
+<h1> Download all Project Files </h1>
 <!--Menu-->
 <ul class="nav nav-tabs">
   {% for menuItem in cfg["committee"] %}
@@ -13,16 +12,16 @@
 </ul>
 <p></p>
 
+<p style = "margin-top: 8px;"><button class = "btn btn-primary" type = "button"><a  href = "/static/files/{{params.year}}.zip">Download All Project Files</a></button></p>
 <div class = "row">
   <table class = " table table-striped">
     <tr>
       <th>Faculty/Proj. Title</th>
-      {% for title in cfg["budget"]%}
+      {% for header in ["Narrative", "Vitae", "IRB"]%}
       <th>
-        {{title["title"]}}
+        {{header}}
       </th>
       {% endfor %}
-      <th>Total</th>
     </tr>
     {% for person in fac %}
       <tr id="row{{loop.index0}}">
@@ -31,34 +30,22 @@
           <br />
           <span class = "small">{{person.pID.title|truncate(50, True)}}</span>
         </td>
-        
-        {% for field in cfg["budget"] %} 
-          <td name = "rowValue" class = "{{field['amountFieldName']}}" id="col{{loop.index0}}">
-            {{person.pID.budgetID[field['amountFieldName']]}}
-          </td>
+        {% for uploadType in ['narrative', 'vitae', 'irb'] %}
+        <td>
+          {% if files[person.username.username][uploadType] %}<a href = "/static/files/{{params.year}}/{{person.username.username}}/{{files[person.username.username][uploadType]}}"
+             target = "_blank">
+            Download
+          </a>
+          {% else %}
+          No file
+          {% endif %}
+        </td>
         {% endfor %}
-        
-        <th id = "rowTotal{{loop.index0}}">
-        </th>
       </tr>
     
     {% endfor %}
     
-    <tr>
-      <th>Totals</th>
-      {% for field in cfg["budget"] %} 
-      <th id = "columnTotal{{loop.index0}}">
-          {{ budg|sum(attribute=field['amountFieldName']) }}
-      </th>
-      {% endfor %}
-      <th id = "grandTotal"></th>
-    </tr>
   </table>
 </div>
-
-
-<script>
-  var numRows = {{budg|count}};
-</script>
 
 {% endblock %}

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% set currentPage = "allLabor" %}
+
+{% block body %}
+
+<h1> Labor Summary </h1>
+
+<!--Menu-->
+<ul class="nav nav-tabs">
+  {% for menuItem in cfg["committee"] %}
+    <li role="presentation"><a href="{{menuItem['link']}}">{{menuItem['title']}}</a></li>
+  {% endfor %}
+</ul>
+<p></p>
+
+<div class = "row">
+  <table class = " table table-striped">
+    <tr>
+      <th>Faculty/Proj. Title</th>
+      <th># Students</th>
+      <th>Project Duration</th>
+      <th>Total ($)</th>
+    </tr>
+    {% for person in fac %}
+      <tr id="row{{loop.index0}}">
+        <td>
+          {{person.username.firstname}} {{person.username.lastname}} <span class = "small">({{person.programID.name}})</span>
+          <br />
+          <span class = "small">{{person.pID.title|truncate(50, True)}}</span>
+        </td>
+        
+        <td name = "numStudents">
+          {{person.pID.numberStudents}}
+        </td>
+        
+        <td name = "duration">
+          {{person.pID.duration}}
+        </td>
+        <th id = "rowTotal{{loop.index0}}" name = "rowTotal">
+          
+        </th>
+      </tr>
+    
+    {% endfor %}
+    
+  </table>
+  <p style = "text-align: right;">
+    Labor Total = <span id = "grandTotal"></span>
+  </p>
+</div>
+
+<script>
+var numRows = {{fac|count}};
+var laborRate = {{params.laborRate}};
+
+/* global numRows */
+function countLaborRows () {
+  // console.log("Start counting");
+  console.log("# rows: " + numRows);
+  var grandTotal = 0;
+  for (var idx = 0; idx < numRows; idx ++ ){
+    var sum = 0;
+    var numStudents = $("#row" + idx).find("td[name='numStudents']").text();
+    console.log("#studs: " + numStudents);
+    var duration = $("#row" + idx).find("td[name='duration']").text();
+    console.log("Dur: " + duration);
+    sum = (numStudents * duration * laborRate);
+    $("#rowTotal" + idx).html(sum.toFixed(2));
+    grandTotal += sum;
+  };
+  $("#grandTotal").text("$" + grandTotal.toFixed(2));
+  };
+
+$(document).ready(function () {
+  countLaborRows();
+});
+
+</script>
+
+{% endblock %}

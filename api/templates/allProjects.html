@@ -3,31 +3,46 @@
 
 {% block body %}
 <h1> Projects Summary </h1>
+<!--Menu-->
+<ul class="nav nav-tabs">
+  {% for menuItem in cfg["committee"] %}
+    <li role="presentation"><a href="{{menuItem['link']}}">{{menuItem['title']}}</a></li>
+  {% endfor %}
+</ul>
+<p></p>
 
-<!-- This is the only actual HTML on the page.
-     The rest of it is JavaScript. -->
 <div class = "row">
   <table class = " table table-striped">
     <tr>
       <th>Faculty/Proj. Title</th>
-      {% for title in fields %}
+      {% for column in cfg["allProjectsTable"] %}
       <th>
-        {{title}}
+        {{column["title"]}}
       </th>
       {% endfor %}
     </tr>
-    {% for project in proj%} <!-- iterates through all rows -->
-      
+    
+    {% for person in fac %} <!-- See allBudgets for a better way of doing this -->
       <tr id="row{{loop.index0}}">
         <td>
-          {{fac.username.firstname}} {{fac.username.lastname}}<br />{{project.title}}
+          {{person.username.firstname}} {{person.username.lastname}} <span class = "small">({{person.programID.name}})</span>
+          <br />
+          <span class = "small">{{person.pID.title|truncate(50, True)}}</span>
         </td>
-        <td class = "{{project.pID}}">
-          {{project.title}} <!-- that's the title. In the Python, you passed the variable proj, not projects -->
-        </td>
-        <td>
-          {{project.numStudents}}
-        </td>
+        {% for column in cfg["allProjectsTable"] %}
+          <td name = "rowValue" class = "{{column['fieldName']}}" id="col{{loop.index0}}">
+            <!--Handle dates-->
+            {% if column['fieldName'] == "startDate" or column['fieldName'] == "createdDate"%}  
+              {{person.pID[column['fieldName']].strftime('%m-%d-%Y')}}
+            <!--Handle Booleans-->
+            {% elif column['fieldName'] == "isServiceToCommunity" or column['fieldName'] == "hasCommunityPartner"%}   
+              {% if person.pID[column['fieldName']] %} Yes {% else %} No {% endif %}
+            <!--Everything else-->
+            {% else %}  
+              {{person.pID[column['fieldName']]}}
+            {% endif %}
+          </td>
+        {% endfor %}
       </tr>
     {% endfor %}
   </table>
