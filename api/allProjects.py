@@ -1,5 +1,5 @@
 from everything import *
-from faculty import getFaculty, getLDAPFaculty
+from faculty import  getFacultyWithProjects, getLDAPFaculty
 from projects import getAllProjects
 from programs import getAllPrograms
 from budget import getAllBudgets
@@ -9,8 +9,7 @@ from pages import *
 @app.route("/<username>/committee/allProjects", methods = ["GET"])
 def allProjects_GET (username):
   # All of our queries
-  faculty = getFaculty(username)
-  ldapFaculty = getLDAPFaculty(username)
+  faculty =  getFacultyWithProjects()
   project = getAllProjects()
   programs = getAllPrograms()
   budget = getAllBudgets()
@@ -20,8 +19,6 @@ def allProjects_GET (username):
                             username = username,
                             cfg = cfg,
                             fac = faculty,
-                            ldap = ldapFaculty,
                             progs = programs,
                             budg = budget,
-                            fields =["Duration", "Start Date", "Comm. Partner/Service", "# Students", "Status", "Created"],
                           )

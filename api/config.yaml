@@ -8,6 +8,7 @@ urcpp:
     - 9
     - 10
 
+# Controls the history.html page options for previous years funded by URCPP 
 history:
   - db: "oneyr"
     desc: "Last year"
@@ -37,10 +38,42 @@ flow:
   done:         "start"
 # END NO MAS
 
-contacts:         # I think this should move to the Parameters table, so it can be more easily configured in the UI by the committee.
+# Controls the table columns in the allProjects.html table
+allProjectsTable:
+  - title: "Duration"
+    fieldName: "duration"
+  - title: "Start Date"
+    fieldName: "startDate"
+  - title: "Comm. Service"
+    fieldName: "isServiceToCommunity"
+  - title: "Comm. Partner"
+    fieldName: "hasCommunityPartner" # Will this work with two?
+  - title: "# Students"
+    fieldName: "numberStudents"
+  - title: "Created"
+    fieldName: "createdDate"
+  - title: "Status"
+    fieldName: "status"
+
+# Controls the menu for the committee interfaces
+committee:
+  - title: "Projects"
+    link: "allProjects"
+  - title: "Files"
+    link: "allFiles"
+  - title: "Budgets"
+    link: "allBudgets"
+  - title: "Labor"
+    link: "allLabor"
+  - title: "Voting"
+    link: "vote"
+    
+# I think this should move to the Parameters table, so it can be more easily configured in the UI by the committee.
+contacts:         
   irbChairName: "Dan Huck"
   irbChairEmail: "huckd@berea.edu"
-  
+
+# Controls the budget.html form 
 budget:
   - title: "Faculty Stipend(s) "
     placeholder: "Indicate the amount each faculty member will receive as a stipend, up to $5,300 per faculty member"

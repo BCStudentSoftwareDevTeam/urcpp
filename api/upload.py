@@ -16,6 +16,7 @@ def checkForFile(username, uploadType):
       prevFilepath = ""
     else:
       break
+  print ("Path is " + prevFilepath)
   return prevFilepath.split("/").pop()
 
 

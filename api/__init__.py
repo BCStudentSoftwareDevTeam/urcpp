@@ -26,6 +26,10 @@ import api.filters
 import api.committee
 import api.allBudgets
 import api.allProjects
+import api.allFiles
+import api.allLabor
+import api.vote
+
 
 # Our setters, so pages can submit data
 #import api.set

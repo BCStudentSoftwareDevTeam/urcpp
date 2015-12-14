@@ -1,6 +1,7 @@
 from everything import *
 import json
 
+# This query can go, same as below (getFaculty)
 def previousYearsFunded (username):
   urcppFacultyQ = (URCPPFaculty.select()
     .where (URCPPFaculty.username == username)
@@ -32,7 +33,28 @@ def getFaculty (username):
     return facQ.get()
   else:
     return None
-    
+
+
+# def getLDAPFacultyWithProjects ():
+#   ldapFacQ = (LDAPFaculty.select()
+#     .where (URCPPFaculty.username == LDAPFaculty.username)
+#     )
+
+#   if ldapFacQ.exists():
+#     return ldapFacQ.execute()
+#   else:
+#     return None
+
+
+def getFacultyWithProjects ():
+  facQ = (URCPPFaculty.select())
+
+  if facQ.exists():
+    return facQ.execute()
+  else:
+    return None
+
+
 @app.route("/urcpp/v1/faculty/get/<username>", methods = ["POST"])
 def faculty_get (username):
   if username != authUser(request.environ):
