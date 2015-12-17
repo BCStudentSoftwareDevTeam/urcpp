@@ -16,5 +16,8 @@ def committee_GET (username):
   
   return render_template ("committee.html", 
                            username = username,
-                           ldap = ldap
+                           ldap = ldap,
+                           params = parameters,
+                           cfg = cfg,
+
                            )

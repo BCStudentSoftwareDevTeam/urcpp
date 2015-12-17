@@ -19,6 +19,7 @@ import api.upload
 import api.done
 import api.parameters
 import api.budget
+import api.voting
 
 import api.pages
 import api.filters

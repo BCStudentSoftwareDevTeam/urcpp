@@ -59,15 +59,39 @@ allProjectsTable:
 committee:
   - title: "Projects"
     link: "allProjects"
+    longtitle: "View all Projects"
   - title: "Files"
     link: "allFiles"
+    longtitle: "View all Files"
   - title: "Budgets"
     link: "allBudgets"
+    longtitle: "View all Budgets"
   - title: "Labor"
     link: "allLabor"
+    longtitle: "View all Labor Allocations"
   - title: "Voting"
     link: "vote"
+    longtitle: "Vote on Submissions"
     
+# Controls the table columns for the voting interface
+voting:
+  - title: "URCPP Goals"
+    dbName: "urcppGoalsVote"
+    longDescription: "How well does the proposal satisfy the four URCPP goals (enhance student learning, foster student/faculty interaction, enhance student communication skills, and provide high-impact experience)"
+  - title: "Project Details"
+    dbName: "projectDetailsVote"
+    longDescription: "How well does the proposal outline the project's background, design, goals, and methods"
+  - title: "Faculty Role(s)"
+    dbName: "facultyRoleVote"
+    longDescription: "How well does the proposal outline the faculty's role(s)"
+  - title: "Student Role(s)"
+    dbName: "studentRoleVote"
+    longDescription: "How well does the proposal outline the student's role(s)"
+  - title: "Feasible Schedule Frame"
+    dbName: "feasibilityVote"
+    longDescription: "How feasible is this project?"
+    
+
 # I think this should move to the Parameters table, so it can be more easily configured in the UI by the committee.
 contacts:         
   irbChairName: "Dan Huck"
@@ -118,6 +142,7 @@ models:
     - Projects
     - URCPPFaculty
     - URCPPStudents
+    - Voting
     
 log:
   filename: "urcpp.log"

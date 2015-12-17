@@ -44,36 +44,14 @@
     {% endfor %}
     
   </table>
-  <p style = "text-align: right;">
-    Labor Total = <span id = "grandTotal"></span>
+  <p style = "text-align: right;"><strong>
+    Labor Total = <span id = "grandTotal"></strong></span>
   </p>
 </div>
 
 <script>
 var numRows = {{fac|count}};
 var laborRate = {{params.laborRate}};
-
-/* global numRows */
-function countLaborRows () {
-  // console.log("Start counting");
-  console.log("# rows: " + numRows);
-  var grandTotal = 0;
-  for (var idx = 0; idx < numRows; idx ++ ){
-    var sum = 0;
-    var numStudents = $("#row" + idx).find("td[name='numStudents']").text();
-    console.log("#studs: " + numStudents);
-    var duration = $("#row" + idx).find("td[name='duration']").text();
-    console.log("Dur: " + duration);
-    sum = (numStudents * duration * laborRate);
-    $("#rowTotal" + idx).html(sum.toFixed(2));
-    grandTotal += sum;
-  };
-  $("#grandTotal").text("$" + grandTotal.toFixed(2));
-  };
-
-$(document).ready(function () {
-  countLaborRows();
-});
 
 </script>
 

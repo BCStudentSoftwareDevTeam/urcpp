@@ -11,15 +11,6 @@ from pages import *
 import os, pprint, zipfile
 import shutil
 
-
-def zipdir(path, ziph):
-    # ziph is zipfile handle
-    zipf = zipfile.ZipFile('Python.zip', 'w')
-    for root, dirs, files in os.walk(path):
-        for file in files:
-            ziph.write(os.path.join(root, file))
-            
-            
 @app.route("/<username>/committee/allFiles", methods = ["GET"])
 def allFiles_GET (username):
   # All of our queries
@@ -35,11 +26,7 @@ def allFiles_GET (username):
       if checkForFile(fac.username.username, uploadType) != "":
         prevFilepath[fac.username.username][uploadType]= checkForFile(fac.username.username, uploadType)
 
-  # # do zipping  
-  # zipf = zipfile.ZipFile("api/static/files/" + str(parameters.year) + "/" + str(parameters.year) + ".zip", 'w')
-  # zipdir('static/files/' + str(parameters.year), zipf)
-  # zipf.close()
-  
+  # Does the zipping
   shutil.make_archive("api/static/files/" + str(parameters.year), 'zip', 'api/static/files/' + str(parameters.year))
   
   return render_template (  "allFiles.html",

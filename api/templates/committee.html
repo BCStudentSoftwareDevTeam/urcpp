@@ -1,30 +1,20 @@
-{#
-  Variables needed for this page: 
-    - proj (a complete Projects object)
-    - ldap (a complete LDAPFaculty object)
-    - fac (a complete URCPPFaculty object)
-    - progs (a list of programs)
-    - cfg
-#}
-
 {% extends "base.html" %}
 {% set currentPage = "committee" %}
 
-{% block title %} URCPP Project Basics {% endblock %}
+{% block title %} URCPP Committee Portal {% endblock %}
 
 {% block body %}
 
-<h1>URCPP Committee</h1>
+<h1>URCPP Committee Portal</h1>
 
 <p>
   Welcome {{ldap.firstname}}. What would you like to do?
 </p>
-<div class = "col-sm-8 col-sm-offset-2">
-   <ul style = "font-size: 150%;">
-    <li> <a href="/{{username}}/committee/allProjects">View All Projects</a> </li>
-    <li> <a href="/{{username}}/committee/allBudgets">View Overall Budget</a> </li>
-    <li> <a href="/{{username}}/committee/allLabor">View Student Labor Budget</a> </li>
-    <li> <a href="/{{username}}/committee/allFiles">Download All Project Files</a> </li>
+<div role = "navigation">
+   <ul class="nav nav-pills nav-stacked">
+    {% for menuItem in cfg["committee"] %}
+      <li role="presentation"><a href="committee/{{menuItem['link']}}">{{menuItem['longtitle']}}</a></li>
+    {% endfor %}
   </ul>
 </div>
 

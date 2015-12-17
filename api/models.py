@@ -129,3 +129,13 @@ class Parameters (DynamicModel):
   mileageRate         = FloatField() # Or Double?
   laborRate           = FloatField() # Or Double?
 
+class Voting (DynamicModel):
+  vID                 = PrimaryKeyField()
+  committeeID         = ForeignKeyField(LDAPFaculty, to_field = "username")
+  projectID           = ForeignKeyField(Projects)
+  urcppGoalsVote      = IntegerField(null = True)
+  projectDetailsVote  = IntegerField(null = True)
+  facultyRoleVote     = IntegerField(null = True)
+  studentRoleVote     = IntegerField(null = True)
+  feasibilityVote     = IntegerField(null = True)
+  

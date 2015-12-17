@@ -33,7 +33,7 @@
           <td name = "rowValue" class = "{{column['fieldName']}}" id="col{{loop.index0}}">
             <!--Handle dates-->
             {% if column['fieldName'] == "startDate" or column['fieldName'] == "createdDate"%}  
-              {{person.pID[column['fieldName']].strftime('%m-%d-%Y')}}
+              {% if person.pID[column['fieldName']] %}{{person.pID[column['fieldName']].strftime('%m-%d-%Y')}}{% endif %}
             <!--Handle Booleans-->
             {% elif column['fieldName'] == "isServiceToCommunity" or column['fieldName'] == "hasCommunityPartner"%}   
               {% if person.pID[column['fieldName']] %} Yes {% else %} No {% endif %}
