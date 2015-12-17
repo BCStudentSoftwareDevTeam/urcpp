@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% set currentPage = "vote" %}
+
+{% block body %}
+<h1> Cast Your Votes </h1>
+<!--Menu-->
+<ul class="nav nav-tabs">
+  {% for menuItem in cfg["committee"] %}
+    <li role="presentation"><a href="{{menuItem['link']}}">{{menuItem['title']}}</a></li>
+  {% endfor %}
+</ul>
+<p></p>
+
+<div class = "row">
+  <form 
+        class = "form-horizontal"
+        action = "/{{username}}/committee/vote"
+        method = "POST">  
+    <table class = " table table-striped">
+      <tr>
+        <th>Faculty/Proj. Title</th>
+        {% for column in cfg["voting"] %}
+          <th>
+            <div data-toggle="tooltip" title = "{{column['longDescription']}}" data-placement="top">
+              {{column["title"]}}
+            </div>
+          </th>
+        {% endfor %}
+        <th>
+          Avg.
+        </th>
+      </tr>
+    
+      {% for person in fac %}
+
+        <tr id="row{{loop.index0}}">
+          <td>
+            {{person.username.firstname}} {{person.username.lastname}} <span class = "small">({{person.programID.name}})</span>
+            <br />
+            <span class = "small">{{person.pID.title|truncate(50, True)}}</span>
+          </td>
+          {% for column in cfg["voting"] %}
+            <td id="vote{{loop.index0}}" align = "center">
+              <div class="form-group">
+                <select name = "{{person.pID.pID}}-{{column['dbName']}}" 
+                        style = "width: 5em;" 
+                        class="form-control rowValue" 
+                        onchange = "recalculate()">
+                  {% for vote in votes %} 
+                    {% if person.pID.pID == vote["projectID"]["pID"] %} 
+                      <option disabled {% if not vote[column["dbName"]] %} selected {% endif %}>---</option>
+                      <option value = "1" {% if vote[column["dbName"]] == 1 %} selected {% endif %}>1</option>
+                      <option value = "2" {% if vote[column["dbName"]] == 2 %} selected {% endif %}>2</option>
+                      <option value = "3" {% if vote[column["dbName"]] == 3 %} selected {% endif %}>3</option>
+                      <option value = "4" {% if vote[column["dbName"]] == 4 %} selected {% endif %}>4</option>
+                      <option value = "5" {% if vote[column["dbName"]] == 5 %} selected {% endif %}>5</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </td>
+          {% endfor %}
+          <th id = "average{{loop.index0}}">not empty
+          </th>
+        </tr>
+        <script>var numRows = {{loop.index}};</script>
+      {% endfor %}
+    </table>
+    <div class = "col-sm-8"></div>
+    <div class = "row col-sm-4">
+      <input id = "submit" 
+              type = "submit" 
+              value = "Submit your Votes"
+              class="form-control btn btn-block btn-success"
+              data-toggle="tooltip" 
+              title = "You can save as often as you like"
+              />
+      </input>
+    </div>
+  </form>
+</div>
+{% endblock %}
