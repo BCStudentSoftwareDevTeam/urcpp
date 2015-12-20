@@ -17,7 +17,7 @@ def checkForFile(username, uploadType):
     else:
       break
   print ("Path is " + prevFilepath)
-  return prevFilepath.split("/").pop()
+  return prevFilepath
 
 
 # This looks like file upload, but it isn't.
@@ -35,7 +35,10 @@ def generic_file_upload (username, uploadType):
     collaborators = getCollaborators(username)
     budget = getBudget(username)
 
-    prevFilepath = checkForFile(username, uploadType)
+    prev = checkForFile(username, uploadType).replace("api", "")
+    print prev
+    prevFilepath = prev.split("/").pop()
+    
     return render_template (  "upload.html",
                               proj = proj,
                               username = username,
@@ -43,6 +46,7 @@ def generic_file_upload (username, uploadType):
                               fac = faculty,
                               ldap = ldapFaculty,
                               uploadType = uploadType,
+                              fullpath = prev,
                               prevFilepath = prevFilepath,
                             )
   else:
