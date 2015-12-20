@@ -1,5 +1,32 @@
 from everything import *
 
+def getVotesByProject(proj):
+  print "Starting query"
+  paramsQ =  (Voting.select(
+               Voting.projectID,
+               fn.Avg(Voting.urcppGoalsVote),
+                # fn.Avg(Voting.urcppGoalsVote)
+                #   .over(partition_by=[Voting.projectID]),
+                fn.Avg(Voting.projectDetailsVote),
+                #   .over(partition_by=[Voting.projectID]),
+                fn.Avg(Voting.facultyRoleVote),
+                #   .over(partition_by=[Voting.projectID]),
+                fn.Avg(Voting.studentRoleVote),
+                #   .over(partition_by=[Voting.projectID]),
+                fn.Avg(Voting.feasibilityVote),
+                #   .over(partition_by=[Voting.projectID])
+              )
+              .where(Voting.projectID == proj)
+              .tuples()
+              )
+  print "Query built"
+  if paramsQ.exists():
+    return paramsQ.execute()
+  else:
+    print "No results"
+    return None
+
+
 def getVotes():
    
    paramsQ = (Voting.select())

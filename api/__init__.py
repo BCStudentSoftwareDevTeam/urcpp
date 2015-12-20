@@ -9,7 +9,10 @@ import api.globalroutes
 #import api.programs
 #import api.collaborators
 import api.files
+import api.pages
+import api.filters
 
+# Form pages
 import api.create
 import api.people
 import api.bnumbers
@@ -21,16 +24,11 @@ import api.parameters
 import api.budget
 import api.voting
 
-import api.pages
-import api.filters
-
+#Committee pages
 import api.committee
 import api.allBudgets
 import api.allProjects
 import api.allFiles
 import api.allLabor
 import api.vote
-
-
-# Our setters, so pages can submit data
-#import api.set
+import api.allVotes

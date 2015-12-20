@@ -16,7 +16,7 @@
         class = "form-horizontal"
         action = "/{{username}}/committee/vote"
         method = "POST">  
-    <table class = " table table-striped">
+    <table class = "table table-striped table-hover table-sm">
       <tr>
         <th>Faculty/Proj. Title</th>
         {% for column in cfg["voting"] %}
@@ -41,7 +41,7 @@
           </td>
           {% for column in cfg["voting"] %}
             <td id="vote{{loop.index0}}" align = "center">
-              <div class="form-group">
+              <div class="form-group" style = "margin-bottom: 0px;">
                 <select name = "{{person.pID.pID}}-{{column['dbName']}}" 
                         style = "width: 5em;" 
                         class="form-control rowValue" 
@@ -60,7 +60,7 @@
               </div>
             </td>
           {% endfor %}
-          <th id = "average{{loop.index0}}">not empty
+          <th scope="row" id = "average{{loop.index0}}">not empty
           </th>
         </tr>
         <script>var numRows = {{loop.index}};</script>

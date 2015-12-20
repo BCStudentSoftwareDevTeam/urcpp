@@ -1,3 +1,4 @@
+# Changes made to this file require a service restart
 DEBUG:
   user: "jadudm"
 
@@ -72,6 +73,9 @@ committee:
   - title: "Voting"
     link: "vote"
     longtitle: "Vote on Submissions"
+  - title: "Review Votes"
+    link: "allVotes"
+    longtitle: "Review Votes"
     
 # Controls the table columns for the voting interface
 voting:

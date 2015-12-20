@@ -12,39 +12,60 @@
 <p></p>
 
 <div class = "row">
-  <table class = " table table-striped">
-    <tr>
-      <th>Faculty/Proj. Title</th>
-      {% for column in cfg["allProjectsTable"] %}
-      <th>
-        {{column["title"]}}
-      </th>
-      {% endfor %}
-    </tr>
-    
-    {% for person in fac %} <!-- See allBudgets for a better way of doing this -->
-      <tr id="row{{loop.index0}}">
-        <td>
-          {{person.username.firstname}} {{person.username.lastname}} <span class = "small">({{person.programID.name}})</span>
-          <br />
-          <span class = "small">{{person.pID.title|truncate(50, True)}}</span>
-        </td>
+    <table class = "table table-striped table-hover table-sm">
+      <tr>
+        <th>Faculty/Proj. Title</th>
         {% for column in cfg["allProjectsTable"] %}
-          <td name = "rowValue" class = "{{column['fieldName']}}" id="col{{loop.index0}}">
-            <!--Handle dates-->
-            {% if column['fieldName'] == "startDate" or column['fieldName'] == "createdDate"%}  
-              {% if person.pID[column['fieldName']] %}{{person.pID[column['fieldName']].strftime('%m-%d-%Y')}}{% endif %}
-            <!--Handle Booleans-->
-            {% elif column['fieldName'] == "isServiceToCommunity" or column['fieldName'] == "hasCommunityPartner"%}   
-              {% if person.pID[column['fieldName']] %} Yes {% else %} No {% endif %}
-            <!--Everything else-->
-            {% else %}  
-              {{person.pID[column['fieldName']]}}
-            {% endif %}
-          </td>
+        <th>
+          {{column["title"]}}
+        </th>
         {% endfor %}
       </tr>
-    {% endfor %}
-  </table>
+      
+      {% for person in fac %} <!-- See allBudgets for a better way of doing this -->
+        <tr id="row{{loop.index0}}">
+          <td>
+            {{person.username.firstname}} {{person.username.lastname}} 
+            <span class = "small">({{person.programID.name}})</span>
+            <br />
+            <span class = "small">{{person.pID.title|truncate(50, True)}}</span>
+          </td>
+          {% for column in cfg["allProjectsTable"] %}
+            <td name = "rowValue" class = "{{column['fieldName']}}" id="col{{loop.index0}}">
+              <!--Handle dates-->
+              {% if column['fieldName'] == "startDate" or column['fieldName'] == "createdDate"%}  
+                {% if person.pID[column['fieldName']] %}{{person.pID[column['fieldName']].strftime('%m-%d-%Y')}}{% endif %}
+              <!--Handle Booleans-->
+              {% elif column['fieldName'] == "isServiceToCommunity" or column['fieldName'] == "hasCommunityPartner"%}   
+                {% if person.pID[column['fieldName']] %} Yes {% else %} No {% endif %}
+              <!--Everything else-->
+              {% elif column['fieldName'] == "status" %}
+                {% if person.pID[column['fieldName']] != cfg["projectStatus"]["incomplete"] %}
+                  <select id = "{{person.pID.pID}}-status" onchange = "updateStatus({{person.pID.pID}});">
+                    <option value = "pending" {% if person.pID[column['fieldName']] == "pending" %}selected{% endif%}>{{cfg["projectStatus"]["pending"]}}</option>
+                    <option value = "withdrawn"{% if person.pID[column['fieldName']] == "Withdrawn" %}selected{% endif%}>{{cfg["projectStatus"]["withdrawn"]}}</option>
+                    <option value = "reject"{% if person.pID[column['fieldName']] == "Reject" %}selected{% endif%}>{{cfg["projectStatus"]["reject"]}}</option>
+                    <option value = "accept"{% if person.pID[column['fieldName']] == "Accept" %}selected{% endif%}>{{cfg["projectStatus"]["accept"]}}</option>
+                  </select>
+                {% else %}{{person.pID[column['fieldName']]}}{% endif %}
+              {% else %}  
+                {{person.pID[column['fieldName']]}}
+              {% endif %}
+            </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </table>
+  </form>
 </div>
+
+<script>
+  function updateStatus(projectID) {
+    var postValue = {};
+    postValue[projectID] = $("#" + projectID + "-status option:selected").html();
+    $.post("/{{username}}/committee/allProjects/updateStatus", postValue, function(result){
+    });
+  };
+</script>
+
 {% endblock %}

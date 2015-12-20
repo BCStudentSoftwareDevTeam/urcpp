@@ -28,11 +28,13 @@ def main ():
   
   ldap = getLDAPFaculty(username)
   project = getProject(username)
-  
+
   return render_template ("start.html", 
                            username = username,
                            ldap = ldap,
-                           proj = project
+                           proj = project,
+                           cfg = cfg,
+
                            )
 @app.route("/<username>", methods = ["GET"])
 def main_with_username (username):

@@ -3,6 +3,7 @@ from faculty import getFaculty, getLDAPFaculty
 from projects import getProject
 from programs import getAllPrograms
 from parameters import getParameters
+import math
 
 def getBudget (username):
    budgQ = (Budget.select()
@@ -27,7 +28,7 @@ def getAllBudgets ():
       return budgQ.execute()
    else:
       return None
-
+  
 @app.route("/<username>/budget", methods = ["GET"])
 def budget_GET (username):
   # All of our queries
@@ -73,18 +74,19 @@ def budget_POST (username):
     budg.save()
   
   print "Saving budget data to db"
-  
-  budg.facultyStipend       = data["facultyStipend"]
+  print int(round(float(data["facultyStipend"])))
+  budg.facultyStipend       = int(round(float(data["facultyStipend"])))
+  print budg.facultyStipend
   budg.facultyStipendDesc   = data["facultyStipendDesc"]
-  budg.miles                = data["miles"]
+  budg.miles                = int(round(float(data["miles"])))
   budg.milesDesc            = data["milesDesc"]
-  budg.otherTravel          = data["otherTravel"]
+  budg.otherTravel          = int(round(float(data["otherTravel"])))
   budg.otherTravelDesc      = data["otherTravelDesc"]
-  budg.equipment            = data["equipment"]
+  budg.equipment            = int(round(float(data["equipment"])))
   budg.equipmentDesc        = data["equipmentDesc"]
-  budg.materials            = data["materials"]
+  budg.materials            = int(round(float(data["materials"])))
   budg.materialsDesc        = data["materialsDesc"]
-  budg.other                = data["other"]
+  budg.other                = int(round(float(data["other"])))
   budg.otherDesc            = data["otherDesc"]
   budg.save()
   

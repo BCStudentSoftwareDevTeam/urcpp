@@ -1,6 +1,16 @@
 from everything import *
 import os
 
+def getProjectByID(projectID):
+  projQ = (Projects.select()
+                  .where(Projects.pID == projectID)
+          )
+  if projQ.exists():
+    return projQ.get()
+  else:
+    return None
+    
+    
 def getProject (username):
   projQ = (Projects.select()
     .join (URCPPFaculty, on = (URCPPFaculty.pID == Projects.pID))
@@ -72,31 +82,3 @@ def projects_getNarrative (username, path):
   response = { "response": cfg["response"]["noResults"],
             "details": "No results found for project file." }
   return jsonify(response) 
-
-  
-  
-# ### Get IRB ###  
-# @app.route("/urcpp/v1/projects/getIRB/<username>", methods = ["POST"])
-# def projects_getIRB (username):
-#   if username != os.getenv("USER"):
-#     return { "response": cfg["response"]["badUsername"] }
-  
-
-#   applicationCycle = str(cfg['urcpp']['applicationCycle'])
-  
-#   path = cfg["filepaths"]["directory"]
-#   path = path.replace("%%username%%", username)
-#   path = path.replace("%%applicationCycle%%", applicationCycle)
-  
-#   knownFiles = os.listdir(path)
-  
-#   for filenames in knownFiles:
-#     print filenames
-#     if "irb" in filenames:
-#       response = {"response": "OK",
-#       "irb": filenames}
-#       return jsonify(response)
-    
-#   response = { "response": cfg["response"]["noResults"],
-#             "details": "No results found for project IRB." }
-#   return jsonify(response) 

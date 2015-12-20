@@ -11,7 +11,7 @@
   Welcome {{ldap.firstname}}. What would you like to do?
 </p>
 <div role = "navigation">
-   <ul class="nav nav-pills nav-stacked">
+   <ul class="nav nav-pills nav-stacked" style = "font-size: 150%;">
     {% for menuItem in cfg["committee"] %}
       <li role="presentation"><a href="committee/{{menuItem['link']}}">{{menuItem['longtitle']}}</a></li>
     {% endfor %}
