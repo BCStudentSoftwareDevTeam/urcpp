@@ -19,7 +19,7 @@
             name="status" 
             id = "{{status}}"
             value="{{status}}"
-            checked
+            {% if status != "incomplete" %} checked {% endif %}
             onchange = "updateFilters();">
     <label  for='{{status}}' 
             class = 'control-label'>
