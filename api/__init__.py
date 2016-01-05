@@ -32,3 +32,8 @@ import api.allFiles
 import api.allLabor
 import api.vote
 import api.allVotes
+
+#Chair pages
+import api.chair
+import api.setParameters
+import api.manageCommittee

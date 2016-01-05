@@ -77,6 +77,14 @@ committee:
     link: "allVotes"
     longtitle: "Review Votes"
     
+# Controls the menu for the chair interface
+chair:
+  - title: "Set Parameters"
+    link: "setParameters"
+    longtitle: "Set URCPP Parameters"
+  - title: "Manage Committee Members"
+    link: "manageCommittee"
+    longtitle: "Manage URCPP Committee Members"
 # Controls the table columns for the voting interface
 voting:
   - title: "URCPP Goals"

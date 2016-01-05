@@ -19,7 +19,7 @@
       <th>Faculty/Proj. Title</th>
       <th># Students</th>
       <th>Project Duration</th>
-      <th>Total ($)</th>
+      <th style = "text-align: right; padding-right: 40px;">Total ($)</th>
     </tr>
     {% for person in fac %}
       <tr id="row{{loop.index0}}">
@@ -29,14 +29,14 @@
           <span class = "small">{{person.pID.title|truncate(50, True)}}</span>
         </td>
         
-        <td name = "numStudents">
+        <td name = "numStudents" style = "text-align: center; ">
           {{person.pID.numberStudents}}
         </td>
         
-        <td name = "duration">
+        <td name = "duration" style = "text-align: center;">
           {{person.pID.duration}}
         </td>
-        <th id = "rowTotal{{loop.index0}}" name = "rowTotal">
+        <th id = "rowTotal{{loop.index0}}" name = "rowTotal" style = "text-align: right; padding-right: 40px;">
           
         </th>
       </tr>

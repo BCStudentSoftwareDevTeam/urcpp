@@ -12,9 +12,9 @@
   {% endfor %}
 </ul>
 <p></p>
-<div class = "row"><strong>Filter by Status: </strong> 
+<div class = "row" style = "margin-bottom: 20px; margin-top: 20px;"><strong style = "font-size: 125%;">Filter by Status: </strong> 
   {% for status in cfg["projectStatus"] %}
-    <input  style = "margin-left: 10px;" 
+    <input  style = "margin-left: 10px; font-size: 125%;" 
             type="checkbox" 
             name="status" 
             id = "{{status}}"
@@ -38,7 +38,7 @@
         {{title["title"]}}
       </th>
       {% endfor %}
-      <th>Total</th>
+      <th style = "text-align: right; padding-right: 20px;">Total</th>
     </tr>
     {% for person in fac %}
       <tr id="row{{loop.index0}}" name = "leRow">
@@ -51,12 +51,18 @@
           {{person.pID.status}}
         </td>
         {% for field in cfg["budget"] %} 
-          <td name = "rowValue" class = "{{field['amountFieldName']}}" id="col{{loop.index0}}">
+          <td name = "rowValue" 
+              class = "{{field['amountFieldName']}}" 
+              id = "col{{loop.index0}}" 
+              style = "padding-right: 30px; text-align: right;"
+              >
             {{person.pID.budgetID[field['amountFieldName']]}}
           </td>
         {% endfor %}
         
-        <th id = "rowTotal{{loop.index0}}">
+        <th id = "rowTotal{{loop.index0}}"
+            style = "padding-right: 30px; text-align: right;"
+            >
         </th>
       </tr>
     
@@ -66,11 +72,16 @@
       <th>Total</th>
       <th></th>
       {% for field in cfg["budget"] %} 
-      <th id = "columnTotal{{loop.index0}}">
+      <th id = "columnTotal{{loop.index0}}" 
+          style = "padding-right: 30px; text-align: right;"
+          >
         <!--{{ budg|sum(attribute=field['amountFieldName']) }}-->
       </th>
       {% endfor %}
-      <th id = "grandTotal"></th>
+      <th id = "grandTotal"
+          style = "padding-right: 30px; text-align: right;"
+          >
+      </th>
     </tr>
   </table>
 </div>
