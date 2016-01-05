@@ -32,7 +32,7 @@
         </td>
         {% for uploadType in ['narrative', 'vitae', 'irb'] %}
         <td>
-          {% if files[person.username.username][uploadType] %}<a href = "/static/files/{{params.year}}/{{person.username.username}}/{{files[person.username.username][uploadType]}}"
+          {% if files[person.username.username][uploadType] %}<a href = "/{{files[person.username.username][uploadType]}}"
              target = "_blank">
             Download
           </a>

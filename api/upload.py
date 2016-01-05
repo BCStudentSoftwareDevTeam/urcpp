@@ -15,6 +15,7 @@ def checkForFile(username, uploadType):
     if not (os.path.exists(prevFilepath)):
       prevFilepath = ""
     else:
+      prevFilepath = prevFilepath[4:] # Something is inconsistent somewhere; this removes "api" from the beginning of the file path, which makes download work on the front end (allFiles.html)
       break
   print ("Path is " + prevFilepath)
   return prevFilepath
