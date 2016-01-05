@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% set currentPage = "setParameters" %}
+
+{% block title %} Set URCPP Parameters {% endblock %}
+
+{% block body %}
+
+<h1>URCPP Parameters</h1>
+
+<p>
+  {{ldap.firstname}}, what would you like to change?
+</p>
+<div role = "row">
+ Set the application start date
+ Set the application end date
+ Set the mileage rate
+ Set the labor rate
+ 
+ <form id = "parametersForm"
+       class = "form-horizontal col-sm-10 col-sm-offset-1"
+       action = "/{{username}}/chair/setParameters"
+       method = "POST">
+  
+    <div  class = "row" 
+          style = "padding-bottom: 10px; padding-top: 30px;">
+      <label  for='newYear' 
+              class = 'col-sm-4 control-label'>
+         Add a new year
+      </label>
+      <div class = 'col-sm-8'>
+        <input  name  = 'newYear' 
+                  id    = 'newYear' 
+                  type  = 'number' 
+                  class = 'form-control quantity'
+                  required
+                  step  = "1"
+                  placeholder = "Enter a new URCPP year"
+                  />
+      </div>
+      <div class = "form-group"  >
+      <div class = "col-sm-offset-10 col-sm-2" 
+           id = "submitButton"
+           >
+        <button id = "submit" 
+                type = "submit" 
+                class="btn btn-block btn-primary"
+                class = "form-control"
+                />
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
