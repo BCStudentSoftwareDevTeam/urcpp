@@ -19,7 +19,7 @@
             name="status" 
             id = "{{status}}"
             value="{{status}}"
-            {% if status != "incomplete" %} checked {% endif %}
+            checked
             onchange = "updateFilters();">
     <label  for='{{status}}' 
             class = 'control-label'>
@@ -88,6 +88,7 @@
 
 <script>
   var numRows = {{fac|count}};
+  $('#incomplete').attr('checked', false);
 </script>
 
 {% endblock %}

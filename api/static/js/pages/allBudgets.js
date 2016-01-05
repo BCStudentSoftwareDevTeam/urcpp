@@ -39,9 +39,11 @@ function updateFilters () {
     }
   }
   countBudgetRows();
-
+  
 };
 
 $(document).ready(function () {
+  $('#incomplete').attr('checked', false);
+  updateFilters();
   countBudgetRows();
 });
