@@ -31,6 +31,8 @@ def getAllBudgets ():
   
 @app.route("/<username>/budget", methods = ["GET"])
 def budget_GET (username):
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
   # All of our queries
   faculty = getFaculty(username)
   ldapFaculty = getLDAPFaculty(username)

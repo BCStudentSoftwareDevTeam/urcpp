@@ -11,7 +11,9 @@ from upload import checkForFile
 
 @app.route("/<username>/done", methods = ["GET"])
 def done_GET (username):
-  # All of our queries
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
+   # All of our queries
   faculty = getFaculty(username)
   ldapFaculty = getLDAPFaculty(username)
   proj = getProject(username)

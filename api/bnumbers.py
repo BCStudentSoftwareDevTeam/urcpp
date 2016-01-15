@@ -12,7 +12,6 @@ def bnumbers_POST (username):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
     
-    
   data = request.form
   numCollab = int(data["numCollab"])
   

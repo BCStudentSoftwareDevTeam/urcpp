@@ -10,6 +10,8 @@ import pprint
 
 @app.route("/<username>/committee/vote", methods = ["GET"])
 def vote_GET (username):
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
   # All of our queries
   faculty =  getFacultyWithProjects()
   project = getAllProjects()
@@ -28,8 +30,9 @@ def vote_GET (username):
   
   theirVotes = getCommitteeVotes(username)
   outVotes = []
-  for vote in theirVotes:
-    outVotes.append(vote)
+  if theirVotes is not None:
+    for vote in theirVotes:
+      outVotes.append(vote)
     
   return render_template (  "vote.html",
                             proj = project,

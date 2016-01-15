@@ -9,6 +9,8 @@ from pages import *
 
 @app.route("/<username>/people", methods = ["GET"])
 def people_GET (username):
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
   # All of our queries
   faculty = getFaculty(username)
   ldapFaculty = getLDAPFaculty(username)

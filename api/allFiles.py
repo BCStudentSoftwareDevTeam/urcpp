@@ -13,6 +13,8 @@ import shutil
 
 @app.route("/<username>/committee/allFiles", methods = ["GET"])
 def allFiles_GET (username):
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
   # All of our queries
   faculty = getFacultyWithProjects()
   proj = getAllProjects()
