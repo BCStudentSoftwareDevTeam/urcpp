@@ -27,6 +27,9 @@ def checkForFile(username, uploadType):
 # on the type of upload being requested.
 @app.route("/<username>/upload/<uploadType>", methods = ["GET"])
 def generic_file_upload (username, uploadType):
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
+  
   if uploadType in cfg["filepaths"]["allowedFileNames"]:
     # All of our queries
     faculty = getFaculty(username)

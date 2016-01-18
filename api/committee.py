@@ -11,6 +11,7 @@ from pages import *
 def committee_GET (username):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
+    
   parameters = getParameters()
   ldap = getLDAPFaculty(username)
   

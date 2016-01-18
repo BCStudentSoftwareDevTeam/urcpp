@@ -14,6 +14,8 @@ def templates (path):
 
 @app.route ("/urcpp/v1/programs/getAll", methods = ["POST"])
 def programs_getAll ():
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
   # This returns the program table
   
   progQ = (Programs.select())
@@ -95,6 +97,7 @@ def getNarrative (username):
 def getFacultyDetails (username):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
+    
   # FIXME: The funny library pushes things through as... form data?
   # force is for ignoring headers
   # data = request.get_json (force = True)

@@ -8,6 +8,8 @@ from pages import *
 
 @app.route("/<username>/irbyn", methods = ["GET"])
 def irbyn_GET (username):
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
   # All of our queries
   faculty = getFaculty(username)
   ldapFaculty = getLDAPFaculty(username)

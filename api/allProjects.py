@@ -8,6 +8,8 @@ from pages import *
 
 @app.route("/<username>/committee/allProjects", methods = ["GET"])
 def allProjects_GET (username):
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
   # All of our queries
   faculty =  getFacultyWithProjects()
   project = getAllProjects()
@@ -25,6 +27,8 @@ def allProjects_GET (username):
 
 @app.route("/<username>/committee/allProjects/updateStatus", methods = ["POST"])
 def updateStatus_POST (username):
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
   faculty =  getFacultyWithProjects()
   programs = getAllPrograms()
   budget = getAllBudgets()

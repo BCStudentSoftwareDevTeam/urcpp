@@ -9,6 +9,8 @@ from pages import *
 
 @app.route("/<username>/committee/allLabor", methods = ["GET"])
 def allLabor_GET (username):
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
   # All of our queries
   faculty = getFacultyWithProjects()
   project = getAllProjects()

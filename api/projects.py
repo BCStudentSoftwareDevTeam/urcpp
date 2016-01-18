@@ -54,6 +54,9 @@ def projects_get (username):
 ### Get Duration ###
 @app.route("/urcpp/v1/projects/getPossibleDurations", methods = ["POST"])
 def projects_getPossibleDurations ():
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
+  
   response = { "response" : "OK" }
   response["durations"] = cfg["urcpp"]["possibleDurations"]
   return jsonify(response)
@@ -62,9 +65,8 @@ def projects_getPossibleDurations ():
 ### Get Narrative ###  
 @app.route("/urcpp/v1/projects/getNarrative/<username>/<path>", methods = ["POST"])
 def projects_getNarrative (username, path):
-  if username != os.getenv("USER"):
+  if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
-  
   
   applicationCycle = str(cfg['urcpp']['applicationCycle'])
   dirPath = cfg["filepaths"]["directory"]

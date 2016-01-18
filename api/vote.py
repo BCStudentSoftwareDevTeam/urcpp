@@ -10,6 +10,8 @@ import pprint
 
 @app.route("/<username>/committee/vote", methods = ["GET"])
 def vote_GET (username):
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
   # All of our queries
   faculty =  getFacultyWithProjects()
   project = getAllProjects()
