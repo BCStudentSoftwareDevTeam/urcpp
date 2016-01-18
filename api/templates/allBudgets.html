@@ -56,6 +56,7 @@
               id = "col{{loop.index0}}" 
               style = "padding-right: 30px; text-align: right;"
               >
+	    {# FIXME: does not calculate correctly for miles traveled (convert to dollars). Needs an if id = mileage... multiply by mileage rate from parameters #}
             {{person.pID.budgetID[field['amountFieldName']]}}
           </td>
         {% endfor %}

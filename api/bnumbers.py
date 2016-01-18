@@ -43,10 +43,12 @@ def bnumbers_POST (username):
         app.logger.info ("Found them!")
         # Now, we have their full info.
         collabFac = collabQ.get()
+        app.logger.info("collabFac.username is : " + collabFac.username)
+        
         # At this point, we need to see if they're in
         # the Collaborators table already.
         centryQ = (Collaborators.select()
-          .where (Collaborators.username.username == collabFac.username.username)
+          .where (Collaborators.username == collabFac.username)
           .where (Collaborators.pID == proj.pID)
           )
         
@@ -54,7 +56,7 @@ def bnumbers_POST (username):
         # do anything. If they're not, we do.
         if not centryQ.exists():
           c = Collaborators()
-          c.username = collabFac.username.username
+          c.username = collabFac.username
           c.pID = proj.pID
           # And, save.
           c.save()
@@ -71,10 +73,13 @@ def bnumbers_POST (username):
     # of submittedBNumbers, they need to go.
     
     for c in collabs:
-      fac = c.username.username  
+      fac = c.username
+      
+      app.logger.info("fac is : " + str(m2d(fac)))
+        
       # If their bnumber is not in my submitted list...
       if fac.bnumber not in submittedBNumbers:
-        app.logger.info ("Deleting collaborator: " + fac.username.username)
+        app.logger.info ("Deleting collaborator: " + fac.username)
         c.delete_instance()
 
   return redirect (  "/{0}/history".format(username) )
