@@ -36,8 +36,8 @@ def generic_file_upload (username, uploadType):
     collaborators = getCollaborators(username)
     budget = getBudget(username)
 
-    prev = checkForFile(username, uploadType).replace("api", "")
-    print prev
+    prev = checkForFile(username, uploadType).replace("upload", "")
+    print "final path is: " + prev
     prevFilepath = prev.split("/").pop()
     
     return render_template (  "upload.html",
