@@ -34,17 +34,19 @@
         <!--Loop for each project-->
         {% for vote in votes %}
           <!--Loop for each vote-->
-          {% for result in vote %}
-            <!--Check to see if current vote (result) is part of current project-->
-            {% if result[0] == person.pID.pID %}
-              <!--Loop for each vote category-->
-              {% for field in cfg["voting"] %} 
-                <td name = "rowValue" class = "{{field['dbName']}} rowValue" id="col{{loop.index0}}">
-                  {{'%0.2f'| format(result[loop.index]|float)}}
-                </td>
-              {% endfor %}
-            {% endif %}
-          {% endfor %}
+          {% if vote is not none %}
+      	    {% for result in vote %}
+              <!--Check to see if current vote (result) is part of current project-->
+              {% if result[0] == person.pID.pID %}
+                <!--Loop for each vote category-->
+                {% for field in cfg["voting"] %} 
+                  <td name = "rowValue" class = "{{field['dbName']}} rowValue" id="col{{loop.index0}}">
+                    {{'%0.2f'| format(result[loop.index]|float)}}
+                  </td>
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+	  {% endif %}
         {% endfor %}
         <th id = "average{{loop.index0}}">
         </th>
