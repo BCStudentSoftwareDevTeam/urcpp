@@ -145,4 +145,5 @@ class Voting (DynamicModel):
   proposalQuality       = FloatField(null = True)
   budget                = FloatField(null = True)
   timeline              = FloatField(null = True)
+  comments              = TextField(null = True)
   
