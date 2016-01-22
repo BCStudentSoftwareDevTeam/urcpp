@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% set currentPage = "allVotes" %}
 
+{# This page is for reviewing the votes made by all committee members #}
+
 {% block body %}
 
 <h1> Voting Summary </h1>
@@ -18,9 +20,13 @@
       <th>Faculty/Proj. Title</th>
       <!--<th>Project Status</th>-->
       {% for title in cfg["voting"]%}
-      <th>
-        {{title["title"]}}
-      </th>
+        <th style = "font-size: .6em;" 
+            title = "{{title['title']}}"
+            id = "{{title['dbName']}}" 
+            onmouseover = "changeSize('{{title['dbName']}}', '1.2em');"
+            onmouseleave = "changeSize('{{title['dbName']}}', '.6em');">
+          {{title["title"]}}
+        </th>
       {% endfor %}
       <th>Total</th>
     </tr>
@@ -40,7 +46,7 @@
               {% if result[0] == person.pID.pID %}
                 <!--Loop for each vote category-->
                 {% for field in cfg["voting"] %} 
-                  <td name = "rowValue" class = "{{field['dbName']}} rowValue" id="col{{loop.index0}}">
+                  <td name = "rowValue" class = "{{field['dbName']}} rowValue text-center" id="col{{loop.index0}}">
                     {{'%0.2f'| format(result[loop.index]|float)}}
                   </td>
                 {% endfor %}
@@ -59,6 +65,10 @@
 
 <script>
   var numRows = {{fac|count}};
+  function changeSize (ele, scale) {
+    console.log(ele);
+    $("#"+ele).css("fontSize", scale);
+  }
 </script>
 
 {% endblock %}

@@ -8,7 +8,7 @@ function recalculate () {
       // console.log(parseFloat(this.innerHTML));
       sum += (parseFloat(this.innerHTML));
       console.log("Sum " + sum);
-      $("#average" + idx).html(parseFloat(sum/5).toFixed(2)); //Five 
+      $("#average" + idx).html(parseFloat(sum/12).toFixed(2)); //Five 
     });
   };
 };

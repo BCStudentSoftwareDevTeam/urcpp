@@ -130,12 +130,19 @@ class Parameters (DynamicModel):
   laborRate           = FloatField() # Or Double?
 
 class Voting (DynamicModel):
-  vID                 = PrimaryKeyField()
-  committeeID         = ForeignKeyField(LDAPFaculty, to_field = "username")
-  projectID           = ForeignKeyField(Projects)
-  urcppGoalsVote      = FloatField(null = True)
-  projectDetailsVote  = FloatField(null = True)
-  facultyRoleVote     = FloatField(null = True)
-  studentRoleVote     = FloatField(null = True)
-  feasibilityVote     = FloatField(null = True)
+  vID                   = PrimaryKeyField()
+  committeeID           = ForeignKeyField(LDAPFaculty, to_field = "username")
+  projectID             = ForeignKeyField(Projects)
+  studentLearning       = FloatField(null = True)
+  studentAccessibility  = FloatField(null = True)
+  qualityOfResearch     = FloatField(null = True)
+  studentDevelopment    = FloatField(null = True)
+  facultyDevelopment    = FloatField(null = True)
+  collaborative         = FloatField(null = True)
+  interaction           = FloatField(null = True)
+  communication         = FloatField(null = True)
+  scholarlySignificance = FloatField(null = True)
+  proposalQuality       = FloatField(null = True)
+  budget                = FloatField(null = True)
+  timeline              = FloatField(null = True)
   

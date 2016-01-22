@@ -42,8 +42,17 @@ def getFacultyWithProjects ():
     return facQ.execute()
   else:
     return None
-
-
+    
+    
+def getFacultyForProject (pid):
+  facQ =  ( URCPPFaculty.select()
+                        .where(URCPPFaculty.pID == pid)
+          )
+  if facQ.exists():
+    return facQ.get()
+  else:
+    return None
+    
 @app.route("/urcpp/v1/faculty/get/<username>", methods = ["POST"])
 def faculty_get (username):
   if username != authUser(request.environ):

@@ -3,7 +3,7 @@ from faculty import  getFacultyWithProjects, getLDAPFaculty
 from projects import getAllProjects, getProjectByID
 from programs import getAllPrograms
 from budget import getAllBudgets
-
+from voting import getVote
 from pages import *
 
 @app.route("/<username>/committee/allProjects", methods = ["GET"])
@@ -15,6 +15,12 @@ def allProjects_GET (username):
   project = getAllProjects()
   programs = getAllPrograms()
   budget = getAllBudgets()
+  previousVote = {}
+  for proje in project:
+    if getVote(username, proje.pID) is not None:
+      previousVote[proje.pID] = True
+    else:
+      previousVote[proje.pID] = False
   
   return render_template (  "allProjects.html",
                             proj = project,
@@ -23,6 +29,7 @@ def allProjects_GET (username):
                             fac = faculty,
                             progs = programs,
                             budg = budget,
+                            prev = previousVote
                           )
 
 @app.route("/<username>/committee/allProjects/updateStatus", methods = ["POST"])
