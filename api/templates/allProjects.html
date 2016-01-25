@@ -2,6 +2,7 @@
 {% set currentPage = "allProjects" %}
 
 {% block body %}
+
 <h1> Projects Summary </h1>
 <!--Menu-->
 <ul class="nav nav-tabs">
@@ -14,6 +15,8 @@
 <div class = "row">
     <table class = "table table-striped table-hover table-sm">
       <tr>
+        <th>Vote</th>
+       
         <th>Faculty/Proj. Title</th>
         {% for column in cfg["allProjectsTable"] %}
         <th>
@@ -24,6 +27,13 @@
       
       {% for person in fac %} <!-- See allBudgets for a better way of doing this -->
         <tr id="row{{loop.index0}}">
+          <td>
+            <a href="/{{username}}/committee/castVote/{{person.pID.pID}}">
+              <button type="button" class="btn btn-default btn-md {% if prev[person.pID.pID] %} btn-success {% endif %}">
+                  <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Vote
+              </button>
+            </a>
+          </td>
           <td>
             {{person.username.firstname}} {{person.username.lastname}} 
             <span class = "small">({{person.programID.name}})</span>

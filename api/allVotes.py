@@ -21,7 +21,6 @@ def allVotes_GET (username):
   # For each project, get average of votes in each category
   votes = []
   for p in proj:
-    print "Here i am"
     votes.append(getVotesByProject(p.pID))
   
   return render_template ("allVotes.html",

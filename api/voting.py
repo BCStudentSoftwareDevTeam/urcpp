@@ -1,20 +1,28 @@
 from everything import *
 
 def getVotesByProject(proj):
+  """This function gets the average of all votes for a given project"""
   print "Starting query"
   paramsQ =  (Voting.select(
                Voting.projectID,
-               fn.Avg(Voting.urcppGoalsVote),
+               fn.Avg(Voting.studentLearning),
                 # fn.Avg(Voting.urcppGoalsVote)
                 #   .over(partition_by=[Voting.projectID]),
-                fn.Avg(Voting.projectDetailsVote),
+                fn.Avg(Voting.studentAccessibility),
                 #   .over(partition_by=[Voting.projectID]),
-                fn.Avg(Voting.facultyRoleVote),
+                fn.Avg(Voting.qualityOfResearch),
                 #   .over(partition_by=[Voting.projectID]),
-                fn.Avg(Voting.studentRoleVote),
+                fn.Avg(Voting.studentDevelopment),
                 #   .over(partition_by=[Voting.projectID]),
-                fn.Avg(Voting.feasibilityVote),
-                #   .over(partition_by=[Voting.projectID])
+                fn.Avg(Voting.facultyDevelopment),
+                #   .over(partition_by=[Voting.projectID]),
+                fn.Avg(Voting.collaborative),
+                fn.Avg(Voting.interaction),
+                fn.Avg(Voting.communication),
+                fn.Avg(Voting.scholarlySignificance),
+                fn.Avg(Voting.proposalQuality),
+                fn.Avg(Voting.budget),
+                fn.Avg(Voting.timeline)
               )
               .where(Voting.projectID == proj)
               .tuples()
@@ -51,17 +59,30 @@ def getCommitteeVotes(committee):
    else:
       return None
 
-def getVote(committee, project):
+def getVote(username, pid):
+  # Gets votes for a committee member (username) for a particular project (pid)
+  paramsQ = ( Voting.select()
+                    .where(Voting.committeeID == username)
+                    .where(Voting.projectID == pid)
+            )
+  app.logger.info("Looking for {0}'s votes for project {1}\n".format(username, pid))
+  
+  if paramsQ.exists():
+    return paramsQ.get()
+  else:
+    return None
+    
+# def getVote(committee, project):
    
-   paramsQ = (Voting.select()
-                    .where(Voting.committeeID == committee and
-                           Voting.projectID == project)
-              )
+#   paramsQ = (Voting.select()
+#                     .where(Voting.committeeID == committee and
+#                           Voting.projectID == project)
+#               )
    
-   app.logger.info("Looking for votes with query:\n\n" + paramsQ + "\n\n")
+#   app.logger.info("Looking for votes with query:\n\n" + paramsQ + "\n\n")
    
-   if paramsQ.exists():
-      return paramsQ.get()
-   else:
-      return None
+#   if paramsQ.exists():
+#       return paramsQ.get()
+#   else:
+#       return None
 

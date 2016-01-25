@@ -15,7 +15,11 @@
    
    <ul style = "font-size: 150%;">
       <li>Submissions are now closed. <br />Please contact <a href = "mailto:heggens@berea.edu">Scott Heggen </a> if you need additional support for your application. </li>  <!-- Should wipe old application --> 
-{#      <li><a href = "/{{username}}/create">{% if proj %}Continue a Previous URCPP Project Submission{% else %}Start a new URCPP Project Submission {% endif %}</a> </li> #}
+      {# <li>  {% if proj and proj.status == cfg["projectStatus"]["incomplete"] %}
+               <a href = "/{{username}}/create">Continue a Previous URCPP Project Submission</a>
+            {% elif proj.status == cfg["projectStatus"]["pending"] %}  
+               <a href = "/{{username}}/done">Review your Submitted Application</a>
+            {% else %}<a href = "/{{username}}/create">Start a new URCPP Project Submission</a>{% endif %} </li> #}
       <li><a href = "/{{username}}/upload/vitae?source=home">Upload a CV</a></li>
    </ul>
 </div>

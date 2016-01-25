@@ -3,6 +3,7 @@ from faculty import getFaculty, getLDAPFaculty, getFacultyWithProjects
 from projects import getAllProjects
 from programs import getAllPrograms
 from budget import getAllBudgets
+from parameters import getParameters
 
 from pages import *
 
@@ -15,6 +16,7 @@ def allBudgets_GET (username):
   proj = getAllProjects()
   programs = getAllPrograms()
   budget = getAllBudgets()
+  params = getParameters()
 
   return render_template (  "allBudgets.html",
                             proj = proj,
@@ -23,4 +25,5 @@ def allBudgets_GET (username):
                             fac = faculty,
                             progs = programs,
                             budg = budget,
+                            params = params,
                           )
