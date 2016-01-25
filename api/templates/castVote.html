@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% set currentPage = "vote" %}
+
+{% block body %}
+<h1> Voting </h1>
+<!--Menu-->
+<ul class="nav nav-tabs">
+  {% for menuItem in cfg["committee"] %}
+    <li role="presentation"><a href="../{{menuItem['link']}}">{{menuItem['title']}}</a></li>
+  {% endfor %}
+</ul>
+
+
+<p></p>
+<p ><span style = "font-size: 150%; margin-bottom: 20px;">Cast Your Votes for Project: <br />
+<div {% if not success %}hidden{% endif %} id = "success" class="alert alert-success">
+  <strong>Success!</strong> Your vote has been saved.
+</div>
+  <i>{{proj.title}}</i></span><br />
+  {{fac.username.firstname}} {{fac.username.lastname}}
+  {% if collab %}
+    <br />{{collab.username.firstname}} {{collab.username.lastname}}
+  {% endif%}
+</p>
+<div class = "row">
+  <form 
+        class = "form-horizontal"
+        action = "/{{username}}/committee/castVote/{{proj.pID}}"
+        method = "POST">  
+    <table class = "table table-striped table-hover table-sm">
+      <tr>
+        <th class="col-xs-6 text-left">Criteria</th>
+        <th class="col-xs-1">Exceptional</th>
+        <th class="col-xs-1">Very Good</th>
+        <th class="col-xs-1">Average</th>
+        <th class="col-xs-1">Needs Improvement</th>
+        <th class="col-xs-1">Poor</th>
+      </tr>
+      {% for column in cfg["voting"] %}
+      <tr class = "text-center">
+        <td class = "text-left">
+          <span title = "{{column['longDescription']}}" 
+                data-toggle="tooltip" 
+                data-placement="right" >{{column["title"]}}
+          </span>
+        </td>
+        <td>
+          <label class="radio-inline">
+            <input  type="radio" 
+                    name="{{column['dbName']}}" 
+                    id="{{column['dbName']}}-5" 
+                    value = "5" 
+                    required
+                    {% if votes and votes[column['dbName']] | int == 5 %} checked {% endif %}>
+                  E
+          </label>
+        </td>
+        <td>
+          <label class="radio-inline">
+            <input  type="radio" 
+                    name="{{column['dbName']}}" 
+                    id="{{column['dbName']}}-4" 
+                    value = "4"
+                    {% if votes and votes[column['dbName']] | int == 4 %} checked {% endif %}>
+                    VG
+  
+          </label>  
+        </td>
+        <td>
+          <label class="radio-inline">
+            <input  type="radio" 
+                    name="{{column['dbName']}}" 
+                    id="{{column['dbName']}}-3" 
+                    value = "3" 
+                    {% if votes and votes[column['dbName']] | int == 3 %} checked {% endif %}>
+                  A
+          </label>
+        </td>
+        <td>
+          <label class="radio-inline">
+            <input  type="radio" 
+                    name="{{column['dbName']}}" 
+                    id="{{column['dbName']}}-2" 
+                    value = "2" 
+                    {% if votes and votes[column['dbName']] | int == 2 %} checked {% endif %}>
+                  NI
+          </label>
+        </td>
+        <td>
+          <label class="radio-inline">
+            <input  type="radio" 
+                    name="{{column['dbName']}}" 
+                    id="{{column['dbName']}}-1" 
+                    value = "1" 
+                    {% if votes and votes[column['dbName']] | int == 1 %} checked {% endif %}>
+                  P
+          </label>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  <div class = "row">
+    <div class = "col-md-8"></div>
+      <textarea name = "comments"
+                class = "form-control"
+                placeholder = "Enter notes for later.">{% if votes["comments"] %}{{votes["comments"]}}{% endif %}</textarea>
+    <p></p>
+      <input id = "submit" 
+              type = "submit" 
+              value = "Submit your Votes"
+              class="form-control btn btn-block btn-success"
+              data-toggle="tooltip" 
+              title = "You can save as often as you like"
+              />
+      </input>
+
+  </div>
+  </form>
+</div>
+<script type="text/javascript" src="/s/js/pages/castVote.js"> </script>
+{% endblock %}
