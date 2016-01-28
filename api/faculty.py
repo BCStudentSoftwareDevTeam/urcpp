@@ -1,5 +1,6 @@
 from everything import *
 import json
+import projects
 
 # This query can go, same as below (getFaculty)
 def previousYearsFunded (username):
@@ -42,7 +43,19 @@ def getFacultyWithProjects ():
     return facQ.execute()
   else:
     return None
-    
+
+
+def getFacultyWithPendingProjects ():
+  facQ = (URCPPFaculty.select()
+                        .join(Projects)
+                        .where(Projects.status == cfg["projectStatus"]["pending"])
+                        .where(Projects.pID == URCPPFaculty.pID)
+                        )
+
+  if facQ.exists():
+    return facQ.execute()
+  else:
+    return None
     
 def getFacultyForProject (pid):
   facQ =  ( URCPPFaculty.select()

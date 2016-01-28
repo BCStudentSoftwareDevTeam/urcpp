@@ -198,6 +198,7 @@ response:
 
 filepaths:
   directory: "api/static/files/%%applicationCycle%%/%%username%%"
+  projectFiles: "api/static/files/"
   allowedFileExtensions:
     rtf: "Rich Text Format"
     pdf: "Portable Document Format"

@@ -11,7 +11,7 @@ def checkForFile(username, uploadType):
   allowedExtensions = cfg["filepaths"]["allowedFileExtensions"].keys();
   # print allowedExtensions
   for ext in allowedExtensions:
-    prevFilepath = ("api/static/files/" + str(cfg["urcpp"]["applicationCycle"]) + "/" + username + "/" + username + "-" + uploadType + "." + ext)
+    prevFilepath = (cfg["filepaths"]["projectFiles"]+str(cfg["urcpp"]["applicationCycle"]) + "/" + username + "/" + username + "-" + uploadType + "." + ext)
     if not (os.path.exists(prevFilepath)):
       prevFilepath = ""
     else:
