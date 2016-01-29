@@ -35,7 +35,14 @@
             </a>
           </td>
           <td>
-            {{person.username.firstname}} {{person.username.lastname}} 
+            {{person.username.firstname}} {{person.username.lastname}}
+            {% if collab is not none %}
+              {% for c in collab %}
+                {% if person.pID == c.pID %}
+                  ; {{c.username.firstname}} {{c.username.lastname}}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
             <span class = "small">({{person.programID.name}})</span>
             <br />
             <span class = "small">{{person.pID.title|truncate(50, True)}}</span>

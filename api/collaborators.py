@@ -1,5 +1,12 @@
 from everything import *
 
+def getAllCollaborators():
+  collabQ = (Collaborators.select())
+  if collabQ.exists():
+    return collabQ.execute()
+  else:
+    return None
+
 def getCollaborators (username):
   collabQ = (Collaborators.select()
     .join (URCPPFaculty, on = (URCPPFaculty.pID == Collaborators.pID))

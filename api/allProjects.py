@@ -1,6 +1,7 @@
 from everything import *
 from faculty import  getFacultyWithProjects, getLDAPFaculty
 from projects import getAllProjects, getProjectByID
+from collaborators import getAllCollaborators
 from programs import getAllPrograms
 from budget import getAllBudgets
 from voting import getVote
@@ -15,6 +16,7 @@ def allProjects_GET (username):
   project = getAllProjects()
   programs = getAllPrograms()
   budget = getAllBudgets()
+  collaborators = getAllCollaborators()
   previousVote = {}
   for proje in project:
     if getVote(username, proje.pID) is not None:
@@ -29,7 +31,8 @@ def allProjects_GET (username):
                             fac = faculty,
                             progs = programs,
                             budg = budget,
-                            prev = previousVote
+                            prev = previousVote,
+                            collab = collaborators
                           )
 
 @app.route("/<username>/committee/allProjects/updateStatus", methods = ["POST"])
