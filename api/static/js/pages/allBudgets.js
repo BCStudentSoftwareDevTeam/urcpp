@@ -16,7 +16,7 @@ function countBudgetRows () {
     var truncatedSum = Math.round(sum*100)/100;
     $("#rowTotal" + idx).html(truncatedSum);
     grandTotal += sum;
-    $("#grandTotal").text("$" + grandTotal);
+    $("#grandTotal").text("$" + grandTotal.toFixed(2));
     }
   };
 };
