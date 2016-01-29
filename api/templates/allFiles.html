@@ -21,7 +21,7 @@
               class="form-control btn btn-block btn-success"
               data-toggle="tooltip" 
               title = "Download all project files"
-              />
+              /> 
     </input>
 
 </form>  
@@ -47,7 +47,8 @@
         <td>
           {% if files[person.username.username][uploadType] %}<a href = "/{{files[person.username.username][uploadType]}}"
              target = "_blank">
-            Download
+            <button type="button" class="btn btn-default btn-md btn-success">  Download  <span class="glyphicon glyphicon-download-alt"></button>
+            
           </a>
           {% else %}
           No file

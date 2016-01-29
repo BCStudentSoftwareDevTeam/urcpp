@@ -58,7 +58,7 @@
               <!--Everything else-->
               {% elif column['fieldName'] == "status" %}
                 {% if person.pID[column['fieldName']] != cfg["projectStatus"]["incomplete"] %}
-                  <select id = "{{person.pID.pID}}-status" onchange = "updateStatus({{person.pID.pID}});">
+                  <select class="form-control" id = "{{person.pID.pID}}-status" onchange = "updateStatus({{person.pID.pID}});">
                     <option value = "pending" {% if person.pID[column['fieldName']] == "pending" %}selected{% endif%}>{{cfg["projectStatus"]["pending"]}}</option>
                     <option value = "withdrawn"{% if person.pID[column['fieldName']] == "Withdrawn" %}selected{% endif%}>{{cfg["projectStatus"]["withdrawn"]}}</option>
                     <option value = "reject"{% if person.pID[column['fieldName']] == "Reject" %}selected{% endif%}>{{cfg["projectStatus"]["reject"]}}</option>
