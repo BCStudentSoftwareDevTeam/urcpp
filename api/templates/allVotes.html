@@ -4,7 +4,18 @@
 {# This page is for reviewing the votes made by all committee members #}
 
 {% block body %}
-
+<script>
+  var numRows = {{fac|count}};
+  function changeSize (ele, scale) {
+    $("#"+ele).hover(function(){
+      
+      $(this).stop().animate({fontSize : scale});
+    },
+    function() {
+      $(this).stop().animate({fontSize : ".6em"});
+    });
+  }
+</script>
 <h1> Voting Summary </h1>
 <!--Menu-->
 <ul class="nav nav-tabs">
@@ -20,13 +31,12 @@
       <th>Faculty/Proj. Title</th>
       <!--<th>Project Status</th>-->
       {% for title in cfg["voting"]%}
-        <th style = "font-size: .6em;" 
-            title = "{{title['title']}}"
-            id = "{{title['dbName']}}" 
-            onmouseover = "changeSize('{{title['dbName']}}', '1.2em');"
-            onmouseleave = "changeSize('{{title['dbName']}}', '.6em');">
+        <th style = "font-size: .6em;" id = "{{title['dbName']}}">
           {{title["title"]}}
         </th>
+        <script>
+          changeSize("{{title['dbName']}}", '1.2em');
+        </script>
       {% endfor %}
       <th>Total</th>
     </tr>
@@ -63,17 +73,6 @@
 </div>
 
 
-<script>
-  var numRows = {{fac|count}};
-  function changeSize (ele, scale) {
-    $("#"+ele).hover(function(){
-      
-      $(this).stop().animate({fontSize : scale});
-    },
-    function() {
-      $(this).stop().animate({fontSize : "12px"});
-    });
-  }
-</script>
+
 
 {% endblock %}
