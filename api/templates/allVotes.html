@@ -66,8 +66,13 @@
 <script>
   var numRows = {{fac|count}};
   function changeSize (ele, scale) {
-    console.log(ele);
-    $("#"+ele).css("fontSize", scale);
+    $("#"+ele).hover(function(){
+      
+      $(this).stop().animate({fontSize : scale});
+    },
+    function() {
+      $(this).stop().animate({fontSize : "12px"});
+    });
   }
 </script>
 
