@@ -8,15 +8,11 @@ from api.config import load_config
 # The path is relative to the top of the project.
 print("GETCWD MODELS: " + os.getcwd())
 
-cfg = load_config('api/config.yaml')
-staticDB  = SqliteDatabase(cfg['databases']['static'])
-dynamicDB = SqliteDatabase(cfg['databases']['dynamic'])
+cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
+dynamicDB = MySQLDatabase("urcpp_flask", host="localhost", user="urcpp-flask", passwd="DanforthLabor123!") 
 
 print ("SQLITE DATABASES LOADED.")
 
-class StaticModel (Model):
-  class Meta:
-    database = staticDB
 
 class DynamicModel (Model):
   class Meta:
@@ -29,20 +25,20 @@ class DynamicModel (Model):
 # STATIC MODELS
 ######################################################
 
-class LDAPFaculty (StaticModel):
+class LDAPFaculty (DynamicModel):
   fID               = PrimaryKeyField()
-  username          = TextField(unique = True)
+  username          = CharField(unique = True)
   bnumber           = TextField()
   lastname          = TextField()
   firstname         = TextField()
 
-class LDAPStudents (StaticModel):
+class LDAPStudents (DynamicModel):
   username          = PrimaryKeyField()
   bnumber           = TextField()
   lastname          = TextField()
   firstname         = TextField()
   
-class Programs (StaticModel):
+class Programs (DynamicModel):
   pID               = PrimaryKeyField()
   name              = TextField()
   abbreviation      = TextField()
@@ -104,7 +100,7 @@ class URCPPStudents (DynamicModel):
 
 class URCPPFaculty (DynamicModel):
   fID               = PrimaryKeyField()
-  pID               = ForeignKeyField(Projects, related_name = "project")
+  pID               = ForeignKeyField(Projects, db_column="pid_id", related_name = "project")
   username          = ForeignKeyField(LDAPFaculty, to_field = "username")
   # We will always name these ourselves, and 
   # choose where they go. It is in our config[] YAML.

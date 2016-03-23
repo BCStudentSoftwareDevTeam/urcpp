@@ -106,7 +106,7 @@ def allFiles_POST (username):
             
       if checkForFile(fac.username.username, uploadType) != "":
         filename = checkForFile(fac.username.username, uploadType).split("/").pop()
-        shutil.copyfile("api/"+str(checkForFile(fac.username.username, uploadType)), path+ "/" + filename)
+        shutil.copyfile("/var/www/html/urcpp_flask/api/"+str(checkForFile(fac.username.username, uploadType)), path+ "/" + filename)
       if uploadType == "vitae":
         collaborator = getCollaborators(fac.username)
         if collaborator is not None:
@@ -114,7 +114,7 @@ def allFiles_POST (username):
             print "collaborator is " + c.username.username
             if checkForFile(c.username.username, uploadType) != "":
               filename = checkForFile(c.username.username, uploadType).split("/").pop()
-              shutil.copyfile("api/"+str(checkForFile(c.username.username, uploadType)), path+ "/" + filename)
+              shutil.copyfile("/var/www/html/urcpp_flask/api/"+str(checkForFile(c.username.username, uploadType)), path+ "/" + filename)
   
   temp = uuid.uuid1()
     

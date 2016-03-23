@@ -47,11 +47,10 @@ app = Flask(__name__)
 
 from api.switch import switch
 from api.config import load_config
-cfg = load_config('api/config.yaml')
+cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
 
 @app.before_request
 def before_request():
-    g.dbStatic =  staticDB.connect()
     g.dbDynamic = dynamicDB.connect()
     
 @app.teardown_request

@@ -155,8 +155,8 @@ budget:
     descFieldName: "otherDesc"
     
 databases:
-  dynamic: "data/urcpp.sqlite"
-  static: "data/static.sqlite"
+  dynamic: "/var/www/html/urcpp-flask/data/urcpp.sqlite"
+  static: "/var/www/html/urcpp-flask/data/static.sqlite"
 
 models:
   static:
@@ -197,8 +197,8 @@ response:
   noResults: "No Results"
 
 filepaths:
-  directory: "api/static/files/%%applicationCycle%%/%%username%%"
-  projectFiles: "api/static/files/"
+  directory: "/var/www/html/urcpp-flask/api/static/files/%%applicationCycle%%/%%username%%"
+  projectFiles: "/var/www/html/urcpp-flask/api/static/files/"
   allowedFileExtensions:
     rtf: "Rich Text Format"
     pdf: "Portable Document Format"
@@ -209,7 +209,7 @@ filepaths:
     - vitae
     - narrative
     - irb
-  pageTemplates: "api/templates"
+  pageTemplates: "/var/www/html/urcpp-flask/api/templates"
   
 # We don't know if these are needed, but they do document the 
 # directory paths/layout that we intend...

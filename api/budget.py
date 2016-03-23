@@ -11,9 +11,9 @@ def getBudget (username):
       .join (Projects, on = (Projects.budgetID == Budget.bID))
       .where (URCPPFaculty.username == username)
       )
-   
    app.logger.info("Looking for budget with query:\n\n" + budgQ + "\n\n")
    
+   print (budgQ)
    if budgQ.exists():
       return budgQ.get()
    else:

@@ -99,7 +99,7 @@ def upload_file(whichfile, username):
     app.logger.info("{0} saving {1} to {2}.".format(username, filename, path))
     
     try:
-      os.makedirs("api/static/files/" + str(cfg["urcpp"]["applicationCycle"]) + "/" + username + "/")
+      os.makedirs("/var/www/html/urcpp-flask/api/static/files/" + str(cfg["urcpp"]["applicationCycle"]) + "/" + username + "/")
     except OSError as exc: # Python >2.5
       if exc.errno == errno.EEXIST and os.path.isdir(path):
           pass
