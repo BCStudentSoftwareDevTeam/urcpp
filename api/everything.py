@@ -3,7 +3,7 @@
 ######################################################
 # Python 2/3 compat
 from __future__ import print_function
-import os
+import os, pprint
 # We need a bunch of Flask stuff
 from flask import Flask
 from flask import render_template
@@ -27,11 +27,11 @@ from models import *
 import uuid
 
 def authUser(env):
-  envK = "HTTP_X_PROXY_REMOTE_USER"
-  # app.logger.info("Found remote user: " + env.get("HTTP_X_REMOTE_USER"))
-  if (envK in env) and env.get(envK):
-    # print("We're live")
-    return env.get(envK)
+  envK = "eppn"  
+  # app.logger.info("Found remote user: " + env.get("HTTP_X_REMOTE_USER") + env.get("PHP_AUTH_USER"))
+  if (envK in env):
+    # print("We're live"+  env[envK].split("@")[0]+ ";")
+    return env[envK].split("@")[0]
   elif ("DEBUG" in app.config) and app.config["DEBUG"]:
     # print("We're in debug: " + cfg["DEBUG"]["user"])
     return cfg["DEBUG"]["user"]

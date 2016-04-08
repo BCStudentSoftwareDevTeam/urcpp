@@ -25,7 +25,7 @@ def templates (path):
 def main ():
   username = authUser(request.environ)
   # print(pprint.pformat (request.environ, depth = 5))
-  
+  print username  
   ldap = getLDAPFaculty(username)
   project = getProject(username)
 
