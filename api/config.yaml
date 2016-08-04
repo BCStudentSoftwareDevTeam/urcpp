@@ -1,6 +1,6 @@
 # Changes made to this file require a service restart
 DEBUG:
-  user: "jadudm"
+  user: "heggens"
 
 urcpp:
   applicationCycle: 2016
@@ -185,7 +185,7 @@ timeout: 10
 
 projectStatus:
   accept: Accept
-  reject: Reject
+  reject: Deny
   withdrawn: Withdrawn
   # This means they have not yet hit "Submit"
   incomplete: Incomplete

@@ -8,7 +8,8 @@ from api.config import load_config
 # The path is relative to the top of the project.
 print("GETCWD MODELS: " + os.getcwd())
 
-cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
+# cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
+cfg = load_config('api/config.yaml')
 dynamicDB = MySQLDatabase("urcpp_flask", host="localhost", user="urcpp-flask", passwd="DanforthLabor123!") 
 
 print ("SQLITE DATABASES LOADED.")

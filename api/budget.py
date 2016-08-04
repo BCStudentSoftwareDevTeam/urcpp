@@ -6,16 +6,17 @@ from parameters import getParameters
 import math
 
 def getBudget (username):
-   budgQ = (Budget.select()
-      .join (URCPPFaculty, on = (URCPPFaculty.pID == Projects.pID))
-      .join (Projects, on = (Projects.budgetID == Budget.bID))
-      .where (URCPPFaculty.username == username)
-      )
-   app.logger.info("Looking for budget with query:\n\n" + budgQ + "\n\n")
+   proj = getProject(username);
+   if proj:
+     budgQ = (Budget.select()
+          .where (Budget.bID == proj.budgetID)
+          )
+     app.logger.info("Looking for budget with query:\n\n" + budgQ + "\n\n")
    
-   print (budgQ)
-   if budgQ.exists():
-      return budgQ.get()
+     if budgQ.exists():
+        return budgQ.get()
+     else:
+        return None
    else:
       return None
 

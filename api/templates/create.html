@@ -79,13 +79,47 @@
  	            class = "form-control" 
  	            value = "{% if proj.startDate is defined %}{{proj.startDate.strftime('%m-%d-%Y')}}{% endif %}" 
               placeholder = "mm-dd-yyyy"
-	            onkeydown="return false" 
+	            onkeydown="return false"
 	            required>
     </div>
 </div>
   </div>
 
+  <div class="form-group">
+    <label for = "startDate" class = "col-sm-2 control-label">End Date </label>
+    <div class = "input-group date">
+
+    <div class = "col-sm-9">
+      <input  id    = "endDate"
+	            name  = "endDate"  
+	            type  = "hidden" 
+ 	            class = "form-control"  
+              placeholder = "mm-dd-yyyy"
+	            required>
+      <span id="endDateDisplay"></span>
+    </div>
+</div>
+  </div>
+  
+
   <script type = "text/javascript">
+    $(document).ready(function(){
+      $("#startDate").change(function(){
+        changeEndDate();
+      });
+      $("#duration").change(function(){
+        changeEndDate();
+      });
+    });
+    function changeEndDate() {
+      var startDateStr = $("#startDate").val();
+      var endDateObj = new Date(startDateStr);
+      var weeks = $("#duration").val();
+      endDateObj.setDate(endDateObj.getDate() + weeks*7);
+      $("#endDate").val(endDateObj);
+      $("#endDateDisplay").html(endDateObj.getMonth()+1 + '-' + endDateObj.getDate() + '-' + endDateObj.getFullYear());
+    }
+
     $(function() {
       $("#startDate").datepicker({
         dateFormat: "mm-dd-yy", 
