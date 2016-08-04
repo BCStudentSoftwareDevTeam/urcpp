@@ -50,7 +50,7 @@
           {% for column in cfg["allProjectsTable"] %}
             <td name = "rowValue" class = "{{column['fieldName']}}" id="col{{loop.index0}}">
               <!--Handle dates-->
-              {% if column['fieldName'] == "startDate" or column['fieldName'] == "createdDate"%}  
+              {% if column['fieldName'] == "startDate" or column['fieldName'] == "createdDate" or column['fieldName'] == "endDate"%}  
                 {% if person.pID[column['fieldName']] %}{{person.pID[column['fieldName']].strftime('%m-%d-%Y')}}{% endif %}
               <!--Handle Booleans-->
               {% elif column['fieldName'] == "isServiceToCommunity" or column['fieldName'] == "hasCommunityPartner"%}   

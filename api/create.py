@@ -58,6 +58,7 @@ def create_POST (username):
   proj.title      = data["title"]
   #  print "Date is: " + data["startDate"]
   proj.startDate  = datetime.datetime.strptime(data["startDate"], '%m-%d-%Y')
+  proj.endDate    = datetime.datetime.strptime(data["endDate"], '%m-%d-%Y')
   proj.duration   = int(data["duration"])
   proj.budgetID   = budg.bID
 

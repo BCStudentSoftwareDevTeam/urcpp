@@ -71,6 +71,7 @@ proj = Projects (
   budgetID              = 1,
   duration              = 8,
   startDate             = "2015-12-15",
+  endDate               = "2016-02-09",
   year                  = 2016,
   hasCommunityPartner   = True,
   isServiceToCommunity  = True,

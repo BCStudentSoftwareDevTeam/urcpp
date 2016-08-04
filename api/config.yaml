@@ -1,6 +1,6 @@
 # Changes made to this file require a service restart
 DEBUG:
-  user: "heggens"
+  user: "jadudm"
 
 urcpp:
   applicationCycle: 2016
@@ -45,6 +45,8 @@ allProjectsTable:
     fieldName: "duration"
   - title: "Start Date"
     fieldName: "startDate"
+  - title: "End Date"
+    fieldName: "endDate"
   - title: "Comm. Service"
     fieldName: "isServiceToCommunity"
   - title: "Comm. Partner"
@@ -155,8 +157,8 @@ budget:
     descFieldName: "otherDesc"
     
 databases:
-  dynamic: "/var/www/html/urcpp-flask/data/urcpp.sqlite"
-  static: "/var/www/html/urcpp-flask/data/static.sqlite"
+  dynamic: "data/urcpp.sqlite"
+  static: "data/static.sqlite"
 
 models:
   static:

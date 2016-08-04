@@ -75,6 +75,7 @@ class Projects (DynamicModel):
   budgetID              = ForeignKeyField(Budget, related_name = 'budget')
   duration              = IntegerField()
   startDate             = DateTimeField()
+  endDate               = DateTimeField()
   year                  = IntegerField( default = cfg["urcpp"]["applicationCycle"])
   # Like the vitae; the file is in a folder.
   # /year/projid/title.pdf

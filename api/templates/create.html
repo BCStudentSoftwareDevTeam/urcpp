@@ -93,10 +93,10 @@
       <input  id    = "endDate"
 	            name  = "endDate"  
 	            type  = "hidden" 
- 	            class = "form-control"  
+ 	            value = "{% if proj.endDate is defined %}{{proj.endDate.strftime('%m-%d-%Y')}}{% endif %}" 
               placeholder = "mm-dd-yyyy"
 	            required>
-      <span id="endDateDisplay"></span>
+      <div id="endDateDisplay">{% if proj.endDate is defined %}{{proj.endDate.strftime('%m-%d-%Y')}}{% endif %}</div>
     </div>
 </div>
   </div>
@@ -116,7 +116,7 @@
       var endDateObj = new Date(startDateStr);
       var weeks = $("#duration").val();
       endDateObj.setDate(endDateObj.getDate() + weeks*7);
-      $("#endDate").val(endDateObj);
+      $("#endDate").val(endDateObj.getMonth()+1 + '-' + endDateObj.getDate() + '-' + endDateObj.getFullYear());
       $("#endDateDisplay").html(endDateObj.getMonth()+1 + '-' + endDateObj.getDate() + '-' + endDateObj.getFullYear());
     }
 
