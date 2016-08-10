@@ -17,6 +17,13 @@ def allBudgets_GET (username):
   programs = getAllPrograms()
   budget = getAllBudgets()
   params = getParameters()
+  
+  downloadFileName = cfg["downloads"]["downloadFileNameFormat"]
+  cycle = cfg["urcpp"]["applicationCycle"]
+  downloadFileType = cfg["downloads"]["downloadFileTypes"]["allBudgets"]
+  
+  downloadFileName = downloadFileName.replace("%%applicationCycle%%", str(cycle))
+  downloadFileName = downloadFileName.replace("%%downloadFileType%%", downloadFileType)
 
   return render_template (  "allBudgets.html",
                             proj = proj,
@@ -26,4 +33,5 @@ def allBudgets_GET (username):
                             progs = programs,
                             budg = budget,
                             params = params,
+                            downloadFileName = downloadFileName
                           )

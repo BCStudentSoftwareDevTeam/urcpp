@@ -12,6 +12,5 @@ function recalculate () {
 };
 
 $(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip(); 
   recalculate();
 });

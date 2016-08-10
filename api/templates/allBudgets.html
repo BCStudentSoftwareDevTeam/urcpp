@@ -10,6 +10,7 @@
   {% for menuItem in cfg["committee"] %}
     <li role="presentation"><a href="{{menuItem['link']}}">{{menuItem['title']}}</a></li>
   {% endfor %}
+  <li style="float: right;"><a href="/{{username}}/download/{{downloadFileName}}"><span class="glyphicon glyphicon-download-alt"></span> Download Budgets</a></li>
 </ul>
 <p></p>
 <div class = "row" style = "margin-bottom: 20px; margin-top: 20px;"><strong style = "font-size: 125%;">Filter by Status: </strong> 

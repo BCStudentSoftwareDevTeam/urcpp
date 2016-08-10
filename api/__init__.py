@@ -23,6 +23,7 @@ import api.done
 import api.parameters
 import api.budget
 import api.voting
+import api.download
 
 #Committee pages
 import api.committee

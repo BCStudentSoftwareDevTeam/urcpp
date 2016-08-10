@@ -18,6 +18,13 @@ def allLabor_GET (username):
   budget = getAllBudgets()
   parameters = getParameters()
   
+  downloadFileName = cfg["downloads"]["downloadFileNameFormat"]
+  cycle = cfg["urcpp"]["applicationCycle"]
+  downloadFileType = cfg["downloads"]["downloadFileTypes"]["allLabor"]
+  
+  downloadFileName = downloadFileName.replace("%%applicationCycle%%", str(cycle))
+  downloadFileName = downloadFileName.replace("%%downloadFileType%%", downloadFileType)
+  
   return render_template (  "allLabor.html",
                             proj = project,
                             username = username,
@@ -26,4 +33,5 @@ def allLabor_GET (username):
                             progs = programs,
                             budg = budget,
                             params = parameters,
+                            downloadFileName = downloadFileName
                           )

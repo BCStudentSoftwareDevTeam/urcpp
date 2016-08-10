@@ -39,10 +39,15 @@
       {% for column in cfg["voting"] %}
       <tr class = "text-center">
         <td class = "text-left">
-          <span title = "{{column['longDescription']}}" 
-                data-toggle="tooltip" 
-                data-placement="right" >{{column["title"]}}
-          </span>
+          <span>{{column["title"]}}</span>
+          <i
+            data-toggle="popover"
+            data-trigger="focus"
+            data-content="{{column['longDescription']}}"
+            class="glyphicon glyphicon-info-sign"
+            data-placement="right"
+            tabindex="0"
+            role="button"></i>
         </td>
         <td>
           <label class="radio-inline">

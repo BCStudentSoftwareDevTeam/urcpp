@@ -199,8 +199,12 @@ response:
   noResults: "No Results"
 
 filepaths:
-  directory: "/var/www/html/urcpp-flask/api/static/files/%%applicationCycle%%/%%username%%"
-  projectFiles: "/var/www/html/urcpp-flask/api/static/files/"
+  # directory: "/var/www/html/urcpp-flask/api/static/files/%%applicationCycle%%/%%username%%"
+  # projectFiles: "/var/www/html/urcpp-flask/api/static/files/"
+  directory: "api/static/files/%%applicationCycle%%/%%username%%"
+  projectFiles: "api/static/files/"
+  downloadFiles: "static/files/"
+  
   allowedFileExtensions:
     rtf: "Rich Text Format"
     pdf: "Portable Document Format"
@@ -212,6 +216,14 @@ filepaths:
     - narrative
     - irb
   pageTemplates: "/var/www/html/urcpp-flask/api/templates"
+  
+downloads:
+  downloadFileTypes:
+    allProjects: "project"
+    allBudgets: "budget"
+    allLabor: "labor"
+  downloadFileNameFormat: "urcpp-%%applicationCycle%%-%%downloadFileType%%"
+  downloadFileExtension: ".xlsx"
   
 # We don't know if these are needed, but they do document the 
 # directory paths/layout that we intend...

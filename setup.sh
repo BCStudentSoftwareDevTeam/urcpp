@@ -20,6 +20,9 @@ pip install mkdocs
 pip install gunicorn
 pip install tornado
 
+# additional python library
+pip install XlsxWriter
+
 # For QR Codes
 #pip install sqlite-web
 #pip install pyotp
