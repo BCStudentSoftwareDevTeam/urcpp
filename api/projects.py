@@ -1,5 +1,6 @@
 from everything import *
 import os
+from applicationCycle import getCurrentCycle
 
 def getProjectByID(projectID):
   projQ = (Projects.select()
@@ -12,9 +13,11 @@ def getProjectByID(projectID):
     
     
 def getProject (username):
+  year = getCurrentCycle()
   projQ = (Projects.select()
     .join (URCPPFaculty, on = (URCPPFaculty.pID == Projects.pID))
     .where (URCPPFaculty.username == username)
+    .where (Projects.year == year)
   )
   
   if projQ.exists():
@@ -24,13 +27,15 @@ def getProject (username):
     return None
 
 def getAllProjects ():
-  allProjQ = (Projects.select())
+  # we only want to get projects for the current year
+  year = getCurrentCycle()
+  allProjQ = (Projects.select()).where(Projects.year == year)
   
   if allProjQ.exists():
-    projs = allProjQ.select()
-    return projs
+    return allProjQ
   else:
     return None
+
     
 @app.route("/urcpp/v1/projects/get/<username>", methods = ["POST"])
 def projects_get (username):

@@ -64,10 +64,15 @@ class Budget (DynamicModel):
   otherDesc           = TextField(default = "")
   
 class PreSurvey (DynamicModel):
-  psID              = PrimaryKeyField()
+  psID                = PrimaryKeyField()
 
 class PostSurvey (DynamicModel):
-  psID              = PrimaryKeyField()
+  psID                = PrimaryKeyField()
+  
+class ApplicationCycle(DynamicModel):
+  year                  = IntegerField(null = False)
+  startDate             = DateTimeField()
+  endDate               = DateTimeField()
 
 class Projects (DynamicModel):
   pID                   = PrimaryKeyField()
@@ -76,7 +81,7 @@ class Projects (DynamicModel):
   duration              = IntegerField()
   startDate             = DateTimeField()
   endDate               = DateTimeField()
-  year                  = IntegerField( default = cfg["urcpp"]["applicationCycle"])
+  year                  = ForeignKeyField(ApplicationCycle)
   # Like the vitae; the file is in a folder.
   # /year/projid/title.pdf
   #proposal     = BlobField()

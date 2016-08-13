@@ -66,13 +66,20 @@ budget = Budget (
   )
 budget.save()
 
+applicationCycle = ApplicationCycle (
+  year      = 2016,
+  startDate = "2016-01-01",
+  endDate   = "2016-12-31"
+  )
+applicationCycle.save()
+
 proj = Projects (
   title                 = "Super Dooper Robots",
   budgetID              = 1,
   duration              = 8,
   startDate             = "2015-12-15",
   endDate               = "2016-02-09",
-  year                  = 2016,
+  year                  = 1,
   hasCommunityPartner   = True,
   isServiceToCommunity  = True,
   humanSubjects         = True,

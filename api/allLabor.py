@@ -4,6 +4,7 @@ from projects import getAllProjects
 from programs import getAllPrograms
 from budget import getAllBudgets
 from parameters import getParameters
+from makeExcel import getFilename
 
 from pages import *
 
@@ -17,13 +18,7 @@ def allLabor_GET (username):
   programs = getAllPrograms()
   budget = getAllBudgets()
   parameters = getParameters()
-  
-  downloadFileName = cfg["downloads"]["downloadFileNameFormat"]
-  cycle = cfg["urcpp"]["applicationCycle"]
-  downloadFileType = cfg["downloads"]["downloadFileTypes"]["allLabor"]
-  
-  downloadFileName = downloadFileName.replace("%%applicationCycle%%", str(cycle))
-  downloadFileName = downloadFileName.replace("%%downloadFileType%%", downloadFileType)
+  downloadFileName = getFilename("allLabor")
   
   return render_template (  "allLabor.html",
                             proj = project,

@@ -3,11 +3,12 @@ from faculty import getFaculty, getLDAPFaculty
 from projects import getProject
 from programs import getAllPrograms
 from parameters import getParameters
+from applicationCycle import getCurrentCycle
 import math
 
 def getBudget (username):
-   proj = getProject(username);
-   if proj:
+   projQ = getProject(username);
+   if projQ:
      budgQ = (Budget.select()
           .where (Budget.bID == proj.budgetID)
           )
@@ -21,14 +22,19 @@ def getBudget (username):
       return None
 
 def getAllBudgets ():
-   budgQ = (Budget.select())
-   
-   app.logger.info("Looking for all budgets with query:\n\n" + budgQ + "\n\n")
-   
-   if budgQ.exists():
-      return budgQ.execute()
-   else:
-      return None
+  
+  year = getCurrentCycle()
+  
+  budgQ = (Budget.select()
+            .join(Projects)
+            .where(Projects.year == year))
+  
+  app.logger.info("Looking for all budgets with query:\n\n" + budgQ + "\n\n")
+  
+  if budgQ.exists():
+    return budgQ.execute()
+  else:
+    return None
   
 @app.route("/<username>/budget", methods = ["GET"])
 def budget_GET (username):

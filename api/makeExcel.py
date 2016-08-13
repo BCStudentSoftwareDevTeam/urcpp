@@ -3,17 +3,23 @@ from everything import *
 from string import ascii_uppercase as AtoZ
 from faculty import getFacultyWithProjects
 from parameters import getParameters
+from applicationCycle import getCurrentCycle
 
+
+def getFilename(fileType):
+  cycle = getCurrentCycle()
+  fileName = cfg["downloads"]["downloadFileNameFormat"]
+  fileType = cfg["downloads"]["downloadFileTypes"][fileType]
+  fileName = fileName.replace("%%applicationCycle%%", str(cycle.year))
+  fileName = fileName.replace("%%downloadFileType%%", fileType)
+  return fileName
 
 def getFilePath(fileType):
-  applicationCycle = cfg["urcpp"]["applicationCycle"]
-  writeFileName = cfg["downloads"]["downloadFileNameFormat"] + cfg["downloads"]["downloadFileExtension"]
+  cycle = getCurrentCycle()
+  writeFileName = getFilename(fileType)
   writeFileType = cfg["downloads"]["downloadFileTypes"][fileType]
-  
-  writeFileName = writeFileName.replace("%%applicationCycle%%", str(applicationCycle))
-  writeFileName = writeFileName.replace("%%downloadFileType%%", writeFileType)
-  
-  return cfg["filepaths"]["projectFiles"] + "/" + str(applicationCycle) + "/" + writeFileType + "/" + writeFileName
+  fileExtension = cfg["downloads"]["downloadFileExtension"]
+  return cfg["filepaths"]["projectFiles"] + "/" + str(cycle.year) + "/" + writeFileType + "/" + writeFileName + fileExtension
 
 def checkFilePath(fileType):
   applicationCycle = cfg["urcpp"]["applicationCycle"]

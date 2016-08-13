@@ -9,6 +9,7 @@ from pages import validPageTemplate
 
 @app.route("/<username>/bnumbers", methods = ["POST"])
 def bnumbers_POST (username):
+  # TODO: We really need to fix this function. We can do much better.
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
     

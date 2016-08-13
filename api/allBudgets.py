@@ -1,9 +1,11 @@
 from everything import *
+from applicationCycle import getCurrentCycle
 from faculty import getFaculty, getLDAPFaculty, getFacultyWithProjects
 from projects import getAllProjects
 from programs import getAllPrograms
 from budget import getAllBudgets
 from parameters import getParameters
+from makeExcel import getFilename
 
 from pages import *
 
@@ -17,13 +19,7 @@ def allBudgets_GET (username):
   programs = getAllPrograms()
   budget = getAllBudgets()
   params = getParameters()
-  
-  downloadFileName = cfg["downloads"]["downloadFileNameFormat"]
-  cycle = cfg["urcpp"]["applicationCycle"]
-  downloadFileType = cfg["downloads"]["downloadFileTypes"]["allBudgets"]
-  
-  downloadFileName = downloadFileName.replace("%%applicationCycle%%", str(cycle))
-  downloadFileName = downloadFileName.replace("%%downloadFileType%%", downloadFileType)
+  downloadFileName = getFilename("allBudgets")
 
   return render_template (  "allBudgets.html",
                             proj = proj,

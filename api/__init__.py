@@ -11,6 +11,7 @@ import api.globalroutes
 import api.files
 import api.pages
 import api.filters
+import api.applicationCycle
 
 # Form pages
 import api.create
