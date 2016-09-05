@@ -10,10 +10,10 @@ def getProjectByID(projectID):
     return projQ.get()
   else:
     return None
-    
-    
-def getProject (username):
-  year = getCurrentCycle()
+
+def getProjectByYear(username, year):
+  
+  #get the project belonging to this user during some year
   projQ = (Projects.select()
     .join (URCPPFaculty, on = (URCPPFaculty.pID == Projects.pID))
     .where (URCPPFaculty.username == username)
@@ -25,16 +25,26 @@ def getProject (username):
     return proj
   else:
     return None
-
-def getAllProjects ():
-  # we only want to get projects for the current year
+    
+def getProject (username):
+  #get project for this user in the current cycle
   year = getCurrentCycle()
-  allProjQ = (Projects.select()).where(Projects.year == year)
+  getProjectByYear(username, year)
+  
+def getAllProjectsByYear(year):
+   allProjQ = (Projects.select()).where(Projects.year == year)
   
   if allProjQ.exists():
     return allProjQ
   else:
     return None
+
+def getAllProjects():
+  # we only want to get projects for the current year
+  year = getCurrentCycle()
+  getAllProjectsByYear(year)
+ 
+    
 
     
 @app.route("/urcpp/v1/projects/get/<username>", methods = ["POST"])
