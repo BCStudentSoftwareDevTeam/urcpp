@@ -32,7 +32,7 @@ def getProject (username):
   getProjectByYear(username, year)
   
 def getAllProjectsByYear(year):
-   allProjQ = (Projects.select()).where(Projects.year == year)
+  allProjQ = (Projects.select()).where(Projects.year == year)
   
   if allProjQ.exists():
     return allProjQ
