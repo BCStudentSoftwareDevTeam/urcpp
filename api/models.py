@@ -1,16 +1,23 @@
 import datetime
 from peewee import *
 import os
-
+here = os.path.dirname(__file__)
+print here
 # Create a database
 from api.config import load_config
 
 # The path is relative to the top of the project.
 print("GETCWD MODELS: " + os.getcwd())
 
+
 # cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
-cfg = load_config('api/config.yaml')
-dynamicDB = MySQLDatabase("urcpp_flask", host="localhost", user="urcpp-flask", passwd="DanforthLabor123!") 
+
+cfg = load_config(os.path.join(here, 'config.yaml'))
+try:
+  dynamicDB = MySQLDatabase("c9", host="127.0.0.1", user="memo3301791", port=3306)
+  #ishwar if you want to work on your own databse you can add in except
+except:
+  dynamicDB = MySQLDatabase("urcpp_flask", host="localhost", user="urcpp-flask", passwd="DanforthLabor123!") 
 
 print ("SQLITE DATABASES LOADED.")
 
@@ -70,7 +77,7 @@ class PostSurvey (DynamicModel):
   psID                = PrimaryKeyField()
   
 class ApplicationCycle(DynamicModel):
-  year                  = IntegerField(null = False)
+  year                  = IntegerField(null = False, primary_key=True)
   startDate             = DateTimeField()
   endDate               = DateTimeField()
 

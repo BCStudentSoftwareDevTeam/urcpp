@@ -71,7 +71,7 @@ applicationCycle = ApplicationCycle (
   startDate = "2016-01-01",
   endDate   = "2016-12-31"
   )
-applicationCycle.save()
+applicationCycle.save(force_insert=True)
 
 proj = Projects (
   title                 = "Super Dooper Robots",
@@ -79,7 +79,7 @@ proj = Projects (
   duration              = 8,
   startDate             = "2015-12-15",
   endDate               = "2016-02-09",
-  year                  = 1,
+  year                  = 2016,
   hasCommunityPartner   = True,
   isServiceToCommunity  = True,
   humanSubjects         = True,
