@@ -14,10 +14,10 @@ print("GETCWD MODELS: " + os.getcwd())
 
 cfg = load_config(os.path.join(here, 'config.yaml'))
 try:
-  dynamicDB = MySQLDatabase("c9", host="127.0.0.1", user="memo3301791", port=3306)
-  #ishwar if you want to work on your own databse you can add in except
+  dynamicDB = MySQLDatabase("urcpp_flask", host="localhost", user="urcpp-flask", passwd="DanforthLabor123!")
 except:
-  dynamicDB = MySQLDatabase("urcpp_flask", host="localhost", user="urcpp-flask", passwd="DanforthLabor123!") 
+  dynamicDB = MySQLDatabase("c9", host="127.0.0.1", user="memo3301791", port=3306)
+  # guillermo: the error was not being caught. So, I put your DB in except.
 
 print ("SQLITE DATABASES LOADED.")
 

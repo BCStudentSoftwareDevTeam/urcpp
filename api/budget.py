@@ -7,8 +7,8 @@ from applicationCycle import getCurrentCycle
 import math
 
 def getBudget (username):
-   projQ = getProject(username);
-   if projQ:
+   proj = getProject(username);
+   if proj:
      budgQ = (Budget.select()
           .where (Budget.bID == proj.budgetID)
           )

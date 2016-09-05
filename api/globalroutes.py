@@ -5,7 +5,8 @@ from programs import getAllPrograms
 from collaborators import getCollaborators
 from budget import getBudget
 from pages import *
-
+from applicationCycle import getCurrentCycle
+from datetime import datetime
 import pprint
 
 
@@ -28,13 +29,16 @@ def main ():
   print username  
   ldap = getLDAPFaculty(username)
   project = getProject(username)
+  currentCycle = getCurrentCycle()
+  today = datetime.now()
 
   return render_template ("start.html", 
                            username = username,
                            ldap = ldap,
                            proj = project,
                            cfg = cfg,
-
+                           currentCycle = currentCycle,
+                           today = today
                            )
 @app.route("/<username>", methods = ["GET"])
 def main_with_username (username):

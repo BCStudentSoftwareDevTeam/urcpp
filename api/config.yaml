@@ -216,6 +216,8 @@ filepaths:
     - vitae
     - narrative
     - irb
+    - abstract
+    - finalReport
   pageTemplates: "/var/www/html/urcpp-flask/api/templates"
   
 downloads:
