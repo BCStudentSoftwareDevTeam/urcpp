@@ -29,7 +29,7 @@ def getProjectByYear(username, year):
 def getProject (username):
   #get project for this user in the current cycle
   year = getCurrentCycle()
-  getProjectByYear(username, year)
+  return getProjectByYear(username, year)
   
 def getAllProjectsByYear(year):
   allProjQ = (Projects.select()).where(Projects.year == year)
@@ -42,7 +42,7 @@ def getAllProjectsByYear(year):
 def getAllProjects():
   # we only want to get projects for the current year
   year = getCurrentCycle()
-  getAllProjectsByYear(year)
+  return getAllProjectsByYear(year)
  
     
 
