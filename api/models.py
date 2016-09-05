@@ -77,7 +77,7 @@ class PostSurvey (DynamicModel):
   psID                = PrimaryKeyField()
   
 class ApplicationCycle(DynamicModel):
-  year                  = IntegerField(null = False)
+  year                  = IntegerField(null = False, primary_key=True)
   startDate             = DateTimeField()
   endDate               = DateTimeField()
 
