@@ -43,8 +43,28 @@ def getAllProjects():
   # we only want to get projects for the current year
   year = getCurrentCycle()
   return getAllProjectsByYear(year)
- 
-    
+
+@app.route("/urcpp/v1/history", methods = ["POST"])
+def getProjectsByUsername():
+  years = request.form.getlist('years[]')
+  if not len(years):
+    years = ApplicationCycle.select()
+  data = request.form
+  try:
+    username = data['username']
+  except KeyError:
+    username = ''
+  projects = (Projects.select()
+              .where(Projects.year << years)
+              .join(URCPPFaculty, on = (URCPPFaculty.pID == Projects.pID))
+              .where(URCPPFaculty.username.startswith(username)))
+              
+  if projects.exists():
+    project_list = []
+    for project in projects:
+      project_list.append(m2d(project))
+  
+  return jsonify(project_list)
 
     
 @app.route("/urcpp/v1/projects/get/<username>", methods = ["POST"])
