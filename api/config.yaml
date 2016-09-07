@@ -202,7 +202,7 @@ response:
 filepaths:
   # directory: "/var/www/html/urcpp-flask/api/static/files/%%applicationCycle%%/%%username%%"
   # projectFiles: "/var/www/html/urcpp-flask/api/static/files/"
-  directory: "api/static/files/%%applicationCycle%%/%%username%%"
+  directory: "static/files/%%applicationCycle%%/%%username%%"
   projectFiles: "api/static/files/"
   downloadFiles: "static/files/"
   
