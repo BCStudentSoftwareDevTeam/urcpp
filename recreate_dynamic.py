@@ -50,64 +50,156 @@ dynamicDB.create_tables(get_classes('dynamic'))
 
 # Add some dummy data.
 
-budget = Budget (
-  facultyStipend      = 12,
-  facultyStipendDesc  ="Awesome!",
-  miles               = 12,
-  milesDesc           ="Awesome!",
-  otherTravel         = 12,
-  otherTravelDesc     ="Awesome!",
-  equipment           = 12,
-  equipmentDesc       ="Awesome!",
-  materials           = 12,
-  materialsDesc       ="Awesome!",
-  other               = 12,
-  otherDesc           ="Awesome!",
-  )
-budget.save()
+# budget = Budget (
+#   facultyStipend      = 12,
+#   facultyStipendDesc  ="Awesome!",
+#   miles               = 12,
+#   milesDesc           ="Awesome!",
+#   otherTravel         = 12,
+#   otherTravelDesc     ="Awesome!",
+#   equipment           = 12,
+#   equipmentDesc       ="Awesome!",
+#   materials           = 12,
+#   materialsDesc       ="Awesome!",
+#   other               = 12,
+#   otherDesc           ="Awesome!",
+#   )
+# budget.save()
 
-applicationCycle = ApplicationCycle (
-  year      = 2016,
-  startDate = "2016-01-01",
-  endDate   = "2016-12-31"
-  )
-applicationCycle.save(force_insert=True)
+# budget = Budget (
+#   facultyStipend      = 13,
+#   facultyStipendDesc  ="Awesome!",
+#   miles               = 13,
+#   milesDesc           ="Awesome!",
+#   otherTravel         = 13,
+#   otherTravelDesc     ="Awesome!",
+#   equipment           = 13,
+#   equipmentDesc       ="Awesome!",
+#   materials           = 13,
+#   materialsDesc       ="Awesome!",
+#   other               = 13,
+#   otherDesc           ="Awesome!",
+#   )
+# budget.save()
+# budget = Budget (
+#   facultyStipend      = 14,
+#   facultyStipendDesc  ="Awesome!",
+#   miles               = 14,
+#   milesDesc           ="Awesome!",
+#   otherTravel         = 14,
+#   otherTravelDesc     ="Awesome!",
+#   equipment           = 14,
+#   equipmentDesc       ="Awesome!",
+#   materials           = 14,
+#   materialsDesc       ="Awesome!",
+#   other               = 14,
+#   otherDesc           ="Awesome!",
+#   )
+# budget.save()
 
-proj = Projects (
-  title                 = "Super Dooper Robots",
-  budgetID              = 1,
-  duration              = 8,
-  startDate             = "2015-12-15",
-  endDate               = "2016-02-09",
-  year                  = 2016,
-  hasCommunityPartner   = True,
-  isServiceToCommunity  = True,
-  humanSubjects         = True,
-  numberStudents        = 3
-  )
-proj.save()
+# applicationCycle = ApplicationCycle (
+#   year      = 2016,
+#   startDate = "2016-01-01",
+#   endDate   = "2016-12-31"
+#   )
+# applicationCycle.save(force_insert=True)
 
-collab = Collaborators (
-  pID = proj.pID,
-  username = "heggens"
-  )
-collab.save()
+# applicationCycle = ApplicationCycle (
+#   year      = 2017,
+#   startDate = "2017-01-01",
+#   endDate   = "2017-12-31"
+#   )
+# applicationCycle.save(force_insert=True)
 
-fac = URCPPFaculty (
-  pID               = proj.pID,
-  username          = "jadudm",
-  # Possible values: oneyr, twoyr, threeToFiveyr, sixToTenyr, elevenPlus
-  yearsFunded       = "{oneyr:1,twoyr:1,threeToFiveyr:1,sixToTenyr:1,elevenPlus:1}",
-  relatedFunding    = "I got big bucks and I cannot lie.",
-  programID         = 1,
-  )
-fac.save()
+# applicationCycle = ApplicationCycle (
+#   year      = 2018,
+#   startDate = "2018-01-01",
+#   endDate   = "2018-12-31"
+#   )
+# applicationCycle.save(force_insert=True)
 
-params = Parameters(
-  year                = 2016,
-  appOpenDate         = "2015-12-15",
-  appCloseDate        = "2016-01-31",
-  mileageRate         = 0.52,
-  laborRate           = 8.00,
-  )
-params.save()
+# proj = Projects (
+#   title                 = "Super Dooper Robots",
+#   budgetID              = 1,
+#   duration              = 8,
+#   startDate             = "2015-12-15",
+#   endDate               = "2016-02-09",
+#   year                  = 2016,
+#   hasCommunityPartner   = True,
+#   isServiceToCommunity  = True,
+#   humanSubjects         = True,
+#   numberStudents        = 3
+#   )
+# proj.save()
+
+# fac = URCPPFaculty (
+#   pID               = proj.pID,
+#   username          = "heggens",
+#   # Possible values: oneyr, twoyr, threeToFiveyr, sixToTenyr, elevenPlus
+#   yearsFunded       = "{oneyr:1,twoyr:1,threeToFiveyr:1,sixToTenyr:1,elevenPlus:1}",
+#   relatedFunding    = "I got big bucks and I cannot tell untruths.",
+#   programID         = 1,
+#   )
+# fac.save()
+
+# proj = Projects (
+#   title                 = "Super Dooper Robots version2",
+#   budgetID              = 1,
+#   duration              = 8,
+#   startDate             = "2016-12-15",
+#   endDate               = "2017-02-09",
+#   year                  = 2017,
+#   hasCommunityPartner   = True,
+#   isServiceToCommunity  = True,
+#   humanSubjects         = True,
+#   numberStudents        = 3
+#   )
+# proj.save()
+# fac = URCPPFaculty (
+#   pID               = proj.pID,
+#   username          = "nakazawam",
+#   # Possible values: oneyr, twoyr, threeToFiveyr, sixToTenyr, elevenPlus
+#   yearsFunded       = "{oneyr:1,twoyr:1,threeToFiveyr:1,sixToTenyr:1,elevenPlus:1}",
+#   relatedFunding    = "I got big bucks and I cannot deceive.",
+#   programID         = 1,
+#   )
+# fac.save()
+
+# proj = Projects (
+#   title                 = "Super Dooper Robots version 3",
+#   budgetID              = 1,
+#   duration              = 8,
+#   startDate             = "2017-12-15",
+#   endDate               = "2018-02-09",
+#   year                  = 2018,
+#   hasCommunityPartner   = True,
+#   isServiceToCommunity  = True,
+#   humanSubjects         = True,
+#   numberStudents        = 3
+#   )
+# proj.save()
+
+# collab = Collaborators (
+#   pID = proj.pID,
+#   username = "heggens"
+#   )
+# collab.save()
+
+# fac = URCPPFaculty (
+#   pID               = proj.pID,
+#   username          = "jadudm",
+#   # Possible values: oneyr, twoyr, threeToFiveyr, sixToTenyr, elevenPlus
+#   yearsFunded       = "{oneyr:1,twoyr:1,threeToFiveyr:1,sixToTenyr:1,elevenPlus:1}",
+#   relatedFunding    = "I got big bucks and I cannot lie.",
+#   programID         = 1,
+#   )
+# fac.save()
+
+# params = Parameters(
+#   year                = 2016,
+#   appOpenDate         = "2015-12-15",
+#   appCloseDate        = "2016-01-31",
+#   mileageRate         = 0.52,
+#   laborRate           = 8.00,
+#   )
+# params.save()

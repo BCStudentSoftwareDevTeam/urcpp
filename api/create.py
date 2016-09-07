@@ -61,7 +61,7 @@ def create_POST (username):
   proj.endDate    = datetime.datetime.strptime(data["endDate"], '%m-%d-%Y')
   proj.duration   = int(data["duration"])
   proj.budgetID   = budg.bID
-
+  proj.year       = data['startDate'].split('-')[-1]
   # print (data["isServiceToCommunity"] if data["isServiceToCommunity"] is not None else False)
   # print (data["hasCommunityPartner"] if data["hasCommunityPartner"] is not None else False)
   proj.isServiceToCommunity = data["isServiceToCommunity"] if "isServiceToCommunity" in data is not None else False 

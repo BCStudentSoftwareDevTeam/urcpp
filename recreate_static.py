@@ -49,38 +49,38 @@ def get_classes (db):
 dynamicDB.create_tables(get_classes('static'))
 
 # Add some dummy data.
-fac = LDAPFaculty ( firstname     = "Matt",
-                    lastname      = "Jadud",
-                    username      = "jadudm",
-                    bnumber       = "B00669796"
-                 )
-fac.save()
+# fac = LDAPFaculty ( firstname     = "Matt",
+#                     lastname      = "Jadud",
+#                     username      = "jadudm",
+#                     bnumber       = "B00669796"
+#                  )
+# fac.save()
 
-fac = LDAPFaculty ( firstname     = "Scott",
-                    lastname      = "Heggen",
-                    username      = "heggens",
-                    bnumber       = "B00660000"
-                 )
-fac.save()
+# fac = LDAPFaculty ( firstname     = "Scott",
+#                     lastname      = "Heggen",
+#                     username      = "heggens",
+#                     bnumber       = "B00660000"
+#                  )
+# fac.save()
 
-fac = LDAPFaculty ( firstname     = "Mario",
-                    lastname      = "Nakazawa",
-                    username      = "nakazawam",
-                    bnumber       = "B00661111"
-                 )
-fac.save()
+# fac = LDAPFaculty ( firstname     = "Mario",
+#                     lastname      = "Nakazawa",
+#                     username      = "nakazawam",
+#                     bnumber       = "B00661111"
+#                  )
+# fac.save()
 
-prog = Programs ( name = "Computer and Information Science",
-                  abbreviation = "CSC"
-                )
-prog.save()
+# prog = Programs ( name = "Computer and Information Science",
+#                   abbreviation = "CSC"
+#                 )
+# prog.save()
 
-prog = Programs ( name = "Biology",
-                  abbreviation = "BIO"
-                )
-prog.save()
+# prog = Programs ( name = "Biology",
+#                   abbreviation = "BIO"
+#                 )
+# prog.save()
 
-prog = Programs ( name = "Physics",
-                  abbreviation = "PHY"
-                )
-prog.save()
+# prog = Programs ( name = "Physics",
+#                   abbreviation = "PHY"
+#                 )
+# prog.save()
