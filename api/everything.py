@@ -28,7 +28,7 @@ import uuid
 
 def authUser(env):
   envK = "eppn"
-  app.logger.info("Found remote user: " + env.get("HTTP_X_REMOTE_USER") + env.get("PHP_AUTH_USER"))
+  #app.logger.info("Found remote user: " + env.get("HTTP_X_REMOTE_USER") + env.get("PHP_AUTH_USER"))
   if (envK in env):
     app.logger.info("We're live"+  env[envK].split("@")[0]+ ";")
     return env[envK].split("@")[0]
