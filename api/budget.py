@@ -10,7 +10,7 @@ def getBudget (username):
    proj = getProject(username);
    if proj:
      budgQ = (Budget.select()
-          .where (Budget.bID == projQ.budgetID)
+          .where (Budget.bID == proj.budgetID)
           )
      app.logger.info("Looking for budget with query:\n\n" + budgQ + "\n\n")
    
