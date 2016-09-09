@@ -9,12 +9,13 @@ from collaborators import getCollaborators
 
 def checkForFile(username, uploadType):
   #we need to know where we are at for file lookup issues
-  here = os.path.dirname(__file__)
+  #here = os.path.dirname(__file__)
   allowedExtensions = cfg["filepaths"]["allowedFileExtensions"].keys();
   # print allowedExtensions
   for ext in allowedExtensions:
     prevFilepath = (cfg["filepaths"]["projectFiles"]+str(cfg["urcpp"]["applicationCycle"]) + "/" + username + "/" + username + "-" + uploadType + "." + ext)
-    if not (os.path.exists(os.path.join(here,prevFilepath))):
+    #prevFilepath = os.path.join(here,prevFilepath)
+    if not (os.path.exists(prevFilepath)):
       prevFilepath = ""
     else:
       prevFilepath = prevFilepath[4:] # Something is inconsistent somewhere; this removes "api" from the beginning of the file path, which makes download work on the front end (allFiles.html)
@@ -44,6 +45,7 @@ def generic_file_upload (username, uploadType):
     prev = checkForFile(username, uploadType).replace("upload", "")
     print "final path is: " + prev
     prevFilepath = prev.split("/").pop()
+    print prevFilepath + " end file"
 
     return render_template (  "upload.html",
                               proj = proj,
