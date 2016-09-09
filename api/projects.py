@@ -31,6 +31,7 @@ def getProject (username):
   year = getCurrentCycle()
   return getProjectByYear(username, year)
   
+# Do we need this function? We aren't really using it anymore.
 def getAllProjectsByYear(year):
   allProjQ = (Projects.select()).where(Projects.year == year)
   

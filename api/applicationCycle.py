@@ -1,12 +1,12 @@
 from everything import *
-import datetime
+from datetime import datetime
 
 def getCurrentCycle():
-  now = datetime.datetime.now()
+  now = datetime.now()
   cycle = (ApplicationCycle.select()
             .where(ApplicationCycle.year == now.year)
           )
-  app.logger.info("Looking for budget with query:\n\n" + cycle + "\n\n")
+  app.logger.info("Looking for current year with query:\n\n" + cycle + "\n\n")
   if cycle.exists():
     return cycle.get()
   else:
