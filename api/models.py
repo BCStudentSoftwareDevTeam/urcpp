@@ -13,11 +13,7 @@ print("GETCWD MODELS: " + os.getcwd())
 # cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
 
 cfg = load_config(os.path.join(here, 'config.yaml'))
-try:
-  dynamicDB = MySQLDatabase("c9", host="127.0.0.1", user="memo3301791", port=3306)
-  #ishwar if you want to work on your own databse you can add in except
-except:
-  dynamicDB = MySQLDatabase("urcpp_flask", host="localhost", user="urcpp-flask", passwd="DanforthLabor123!") 
+dynamicDB = MySQLDatabase("urcpp_flask", host="localhost", user="urcpp-flask", passwd="DanforthLabor123!") 
 
 print ("SQLITE DATABASES LOADED.")
 
