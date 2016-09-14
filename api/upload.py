@@ -9,15 +9,23 @@ from collaborators import getCollaborators
 
 def checkForFile(username, uploadType):
   #we need to know where we are at for file lookup issues
-  #here = os.path.dirname(__file__)
+  here = os.path.dirname(__file__)
   allowedExtensions = cfg["filepaths"]["allowedFileExtensions"].keys();
   for ext in allowedExtensions:
-    prevFilepath = (cfg["filepaths"]["projectFiles"]+str(cfg["urcpp"]["applicationCycle"]) + "/" + username + "/" + username + "-" + uploadType + "." + ext)
-    if not (os.path.exists(prevFilepath)):
-      prevFilepath = ""
+    fileDirectory = 'static/files'
+    prevFilepath = '{0}{1}/{2}/{3}-{4}.{5}'.format(cfg['filepaths']['projectFiles'],
+                                    cfg["urcpp"]["applicationCycle"],
+                                    username, username,
+                                    uploadType, ext)
+    #prevFilepath = cfd['filepath']['directory']
+    prevFilepathAbs = os.path.join(here, prevFilepath)
+    if not (os.path.exists(prevFilepathAbs)):
+      prevFilepath =''
     else:
-      prevFilepath = prevFilepath[4:] # Something is inconsistent somewhere; this removes "api" from the beginning of the file path, which makes download work on the front end (allFiles.html)
-      break
+        app.logger.error(prevFilepath)
+        pathComponents = prevFilepath.split('/')
+        prevFilepath = pathComponents[-1] # Something is inconsistent somewhere; this removes "api" from the beginning of the file path, which makes download work on the front end (allFiles.html)
+        break
   return prevFilepath
 
 
@@ -39,9 +47,9 @@ def generic_file_upload (username, uploadType):
     collaborators = getCollaborators(username)
     budget = getBudget(username)
 
-    prev = checkForFile(username, uploadType).replace("upload", "")
-    prevFilepath = prev.split("/").pop()
-
+    prevFilepath = checkForFile(username, uploadType)
+    prev = prevFilepath
+    #prevFilepath = prev.split("/").pop()
     return render_template (  "upload.html",
                               proj = proj,
                               username = username,

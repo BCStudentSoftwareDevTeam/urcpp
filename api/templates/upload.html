@@ -27,7 +27,7 @@
       <label>Current File:&nbsp; </label>
       <label id="fileLabel">
         {% if prevFilepath != "" %}
-          <a href = "/{{fullpath}}" target = '_blank'>
+        <a href = "/{{ldap.username}}/document/{{prevFilepath}}" target = '_blank'>
             {{prevFilepath}}
           </a>
         {% else %} 
