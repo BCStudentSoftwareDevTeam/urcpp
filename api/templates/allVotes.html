@@ -5,10 +5,11 @@
 
 {% block body %}
 
-
+<!--why are there two scripts?-->
 <script>
-
-  var numRows = {{fac|count}};
+  {% if fac is not none %}
+    var numRows = {{fac|count}};
+  {% endif %}
   function changeSize (ele, scale) {
       $("#"+ele).stop().animate({fontSize : scale});
     }
@@ -40,42 +41,46 @@
       {% endfor %}
       <th>Total</th>
     </tr>
-    {% for person in fac %}
-      <tr id="row{{loop.index0}}" name = "leRow">
-        <td>
-          {{person.username.firstname}} {{person.username.lastname}} <span class = "small">({{person.programID.name}})</span>
-          <br />
-          <span class = "small">{{person.pID.title|truncate(50, True)}}</span>
-        </td>
-        <!--Loop for each project-->
-        {% for vote in votes %}
-          <!--Loop for each vote-->
-          {% if vote is not none %}
-      	    {% for result in vote %}
-              <!--Check to see if current vote (result) is part of current project-->
-              {% if result[0] == person.pID.pID %}
-                <!--Loop for each vote category-->
-                {% for field in cfg["voting"] %} 
-                  <td name = "rowValue" class = "{{field['dbName']}} rowValue text-center" id="col{{loop.index0}}">
-                    {{'%0.2f'| format(result[loop.index]|float)}}
-                  </td>
-                {% endfor %}
-              {% endif %}
-            {% endfor %}
-	  {% endif %}
-        {% endfor %}
-        <th id = "average{{loop.index0}}">
-        </th>
-      </tr>
-    
-    {% endfor %}
+    {% if fac is not none %}
+      {% for person in fac %}
+        <tr id="row{{loop.index0}}" name = "leRow">
+          <td>
+            {{person.username.firstname}} {{person.username.lastname}} <span class = "small">({{person.programID.name}})</span>
+            <br />
+            <span class = "small">{{person.pID.title|truncate(50, True)}}</span>
+          </td>
+          <!--Loop for each project-->
+          {% for vote in votes %}
+            <!--Loop for each vote-->
+            {% if vote is not none %}
+        	    {% for result in vote %}
+                <!--Check to see if current vote (result) is part of current project-->
+                {% if result[0] == person.pID.pID %}
+                  <!--Loop for each vote category-->
+                  {% for field in cfg["voting"] %} 
+                    <td name = "rowValue" class = "{{field['dbName']}} rowValue text-center" id="col{{loop.index0}}">
+                      {{'%0.2f'| format(result[loop.index]|float)}}
+                    </td>
+                  {% endfor %}
+                {% endif %}
+              {% endfor %}
+  	  {% endif %}
+          {% endfor %}
+          <th id = "average{{loop.index0}}">
+          </th>
+        </tr>
+      
+      {% endfor %}
+    {% endif %}
   </table>
 </div>
 
 <script>
 
 $(document).ready(function(){
+     {% if fac is not none %}
     var numRows = {{fac|count}};
+  {% endif %}
   function changeSize (ele, scale) {
       $("#"+ele).stop().animate({fontSize : scale});
     }

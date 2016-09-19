@@ -24,7 +24,7 @@
         </th>
         {% endfor %}
       </tr>
-      
+      {% if fac is not none %}
       {% for person in fac %} <!-- See allBudgets for a better way of doing this -->
         <tr id="row{{loop.index0}}">
           <td>
@@ -72,6 +72,7 @@
           {% endfor %}
         </tr>
       {% endfor %}
+      {% endif %}
     </table>
   </form>
 </div>

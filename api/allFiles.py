@@ -31,21 +31,20 @@ def allFiles_GET (username):
   
   yearDir = cfg["filepaths"]["projectFiles"]+str(parameters.year)
   projectDir = cfg["filepaths"]["projectFiles"]
-  
-  for fac in faculty:
-    prevFilepath[fac.username.username] = {}
-    for uploadType in ["narrative", "vitae", "irb"]: 
-      if checkForFile(fac.username.username, uploadType) != "":
-        prevFilepath[fac.username.username][uploadType]= checkForFile(fac.username.username, uploadType)
-
+  if faculty:
+    for fac in faculty:
+      prevFilepath[fac.username.username] = {}
+      for uploadType in ["narrative", "vitae", "irb"]: 
+        if checkForFile(fac.username.username, uploadType) != "":
+          prevFilepath[fac.username.username][uploadType]= checkForFile(fac.username.username, uploadType)
+    allFac = [fac.username.username for fac in faculty]
   # Does the zipping
   shutil.make_archive(yearDir, 'zip', yearDir)
     
   allFolders = os.walk(yearDir).next()[1]
-  allFac = [fac.username.username for fac in faculty]
+
   
-  print allFolders
-  print allFac
+  
 
   for folder in allFolders:
     fullPath =  yearDir + "/" + str(folder)

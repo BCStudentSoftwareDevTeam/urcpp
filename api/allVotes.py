@@ -20,8 +20,9 @@ def allVotes_GET (username):
 
   # For each project, get average of votes in each category
   votes = []
-  for p in proj:
-    votes.append(getVotesByProject(p.pID))
+  if  proj is not None:
+    for p in proj:
+      votes.append(getVotesByProject(p.pID))
   
   return render_template ("allVotes.html",
                           proj = proj,

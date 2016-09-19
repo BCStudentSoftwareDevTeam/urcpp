@@ -11,6 +11,7 @@
   {% endfor %}
 </ul>
 <p></p>
+{% if fac is not none %}
 <form 
         class = "form-horizontal"
         action = "/{{username}}/committee/allFiles"
@@ -25,7 +26,7 @@
     </input>
 
 </form>  
-
+{% endif %}
 <div class = "row">
   <table class = "table table-striped table-hover table-sm">
     <tr>
@@ -36,6 +37,7 @@
       </th>
       {% endfor %}
     </tr>
+    {% if fac is not none %}
     {% for person in fac %}
       <tr id="row{{loop.index0}}">
         <td>
@@ -58,6 +60,7 @@
       </tr>
     
     {% endfor %}
+    {% endif %}
     
   </table>
 </div>

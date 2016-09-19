@@ -10,7 +10,9 @@
   {% for menuItem in cfg["committee"] %}
     <li role="presentation"><a href="{{menuItem['link']}}">{{menuItem['title']}}</a></li>
   {% endfor %}
+  {% if fac is not none %}
   <li style="float: right;"><a href="/{{username}}/download/{{downloadFileName}}"><span class="glyphicon glyphicon-download-alt"></span> Download Budgets</a></li>
+  {% endif %}
 </ul>
 <p></p>
 <div class = "row" style = "margin-bottom: 20px; margin-top: 20px;"><strong style = "font-size: 125%;">Filter by Status: </strong> 
@@ -41,34 +43,36 @@
       {% endfor %}
       <th style = "text-align: right; padding-right: 20px;">Total</th>
     </tr>
-    {% for person in fac %}
-      <tr id="row{{loop.index0}}" name = "leRow">
-        <td>
-          {{person.username.firstname}} {{person.username.lastname}} <span class = "small">({{person.programID.name}})</span>
-          <br />
-          <span class = "small">{{person.pID.title|truncate(50, True)}}</span>
-        </td>
-        <td id = "{{person.pID.pID}}-status" name = "projectStatus">
-          {{person.pID.status}}
-        </td>
-        {% for field in cfg["budget"] %} 
-          <td name = "rowValue" 
-              class = "{{field['amountFieldName']}}" 
-              id = "col{{loop.index0}}" 
+    {% if fac is not none %}
+      {% for person in fac %}
+        <tr id="row{{loop.index0}}" name = "leRow">
+          <td>
+            {{person.username.firstname}} {{person.username.lastname}} <span class = "small">({{person.programID.name}})</span>
+            <br />
+            <span class = "small">{{person.pID.title|truncate(50, True)}}</span>
+          </td>
+          <td id = "{{person.pID.pID}}-status" name = "projectStatus">
+            {{person.pID.status}}
+          </td>
+          {% for field in cfg["budget"] %} 
+            <td name = "rowValue" 
+                class = "{{field['amountFieldName']}}" 
+                id = "col{{loop.index0}}" 
+                style = "padding-right: 30px; text-align: right;"
+                >
+  	    {# FIXME: does not calculate correctly for miles traveled (convert to dollars). Needs an if id = mileage... multiply by mileage rate from parameters #}
+              {% if field['amountFieldName'] == "miles" %} {{ (person.pID.budgetID[field['amountFieldName']]|float  * params.mileageRate|float)|round(2)  }} {% else %} {{person.pID.budgetID[field['amountFieldName']]}} {% endif %}
+            </td>
+          {% endfor %}
+          
+          <th id = "rowTotal{{loop.index0}}"
               style = "padding-right: 30px; text-align: right;"
               >
-	    {# FIXME: does not calculate correctly for miles traveled (convert to dollars). Needs an if id = mileage... multiply by mileage rate from parameters #}
-            {% if field['amountFieldName'] == "miles" %} {{ (person.pID.budgetID[field['amountFieldName']]|float  * params.mileageRate|float)|round(2)  }} {% else %} {{person.pID.budgetID[field['amountFieldName']]}} {% endif %}
-          </td>
-        {% endfor %}
-        
-        <th id = "rowTotal{{loop.index0}}"
-            style = "padding-right: 30px; text-align: right;"
-            >
-        </th>
-      </tr>
-    
-    {% endfor %}
+          </th>
+        </tr>
+      
+      {% endfor %}
+    {% endif %}
     
     <tr>
       <th>Total</th>
@@ -89,7 +93,9 @@
 
 
 <script>
+  {% if fac is not none %}
   var numRows = {{fac|count}};
+  {% endif %}
   $('#incomplete').attr('checked', false);
 </script>
 

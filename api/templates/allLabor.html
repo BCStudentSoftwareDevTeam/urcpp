@@ -10,7 +10,10 @@
   {% for menuItem in cfg["committee"] %}
     <li role="presentation"><a href="{{menuItem['link']}}">{{menuItem['title']}}</a></li>
   {% endfor %}
+  {# if fac is empty we don't want to show the button. we perform two other tests like this #}
+  {% if fac is not none %}
   <li style="float: right;"><a href="/{{username}}/download/{{downloadFileName}}"><span class="glyphicon glyphicon-download-alt"></span> Download Labor</a></li>
+  {% endif %}
 </ul>
 <p></p>
 
@@ -22,27 +25,29 @@
       <th>Project Duration</th>
       <th style = "text-align: right; padding-right: 40px;">Total ($)</th>
     </tr>
-    {% for person in fac %}
-      <tr id="row{{loop.index0}}">
-        <td>
-          {{person.username.firstname}} {{person.username.lastname}} <span class = "small">({{person.programID.name}})</span>
-          <br />
-          <span class = "small">{{person.pID.title|truncate(50, True)}}</span>
-        </td>
-        
-        <td name = "numStudents" style = "text-align: center; ">
-          {{person.pID.numberStudents}}
-        </td>
-        
-        <td name = "duration" style = "text-align: center;">
-          {{person.pID.duration}}
-        </td>
-        <th id = "rowTotal{{loop.index0}}" name = "rowTotal" style = "text-align: right; padding-right: 40px;">
+    {% if fac is not none %}
+      {% for person in fac %}
+        <tr id="row{{loop.index0}}">
+          <td>
+            {{person.username.firstname}} {{person.username.lastname}} <span class = "small">({{person.programID.name}})</span>
+            <br />
+            <span class = "small">{{person.pID.title|truncate(50, True)}}</span>
+          </td>
           
-        </th>
-      </tr>
-    
-    {% endfor %}
+          <td name = "numStudents" style = "text-align: center; ">
+            {{person.pID.numberStudents}}
+          </td>
+          
+          <td name = "duration" style = "text-align: center;">
+            {{person.pID.duration}}
+          </td>
+          <th id = "rowTotal{{loop.index0}}" name = "rowTotal" style = "text-align: right; padding-right: 40px;">
+            
+          </th>
+        </tr>
+      
+      {% endfor %}
+    {% endif %}
     
   </table>
   <p style = "text-align: right;"><strong>
@@ -51,7 +56,9 @@
 </div>
 
 <script>
+{% if fac is not none %}
 var numRows = {{fac|count}};
+{% endif %}
 var laborRate = {{params.laborRate}};
 
 </script>

@@ -18,11 +18,12 @@ def allProjects_GET (username):
   budget = getAllBudgets()
   collaborators = getAllCollaborators()
   previousVote = {}
-  for proje in project:
-    if getVote(username, proje.pID) is not None:
-      previousVote[proje.pID] = True
-    else:
-      previousVote[proje.pID] = False
+  if project:
+    for proje in project:
+      if getVote(username, proje.pID) is not None:
+        previousVote[proje.pID] = True
+      else:
+        previousVote[proje.pID] = False
   
   return render_template (  "allProjects.html",
                             proj = project,
