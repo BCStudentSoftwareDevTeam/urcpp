@@ -21,6 +21,7 @@ import shutil
 def allFiles_GET (username):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
+  here = os.path.dirname(__file__)
   # All of our queries
   faculty = getFacultyWithProjects()
   proj = getAllProjects()
@@ -30,14 +31,18 @@ def allFiles_GET (username):
   prevFilepath = {}
   
   yearDir = cfg["filepaths"]["projectFiles"]+str(parameters.year)
+  yearDir = os.path.join(here, yearDir)
   projectDir = cfg["filepaths"]["projectFiles"]
+
+  projectDir = os.path.join(here, projectDir)
   if faculty:
     for fac in faculty:
       prevFilepath[fac.username.username] = {}
       for uploadType in ["narrative", "vitae", "irb"]: 
         if checkForFile(fac.username.username, uploadType) != "":
           prevFilepath[fac.username.username][uploadType]= checkForFile(fac.username.username, uploadType)
-    allFac = [fac.username.username for fac in faculty]
+      allFac = [fac.username.username for fac in faculty]
+
   # Does the zipping
   shutil.make_archive(yearDir, 'zip', yearDir)
     

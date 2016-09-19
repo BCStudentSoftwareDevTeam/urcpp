@@ -27,13 +27,15 @@ from models import *
 import uuid
 
 def authUser(env):
-  envK = "eppn"  
-  # app.logger.info("Found remote user: " + env.get("HTTP_X_REMOTE_USER") + env.get("PHP_AUTH_USER"))
+  envK = "eppn"
+  if debug:
+      return 'rosenr'
+  #app.logger.info("Found remote user: " + env.get("HTTP_X_REMOTE_USER") + env.get("PHP_AUTH_USER"))
   if (envK in env):
-    # print("We're live"+  env[envK].split("@")[0]+ ";")
+    app.logger.info("We're live"+  env[envK].split("@")[0]+ ";")
     return env[envK].split("@")[0]
-  elif ("DEBUG" in app.config) and app.config["DEBUG"]:
-    # print("We're in debug: " + cfg["DEBUG"]["user"])
+  if ("DEBUG" in app.config) and app.config["DEBUG"]:
+    app.logger.info("We're in debug: " + cfg["DEBUG"]["user"])
     return cfg["DEBUG"]["user"]
   else:
     return None
@@ -42,18 +44,18 @@ def authUser(env):
 # SETUP
 ######################################################
 # Set up the Flask app
-
+here = os.path.dirname(__file__)
 app = Flask(__name__)
 
 from api.switch import switch
 from api.config import load_config
 # cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
-cfg = load_config('api/config.yaml')
+cfg = load_config(os.path.join(here, 'config.yaml'))
 
 @app.before_request
 def before_request():
     g.dbDynamic = dynamicDB.connect()
-    
+
 @app.teardown_request
 def teardown_request(exception):
     dbS = getattr(g, 'dbStatic', None)
@@ -61,4 +63,4 @@ def teardown_request(exception):
     if (dbS is not None) and (not dbS.is_closed()):
       dbS.close()
     if (dbD is not None) and (not dbD.is_closed()):
-      dbD.close()  
+      dbD.close()

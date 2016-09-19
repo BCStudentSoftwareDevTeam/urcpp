@@ -15,16 +15,26 @@ def getFilename(fileType):
   return fileName
 
 def getFilePath(fileType):
+  '''
+  This function returns the filepath with the filename and extension to be written into
+  '''
   cycle = getCurrentCycle()
   writeFileName = getFilename(fileType)
   writeFileType = cfg["downloads"]["downloadFileTypes"][fileType]
   fileExtension = cfg["downloads"]["downloadFileExtension"]
-  return cfg["filepaths"]["projectFiles"] + "/" + str(cycle.year) + "/" + writeFileType + "/" + writeFileName + fileExtension
+  relPath = cfg["filepaths"]["projectFiles"] + str(cycle.year) + "/" + writeFileType + "/" + writeFileName + fileExtension
+  here = os.path.dirname(__file__)
+  return os.path.join(here, relPath)
 
 def checkFilePath(fileType):
+  '''
+  This function checks if the filepath for the fileType exists, if not it creates the filepath.
+  '''
   applicationCycle = cfg["urcpp"]["applicationCycle"]
   fileType = cfg["downloads"]["downloadFileTypes"][fileType]
   path = cfg["filepaths"]["projectFiles"] + str(applicationCycle)
+  here = os.path.dirname(__file__)
+  path = os.path.join(here, path)
   if os.path.isdir(path):
     pass
   else:
