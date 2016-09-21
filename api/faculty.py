@@ -65,6 +65,26 @@ def getFacultyForProject (pid):
     return facQ.get()
   else:
     return None
+
+def getFacultyWithAcceptedProjects():
+  facQ = ( URCPPFaculty.select()
+                        .join(Projects)
+                        .where(Projects.status == cfg["projectStatus"]["accept"])
+          )
+  if facQ.exists():
+    return facQ.execute()
+  else:
+    return None
+
+def getFacultyWithRejectedProjects():
+  facQ = ( URCPPFaculty.select()
+                        .join(Projects)
+                        .where(Projects.status == cfg["projectStatus"]["reject"])
+          )
+  if facQ.exists():
+    return facQ.execute()
+  else:
+    return None
     
 @app.route("/urcpp/v1/faculty/get/<username>", methods = ["POST"])
 def faculty_get (username):
