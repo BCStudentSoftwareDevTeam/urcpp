@@ -7,3 +7,4 @@ otp/static/qr
 *.log
 secret_config.yaml
 api/static/files/
+secret*
