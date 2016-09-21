@@ -15,6 +15,7 @@ from flask import g
 from flask import session
 from flask import jsonify
 from flask import send_from_directory
+from flask import flash
 from werkzeug import secure_filename
 
 # We need peewee's playhouse to help us serialize results
@@ -49,7 +50,7 @@ from api.switch import switch
 from api.config import load_config
 # cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
 cfg = load_config(os.path.join(here, 'config.yaml'))
-
+app.config['SECRET_KEY'] = open(os.path.join(here, 'secret_key'), 'rb').read()
 @app.before_request
 def before_request():
     g.dbDynamic = dynamicDB.connect()

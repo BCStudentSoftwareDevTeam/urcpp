@@ -12,7 +12,6 @@ from pages import *
 def setParameters_GET (username):
   if request.method == 'POST':
     data = request.form
-    print data
     openDate = datetime.datetime.strptime(data['applicationOpenDate'], '%Y-%m-%d')
     closeDate = datetime.datetime.strptime(data['applicationCloseDate'], '%Y-%m-%d')
     parameters = Parameters(year = int(data['newYear']),
@@ -28,7 +27,8 @@ def setParameters_GET (username):
                                         endDate   = closeDate)
 
     applicationCycle.save(force_insert=True)
-    flash('New year succesfully created')
+    flash('New application year succesfully created')
+    return redirect(url_for('setParameters_GET', username = username))
     
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
