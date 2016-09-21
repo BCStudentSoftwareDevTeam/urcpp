@@ -97,26 +97,26 @@ dynamicDB.create_tables(get_classes('dynamic'))
 #   )
 # budget.save()
 
-# applicationCycle = ApplicationCycle (
-#   year      = 2016,
-#   startDate = "2016-01-01",
-#   endDate   = "2016-12-31"
-#   )
-# applicationCycle.save(force_insert=True)
+applicationCycle = ApplicationCycle (
+  year      = 2016,
+  startDate = "2016-01-01",
+  endDate   = "2016-12-31"
+  )
+applicationCycle.save(force_insert=True)
 
-# applicationCycle = ApplicationCycle (
-#   year      = 2017,
-#   startDate = "2017-01-01",
-#   endDate   = "2017-12-31"
-#   )
-# applicationCycle.save(force_insert=True)
+applicationCycle = ApplicationCycle (
+  year      = 2017,
+  startDate = "2017-01-01",
+  endDate   = "2017-12-31"
+  )
+applicationCycle.save(force_insert=True)
 
-# applicationCycle = ApplicationCycle (
-#   year      = 2018,
-#   startDate = "2018-01-01",
-#   endDate   = "2018-12-31"
-#   )
-# applicationCycle.save(force_insert=True)
+applicationCycle = ApplicationCycle (
+  year      = 2018,
+  startDate = "2018-01-01",
+  endDate   = "2018-12-31"
+  )
+applicationCycle.save(force_insert=True)
 
 # proj = Projects (
 #   title                 = "Super Dooper Robots",
@@ -195,11 +195,11 @@ dynamicDB.create_tables(get_classes('dynamic'))
 #   )
 # fac.save()
 
-# params = Parameters(
-#   year                = 2016,
-#   appOpenDate         = "2015-12-15",
-#   appCloseDate        = "2016-01-31",
-#   mileageRate         = 0.52,
-#   laborRate           = 8.00,
-#   )
-# params.save()
+params = Parameters(
+  year                = 2016,
+  appOpenDate         = "2015-12-15",
+  appCloseDate        = "2016-01-31",
+  mileageRate         = 0.52,
+  laborRate           = 8.00,
+  )
+params.save()
