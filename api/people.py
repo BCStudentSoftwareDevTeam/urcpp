@@ -9,8 +9,12 @@ from pages import *
 
 @app.route("/<username>/people", methods = ["GET"])
 def people_GET (username):
-  if username != authUser(request.environ):
+  user = AuthorizedUser()
+  if user.isAuthorized(username) is not True:
     return { "response": cfg["response"]["badUsername"] }
+  if user.canUpdateForm(username) is not True:
+    return redirect("/")
+    
   # All of our queries
   faculty = getFaculty(username)
   ldapFaculty = getLDAPFaculty(username)
@@ -33,8 +37,11 @@ def people_GET (username):
 
 @app.route("/<username>/people", methods = ["POST"])
 def people_POST (username):
-  if username != authUser(request.environ):
+  user = AuthorizedUser()
+  if user.isAuthorized(username) is not True:
     return { "response": cfg["response"]["badUsername"] }
+  if user.canUpdateForm(username) is not True:
+    return redirect("/")
     
   numStu    = int(request.form["numStu"])
   numCollab = int(request.form["numCollab"])

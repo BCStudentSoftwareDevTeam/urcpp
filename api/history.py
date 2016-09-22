@@ -25,8 +25,11 @@ def buildJSONHistory (data, username):
 
 @app.route("/<username>/history", methods = ["GET"])
 def history_GET (username):
-  if username != authUser(request.environ):
+  user = AuthorizedUser()
+  if user.isAuthorized(username) is not True:
     return { "response": cfg["response"]["badUsername"] }
+  if user.canUpdateForm(username) is not True:
+    return redirect("/")
   # All of our queries
   faculty = getFaculty(username)
   ldapFaculty = getLDAPFaculty(username)
@@ -51,8 +54,11 @@ def history_GET (username):
                           
 @app.route("/<username>/history", methods = ["POST"])
 def history_POST (username):
-  if username != authUser(request.environ):
+  user = AuthorizedUser()
+  if user.isAuthorized(username) is not True:
     return { "response": cfg["response"]["badUsername"] }
+  if user.canUpdateForm(username) is not True:
+    return redirect("/")
   # Form data looks like... 
   # [('oneyr', u'oneyr'), ('sixToTenyr', u'sixToTenyr'), ('twoyr', u'twoyr'), ('threeToFiveyr', u'threeToFiveyr')]
   # If the tag exists, the box was checked; otherwise, not checked

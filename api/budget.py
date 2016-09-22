@@ -38,8 +38,12 @@ def getAllBudgets ():
   
 @app.route("/<username>/budget", methods = ["GET"])
 def budget_GET (username):
-  if username != authUser(request.environ):
+  user = AuthorizedUser()
+  if user.isAuthorized(username) is not True:
     return { "response": cfg["response"]["badUsername"] }
+  if user.canUpdateForm(username) is not True:
+    return redirect("/")
+  
   # All of our queries
   faculty = getFaculty(username)
   ldapFaculty = getLDAPFaculty(username)
@@ -61,8 +65,11 @@ def budget_GET (username):
                           
 @app.route("/<username>/budget", methods = ["POST"])
 def budget_POST (username):
-  if username != authUser(request.environ):
+  user = AuthorizedUser()
+  if user.isAuthorized(username) is not True:
     return { "response": cfg["response"]["badUsername"] }
+  if user.canUpdateForm(username) is not True:
+    return redirect("/")
   
   data = request.form
   # Data looks like:

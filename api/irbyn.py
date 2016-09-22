@@ -8,8 +8,12 @@ from pages import *
 
 @app.route("/<username>/irbyn", methods = ["GET"])
 def irbyn_GET (username):
-  if username != authUser(request.environ):
+  user = AuthorizedUser()
+  if user.isAuthorized(username) is not True:
     return { "response": cfg["response"]["badUsername"] }
+  if user.canUpdateForm(username) is not True:
+    return redirect("/")
+  
   # All of our queries
   faculty = getFaculty(username)
   ldapFaculty = getLDAPFaculty(username)
@@ -28,9 +32,11 @@ def irbyn_GET (username):
 # Sets the flag in the DB for IRB, and redirects to upload page.
 @app.route("/<username>/irbyn", methods = ["POST"])
 def irbyn_POST (username):
-  if username != authUser(request.environ):
+  user = AuthorizedUser()
+  if user.isAuthorized(username) is not True:
     return { "response": cfg["response"]["badUsername"] }
-  
+  if user.canUpdateForm(username) is not True:
+    return redirect("/")
   
   proj = getProject(username)
   proj.humanSubjects = (1 if request.form["irb"] == "Yes" else 0 )
