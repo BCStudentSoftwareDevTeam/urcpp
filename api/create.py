@@ -5,7 +5,7 @@ from projects import getProject
 from programs import getAllPrograms
 from budget import getBudget
 from parameters import getParameters
-
+from applicationCycle import getCurrentCycle
 from pages import *
 
 @app.route("/<username>/create", methods = ["GET"])
@@ -47,7 +47,7 @@ def create_POST (username):
   proj = getProject(username)
   programs = getAllPrograms()  
   budg = getBudget(username)
-  
+  year = getCurrentCycle().year
   if proj is None:
     proj = Projects()
   
@@ -61,7 +61,7 @@ def create_POST (username):
   proj.endDate    = datetime.datetime.strptime(data["endDate"], '%m-%d-%Y')
   proj.duration   = int(data["duration"])
   proj.budgetID   = budg.bID
-  proj.year       = data['startDate'].split('-')[-1]
+  proj.year       = year
   # print (data["isServiceToCommunity"] if data["isServiceToCommunity"] is not None else False)
   # print (data["hasCommunityPartner"] if data["hasCommunityPartner"] is not None else False)
   proj.isServiceToCommunity = data["isServiceToCommunity"] if "isServiceToCommunity" in data is not None else False 

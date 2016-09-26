@@ -45,7 +45,7 @@ def people_POST (username):
   # Update project
   proj = getProject(username)
   if proj is None:
-    proj = Project()
+    proj = Projects()
   
   proj.numberStudents = numStu
   proj.save()

@@ -28,7 +28,11 @@ def getProjectByYear(username, year):
     
 def getProject (username):
   #get project for this user in the current cycle
-  year = getCurrentCycle()
+  currentCycle = getCurrentCycle()
+  if currentCycle is not None:
+	year = currentCycle.year
+  else:
+	year = None
   return getProjectByYear(username, year)
   
 # Do we need this function? We aren't really using it anymore.
@@ -42,7 +46,10 @@ def getAllProjectsByYear(year):
 
 def getAllProjects():
   # we only want to get projects for the current year
-  year = getCurrentCycle()
+  currentCycle = getCurrentCycle()
+  if currentCycle is not None:
+	year = currentCycle.year
+  
   return getAllProjectsByYear(year)
 
 @app.route("/urcpp/v1/history", methods = ["POST"])
