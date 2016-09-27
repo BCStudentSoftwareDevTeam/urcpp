@@ -11,6 +11,8 @@ urcpp:
 
 # Controls the history.html page options for previous years funded by URCPP 
 history:
+  - db: "never"
+    desc: "Never"
   - db: "oneyr"
     desc: "Last year"
   - db: "twoyr"
