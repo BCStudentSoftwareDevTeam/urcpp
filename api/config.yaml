@@ -3,7 +3,7 @@ DEBUG:
   user: "jadudm"
 
 urcpp:
-  applicationCycle: 2016
+  applicationCycle: 2017
   possibleDurations:
     - 8
     - 9

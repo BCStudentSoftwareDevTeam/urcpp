@@ -80,49 +80,58 @@ def allFiles_POST (username):
   parameters = getParameters()
   prevFilepath = {}
   
+  here = os.path.dirname(__file__)
   yearDir = cfg["filepaths"]["projectFiles"]+str(parameters.year)
-  pfojectDir = cfg["filepaths"]["projectFiles"]
+  yearDir = os.path.join(here, yearDir)
+  projectDir = cfg["filepaths"]["projectFiles"]
   
-  for fac in faculty:
-    prevFilepath[fac.username.username] = {}
-    for uploadType in ["narrative", "vitae", "irb"]: 
-      if checkForFile(fac.username.username, uploadType) != "":
-        prevFilepath[fac.username.username][uploadType]= checkForFile(fac.username.username, uploadType)
+  #for fac in faculty:
+  #  prevFilepath[fac.username.username] = {}
+  #  for uploadType in ["narrative", "vitae", "irb"]: 
+  #    if checkForFile(fac.username.username, uploadType) != "":
+  #      prevFilepath[fac.username.username][uploadType]= checkForFile(fac.username.username, uploadType)
 
 
-  uniqueID = uuid.uuid1() 
+  #uniqueID = uuid.uuid1() 
   
   try:
     os.stat(yearDir)
   except:
     os.mkdir(yearDir)
+  allfiles = '{0}{1}'.format(yearDir, '.zip')
+  #zf = zipfile.ZipFile(allfiles, 'w')
+  #for dirname, subdirs, files in os.walk(yearDir):
+  #    zf.write(dirname)
+  #    for filename in files:
+  #       zf.write(os.path.join(dirname, filename))
+  #zf.close()
     ##############
     # http://stackoverflow.com/questions/273192/in-python-check-if-a-directory-exists-and-create-it-if-necessary
     ##############
-  os.mkdir(yearDir+"/"+str(uniqueID))
+  #os.mkdir(yearDir+"/"+str(uniqueID))
   
-  facultyPending = getFacultyWithPendingProjects() 
+  # facultyPending = getFacultyWithPendingProjects() 
 
-  for fac in facultyPending:
-    path = yearDir + "/"+str(uniqueID)+"/project"+str(fac.pID.pID)
-    os.mkdir(path)
-    for uploadType in ["narrative", "vitae", "irb"]:
-            
-      if checkForFile(fac.username.username, uploadType) != "":
-        filename = checkForFile(fac.username.username, uploadType).split("/").pop()
-        shutil.copyfile("/var/www/html/urcpp_flask/api/"+str(checkForFile(fac.username.username, uploadType)), path+ "/" + filename)
-      if uploadType == "vitae":
-        collaborator = getCollaborators(fac.username)
-        if collaborator is not None:
-          for c in collaborator:
-            print "collaborator is " + c.username.username
-            if checkForFile(c.username.username, uploadType) != "":
-              filename = checkForFile(c.username.username, uploadType).split("/").pop()
-              shutil.copyfile("/var/www/html/urcpp_flask/api/"+str(checkForFile(c.username.username, uploadType)), path+ "/" + filename)
+  # for fac in facultyPending:
+  #  path = yearDir + "/"+str(uniqueID)+"/project"+str(fac.pID.pID)
+  #  os.mkdir(path)
+  #  for uploadType in ["narrative", "vitae", "irb"]:
+  #          
+  #    if checkForFile(fac.username.username, uploadType) != "":
+  #      filename = checkForFile(fac.username.username, uploadType)
+  #      shutil.copyfile("/var/www/html/urcpp_flask/api/"+str(checkForFile(fac.username.username, uploadType)), path+ "/" + filename)
+  #    if uploadType == "vitae":
+  #      collaborator = getCollaborators(fac.username)
+  #      if collaborator is not None:
+  #        for c in collaborator:
+  #          print "collaborator is " + c.username.username
+  #          if checkForFile(c.username.username, uploadType) != "":
+  #            filename = checkForFile(c.username.username, uploadType)
+  #            shutil.copyfile("/var/www/html/urcpp_flask/api/"+str(checkForFile(c.username.username, uploadType)), path+ "/" + filename)
   
-  temp = uuid.uuid1()
+  #temp = uuid.uuid1()
     
-  os.mkdir(yearDir+"/"+str(temp))
-  shutil.make_archive(yearDir+"/"+ str(temp) + "/" + str(parameters.year), 'zip', yearDir +"/"+str(uniqueID))            
+  #os.mkdir(yearDir+"/"+str(temp))
+  #shutil.make_archive(yearDir+"/"+ str(temp) + "/" + str(parameters.year), 'zip', yearDir +"/"+str(uniqueID))            
   
-  return send_file("../" + yearDir +"/"+ str(temp) + "/" + str(parameters.year)+".zip", as_attachment=True)
+  return send_file(allfiles)
