@@ -81,9 +81,9 @@ chair:
   - title: "Set Parameters"
     link: "setParameters"
     longtitle: "Set URCPP Parameters"
-  - title: "Manage Committee Members"
-    link: "manageCommittee"
-    longtitle: "Manage URCPP Committee Members"
+  # - title: "Manage Committee Members"
+  #   link: "manageCommittee"
+  #   longtitle: "Manage URCPP Committee Members"
 # Controls the table columns for the voting interface
 voting:
   - title: "Likelihood of Enhancing Student Learning"

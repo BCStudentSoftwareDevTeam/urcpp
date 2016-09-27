@@ -28,7 +28,6 @@ from models import *
 import uuid
 
 def authUser(env):
-  return 'heggens'
   envK = "eppn"
   #app.logger.info("Found remote user: " + env.get("HTTP_X_REMOTE_USER") + env.get("PHP_AUTH_USER"))
   if (envK in env):
