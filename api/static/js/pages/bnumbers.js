@@ -41,12 +41,13 @@ function setBNumberStatus (id) {
 function checkValidBNumber (id) {
   /* global api */
   var bnumber = $("#cbnumber" + id).val();
-  // console.log("About to check " + bnumber);
+  console.log("About to check " + bnumber);
   
   var post = aja()
     .method ('POST')
-    .url ("/" + username + "/checkBNumber/" + bnumber)
-    .body ({})
+    .url ("/" + username + "/checkBNumber")
+    .body({ 'bnum' : bnumber })
+    .type('json')
     .on ('success', setBNumberStatus(id) )
     .go();
   

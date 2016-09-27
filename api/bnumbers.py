@@ -85,11 +85,13 @@ def bnumbers_POST (username):
 
   return redirect (  "/{0}/history".format(username) )
 
-@app.route("/<username>/checkBNumber/<bnumber>", methods = ["POST"])
-def checkBNumber (username, bnumber):
+@app.route("/<username>/checkBNumber", methods = ["POST"])
+def checkBNumber (username):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
 
+  bnumber = request.json['bnum']
+  print bnumber
   if bnumber[0] == "b":
     bnumber = "B" + bnumber[1:]
     print ("Replaced Bnum: " + bnumber)
