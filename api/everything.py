@@ -33,7 +33,7 @@ def authUser(env):
   if (envK in env):
     app.logger.info("We're live"+  env[envK].split("@")[0]+ ";")
     return env[envK].split("@")[0]
-  if ("DEBUG" in app.config) and app.config["DEBUG"]:
+  elif ("DEBUG" in app.config) and app.config["DEBUG"]:
     app.logger.info("We're in debug: " + cfg["DEBUG"]["user"])
     return cfg["DEBUG"]["user"]
   else:
