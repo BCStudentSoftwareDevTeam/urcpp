@@ -32,6 +32,7 @@
          {% endif %}
        </dd>
        <dd>Date Submitted: {{proj.createdDate.strftime('%Y-%m-%d @ %I:%m %p')}}</dd>
+       <dd>Status: {{proj.status}}</dd>
      <br />
      {% if collabs is not none %}
      <dt>Collaborators</dt>
