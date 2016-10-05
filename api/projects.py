@@ -56,7 +56,7 @@ def getAllProjects():
 def getProjectsByUsername():
   years = request.form.getlist('years[]')
   if not len(years):
-    years = ApplicationCycle.select()
+    years = Parameters.select()
   data = request.form
   try:
     username = data['username']
@@ -111,10 +111,10 @@ def projects_getNarrative (username, path):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
   
-  applicationCycle = str(cfg['urcpp']['applicationCycle'])
+  applicationCycle = getCurrentCycle()
   dirPath = cfg["filepaths"]["directory"]
   dirPath = dirPath.replace("%%username%%", username)
-  dirPath = dirPath.replace("%%applicationCycle%%", applicationCycle)
+  dirPath = dirPath.replace("%%applicationCycle%%", applicationCycle.year)
 
   knownFiles = os.listdir(dirPath)
 

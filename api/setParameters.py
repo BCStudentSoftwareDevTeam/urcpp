@@ -22,11 +22,6 @@ def setParameters_GET (username):
     
     parameters.save()
     
-    applicationCycle = ApplicationCycle(year      = int(data['newYear']),
-                                        startDate = openDate,
-                                        endDate   = closeDate)
-
-    applicationCycle.save(force_insert=True)
     flash('New application year succesfully created')
     return redirect(url_for('setParameters_GET', username = username))
     

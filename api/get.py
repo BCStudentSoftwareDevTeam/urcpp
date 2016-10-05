@@ -1,5 +1,5 @@
 from everything import *
-
+from applicationCycle import getCurrentCycle
 # https://github.com/micha/resty
 # Also, Postman in Chrome
 # Also, http://blog.luisrei.com/articles/flaskrest.html
@@ -61,7 +61,7 @@ def getNarrative (username):
     return { "response": cfg["response"]["badUsername"] }
   
 
-  applicationCycle = cfg['urcpp']['applicationCycle']
+  applicationCycle = getCurrentCycle().year
   
   knownFiles = os.listdir()
   

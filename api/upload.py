@@ -11,10 +11,11 @@ def checkForFile(username, uploadType):
   #we need to know where we are at for file lookup issues
   here = os.path.dirname(__file__)
   allowedExtensions = cfg["filepaths"]["allowedFileExtensions"].keys();
+  applicationCycle = getCurrentCycle()
   for ext in allowedExtensions:
     fileDirectory = 'static/files'
     prevFilepath = '{0}{1}/{2}/{3}-{4}.{5}'.format(cfg['filepaths']['projectFiles'],
-                                    cfg["urcpp"]["applicationCycle"],
+                                    applicationCycle.year,
                                     username, username,
                                     uploadType, ext)
     #prevFilepath = cfd['filepath']['directory']
@@ -99,8 +100,8 @@ def upload_file(whichfile, username):
     here = os.path.dirname(__file__)
     # Need to replace the cycle and username
     rawpath = cfg["filepaths"]["directory"]
-    cycle   = cfg["urcpp"]["applicationCycle"]
-    rawpath = rawpath.replace("%%applicationCycle%%", str(cycle))
+    cycle   = getCurrentCycle()
+    rawpath = rawpath.replace("%%applicationCycle%%", str(cycle.year))
     path    = rawpath.replace("%%username%%", username)
     path    = os.path.join(here, path)
     app.logger.info("{0} saving {1} to {2}.".format(username, filename, path))

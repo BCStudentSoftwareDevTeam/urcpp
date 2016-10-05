@@ -30,9 +30,9 @@ def checkFilePath(fileType):
   '''
   This function checks if the filepath for the fileType exists, if not it creates the filepath.
   '''
-  applicationCycle = cfg["urcpp"]["applicationCycle"]
+  applicationCycle = getCurrentCycle()
   fileType = cfg["downloads"]["downloadFileTypes"][fileType]
-  path = cfg["filepaths"]["projectFiles"] + str(applicationCycle)
+  path = cfg["filepaths"]["projectFiles"] + str(applicationCycle.year)
   here = os.path.dirname(__file__)
   path = os.path.join(here, path)
   if os.path.isdir(path):
@@ -47,7 +47,7 @@ def checkFilePath(fileType):
     os.mkdir(path)
 
 def makeBudgetExcel():
-  applicationCycle = cfg["urcpp"]["applicationCycle"]
+  applicationCycle = getCurrentCycle()
   faculty = getFacultyWithProjects()
   params = getParameters()
   
@@ -56,7 +56,7 @@ def makeBudgetExcel():
 
   workbook = xlsxwriter.Workbook(writeFilePath)
   workbook.set_properties({
-  'title':    'Budget for {}'.format(applicationCycle),
+  'title':    'Budget for {}'.format(applicationCycle.year),
   'author':   'URCPP System',
   'comments': 'Created with Python and XlsxWriter'})
   
@@ -111,7 +111,7 @@ def makeBudgetExcel():
   workbook.close()
 
 def makeLaborExcel():
-  applicationCycle = cfg["urcpp"]["applicationCycle"]
+  applicationCycle = getCurrentCycle()
   faculty = getFacultyWithProjects()
   params = getParameters()
   
@@ -120,7 +120,7 @@ def makeLaborExcel():
 
   workbook = xlsxwriter.Workbook(writeFilePath)
   workbook.set_properties({
-  'title':    'Labor for {}'.format(applicationCycle),
+  'title':    'Labor for {}'.format(applicationCycle.year),
   'author':   'URCPP System',
   'comments': 'Created with Python and XlsxWriter'})
   
