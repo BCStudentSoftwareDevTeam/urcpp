@@ -13,10 +13,11 @@ print("GETCWD MODELS: " + os.getcwd())
 # cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
 
 cfg = load_config(os.path.join(here, 'config.yaml'))
-dynamicDB = MySQLDatabase("urcpp_flask", host="localhost", user="urcpp-flask", passwd="DanforthLabor123!") 
-
-# print ("SQLITE DATABASES LOADED.")
-
+try:
+  dynamicDB = MySQLDatabase("urcpp_flask", host="127.0.0.1", user="memo3301791", port=3306)
+  #ishwar if you want to work on your own databse you can add in except
+except:
+  dynamicDB = MySQLDatabase("urcpp_flask", host="localhost", user="urcpp-flask", passwd="DanforthLabor123!") 
 
 class DynamicModel (Model):
   class Meta:
@@ -71,11 +72,15 @@ class PreSurvey (DynamicModel):
 
 class PostSurvey (DynamicModel):
   psID                = PrimaryKeyField()
+  
 
-class ApplicationCycle(DynamicModel):
-  year                  = IntegerField(null = False, primary_key=True)
-  startDate             = DateTimeField()
-  endDate               = DateTimeField()
+class Parameters (DynamicModel):
+  pID                 = PrimaryKeyField()
+  year                = IntegerField()
+  appOpenDate         = DateTimeField()
+  appCloseDate        = DateTimeField()
+  mileageRate         = FloatField() # Or Double?
+  laborRate           = FloatField() # Or Double?
 
 class Projects (DynamicModel):
   pID                   = PrimaryKeyField()
@@ -84,7 +89,7 @@ class Projects (DynamicModel):
   duration              = IntegerField()
   startDate             = DateTimeField()
   endDate               = DateTimeField()
-  year                  = ForeignKeyField(ApplicationCycle)
+  year                  = ForeignKeyField(Parameters, to_field = "year")
   # Like the vitae; the file is in a folder.
   # /year/projid/title.pdf
   #proposal     = BlobField()
@@ -127,13 +132,7 @@ class Collaborators (DynamicModel):
   username        = ForeignKeyField(LDAPFaculty, to_field = "username")
   yearsFunded     = TextField( default = "" )
 
-class Parameters (DynamicModel):
-  pID                 = PrimaryKeyField()
-  year                = IntegerField()
-  appOpenDate         = DateTimeField()
-  appCloseDate        = DateTimeField()
-  mileageRate         = FloatField() # Or Double?
-  laborRate           = FloatField() # Or Double?
+
 
 class Voting (DynamicModel):
   vID                   = PrimaryKeyField()
