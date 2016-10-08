@@ -13,8 +13,11 @@ from pages import *
 def allBudgets_GET (username):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
+  
+  # we need the current year to get the current projects
+  applicationCycle = getCurrentCycle()
   # All of our queries
-  faculty = getFacultyWithProjects()
+  faculty = getFacultyWithProjects(applicationCycle.year)
   proj = getAllCurrentProjects()
   programs = getAllPrograms()
   budget = getAllBudgets()

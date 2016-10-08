@@ -48,7 +48,7 @@ def checkFilePath(fileType):
 
 def makeBudgetExcel():
   applicationCycle = getCurrentCycle()
-  faculty = getFacultyWithProjects()
+  faculty = getFacultyWithProjects(applicationCycle.year)
   params = getParameters()
   
   checkFilePath("allBudgets")
@@ -112,7 +112,7 @@ def makeBudgetExcel():
 
 def makeLaborExcel():
   applicationCycle = getCurrentCycle()
-  faculty = getFacultyWithProjects()
+  faculty = getFacultyWithProjects(applicationCycle.year)
   params = getParameters()
   
   checkFilePath("allLabor")

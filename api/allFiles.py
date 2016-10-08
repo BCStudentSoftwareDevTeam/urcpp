@@ -7,6 +7,7 @@ from upload import checkForFile
 from parameters import getParameters
 from collaborators import getCollaborators
 from flask import send_file
+from applicationCycle import getCurrentCycle
 
 from pages import *
 
@@ -22,8 +23,11 @@ def allFiles_GET (username):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
   here = os.path.dirname(__file__)
+  
+  # we need the year to the current projects
+  applicationCycle = getCurrentCycle()
   # All of our queries
-  faculty = getFacultyWithProjects()
+  faculty = getFacultyWithProjects(applicationCycle.year)
   proj = getAllCurrentProjects()
   programs = getAllPrograms()
   budget = getAllBudgets()
@@ -72,8 +76,11 @@ def allFiles_GET (username):
 def allFiles_POST (username):
   if username != authUser(request.environ):
     return { "response": projectDir}
+    
+  # we need the current year to get the current project
+  applicationCycle = getCurrentCycle()
   # All of our queries
-  faculty = getFacultyWithProjects()
+  faculty = getFacultyWithProjects(applicationCycle.year)
   proj = getAllCurrentProjects()
   programs = getAllPrograms()
   budget = getAllBudgets()

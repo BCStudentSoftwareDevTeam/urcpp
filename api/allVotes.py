@@ -4,7 +4,7 @@ from projects import getAllCurrentProjects
 from programs import getAllPrograms
 from budget import getAllBudgets
 from voting import getVotesByProject
-
+from applicationCycle import getCurrentCycle
 from pages import *
 import pprint
 
@@ -12,8 +12,11 @@ import pprint
 def allVotes_GET (username):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
+    
+  # we need the current year to get the current projects
+  applicationCycle = getCurrentCycle()
   # All of our queries
-  faculty = getFacultyWithProjects()
+  faculty = getFacultyWithProjects(applicationCycle.year)
   proj = getAllCurrentProjects()
   programs = getAllPrograms()
   budget = getAllBudgets()
