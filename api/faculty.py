@@ -24,7 +24,6 @@ def getLDAPFaculty (username):
   else:
     return None
   
-
 def getFaculty (username):
   facQ = (URCPPFaculty.select()
     .where (URCPPFaculty.username == username)
@@ -34,10 +33,21 @@ def getFaculty (username):
     return facQ.get()
   else:
     return None
+    
+def getFacultyByYear (username, year):
+  facQ = (URCPPFaculty.select().join(Projects)
+    .where (URCPPFaculty.username == username)
+    .where (Projects.year == year)
+    )
+
+  if facQ.exists():
+    return facQ.get()
+  else:
+    return None
 
 
-def getFacultyWithProjects ():
-  facQ = (URCPPFaculty.select())
+def getFacultyWithProjects (year):
+  facQ = (URCPPFaculty.select().join(Projects).where(Projects.year == year))
 
   if facQ.exists():
     return facQ.execute()

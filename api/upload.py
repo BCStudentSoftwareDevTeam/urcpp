@@ -6,6 +6,7 @@ from projects import getProject
 from programs import getAllPrograms
 from budget import getBudget
 from collaborators import getCollaborators
+from applicationCycle import getCurrentCycle
 
 def checkForFile(username, uploadType):
   #we need to know where we are at for file lookup issues

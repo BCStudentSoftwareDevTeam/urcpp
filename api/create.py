@@ -1,6 +1,6 @@
 import datetime
 from everything import *
-from faculty import getFaculty, getLDAPFaculty
+from faculty import getFaculty, getFacultyByYear, getLDAPFaculty
 from projects import getProject
 from programs import getAllPrograms
 from budget import getBudget
@@ -42,10 +42,7 @@ def create_POST (username):
   # {duration: "8", program: "1", startDate: "May 1", title: "URCPP Software Also"}
   
   # First, update the project title
-  faculty = getFaculty(username)
-  ldapFaculty = getLDAPFaculty(username)
   proj = getProject(username)
-  programs = getAllPrograms()  
   budg = getBudget(username)
   year = getCurrentCycle().year
   if proj is None:
@@ -69,7 +66,7 @@ def create_POST (username):
   proj.save()  
   
   # Next, update the faculty's program
-  fac = getFaculty(username)
+  fac = getFacultyByYear(username, year)
   # If they don't exist yet, create one.
   if fac is None:
     fac               = URCPPFaculty()

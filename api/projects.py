@@ -36,7 +36,7 @@ def getProject (username):
   return getProjectByYear(username, year)
   
 # Do we need this function? We aren't really using it anymore.
-def getAllProjectsByYear(year):
+def getAllCurrentProjectsByYear(year):
   allProjQ = (Projects.select()).where(Projects.year == year)
   
   if allProjQ.exists():
@@ -44,28 +44,19 @@ def getAllProjectsByYear(year):
   else:
     return None
 
-def getAllProjects():
+def getAllCurrentProjects():
   # we only want to get projects for the current year
   currentCycle = getCurrentCycle()
   if currentCycle is not None:
 	year = currentCycle.year
   
-  return getAllProjectsByYear(year)
+  return getAllCurrentProjectsByYear(year)
 
-@app.route("/urcpp/v1/history", methods = ["POST"])
-def getProjectsByUsername():
-  years = request.form.getlist('years[]')
-  if not len(years):
-    years = Parameters.select()
-  data = request.form
-  try:
-    username = data['username']
-  except KeyError:
-    username = ''
+@app.route("/urcpp/v1/history/<username>", methods = ["GET"])
+def getProjectsByUsername(username):
   projects = (Projects.select()
-              .where(Projects.year << years)
               .join(URCPPFaculty, on = (URCPPFaculty.pID == Projects.pID))
-              .where(URCPPFaculty.username.startswith(username)))
+              .where(URCPPFaculty.username == username))
               
   if projects.exists():
     project_list = []

@@ -117,6 +117,7 @@
       var endDateObj = new Date(startDateArr[2], startDateArr[0], startDateArr[1]);
       var weeks = $("#duration").val();
       endDateObj.setDate(endDateObj.getDate() + weeks*7);
+      console.log(endDateObj);
       $("#endDate").val(endDateObj.getMonth()+1 + '-' + endDateObj.getDate() + '-' + endDateObj.getFullYear());
       $("#endDateDisplay").html(endDateObj.getMonth()+1 + '-' + endDateObj.getDate() + '-' + endDateObj.getFullYear());
     }

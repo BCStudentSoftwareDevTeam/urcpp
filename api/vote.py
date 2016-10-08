@@ -1,6 +1,6 @@
 from everything import *
 from faculty import  getFacultyWithProjects, getLDAPFaculty
-from projects import getAllProjects
+from projects import getAllCurrentProjects
 from programs import getAllPrograms
 from budget import getAllBudgets
 from voting import getVotes, getCommitteeVotes, getVote
@@ -14,7 +14,7 @@ def vote_GET (username):
     return { "response": cfg["response"]["badUsername"] }
   # All of our queries
   faculty =  getFacultyWithProjects()
-  project = getAllProjects()
+  project = getAllCurrentProjects()
   programs = getAllPrograms()
   budget = getAllBudgets()
   # votes = getVotes()
