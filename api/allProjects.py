@@ -1,19 +1,22 @@
 from everything import *
 from faculty import  getFacultyWithProjects, getLDAPFaculty
-from projects import getAllProjects, getProjectByID
+from projects import getAllCurrentProjects, getProjectByID
 from collaborators import getAllCollaborators
 from programs import getAllPrograms
 from budget import getAllBudgets
 from voting import getVote
 from pages import *
-
+from applicationCycle import getCurrentCycle
 @app.route("/<username>/committee/allProjects", methods = ["GET"])
 def allProjects_GET (username):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
   # All of our queries
-  faculty =  getFacultyWithProjects()
-  project = getAllProjects()
+  # we need the current year to get current faculty with projects
+  currentCycle = getCurrentCycle()
+  
+  faculty =  getFacultyWithProjects(currentCycle.year)
+  project = getAllCurrentProjects()
   programs = getAllPrograms()
   budget = getAllBudgets()
   collaborators = getAllCollaborators()
@@ -50,7 +53,7 @@ def updateStatus_POST (username):
     projectToSetStatus.status = value
     projectToSetStatus.save()
 
-  project = getAllProjects()
+  project = getAllCurrentProjects()
   return render_template (  "allProjects.html",
                             proj = project,
                             username = username,

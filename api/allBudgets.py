@@ -1,7 +1,7 @@
 from everything import *
 from applicationCycle import getCurrentCycle
 from faculty import getFaculty, getLDAPFaculty, getFacultyWithProjects
-from projects import getAllProjects
+from projects import getAllCurrentProjects
 from programs import getAllPrograms
 from budget import getAllBudgets
 from parameters import getParameters
@@ -15,7 +15,7 @@ def allBudgets_GET (username):
     return { "response": cfg["response"]["badUsername"] }
   # All of our queries
   faculty = getFacultyWithProjects()
-  proj = getAllProjects()
+  proj = getAllCurrentProjects()
   programs = getAllPrograms()
   budget = getAllBudgets()
   params = getParameters()

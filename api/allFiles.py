@@ -1,6 +1,6 @@
 from everything import *
 from faculty import getFaculty, getLDAPFaculty, getFacultyWithProjects, getFacultyWithPendingProjects
-from projects import getAllProjects
+from projects import getAllCurrentProjects
 from programs import getAllPrograms
 from budget import getAllBudgets
 from upload import checkForFile
@@ -24,7 +24,7 @@ def allFiles_GET (username):
   here = os.path.dirname(__file__)
   # All of our queries
   faculty = getFacultyWithProjects()
-  proj = getAllProjects()
+  proj = getAllCurrentProjects()
   programs = getAllPrograms()
   budget = getAllBudgets()
   parameters = getParameters()
@@ -74,7 +74,7 @@ def allFiles_POST (username):
     return { "response": projectDir}
   # All of our queries
   faculty = getFacultyWithProjects()
-  proj = getAllProjects()
+  proj = getAllCurrentProjects()
   programs = getAllPrograms()
   budget = getAllBudgets()
   parameters = getParameters()
