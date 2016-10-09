@@ -35,11 +35,11 @@
             </a>
           </td>
           <td>
-            {{person.username.firstname}} {{person.username.lastname}}
+            <a>{{person.username.firstname}} {{person.username.lastname}}</a>
             {% if collab is not none %}
               {% for c in collab %}
                 {% if person.pID == c.pID %}
-                  ; {{c.username.firstname}} {{c.username.lastname}}
+                  ; <a>{{c.username.firstname}} {{c.username.lastname}}</a>
                 {% endif %}
               {% endfor %}
             {% endif %}
@@ -76,7 +76,7 @@
     </table>
   </form>
 </div>
-
+{% include "snips/projectsModal.html" %}
 <script>
   function updateStatus(projectID) {
     var postValue = {};

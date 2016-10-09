@@ -54,6 +54,7 @@ def getAllCurrentProjects():
 
 @app.route("/urcpp/v1/history/<username>", methods = ["GET"])
 def getProjectsByUsername(username):
+  #TODO: factor the project lists out to their own functions
   projects = (Projects.select()
               .join(URCPPFaculty, on = (URCPPFaculty.pID == Projects.pID))
               .where(URCPPFaculty.username == username))
@@ -62,8 +63,26 @@ def getProjectsByUsername(username):
     project_list = []
     for project in projects:
       project_list.append(m2d(project))
+  else:
+    project_list = []
   
-  return jsonify(project_list)
+  historyDict = {}
+  historyDict['primaryFaculty'] = project_list 
+  
+  collaborated_projects = (Projects.select()
+                           .join(Collaborators, on = (Collaborators.pID == Projects.pID))
+                           .where(Collaborators.username == username)
+                           )
+  if collaborated_projects.exists():
+    collaborated_projects_list = []
+    for collaborated_project in collaborated_projects:
+      collaborated_projects_list.append(m2d(collaborated_project))
+  else:
+    collaborated_projects_list = []
+  
+  historyDict['collaborated'] = collaborated_projects_list
+  
+  return jsonify(historyDict)
 
     
 @app.route("/urcpp/v1/projects/get/<username>", methods = ["POST"])
