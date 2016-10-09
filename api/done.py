@@ -1,6 +1,6 @@
 from everything import *
 from faculty import getFaculty, getLDAPFaculty
-from projects import getProject
+from projects import getProject, getProjectByYear
 from programs import getAllPrograms
 from budget import getBudget
 from parameters import getParameters
@@ -51,3 +51,32 @@ def finalize_POST (username):
   proj.save()
   
   return redirect('/')
+  
+@app.route("/urcpp/v1/project/<year>/<username>", methods = ["GET"])
+def project_GET (year, username):
+   # All of our queries
+  faculty = getFaculty(username)
+  ldapFaculty = getLDAPFaculty(username)
+  proj = getProjectByYear(username, year)
+  programs = getAllPrograms()
+  budget = getBudget(username)
+  parameters = getParameters()
+  collaborators = getCollaborators(username)
+  uploadedFiles = [];
+  
+  for files in cfg["filepaths"]["allowedFileNames"]:
+    if checkForFile != "":
+      uploadedFiles.append(checkForFile(username, files, year))
+    
+  return render_template (  "done.html",
+                            proj = proj,
+                            username = username,
+                            cfg = cfg,
+                            fac = faculty,
+                            ldap = ldapFaculty,
+                            progs = programs,
+                            budg = budget,
+                            uploadedFiles = uploadedFiles,
+                            params = parameters,
+                            collabs = collaborators,
+                          )

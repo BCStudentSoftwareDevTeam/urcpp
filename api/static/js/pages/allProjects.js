@@ -19,7 +19,7 @@ function getProjects (username) {
         $("#collaboratedProjects").prepend("<caption>"+collaboratedCaption+"</caption>");
         $('#CollaboratedProjects').append(tableheading);
         $.each(data['collaborated'], function(index, project) {
-            $('#collaboratedProjects').append("<tr><td>"+project.year.year+"</td><td><a href='#'>"+project.title+"</a></td></tr>")
+            $('#collaboratedProjects').append("<tr><td>"+project.year.year+"</td><td><a href='/urcpp/v1/project/"+project.year.year+"/"+username+"'>"+project.title+"</a></td></tr>")
         });
         
       }
