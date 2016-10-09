@@ -35,11 +35,11 @@
             </a>
           </td>
           <td>
-            <a>{{person.username.firstname}} {{person.username.lastname}}</a>
+            <a onclick="getProjects('{{person.username.username}}')">{{person.username.firstname}} {{person.username.lastname}}</a>
             {% if collab is not none %}
               {% for c in collab %}
                 {% if person.pID == c.pID %}
-                  ; <a>{{c.username.firstname}} {{c.username.lastname}}</a>
+                  ; <a onclick="getProjects('{{c.username.username}}')">{{c.username.firstname}} {{c.username.lastname}}</a>
                 {% endif %}
               {% endfor %}
             {% endif %}
