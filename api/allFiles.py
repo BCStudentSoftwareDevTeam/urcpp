@@ -25,6 +25,8 @@ def allFiles_GET (username):
   here = os.path.dirname(__file__)
   
   # we need the year to the current projects
+  # we have getCurrentCycle and getParameters this might do the same thing 
+  # we have to choose one
   applicationCycle = getCurrentCycle()
   # All of our queries
   faculty = getFacultyWithProjects(applicationCycle.year)
@@ -43,8 +45,8 @@ def allFiles_GET (username):
     for fac in faculty:
       prevFilepath[fac.username.username] = {}
       for uploadType in ["narrative", "vitae", "irb"]: 
-        if checkForFile(fac.username.username, uploadType) != "":
-          prevFilepath[fac.username.username][uploadType]= checkForFile(fac.username.username, uploadType)
+        if checkForFile(fac.username.username, uploadType, applicationCycle.year) != "":
+          prevFilepath[fac.username.username][uploadType]= checkForFile(fac.username.username, uploadType, applicationCycle.year)
       allFac = [fac.username.username for fac in faculty]
 
   # Does the zipping

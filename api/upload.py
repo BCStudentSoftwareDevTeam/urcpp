@@ -8,15 +8,14 @@ from budget import getBudget
 from collaborators import getCollaborators
 from applicationCycle import getCurrentCycle
 
-def checkForFile(username, uploadType):
+def checkForFile(username, uploadType, year):
   #we need to know where we are at for file lookup issues
   here = os.path.dirname(__file__)
   allowedExtensions = cfg["filepaths"]["allowedFileExtensions"].keys();
-  applicationCycle = getCurrentCycle()
   for ext in allowedExtensions:
     fileDirectory = 'static/files'
     prevFilepath = '{0}{1}/{2}/{3}-{4}.{5}'.format(cfg['filepaths']['projectFiles'],
-                                    applicationCycle.year,
+                                    year,
                                     username, username,
                                     uploadType, ext)
     #prevFilepath = cfd['filepath']['directory']
@@ -39,7 +38,8 @@ def checkForFile(username, uploadType):
 def generic_file_upload (username, uploadType):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
-
+  # we need the current cycle to upload only the current file
+  applicationCycle = getCurrentCycle()
   if uploadType in cfg["filepaths"]["allowedFileNames"]:
     # All of our queries
     faculty = getFaculty(username)
@@ -49,7 +49,7 @@ def generic_file_upload (username, uploadType):
     collaborators = getCollaborators(username)
     budget = getBudget(username)
 
-    prevFilepath = checkForFile(username, uploadType)
+    prevFilepath = checkForFile(username, uploadType, applicationCycle.year)
     prev = prevFilepath
     #prevFilepath = prev.split("/").pop()
     return render_template (  "upload.html",

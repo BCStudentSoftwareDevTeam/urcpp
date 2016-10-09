@@ -25,7 +25,7 @@ def done_GET (username):
   
   for files in cfg["filepaths"]["allowedFileNames"]:
     if checkForFile != "":
-      uploadedFiles.append(checkForFile(username, files))
+      uploadedFiles.append(checkForFile(username, files, parameters.year))
     
   return render_template (  "done.html",
                             proj = proj,
