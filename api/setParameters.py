@@ -28,11 +28,13 @@ def setParameters_GET (username):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
   parameters = getParameters()
+  parameters_list = Parameters.select().order_by(-Parameters.year)
   ldap = getLDAPFaculty(username)
   
   return render_template ("setParameters.html", 
                            username = username,
                            ldap = ldap,
                            params = parameters,
+                           parameters_list = parameters_list,
                            cfg = cfg,
                            )

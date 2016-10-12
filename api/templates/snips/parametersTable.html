@@ -1,0 +1,19 @@
+<table class="table">
+    <caption>Past Parameters</caption>
+    <tr>
+        <th>Year</th>
+        <th>Application Open Date</th>
+        <th>Application Close Date</th>
+        <th>Mileage Rate</th>
+        <th>Labor Rate</th>
+    </tr>
+    {% for parameter in parameters_list %}
+    <tr>
+        <td>{{parameter.year}}</td>
+        <td>{{parameter.appOpenDate}}</td>
+        <td>{{parameter.appCloseDate}}</td>
+        <td>{{parameter.mileageRate}}</td>
+        <td>{{parameter.laborRate}}</td>
+    </tr>
+    {% endfor %}
+</table>
