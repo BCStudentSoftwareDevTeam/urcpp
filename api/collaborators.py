@@ -22,6 +22,20 @@ def getCollaborators (username):
   else:
     return None
 
+def getCollaboratorsById (pID):
+  collabQ = (Collaborators.select()
+    .where (Collaborators.pID == pID)
+    )
+
+  if collabQ.exists():
+    collaborators = []
+    collabs = collabQ.select()
+    for collab in collabs:
+      collaborators.append( collab )
+    return collaborators
+  else:
+    return None
+
 @app.route ("/urcpp/v1/collaborators/get/<username>", methods = ["POST"])
 def collaborators_get (username):
   if username != authUser(request.environ):

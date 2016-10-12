@@ -11,7 +11,7 @@ function getProjects (username) {
         $("#pastProjects").prepend("<caption>"+projectCaption+"</caption>");
         $('#pastProjects').append(tableheading);
         $.each(data['primaryFaculty'], function(index, project) {
-            $('#pastProjects').append("<tr><td>"+project.year.year+"</td><td>"+project.title+"</td></tr>")
+            $('#pastProjects').append("<tr><td>"+project.year.year+"</td><td><a href='/urcpp/v1/project/"+project.pID+"/"+username+"/"+project.year.year+"'>"+project.title+"</a></td></tr>")
         });
       }
       if (data["collaborated"].length){
@@ -19,7 +19,7 @@ function getProjects (username) {
         $("#collaboratedProjects").prepend("<caption>"+collaboratedCaption+"</caption>");
         $('#CollaboratedProjects').append(tableheading);
         $.each(data['collaborated'], function(index, project) {
-            $('#collaboratedProjects').append("<tr><td>"+project.year.year+"</td><td><a href='/urcpp/v1/project/"+project.year.year+"/"+username+"'>"+project.title+"</a></td></tr>")
+            $('#collaboratedProjects').append("<tr><td>"+project.year.year+"</td><td><a href='/urcpp/v1/project/"+project.pID+"/"+username+"/"+project.year.year+"'>"+project.title+"</a></td></tr>")
         });
         
       }

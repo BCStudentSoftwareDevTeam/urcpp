@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% set currentPage = "done" %}
+{% block title %} Review Your Application {% endblock %}
+
+{% block body %}
+<h1>Review Project</h1>
+
+<p>
+   How does it look?
+</p>
+{% include "snips/projectInfo.html" %}
+
+{% endblock %}

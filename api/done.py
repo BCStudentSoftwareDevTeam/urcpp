@@ -1,10 +1,10 @@
 from everything import *
 from faculty import getFaculty, getLDAPFaculty
-from projects import getProject, getProjectByYear
+from projects import getProject, getProjectByID
 from programs import getAllPrograms
 from budget import getBudget
 from parameters import getParameters
-from collaborators import getCollaborators
+from collaborators import getCollaborators, getCollaboratorsById
 
 from pages import *
 from upload import checkForFile
@@ -52,30 +52,24 @@ def finalize_POST (username):
   
   return redirect('/')
   
-@app.route("/urcpp/v1/project/<year>/<username>", methods = ["GET"])
-def project_GET (year, username):
+@app.route("/urcpp/v1/project/<pID>/<username>/<year>", methods = ["GET"])
+def project_GET (pID, username, year):
+  
    # All of our queries
-  faculty = getFaculty(username)
-  ldapFaculty = getLDAPFaculty(username)
-  proj = getProjectByYear(username, year)
+  proj = getProjectByID(pID)
   programs = getAllPrograms()
-  budget = getBudget(username)
   parameters = getParameters()
-  collaborators = getCollaborators(username)
+  collaborators = getCollaboratorsById(pID)
   uploadedFiles = [];
   
   for files in cfg["filepaths"]["allowedFileNames"]:
     if checkForFile != "":
       uploadedFiles.append(checkForFile(username, files, year))
     
-  return render_template (  "done.html",
+  return render_template (  "projectView.html",
                             proj = proj,
-                            username = username,
                             cfg = cfg,
-                            fac = faculty,
-                            ldap = ldapFaculty,
                             progs = programs,
-                            budg = budget,
                             uploadedFiles = uploadedFiles,
                             params = parameters,
                             collabs = collaborators,
