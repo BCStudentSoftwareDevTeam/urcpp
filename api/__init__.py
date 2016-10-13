@@ -12,6 +12,7 @@ import api.files
 import api.pages
 import api.filters
 import api.applicationCycle
+import api.dashboard
 
 # Form pages
 import api.create
