@@ -19,7 +19,7 @@
          <li>  {% if proj and proj.status == cfg["projectStatus"]["incomplete"] %}
                   <a href = "/{{username}}/create">Continue a Previous URCPP Project Submission</a>
                {% elif proj.status == cfg["projectStatus"]["pending"] %}  
-                  <a href = "/{{username}}/done">Review your Submitted Application</a>
+                  <a href = "/{{username}}/review">Review your Submitted Application</a>
                {% elif proj.status == cfg["projectStatus"]["accept"] %}
                   Congratulations! Your project has been accepted.
                {% else %}<a href = "/{{username}}/create">Start a new URCPP Project Submission</a>{% endif %}</li>

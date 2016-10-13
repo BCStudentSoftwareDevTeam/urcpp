@@ -26,9 +26,9 @@ def buildJSONHistory (data, username):
 @app.route("/<username>/history", methods = ["GET"])
 def history_GET (username):
   user = AuthorizedUser()
-  if user.isAuthorized(username) is not True:
+  if not user.isAuthorized(username):
     return { "response": cfg["response"]["badUsername"] }
-  if user.canUpdateForm(username) is not True:
+  if not user.canUpdateForm(username):
     return redirect("/")
   # All of our queries
   faculty = getFaculty(username)
@@ -55,9 +55,9 @@ def history_GET (username):
 @app.route("/<username>/history", methods = ["POST"])
 def history_POST (username):
   user = AuthorizedUser()
-  if user.isAuthorized(username) is not True:
+  if not user.isAuthorized(username):
     return { "response": cfg["response"]["badUsername"] }
-  if user.canUpdateForm(username) is not True:
+  if not user.canUpdateForm(username):
     return redirect("/")
   # Form data looks like... 
   # [('oneyr', u'oneyr'), ('sixToTenyr', u'sixToTenyr'), ('twoyr', u'twoyr'), ('threeToFiveyr', u'threeToFiveyr')]

@@ -4,10 +4,10 @@
 
 {% block body %}
 <h1>Review Project</h1>
-
-<p>
-   How does it look?
-</p>
 {% include "snips/projectInfo.html" %}
-
+    <div class = "col-sm-offset-9 col-sm-2">
+        <a href="{{previous_url}}">
+          <button class="btn btn-primary" class = "form-control"/>Done</button>  
+        </a>
+    </div>
 {% endblock %}

@@ -39,9 +39,9 @@ def getAllBudgets ():
 @app.route("/<username>/budget", methods = ["GET"])
 def budget_GET (username):
   user = AuthorizedUser()
-  if user.isAuthorized(username) is not True:
+  if not user.isAuthorized(username):
     return { "response": cfg["response"]["badUsername"] }
-  if user.canUpdateForm(username) is not True:
+  if not user.canUpdateForm(username):
     return redirect("/")
   
   # All of our queries
@@ -66,9 +66,9 @@ def budget_GET (username):
 @app.route("/<username>/budget", methods = ["POST"])
 def budget_POST (username):
   user = AuthorizedUser()
-  if user.isAuthorized(username) is not True:
+  if not user.isAuthorized(username):
     return { "response": cfg["response"]["badUsername"] }
-  if user.canUpdateForm(username) is not True:
+  if not user.canUpdateForm(username):
     return redirect("/")
   
   data = request.form

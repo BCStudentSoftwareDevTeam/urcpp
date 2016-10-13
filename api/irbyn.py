@@ -9,9 +9,9 @@ from pages import *
 @app.route("/<username>/irbyn", methods = ["GET"])
 def irbyn_GET (username):
   user = AuthorizedUser()
-  if user.isAuthorized(username) is not True:
+  if not user.isAuthorized(username):
     return { "response": cfg["response"]["badUsername"] }
-  if user.canUpdateForm(username) is not True:
+  if not user.canUpdateForm(username):
     return redirect("/")
   
   # All of our queries
@@ -33,9 +33,9 @@ def irbyn_GET (username):
 @app.route("/<username>/irbyn", methods = ["POST"])
 def irbyn_POST (username):
   user = AuthorizedUser()
-  if user.isAuthorized(username) is not True:
+  if not user.isAuthorized(username):
     return { "response": cfg["response"]["badUsername"] }
-  if user.canUpdateForm(username) is not True:
+  if not user.canUpdateForm(username):
     return redirect("/")
   
   proj = getProject(username)
