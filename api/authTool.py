@@ -1,5 +1,7 @@
-from everything import *
+from everything import authUser
+from flask import request
 from projects import getProject
+from faculty import getLDAPFaculty
 
 class AuthorizedUser:
 
@@ -9,14 +11,25 @@ class AuthorizedUser:
   '''
 
   def __init__(self):
-    self.username = authUser(request.environ)
+    self.user     = getLDAPFaculty(authUser(request.environ))
+    
+  def get_username(self):
+    '''returns the username of the person logged in'''
+    return self.user.username
       
-  def isAuthorized(self, username):
-    return self.username == username
+  def is_chair(self):
+    return self.user.is_chair
+    
+  def is_committee_member(self):
+    return self.user.is_committee_member
   
+  #TODO move this function outside of authorized user.
   def canUpdateForm(self, username):
     proj = getProject(username)
     print proj.status
     if proj.status == cfg["projectStatus"]["incomplete"]:
       return True
-    return False
+    return 
+  
+  def __repr__(self):
+    return "{0}, {1}".format(self.user.firstname, self.user.lastname)
