@@ -8,6 +8,7 @@ from pages import *
 from applicationCycle import getCurrentCycle
 from datetime import datetime
 import pprint
+from authTool import AuthorizedUser
 
 
 @app.route ("/s/<path:path>", methods = ["GET"])
@@ -24,7 +25,8 @@ def templates (path):
 
 @app.route("/", methods = ["GET"])
 def main ():
-  username = authUser(request.environ)
+  authorizedUser = AuthorizedUser()
+  username = authorizedUser.get_username()
   # print(pprint.pformat (request.environ, depth = 5))
   print username  
   ldap = getLDAPFaculty(username)
