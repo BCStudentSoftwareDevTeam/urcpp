@@ -48,7 +48,7 @@ app = Flask(__name__)
 
 from api.switch import switch
 from api.config import load_config
-from api.authTool import AuthorizedUser
+
 # cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
 cfg = load_config(os.path.join(here, 'config.yaml'))
 app.config['SECRET_KEY'] = open(os.path.join(here, 'secret_key'), 'rb').read()
