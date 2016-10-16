@@ -1,9 +1,6 @@
 from everything import *
 from applicationCycle import getCurrentCycle
-from faculty import getFaculty, getLDAPFaculty, getFacultyWithProjects
-from projects import getAllCurrentProjects
-from programs import getAllPrograms
-from budget import getAllBudgets
+from faculty import getFacultyWithProjects
 from parameters import getParameters
 from makeExcel import getFilename
 
@@ -15,22 +12,17 @@ def allBudgets_GET (username):
     return { "response": cfg["response"]["badUsername"] }
   
   # we need the current year to get the current projects
+  # TODO: either keep this or keep line 22 not both
   applicationCycle = getCurrentCycle()
   # All of our queries
   faculty = getFacultyWithProjects(applicationCycle.year)
-  proj = getAllCurrentProjects()
-  programs = getAllPrograms()
-  budget = getAllBudgets()
   params = getParameters()
   downloadFileName = getFilename("allBudgets")
 
   return render_template (  "allBudgets.html",
-                            proj = proj,
                             username = username,
                             cfg = cfg,
                             fac = faculty,
-                            progs = programs,
-                            budg = budget,
                             params = params,
                             downloadFileName = downloadFileName
                           )
