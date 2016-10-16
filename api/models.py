@@ -13,6 +13,7 @@ print("GETCWD MODELS: " + os.getcwd())
 # cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
 
 cfg = load_config(os.path.join(here, 'config.yaml'))
+#TODO: move information out and change password to keep secret
 try:
   dynamicDB = MySQLDatabase("urcpp_flask", host="localhost", user="urcpp-flask", passwd="DanforthLabor123!") 
   #ishwar if you want to work on your own databse you can add in except
@@ -36,6 +37,8 @@ class LDAPFaculty (DynamicModel):
   bnumber           = TextField()
   lastname          = TextField()
   firstname         = TextField()
+  isChair           = BooleanField(default=False)
+  isCommitteeMember = BooleanField(default=False)
 
 class LDAPStudents (DynamicModel):
   username          = PrimaryKeyField()
