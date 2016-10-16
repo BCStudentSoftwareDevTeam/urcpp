@@ -25,8 +25,8 @@ def templates (path):
 
 @app.route("/", methods = ["GET"])
 def main ():
-  authorizedUser = AuthorizedUser()
-  username = authorizedUser.get_username()
+  user = AuthorizedUser()
+  username = user.get_username()
   # print(pprint.pformat (request.environ, depth = 5))
   print username  
   ldap = getLDAPFaculty(username)
