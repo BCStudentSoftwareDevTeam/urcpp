@@ -1,12 +1,11 @@
 from everything import *
-from faculty import  getFacultyWithProjects, getLDAPFaculty
-from projects import getAllCurrentProjects, getProjectByID
+from faculty import  getFacultyWithProjects
+from projects import getProjectByID
 from collaborators import getAllCollaborators
-from programs import getAllPrograms
-from budget import getAllBudgets
 from voting import getVote
 from pages import *
 from applicationCycle import getCurrentCycle
+
 @app.route("/<username>/committee/allProjects", methods = ["GET"])
 def allProjects_GET (username):
   if username != authUser(request.environ):
@@ -16,25 +15,19 @@ def allProjects_GET (username):
   currentCycle = getCurrentCycle()
   
   faculty =  getFacultyWithProjects(currentCycle.year)
-  project = getAllCurrentProjects()
-  programs = getAllPrograms()
-  budget = getAllBudgets()
   collaborators = getAllCollaborators()
   previousVote = {}
-  if project:
-    for proje in project:
-      if getVote(username, proje.pID) is not None:
-        previousVote[proje.pID] = True
+  if faculty:
+    for fac in faculty:
+      if getVote(username, fac.pID.pID) is not None:
+        previousVote[fac.pID.pID] = True
       else:
-        previousVote[proje.pID] = False
+        previousVote[fac.pID.pID] = False
   
   return render_template (  "allProjects.html",
-                            proj = project,
                             username = username,
                             cfg = cfg,
                             fac = faculty,
-                            progs = programs,
-                            budg = budget,
                             prev = previousVote,
                             collab = collaborators
                           )
@@ -43,9 +36,6 @@ def allProjects_GET (username):
 def updateStatus_POST (username):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
-  faculty =  getFacultyWithProjects()
-  programs = getAllPrograms()
-  budget = getAllBudgets()
   
   data = request.form
   for key, value in data.iteritems():
@@ -53,12 +43,5 @@ def updateStatus_POST (username):
     projectToSetStatus.status = value
     projectToSetStatus.save()
 
-  project = getAllCurrentProjects()
-  return render_template (  "allProjects.html",
-                            proj = project,
-                            username = username,
-                            cfg = cfg,
-                            fac = faculty,
-                            progs = programs,
-                            budg = budget,
-                          ) 
+  # TODO: create redirect back function and use instead
+  return redirect(url_for('allProjects_GET', username=username))
