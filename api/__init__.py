@@ -4,10 +4,6 @@ from everything import *
 import api.globalroutes
 
 # Our getters
-#import api.projects
-#import api.faculty
-#import api.programs
-#import api.collaborators
 import api.files
 import api.pages
 import api.filters
