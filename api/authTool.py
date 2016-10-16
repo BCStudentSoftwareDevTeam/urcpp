@@ -16,6 +16,10 @@ class AuthorizedUser:
   def get_username(self):
     '''returns the username of the person logged in'''
     return self.user.username
+    
+  def isAuthorized(self, username):
+    return username == self.user.username
+    
       
   def is_chair(self):
     return self.user.is_chair
