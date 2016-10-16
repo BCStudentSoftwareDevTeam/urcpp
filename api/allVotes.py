@@ -1,12 +1,7 @@
 from everything import *
-from faculty import getFaculty, getLDAPFaculty, getFacultyWithProjects
-from projects import getAllCurrentProjects
-from programs import getAllPrograms
-from budget import getAllBudgets
+from faculty import getFacultyWithProjects
 from voting import getVotesByProject
 from applicationCycle import getCurrentCycle
-from pages import *
-import pprint
 
 @app.route("/<username>/committee/allVotes", methods = ["GET"])
 def allVotes_GET (username):
@@ -17,22 +12,15 @@ def allVotes_GET (username):
   applicationCycle = getCurrentCycle()
   # All of our queries
   faculty = getFacultyWithProjects(applicationCycle.year)
-  proj = getAllCurrentProjects()
-  programs = getAllPrograms()
-  budget = getAllBudgets()
 
   # For each project, get average of votes in each category
   votes = []
-  if  proj is not None:
-    for p in proj:
-      votes.append(getVotesByProject(p.pID))
+  if  faculty is not None:
+    for fac in faculty:
+      votes.append(getVotesByProject(fac.pID.pID))
   
   return render_template ("allVotes.html",
-                          proj = proj,
-                          username = username,
                           cfg = cfg,
                           fac = faculty,
-                          progs = programs,
-                          budg = budget,
                           votes = votes,
                          )
