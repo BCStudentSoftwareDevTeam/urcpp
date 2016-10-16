@@ -5,11 +5,10 @@ from programs import getAllPrograms
 from collaborators import getCollaborators
 from budget import getBudget
 
-from pages import validPageTemplate
-
 @app.route("/<username>/bnumbers", methods = ["POST"])
 def bnumbers_POST (username):
   # TODO: We really need to fix this function. We can do much better.
+  # TODO: we can really just remove this function if we use usernames instead
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
     
