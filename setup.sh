@@ -23,6 +23,8 @@ pip install tornado
 # additional python library
 pip install XlsxWriter
 
+#for login
+pip install Flask-Login
 # For QR Codes
 #pip install sqlite-web
 #pip install pyotp

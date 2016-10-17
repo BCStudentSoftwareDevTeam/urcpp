@@ -1,4 +1,4 @@
-from everything import authUser
+from everything import authUser, cfg
 from flask import request
 from projects import getProject
 from faculty import getLDAPFaculty

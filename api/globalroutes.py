@@ -23,19 +23,16 @@ def templates (path):
                         )
 
 
+@login_required
 @app.route("/", methods = ["GET"])
 def main ():
-  user = AuthorizedUser()
-  username = user.get_username()
-  # print(pprint.pformat (request.environ, depth = 5))
-  print username  
-  ldap = getLDAPFaculty(username)
-  project = getProject(username)
+  ldap = getLDAPFaculty(g.user.username)
+  project = getProject(g.user.username)
   currentCycle = getCurrentCycle()
   today = datetime.now()
 
   return render_template ("start.html", 
-                           username = username,
+                           username = g.user.username,
                            ldap = ldap,
                            proj = project,
                            cfg = cfg,

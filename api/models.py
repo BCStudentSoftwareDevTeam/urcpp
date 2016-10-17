@@ -20,6 +20,8 @@ try:
 except:
   dynamicDB = MySQLDatabase("urcpp_flask", host="127.0.0.1", user="memo3301791", port=3306)
 
+dynamicDB = MySQLDatabase("urcpp_flask", host="127.0.0.1", user="memo3301791", port=3306)
+
 class DynamicModel (Model):
   class Meta:
     database = dynamicDB
@@ -39,6 +41,24 @@ class LDAPFaculty (DynamicModel):
   firstname         = TextField()
   isChair           = BooleanField(default=False)
   isCommitteeMember = BooleanField(default=False)
+  
+  def is_active(self):
+      """All user will be active"""
+      return True
+  
+  
+  def get_id(self):
+      return str(self.fID)
+      
+  def is_authenticated(self):
+      """Return True if the user is authenticated"""
+      return True
+      
+  def is_anonymous(self):
+      return False
+      
+  def __repr__(self):
+      return '<User %r>' % (self.username)
 
 class LDAPStudents (DynamicModel):
   username          = PrimaryKeyField()

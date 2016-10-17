@@ -1,4 +1,5 @@
 from everything import *
+from authTool import AuthorizedUser
 from faculty import getFaculty, getLDAPFaculty
 from projects import getProject
 from programs import getAllPrograms

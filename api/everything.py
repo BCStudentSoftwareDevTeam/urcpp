@@ -18,6 +18,8 @@ from flask import send_from_directory
 from flask import flash
 from werkzeug import secure_filename
 
+# need to import g from flask_login
+from flask_login import login_user, logout_user, current_user, LoginManager, login_required
 # We need peewee's playhouse to help us serialize results
 from playhouse.shortcuts import model_to_dict as m2d
 
@@ -46,15 +48,22 @@ def authUser(env):
 here = os.path.dirname(__file__)
 app = Flask(__name__)
 
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
 from api.switch import switch
 from api.config import load_config
 
 # cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
 cfg = load_config(os.path.join(here, 'config.yaml'))
 app.config['SECRET_KEY'] = open(os.path.join(here, 'secret_key'), 'rb').read()
+
 @app.before_request
 def before_request():
     g.dbDynamic = dynamicDB.connect()
+    g.user = current_user
 
 @app.teardown_request
 def teardown_request(exception):
@@ -64,3 +73,7 @@ def teardown_request(exception):
       dbS.close()
     if (dbD is not None) and (not dbD.is_closed()):
       dbD.close()
+
+@login_manager.user_loader
+def load_user(fID):
+  return LDAPFaculty.get(LDAPFaculty.fID == fID)
