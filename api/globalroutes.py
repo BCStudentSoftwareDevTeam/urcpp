@@ -1,5 +1,5 @@
 from everything import *
-from faculty import getFaculty, getLDAPFaculty
+from faculty import getLDAPFaculty
 from projects import getProject
 from programs import getAllPrograms
 from collaborators import getCollaborators
