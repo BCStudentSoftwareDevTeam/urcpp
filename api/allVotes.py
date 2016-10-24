@@ -3,10 +3,10 @@ from faculty import getFacultyWithProjects
 from voting import getVotesByProject
 from applicationCycle import getCurrentCycle
 
-@app.route("/<username>/committee/allVotes", methods = ["GET"])
-def allVotes_GET (username):
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
+@app.route("/committee/allVotes", methods = ["GET"])
+def allVotes_GET ():
+  if not g.user.isCommitteeMember:
+    abort(403)
     
   # we need the current year to get the current projects
   applicationCycle = getCurrentCycle()

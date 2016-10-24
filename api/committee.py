@@ -7,16 +7,18 @@ from parameters import getParameters
 
 from pages import *
 
-@app.route("/<username>/committee", methods = ["GET"])
-def committee_GET (username):
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
-    
+
+
+@app.route("/committee", methods = ["GET"])
+@login_required
+def committee_GET ():
+  if not g.user.isCommitteeMember:
+    abort(403)
   parameters = getParameters()
-  ldap = getLDAPFaculty(username)
+  ldap = getLDAPFaculty(g.user.username)
   
   return render_template ("committee.html", 
-                           username = username,
+                           username = g.user.username,
                            ldap = ldap,
                            params = parameters,
                            cfg = cfg,

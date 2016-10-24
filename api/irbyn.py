@@ -6,43 +6,35 @@ from budget import getBudget
 
 from pages import *
 
-@app.route("/<username>/irbyn", methods = ["GET"])
-def irbyn_GET (username):
-  user = AuthorizedUser()
-  if not user.isAuthorized(username):
-    return { "response": cfg["response"]["badUsername"] }
-  if not user.canUpdateForm(username):
-    return redirect("/")
-  
+
+@app.route("/irbyn", methods = ["GET"])
+@login_required
+def irbyn_GET ():
   # All of our queries
-  faculty = getFaculty(username)
-  ldapFaculty = getLDAPFaculty(username)
-  proj = getProject(username)
-  programs = getAllPrograms()
+  proj = getProject(g.user.username)
+  
+  if proj.status == cfg["projectStatus"]["pending"]:
+    return redirect(url_for("main"))
   
   return render_template (  "irbyn.html",
                             proj = proj,
-                            username = username,
+                            username = g.user.username,
                             cfg = cfg,
-                            fac = faculty,
-                            ldap = ldapFaculty,
-                            progs = programs,
+                            ldap = g.user,
                           )
 
-# Sets the flag in the DB for IRB, and redirects to upload page.
-@app.route("/<username>/irbyn", methods = ["POST"])
-def irbyn_POST (username):
-  user = AuthorizedUser()
-  if not user.isAuthorized(username):
-    return { "response": cfg["response"]["badUsername"] }
-  if not user.canUpdateForm(username):
-    return redirect("/")
+@app.route("/irbyn", methods = ["POST"])
+@login_required
+def irbyn_POST ():
   
-  proj = getProject(username)
+  proj = getProject(g.user.username)
+  
+  if proj.status == cfg["projectStatus"]["pending"]:
+    return redirect(url_for("main"))
   proj.humanSubjects = (1 if request.form["irb"] == "Yes" else 0 )
   proj.save()
   
   if proj.humanSubjects:
-    return redirect(username + '/upload/irb')
+    return redirect(url_for("generic_file_upload", uploadType = "irb"))
   else:
-    return redirect(username + '/upload/vitae')
+    return redirect(url_for("generic_file_upload", uploadType = 'vitae'))

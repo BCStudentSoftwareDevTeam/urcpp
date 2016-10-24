@@ -7,41 +7,24 @@ from budget import getBudget
 
 from pages import *
 
-@app.route("/<username>/people", methods = ["GET"])
-def people_GET (username):
-  user = AuthorizedUser()
-  if not user.isAuthorized(username):
-    return { "response": cfg["response"]["badUsername"] }
-  if not user.canUpdateForm(username):
-    return redirect("/")
-    
+@app.route("/people", methods = ["GET"])
+def people_GET ():
   # All of our queries
-  faculty = getFaculty(username)
-  ldapFaculty = getLDAPFaculty(username)
-  proj = getProject(username)
-  programs = getAllPrograms()
-  # Who knew... the collaborators all go through
-  # as LDAPFaculty objects...
-  collaborators = getCollaborators(username)
-  budget = getBudget(username)
+  proj = getProject(g.user.username)
+  
+  if proj.status == cfg["projectStatus"]["pending"]:
+    return redirect(url_for('main'))
   
   return render_template (  "people.html",
                             proj = proj,
-                            username = username,
+                            username = g.user.username,
                             cfg = cfg,
-                            fac = faculty,
-                            ldap = ldapFaculty,
-                            progs = programs,
+                            ldap = g.user,
                           )
 
 
-@app.route("/<username>/people", methods = ["POST"])
-def people_POST (username):
-  user = AuthorizedUser()
-  if not user.isAuthorized(username):
-    return { "response": cfg["response"]["badUsername"] }
-  if not user.canUpdateForm(username):
-    return redirect("/")
+@app.route("/people", methods = ["POST"])
+def people_POST ():
     
   numStu    = int(request.form["numStu"])
   numCollab = int(request.form["numCollab"])
@@ -50,17 +33,23 @@ def people_POST (username):
                   .format(numStu, numCollab))
   
   # Update project
-  proj = getProject(username)
+  proj = getProject(g.user.username)
+  
+  
+  # should we really be trying to create a project here?
   if proj is None:
     proj = Projects()
   
+  if proj.status == cfg["projectStatus"]["pending"]:
+    return redirect(url_for('main'))
+    
   proj.numberStudents = numStu
   proj.save()
   if numCollab > 0:
     return render_template (  "bnumbers.html",
-                            username = username,
+                            username = g.user.username,
                             cfg = cfg,
                             numCollab = numCollab
                           )
   else:
-    return redirect(username + "/history")
+    return redirect(url_for('history_GET'))

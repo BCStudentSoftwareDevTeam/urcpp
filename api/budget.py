@@ -1,5 +1,4 @@
 from everything import *
-from authTool import AuthorizedUser
 from faculty import getFaculty, getLDAPFaculty
 from projects import getProject
 from programs import getAllPrograms
@@ -36,64 +35,47 @@ def getAllBudgets ():
     return budgQ.execute()
   else:
     return None
-  
-@app.route("/<username>/budget", methods = ["GET"])
-def budget_GET (username):
-  user = AuthorizedUser()
-  if not user.isAuthorized(username):
-    return { "response": cfg["response"]["badUsername"] }
-  if not user.canUpdateForm(username):
-    return redirect("/")
+
+@app.route("/budget", methods = ["GET"])
+@login_required
+def budget_GET ():
   
   # All of our queries
-  faculty = getFaculty(username)
-  ldapFaculty = getLDAPFaculty(username)
-  proj = getProject(username)
+  proj = getProject(g.user.username)
   programs = getAllPrograms()
-  budget = getBudget(username)
+  budget = getBudget(g.user.username)
   parameters = getParameters()
+  
+  if not proj.status == cfg["projectStatus"]["incomplete"]:
+    flash("application has been submited")
+    redirect(url_for("main"))
 
   return render_template (  "budget.html",
                             proj = proj,
-                            username = username,
+                            username = g.user.username,
                             cfg = cfg,
-                            fac = faculty,
-                            ldap = ldapFaculty,
-                            progs = programs,
                             budg = budget,
                             params = parameters
                           )
-                          
-@app.route("/<username>/budget", methods = ["POST"])
-def budget_POST (username):
-  user = AuthorizedUser()
-  if not user.isAuthorized(username):
-    return { "response": cfg["response"]["badUsername"] }
-  if not user.canUpdateForm(username):
-    return redirect("/")
+
+             
+@app.route("/budget", methods = ["POST"])
+@login_required 
+def budget_POST ():
   
+  # Data is an immutable dictionary
   data = request.form
-  # Data looks like:
-  # [('equipment', u'40'), ('milesDesc', u'And go farther, not further'), 
-  # ('materials', u'50'), ('facultyStipendDesc', u'Faculty get rich'), 
-  # ('materialsDesc', u'To build more stuff'), ('otherTravelDesc', 
-  # u'In planes and trains and automobiles'), ('miles', u'20'), 
-  # ('otherDesc', u'And other stuff'), ('facultyStipend', u'10'), 
-  # ('otherTravel', u'30111'), ('total', u'30291'), ('other', u'60'), 
-  # ('equipmentDesc', u'With stuff')]
-  # print data
   
-  print "Data loaded"
-  budg = getBudget(username)
+  budg = getBudget(g.user.username)
   
+  # we should not be able to create a budget without attaching it to a project
+  # TODO: remove and replace with log and error message
   if budg is None:
     budg = Budget()
     budg.save()
   
-  print "Saving budget data to db"
-  print int(round(float(data["facultyStipend"])))
+  # what are we doing to this poor data? There must be a better way to format
   budg.facultyStipend       = int(round(float(data["facultyStipend"])))
-  print budg.facultyStipend
   budg.facultyStipendDesc   = data["facultyStipendDesc"]
   budg.miles                = int(round(float(data["miles"])))
   budg.milesDesc            = data["milesDesc"]
@@ -107,5 +89,4 @@ def budget_POST (username):
   budg.otherDesc            = data["otherDesc"]
   budg.save()
   
-  print "Done saving budget data to db"
-  return redirect(username + '/done')
+  return redirect(url_for("done_GET"))

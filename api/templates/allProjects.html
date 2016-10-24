@@ -28,7 +28,7 @@
       {% for person in fac %} <!-- See allBudgets for a better way of doing this -->
         <tr id="row{{loop.index0}}">
           <td>
-            <a href="/{{username}}/committee/castVote/{{person.pID.pID}}">
+            <a href="/committee/castVote/{{person.pID.pID}}">
               <button type="button" class="btn btn-default btn-md {% if prev[person.pID.pID] %} btn-success {% endif %}">
                   <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Vote
               </button>
@@ -81,7 +81,7 @@
   function updateStatus(projectID) {
     var postValue = {};
     postValue[projectID] = $("#" + projectID + "-status option:selected").html();
-    $.post("/{{username}}/committee/allProjects/updateStatus", postValue, function(result){
+    $.post("/committee/allProjects/updateStatus", postValue, function(result){
     });
   };
 </script>

@@ -8,8 +8,11 @@ import datetime
 
 from pages import *
 
-@app.route("/<username>/chair/setParameters", methods = ["GET", "POST"])
-def setParameters_GET (username):
+@app.route("/chair/setParameters", methods = ["GET", "POST"])
+@login_required
+def setParameters_GET ():
+  if not g.user.isChair:
+    abort(403)
   if request.method == 'POST':
     data = request.form
     openDate = datetime.datetime.strptime(data['applicationOpenDate'], '%Y-%m-%d')
@@ -23,17 +26,14 @@ def setParameters_GET (username):
     parameters.save()
     
     flash('New application year succesfully created')
-    return redirect(url_for('setParameters_GET', username = username))
+    return redirect(url_for('setParameters_GET', username = g.user.username))
     
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
   parameters = getParameters()
   parameters_list = Parameters.select().order_by(-Parameters.year)
-  ldap = getLDAPFaculty(username)
   
   return render_template ("setParameters.html", 
-                           username = username,
-                           ldap = ldap,
+                           username = g.user.username,
+                           ldap = g.user,
                            params = parameters,
                            parameters_list = parameters_list,
                            cfg = cfg,

@@ -2,7 +2,7 @@
 
 function buttonMoveForward () {
   var localNextPage = "/";
-  localNextPage = localNextPage.concat(username + "/" + nextPage);
+  localNextPage = localNextPage.concat(nextPage);
   if (getValue == "home") {
    // If coming from the home page to upload CV, this takes you back there
     window.location.href = "/";

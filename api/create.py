@@ -1,6 +1,6 @@
 import datetime
 from everything import *
-from faculty import getFaculty, getFacultyByYear, getLDAPFaculty
+from faculty import getFaculty, getFacultyByYear
 from projects import getProject
 from programs import getAllPrograms
 from budget import getBudget
@@ -8,48 +8,42 @@ from parameters import getParameters
 from applicationCycle import getCurrentCycle
 from pages import *
 
-@app.route("/<username>/create", methods = ["GET"])
-def create_GET (username):
-  user = AuthorizedUser()
-  if not user.isAuthorized(username):
-    return { "response": cfg["response"]["badUsername"] }
-  if not user.canUpdateForm(username):
-    return redirect("/")
+
+@app.route("/create", methods = ["GET"])
+@login_required
+def create_GET ():
 
   # All of our queries
-  faculty = getFaculty(username)
-  ldapFaculty = getLDAPFaculty(username)
-  proj = getProject(username)
+  faculty  = getFaculty(g.user.username)
+  proj = getProject(g.user.username)
   progs = getAllPrograms()
   parameters = getParameters()
+  if proj is not None:
+    if proj.status == cfg["projectStatus"]["pending"]:
+      redirect(url_for("main"))
   
   return render_template (  "create.html",
-                            proj = proj,
-                            username = username,
-                            cfg = cfg,
                             fac = faculty,
-                            ldap = ldapFaculty,
+                            ldap = g.user,
+                            proj = proj,
+                            username = g.user.username,
+                            cfg = cfg,
                             progs = progs,
                             params = parameters
                           )
 
-@app.route("/<username>/create", methods = ["POST"])
-def create_POST (username):
-  user = AuthorizedUser()
-  if not user.isAuthorized(username):
-    return { "response": cfg["response"]["badUsername"] }
-  if not user.canUpdateForm(username):
-    return redirect("/")
 
+@app.route("/create", methods = ["POST"])
+@login_required
+def create_POST ():
+  
   # Grab the .body() from the aja() POST
+  # data is an immutable dictionary
   data = request.form
-  print "Post data is: " + str(data)
-  # This is what our post from this page looks like
-  # {duration: "8", program: "1", startDate: "May 1", title: "URCPP Software Also"}
   
   # First, update the project title
-  proj = getProject(username)
-  budg = getBudget(username)
+  proj = getProject(g.user.username)
+  budg = getBudget(g.user.username)
   year = getCurrentCycle().year
   if proj is None:
     proj = Projects()
@@ -59,28 +53,25 @@ def create_POST (username):
     budg.save()
   
   proj.title      = data["title"]
-  #  print "Date is: " + data["startDate"]
   proj.startDate  = datetime.datetime.strptime(data["startDate"], '%m-%d-%Y')
   proj.endDate    = datetime.datetime.strptime(data["endDate"], '%m-%d-%Y')
   proj.duration   = int(data["duration"])
   proj.budgetID   = budg.bID
   proj.year       = year
-  # print (data["isServiceToCommunity"] if data["isServiceToCommunity"] is not None else False)
-  # print (data["hasCommunityPartner"] if data["hasCommunityPartner"] is not None else False)
   proj.isServiceToCommunity = data["isServiceToCommunity"] if "isServiceToCommunity" in data is not None else False 
   proj.hasCommunityPartner = data["hasCommunityPartner"] if "hasCommunityPartner" in data is not None else False
   proj.save()  
   
   # Next, update the faculty's program
-  fac = getFacultyByYear(username, year)
+  fac = getFacultyByYear(g.user.username, year)
   # If they don't exist yet, create one.
   if fac is None:
     fac               = URCPPFaculty()
-    fac.username      = username
+    fac.username      = g.user.username
     fac.corresponding = True
   
   fac.pID       = proj.pID
   fac.programID = int(data["program"])
   fac.save()
 
-  return redirect(username + '/people')
+  return redirect(url_for("people_GET"))

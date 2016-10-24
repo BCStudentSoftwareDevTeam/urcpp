@@ -1,5 +1,6 @@
 from everything import *
 from faculty import getLDAPFaculty
+from redirectback import redirect_url
 
 
 @app.route('/login', methods=['GET'])
@@ -14,7 +15,7 @@ def login():
         else:
             login_user(user)
             print user.username
-        return "something"
+        return redirect(redirect_url())
             
 
 @app.route('/logout')

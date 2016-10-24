@@ -5,10 +5,11 @@ from makeExcel import getFilename
 from applicationCycle import getCurrentCycle
 from pages import *
 
-@app.route("/<username>/committee/allLabor", methods = ["GET"])
-def allLabor_GET (username):
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
+@app.route("/committee/allLabor", methods = ["GET"])
+@login_required
+def allLabor_GET ():
+  if not g.user.isCommitteeMember:
+    abort(403)
   # TODO: choose get parameter or application year
   # we need the year so that we can get the current projects
   applicationCycle =  getCurrentCycle()
@@ -18,7 +19,7 @@ def allLabor_GET (username):
   downloadFileName = getFilename("allLabor")
   
   return render_template (  "allLabor.html",
-                            username = username,
+                            username = g.user.username,
                             cfg = cfg,
                             fac = faculty,
                             params = parameters,

@@ -7,10 +7,11 @@ from voting import getVote
 from pages import *
 from applicationCycle import getCurrentCycle
 
-@app.route("/<username>/committee/allProjects", methods = ["GET"])
-def allProjects_GET (username):
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
+@app.route("/committee/allProjects", methods = ["GET"])
+@login_required
+def allProjects_GET ():
+  if not g.user.isCommitteeMember:
+    abort(403)
   # All of our queries
   # we need the current year to get current faculty with projects
   currentCycle = getCurrentCycle()
@@ -20,23 +21,24 @@ def allProjects_GET (username):
   previousVote = {}
   if faculty:
     for fac in faculty:
-      if getVote(username, fac.pID.pID) is not None:
+      if getVote(g.user.username, fac.pID.pID) is not None:
         previousVote[fac.pID.pID] = True
       else:
         previousVote[fac.pID.pID] = False
   
   return render_template (  "allProjects.html",
-                            username = username,
+                            username = g.user.username,
                             cfg = cfg,
                             fac = faculty,
                             prev = previousVote,
                             collab = collaborators
                           )
 
-@app.route("/<username>/committee/allProjects/updateStatus", methods = ["POST"])
-def updateStatus_POST (username):
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
+@app.route("/committee/allProjects/updateStatus", methods = ["POST"])
+@login_required
+def updateStatus_POST ():
+  if not g.user.isCommitteeMember:
+    abort(403)
   
   data = request.form
   for key, value in data.iteritems():
@@ -45,4 +47,4 @@ def updateStatus_POST (username):
     projectToSetStatus.save()
 
   # TODO: create redirect back function and use instead
-  return redirect(url_for('allProjects_GET', username=username))
+  return redirect(url_for('allProjects_GET'))

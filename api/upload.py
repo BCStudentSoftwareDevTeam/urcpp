@@ -34,30 +34,26 @@ def checkForFile(username, uploadType, year):
 # This renders a "generic" upload page, where the upload type
 # is one of three types. The page configures itself based
 # on the type of upload being requested.
-@app.route("/<username>/upload/<uploadType>", methods = ["GET"])
-def generic_file_upload (username, uploadType):
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
+
+@app.route("/upload/<uploadType>", methods = ["GET"])
+@login_required
+def generic_file_upload (uploadType):
   # we need the current cycle to upload only the current file
   applicationCycle = getCurrentCycle()
   if uploadType in cfg["filepaths"]["allowedFileNames"]:
     # All of our queries
-    faculty = getFaculty(username)
-    ldapFaculty = getLDAPFaculty(username)
-    proj = getProject(username)
-    programs = getAllPrograms()
-    collaborators = getCollaborators(username)
-    budget = getBudget(username)
+    
+    proj = getProject(g.user.username)
 
-    prevFilepath = checkForFile(username, uploadType, applicationCycle.year)
+    prevFilepath = checkForFile(g.user.username, uploadType, applicationCycle.year)
     prev = prevFilepath
     #prevFilepath = prev.split("/").pop()
     return render_template (  "upload.html",
                               proj = proj,
-                              username = username,
+                              # we are passing both the username and user object
+                              username = g.user.username,
                               cfg = cfg,
-                              fac = faculty,
-                              ldap = ldapFaculty,
+                              ldap = g.user,
                               uploadType = uploadType,
                               fullpath = prev,
                               prevFilepath = prevFilepath,
@@ -69,7 +65,6 @@ def generic_file_upload (username, uploadType):
 def removeLeadingDot (line):
   line = re.sub('[.]', '', line)
   return line
-
 
 # Captures file upload from the dropzone and saves to server
 @app.route('/v1/upload/<whichfile>/<username>', methods=['POST'])

@@ -8,23 +8,25 @@ from pages import *
 from applicationCycle import getCurrentCycle
 from datetime import datetime
 import pprint
-from authTool import AuthorizedUser
 
 
 @app.route ("/s/<path:path>", methods = ["GET"])
+@login_required
 def statics (path):
   return app.send_static_file (path)
 
+@login_required
 @app.route ("/t/<path:path>", methods = ["GET"])
 def templates (path):
   return render_template ( path, 
-                           username = authUser(request.environ),
+                           username = g.user.username,
                            cfg = cfg
                         )
 
 
-@login_required
+
 @app.route("/", methods = ["GET"])
+@login_required
 def main ():
   ldap = getLDAPFaculty(g.user.username)
   project = getProject(g.user.username)
@@ -39,7 +41,10 @@ def main ():
                            currentCycle = currentCycle,
                            today = today
                            )
+                          
+
 @app.route("/<username>", methods = ["GET"])
+@login_required
 def main_with_username (username):
   print "Going home"
   return redirect('/')

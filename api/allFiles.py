@@ -13,11 +13,11 @@ import shutil
 # remove all folders that are not user folders and are older than one minute
 
 
-@app.route("/<username>/committee/allFiles", methods = ["GET"])
-
-def allFiles_GET (username):
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
+@app.route("/committee/allFiles", methods = ["GET"])
+@login_required
+def allFiles_GET ():
+  if not g.user.isCommitteeMember:
+    abort(403)
   here = os.path.dirname(__file__)
   
   # we need the year to the current projects
@@ -56,17 +56,18 @@ def allFiles_GET (username):
     
 
   return render_template (  "allFiles.html",
-                            username = username,
+                            username = g.user.username,
                             cfg = cfg,
                             fac = faculty,
                             files = prevFilepath,
                             params = parameters
                           )
                           
-@app.route("/<username>/committee/allFiles", methods = ["POST"])
-def allFiles_POST (username):
-  if username != authUser(request.environ):
-    return { "response": projectDir}
+@app.route("/committee/allFiles", methods = ["POST"])
+@login_required
+def allFiles_POST ():
+  if not g.user.isCommitteeMember:
+    abort(403)
     
   # All of our queries
   parameters = getParameters()

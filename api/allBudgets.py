@@ -6,10 +6,12 @@ from makeExcel import getFilename
 
 from pages import *
 
-@app.route("/<username>/committee/allBudgets", methods = ["GET"])
-def allBudgets_GET (username):
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
+
+@app.route("/committee/allBudgets", methods = ["GET"])
+@login_required
+def allBudgets_GET ():
+  if not g.user.isCommitteeMember:
+    return abort(403)
   
   # we need the current year to get the current projects
   # TODO: either keep this or keep line 22 not both
@@ -20,7 +22,7 @@ def allBudgets_GET (username):
   downloadFileName = getFilename("allBudgets")
 
   return render_template (  "allBudgets.html",
-                            username = username,
+                            username = g.user.username,
                             cfg = cfg,
                             fac = faculty,
                             params = params,

@@ -7,13 +7,14 @@ from parameters import getParameters
 
 from pages import *
 
-@app.route("/<username>/chair", methods = ["GET"])
-def chair_GET (username):
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
+@app.route("/chair", methods = ["GET"])
+@login_required
+def chair_GET ():
+  if not g.user.isChair:
+    abort(403)
     
   parameters = getParameters()
-  ldap = getLDAPFaculty(username)
+  ldap = getLDAPFaculty(g.user.username)
   
   acceptedFaculty = getFacultyWithAcceptedProjects()
   acceptedFacultyEmail = ""
@@ -28,7 +29,7 @@ def chair_GET (username):
       rejectedFacultyEmail += "{}@berea.edu;".format(fac.username.username)
   
   return render_template ("chair.html", 
-                           username = username,
+                           username = g.user.username,
                            ldap = ldap,
                            params = parameters,
                            cfg = cfg,

@@ -82,7 +82,7 @@ def bnumbers_POST (username):
         app.logger.info ("Deleting collaborator: " + fac.username)
         c.delete_instance()
 
-  return redirect (  "/{0}/history".format(username) )
+  return redirect ( url_for( "history_GET" ))
 
 @app.route("/<username>/checkBNumber", methods = ["POST"])
 def checkBNumber (username):

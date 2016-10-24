@@ -1,5 +1,5 @@
 from everything import *
-from faculty import getFaculty, getLDAPFaculty
+from faculty import getLDAPFaculty
 from projects import getProject, getProjectByID
 from programs import getAllPrograms
 from budget import getBudget
@@ -9,67 +9,59 @@ from collaborators import getCollaborators, getCollaboratorsById
 from pages import *
 from upload import checkForFile
 
-@app.route("/<username>/done", methods = ["GET"])
-def done_GET (username):
-  user = AuthorizedUser()
-  if not user.isAuthorized(username):
-    return { "response": cfg["response"]["badUsername"] }
-  if not user.canUpdateForm(username):
-    return redirect("/")
+
+@app.route("/done", methods = ["GET"])
+@login_required
+def done_GET ():
    # All of our queries
-  faculty = getFaculty(username)
-  ldapFaculty = getLDAPFaculty(username)
-  proj = getProject(username)
-  programs = getAllPrograms()
-  budget = getBudget(username)
+  proj = getProject(g.user.username)
+  # TODO change budg to project.bID... in done.html will remove this line
+  budget = getBudget(g.user.username)
   parameters = getParameters()
-  collaborators = getCollaborators(username)
+  collaborators = getCollaborators(g.user.username)
   uploadedFiles = [];
+  
+  if not proj.status == cfg["projectStatus"]["incomplete"]:
+    return redirect(url_for("main"))
   
   for files in cfg["filepaths"]["allowedFileNames"]:
     if checkForFile != "":
-      uploadedFiles.append(checkForFile(username, files, parameters.year))
-    
+      uploadedFiles.append(checkForFile(g.user.username, files, parameters.year))
+   
   return render_template (  "done.html",
                             proj = proj,
-                            username = username,
                             cfg = cfg,
-                            fac = faculty,
-                            ldap = ldapFaculty,
-                            progs = programs,
+                            ldap = g.user,
                             budg = budget,
                             uploadedFiles = uploadedFiles,
                             params = parameters,
                             collabs = collaborators,
+                            username = g.user.username
                           )
 
 
-@app.route("/<username>/finalize", methods = ["POST"])
-def finalize_POST (username):
-  user = AuthorizedUser()
-  if not user.isAuthorized(username):
-    return { "response": cfg["response"]["badUsername"] }
+@app.route("/finalize", methods = ["POST"])
+@login_required
+def finalize_POST ():
   
-  proj = getProject(username)
+  proj = getProject(g.user.username)
   proj.status = cfg["projectStatus"]["pending"]
   proj.save()
   
   return redirect('/')
 
-@app.route("/<username>/review", methods = ["GET"])
-def review_GET (username):
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
-   # All of our queries
-  faculty = getFaculty(username)
-  ldapFaculty = getLDAPFaculty(username)
-  proj = getProject(username)
-  programs = getAllPrograms()
-  budget = getBudget(username)
+
+@app.route("/review", methods = ["GET"])
+@login_required
+def review_GET ():
+  proj = getProject(g.user.username)
+  budget = getBudget(g.user.username)
   parameters = getParameters()
-  collaborators = getCollaborators(username)
+  collaborators = getCollaborators(g.user.username)
   uploadedFiles = [];
   
+  # TODO: I don't think this is being used, keeping it for now, but need to check
+  # if it is removed
   if request.referrer:
     previous_url = request.referrer
   else:
@@ -77,26 +69,27 @@ def review_GET (username):
   
   for files in cfg["filepaths"]["allowedFileNames"]:
     if checkForFile != "":
-      uploadedFiles.append(checkForFile(username, files, parameters.year))
+      uploadedFiles.append(checkForFile(g.user.username, files, parameters.year))
     
   return render_template (  "projectView.html",
                             proj = proj,
                             cfg = cfg,
-                            progs = programs,
                             uploadedFiles = uploadedFiles,
                             params = parameters,
                             collabs = collaborators,
-                            previous_url = previous_url
+                            previous_url = previous_url,
+                            ldap = g.user
                           )
 
+
 @app.route("/urcpp/v1/project/<pID>/<username>/<year>", methods = ["GET"])
+@login_required
 def project_GET (pID, username, year):
-  user = AuthorizedUser()
-  if not user.isAuthorized(username):
-    return { "response": cfg["response"]["badUsername"] }
+  # TODO: add check to see if user seeing this is a committee member
+  
    # All of our queries
   proj = getProjectByID(pID)
-  programs = getAllPrograms()
+  # TODO: get cycle instead
   parameters = getParameters()
   collaborators = getCollaboratorsById(pID)
   uploadedFiles = [];
@@ -113,7 +106,6 @@ def project_GET (pID, username, year):
   return render_template (  "projectView.html",
                             proj = proj,
                             cfg = cfg,
-                            progs = programs,
                             uploadedFiles = uploadedFiles,
                             params = parameters,
                             collabs = collaborators,

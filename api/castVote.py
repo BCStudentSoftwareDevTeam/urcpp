@@ -9,10 +9,11 @@ from collaborators import getCollaborators
 from pages import *
 import pprint
 
-@app.route("/<username>/committee/castVote/<pid>", methods = ["GET"])
-def vote_GET (username, pid):
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
+@app.route("/committee/castVote/<pid>", methods = ["GET"])
+@login_required
+def vote_GET ( pid):
+  if not g.user.isCommitteeMember:
+    abort(403)
   project = getProjectByID(pid)
   if project is None:
     return render_template ("noProject.html", 
@@ -24,11 +25,11 @@ def vote_GET (username, pid):
   # Prepopulate
   if (  Voting.select()
               .where(Voting.projectID == pid)
-              .where(Voting.committeeID == username)
+              .where(Voting.committeeID == g.user.username)
               .exists()
       ):
     app.logger.info("Vote already exists\n")
-    votes = getVote(username, pid)
+    votes = getVote(g.user.username, pid)
   else:
   #   app.logger.info("Creating new row for {0} and {1}\n".format(username, pid))
   #   votes = (Voting.create (committeeID = username, 
@@ -38,7 +39,7 @@ def vote_GET (username, pid):
       votes = None
   return render_template (  "castVote.html",
                             proj = project,
-                            username = username,
+                            username = g.user.username,
                             cfg = cfg,
                             votes = votes,
                             fac = faculty,
@@ -77,26 +78,26 @@ def vote_GET (username, pid):
   
 
 
-@app.route("/<username>/committee/castVote/<pid>", methods = ["POST"])
-def vote_POST (username, pid):
+@app.route("/committee/castVote/<pid>", methods = ["POST"])
+@login_required
+def vote_POST (pid):
+  if not g.user.isCommitteeMember:
+    abort(403)
   # NOTE: username is the committee member, NOT the project creator
   faculty =  getFacultyForProject(pid)
-
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
   
   data = request.form
 
   print "Data is: " + str(data)
   
-  votingTable = getVote(username, pid)
+  votingTable = getVote(g.user.username, pid)
   if votingTable is None:
-    votingTable = (Voting.create (committeeID = username, 
+    votingTable = (Voting.create (committeeID = g.user.username, 
                            projectID = pid
                            )
                   )
   
-  votingTable.committeeID             = username 
+  votingTable.committeeID             = g.user.username 
   votingTable.projectID               = pid
   votingTable.studentLearning         = data["studentLearning"]
   votingTable.studentAccessibility    = data["studentAccessibility"]
@@ -115,7 +116,7 @@ def vote_POST (username, pid):
 
   project = getProjectByID(pid)
   return render_template (  "castVote.html",
-                            username = username,
+                            username = g.user.username,
                             cfg = cfg,
                             fac = faculty,
                             votes = votingTable,
