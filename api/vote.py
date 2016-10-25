@@ -2,7 +2,7 @@ from everything import *
 from faculty import  getFacultyWithProjects, getLDAPFaculty
 from projects import getAllCurrentProjects
 from programs import getAllPrograms
-from budget import getAllBudgets
+from pages.budget import getAllBudgets
 from voting import getVotes, getCommitteeVotes, getVote
 
 from pages import *

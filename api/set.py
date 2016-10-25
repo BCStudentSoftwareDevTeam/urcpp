@@ -1,7 +1,7 @@
 from everything import *
 from projects import getProject
 from faculty import getFaculty
-from budget import getBudget
+from pages.budget import getBudget
 
 # FIXME: I'm pretty sure there are better ways to do almost 
 # everything in here... probably some nice SQL ways to search

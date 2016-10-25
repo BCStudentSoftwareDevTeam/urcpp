@@ -2,9 +2,9 @@ from api.everything import *
 from api.faculty import getFacultyWithProjects, getLDAPFaculty, getFacultyForProject
 from api.projects import getProjectByID
 from api.programs import getAllPrograms
-from api.budget import getAllBudgets
+from api.pages.budget import getAllBudgets
 from api.voting import getVotes, getCommitteeVotes, getVote
-from api.collaborators import getCollaborators
+from api.pages.collaborators import getCollaborators
 
 from api.pages import *
 import pprint

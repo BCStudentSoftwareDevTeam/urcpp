@@ -1,6 +1,6 @@
 from api.everything import *
 from api.faculty import getFacultyWithProjects
-from api.upload import checkForFile
+from api.pages.upload import checkForFile
 from api.parameters import getParameters
 from flask import send_file
 from api.applicationCycle import getCurrentCycle

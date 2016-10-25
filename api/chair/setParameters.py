@@ -2,7 +2,7 @@ from api.everything import *
 from api.faculty import getFaculty, getLDAPFaculty
 from api.projects import getProject
 from api.programs import getAllPrograms
-from api.budget import getBudget
+from api.pages.budget import getBudget
 from api.parameters import getParameters
 import datetime
 

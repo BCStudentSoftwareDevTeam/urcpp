@@ -1,6 +1,6 @@
 # Changes made to this file require a service restart
 DEBUG:
-  user: "jadudm"
+  user: "pearcej"
 
 urcpp:
   applicationCycle: 2017
@@ -141,7 +141,7 @@ budget:
     placeholder: "Indicate the equipment you will need to purchase for your research"
     amountFieldName: "equipment"
     descFieldName: "equipmentDesc"
-  - title: "Materials "
+  - title: "Materials"
     placeholder: "Indicate the materials and supplies you know will be needed to conduct your research."
     amountFieldName: "materials"
     descFieldName: "materialsDesc"

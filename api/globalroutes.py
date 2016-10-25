@@ -2,8 +2,8 @@ from everything import *
 from faculty import getLDAPFaculty
 from projects import getProject
 from programs import getAllPrograms
-from collaborators import getCollaborators
-from budget import getBudget
+from pages.collaborators import getCollaborators
+from pages.budget import getBudget
 from pages import *
 from applicationCycle import getCurrentCycle
 from datetime import datetime
