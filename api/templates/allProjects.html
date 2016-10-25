@@ -59,10 +59,10 @@
               {% elif column['fieldName'] == "status" %}
                 {% if person.pID[column['fieldName']] != cfg["projectStatus"]["incomplete"] %}
                   <select class="form-control" id = "{{person.pID.pID}}-status" onchange = "updateStatus({{person.pID.pID}});">
-                    <option value = "pending" {% if person.pID[column['fieldName']] == "pending" %}selected{% endif%}>{{cfg["projectStatus"]["pending"]}}</option>
-                    <option value = "withdrawn"{% if person.pID[column['fieldName']] == "Withdrawn" %}selected{% endif%}>{{cfg["projectStatus"]["withdrawn"]}}</option>
-                    <option value = "reject"{% if person.pID[column['fieldName']] == "Reject" %}selected{% endif%}>{{cfg["projectStatus"]["reject"]}}</option>
-                    <option value = "accept"{% if person.pID[column['fieldName']] == "Accept" %}selected{% endif%}>{{cfg["projectStatus"]["accept"]}}</option>
+                    <option value = "pending" {% if person.pID.status == "pending" %}selected{% endif%}>{{cfg["projectStatus"]["pending"]}}</option>
+                    <option value = "withdrawn"{% if person.pID.status == "withdrawn" %}selected{% endif%}>{{cfg["projectStatus"]["withdrawn"]}}</option>
+                    <option value = "reject"{% if person.pID.status == "reject" %}selected{% endif%}>{{cfg["projectStatus"]["reject"]}}</option>
+                    <option value = "accept"{% if person.pID.status == "accept" %}selected{% endif%}>{{cfg["projectStatus"]["accept"]}}</option>
                   </select>
                 {% else %}{{person.pID[column['fieldName']]}}{% endif %}
               {% else %}  
@@ -80,7 +80,7 @@
 <script>
   function updateStatus(projectID) {
     var postValue = {};
-    postValue[projectID] = $("#" + projectID + "-status option:selected").html();
+    postValue[projectID] = $("#" + projectID + "-status").val();
     $.post("/committee/allProjects/updateStatus", postValue, function(result){
     });
   };
