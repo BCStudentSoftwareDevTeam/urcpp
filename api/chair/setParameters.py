@@ -4,6 +4,7 @@ from api.projects import getProject
 from api.programs import getAllPrograms
 from api.pages.budget import getBudget
 from api.parameters import getParameters
+from api.redirectback import redirect_url
 import datetime
 
 from api.pages import *
@@ -38,3 +39,18 @@ def setParameters_GET ():
                            parameters_list = parameters_list,
                            cfg = cfg,
                            )
+                           
+@app.route("/delete/parameters/<pID>", methods=['GET'])
+@login_required
+def deleteParameters(pID):
+  if not g.user.isChair:
+    abort(403)
+  try:
+    parameters = Parameters.get(Parameters.pID == pID)
+    parameters.delete_instance()
+  
+  except Parameters.DoesNotExist:
+    flash('Parameters not found')
+  return redirect(redirect_url())
+  
+  

@@ -14,6 +14,11 @@
         <td>{{parameter.appCloseDate}}</td>
         <td>{{parameter.mileageRate}}</td>
         <td>{{parameter.laborRate}}</td>
+        <td>
+            <a href={{url_for('deleteParameters', pID = parameter.pID)}}>
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </a>
+        </td>
     </tr>
     {% endfor %}
 </table>
