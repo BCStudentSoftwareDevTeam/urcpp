@@ -75,7 +75,7 @@ def allFiles_POST ():
   
   here = os.path.dirname(__file__)
   yearDir = cfg["filepaths"]["projectFiles"]+str(parameters.year)
-  yearDir = os.path.join(here, yearDir)
+  yearDir = os.path.join(here, '../', yearDir)
 
   
   try:
