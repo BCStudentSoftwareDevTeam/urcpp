@@ -177,7 +177,6 @@ models:
     - URCPPFaculty
     - URCPPStudents
     - Voting
-    - ApplicationCycle
     
 log:
   filename: "urcpp.log"
