@@ -65,7 +65,8 @@
        <dd><a href = "/static/files/{{cfg['urcpp']['applicationCycle']}}/{{username}}/{{item}}" target = "_blank">{{item}}</a></dd>
        {% endfor %}
    </dl>
-      
+
+    <button class="btn btn-danger" onclick="widthdraw({{project.pID}})">Widthdraw</button>
   <div class = "form-group"  >
     <div class = "col-sm-offset-9 col-sm-2" 
          id = "submitButton"

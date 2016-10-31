@@ -1,4 +1,4 @@
-  /* global api, swal, urcpp, username */
+  /* global api, swal, urcpp, username $ */
   api = urcpp("v1");
   function handleResponse (data) {
     if (data.response == "OK") {
@@ -17,4 +17,14 @@
     console.log("Finalizing application");
     api.done.finalize(username, handleResponse); 
     api.go();
+  };
+  
+  
+  function widthdraw(projectID) {
+    var postValue = {};
+    postValue[projectID] = 'widthdrawn';
+    $.post("/committee/allProjects/updateStatus", postValue, function(result){
+    });
+    window.location.replace("/");
+
   };

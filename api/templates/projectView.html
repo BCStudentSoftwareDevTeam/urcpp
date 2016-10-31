@@ -5,9 +5,15 @@
 {% block body %}
 <h1>Review Project</h1>
 {% include "snips/projectInfo.html" %}
-    <div class = "col-sm-offset-9 col-sm-2">
+<div>
+    <div class = "row">
+        <div class="col-xs-4 ">
+        <button class="btn btn-danger" onclick="widthdraw({{proj.pID}})">Widthdraw</button>
+        </div>
+        <div class="col-xs-offset-4 col-xs-4">
         <a href="{{previous_url}}">
           <button class="btn btn-primary" class = "form-control"/>Done</button>  
         </a>
+        </div>
     </div>
 {% endblock %}
