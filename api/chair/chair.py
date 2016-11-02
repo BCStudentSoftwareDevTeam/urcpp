@@ -1,8 +1,5 @@
 from api.everything import *
-from api.faculty import getFaculty, getLDAPFaculty, getFacultyWithAcceptedProjects, getFacultyWithRejectedProjects
-from api.projects import getProject
-from api.programs import getAllPrograms
-from api.pages.budget import getBudget
+from api.faculty import getFacultyWithAcceptedProjects, getFacultyWithRejectedProjects
 from api.parameters import getParameters
 
 from api.pages import *
@@ -14,7 +11,6 @@ def chair_GET ():
     abort(403)
     
   parameters = getParameters()
-  ldap = getLDAPFaculty(g.user.username)
   
   acceptedFaculty = getFacultyWithAcceptedProjects()
   acceptedFacultyEmail = ""
@@ -30,7 +26,7 @@ def chair_GET ():
   
   return render_template ("chair.html", 
                            username = g.user.username,
-                           ldap = ldap,
+                           ldap = g.user,
                            params = parameters,
                            cfg = cfg,
                            acceptedFacultyEmail = acceptedFacultyEmail,

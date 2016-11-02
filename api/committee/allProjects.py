@@ -3,9 +3,7 @@ from api.faculty import  getFacultyWithProjects
 from api.projects import getProjectByID
 from api.collaborators import getAllCollaborators
 from api.voting import getVote
-# TODO: I dont think this import is being used anymore
-from api.pages import *
-from api.applicationCycle import getCurrentCycle
+from api.parameters import getParameters
 
 @app.route("/committee/allProjects", methods = ["GET"])
 @login_required
@@ -14,7 +12,7 @@ def allProjects_GET ():
     abort(403)
   # All of our queries
   # we need the current year to get current faculty with projects
-  currentCycle = getCurrentCycle()
+  currentCycle = getParameters()
   
   faculty =  getFacultyWithProjects(currentCycle.year)
   collaborators = getAllCollaborators()

@@ -2,7 +2,6 @@ from api.everything import *
 from api.faculty import getFacultyWithProjects
 from api.parameters import getParameters
 from api.makeExcel import getFilename
-from api.applicationCycle import getCurrentCycle
 from api.pages import *
 
 @app.route("/committee/allLabor", methods = ["GET"])
@@ -12,10 +11,10 @@ def allLabor_GET ():
     abort(403)
   # TODO: choose get parameter or application year
   # we need the year so that we can get the current projects
-  applicationCycle =  getCurrentCycle()
-  # All of our queries
-  faculty = getFacultyWithProjects(applicationCycle.year)
   parameters = getParameters()
+  # All of our queries
+  faculty = getFacultyWithProjects(parameters.year)
+  
   downloadFileName = getFilename("allLabor")
   
   return render_template (  "allLabor.html",

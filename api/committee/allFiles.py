@@ -22,10 +22,9 @@ def allFiles_GET ():
   
   # we need the year to the current projects
   # TODO: remove application cycle or get parameters
-  applicationCycle = getCurrentCycle()
-  # All of our queries
-  faculty = getFacultyWithProjects(applicationCycle.year)
   parameters = getParameters()
+  # All of our queries
+  faculty = getFacultyWithProjects(parameters.year)
   prevFilepath = {}
   
   yearDir = cfg["filepaths"]["projectFiles"]+str(parameters.year)
@@ -37,8 +36,8 @@ def allFiles_GET ():
     for fac in faculty:
       prevFilepath[fac.username.username] = {}
       for uploadType in ["narrative", "vitae", "irb"]: 
-        if checkForFile(fac.username.username, uploadType, applicationCycle.year) != "":
-          prevFilepath[fac.username.username][uploadType]= checkForFile(fac.username.username, uploadType, applicationCycle.year)
+        if checkForFile(fac.username.username, uploadType, parameters.year) != "":
+          prevFilepath[fac.username.username][uploadType]= checkForFile(fac.username.username, uploadType, parameters.year)
       allFac = [fac.username.username for fac in faculty]
 
   # Does the zipping

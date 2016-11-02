@@ -1,5 +1,4 @@
 from api.everything import *
-from api.applicationCycle import getCurrentCycle
 from api.faculty import getFacultyWithProjects
 from api.parameters import getParameters
 from api.makeExcel import getFilename
@@ -15,10 +14,10 @@ def allBudgets_GET ():
   
   # we need the current year to get the current projects
   # TODO: either keep this or keep line 22 not both
-  applicationCycle = getCurrentCycle()
-  # All of our queries
-  faculty = getFacultyWithProjects(applicationCycle.year)
   params = getParameters()
+  # All of our queries
+  faculty = getFacultyWithProjects(params.year)
+  
   downloadFileName = getFilename("allBudgets")
 
   return render_template (  "allBudgets.html",

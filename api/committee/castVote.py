@@ -1,13 +1,8 @@
 from api.everything import *
-from api.faculty import getFacultyWithProjects, getLDAPFaculty, getFacultyForProject
+from api.faculty import getFacultyForProject
 from api.projects import getProjectByID
-from api.programs import getAllPrograms
-from api.budget import getAllBudgets
-from api.voting import getVotes, getCommitteeVotes, getVote
+from api.voting import getCommitteeVotes, getVote
 from api.collaborators import getCollaborators
-
-from api.pages import *
-import pprint
 
 @app.route("/committee/castVote/<pid>", methods = ["GET"])
 @login_required
@@ -45,38 +40,6 @@ def vote_GET ( pid):
                             fac = faculty,
                             collab = collaborators,
                           )
-  # # All of our queries
-  # faculty =  getFacultyWithProjects()
-  # programs = getAllPrograms()
-  # budget = getAllBudgets()
-  # # votes = getVotes()
-  
-  # for p in project:
-  #   if (Voting.select()
-  #             .where(Voting.projectID == p.pID)
-  #             .exists()
-  #     ):
-  #     votes = getVote(username, p)
-  #   else:
-  #     votes = Voting.create(committeeID = username, projectID = p.pID)
-  
-  # theirVotes = getCommitteeVotes(username)
-  # outVotes = []
-  # if theirVotes is not None:
-  #   for vote in theirVotes:
-  #     outVotes.append(vote)
-    
-  # return render_template (  "vote.html",
-  #                           proj = project,
-  #                           username = username,
-  #                           cfg = cfg,
-  #                           fac = faculty,
-  #                           progs = programs,
-  #                           budg = budget,
-  #                           votes = outVotes
-  #                         )
-  
-
 
 @app.route("/committee/castVote/<pid>", methods = ["POST"])
 @login_required
