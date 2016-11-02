@@ -1,7 +1,7 @@
 from api.everything import *
 from api.faculty import  getFacultyWithProjects
 from api.projects import getProjectByID
-from api.pages.collaborators import getAllCollaborators
+from api.collaborators import getAllCollaborators
 from api.voting import getVote
 # TODO: I dont think this import is being used anymore
 from api.pages import *

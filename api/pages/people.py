@@ -1,9 +1,5 @@
 from api.everything import *
-from api.faculty import getFaculty, getLDAPFaculty
 from api.projects import getProject
-from api.programs import getAllPrograms
-from collaborators import getCollaborators
-from budget import getBudget
 
 @app.route("/people", methods = ["GET"])
 def people_GET ():

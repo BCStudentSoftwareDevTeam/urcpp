@@ -4,18 +4,16 @@ from everything import *
 import api.globalroutes
 
 # Our getters
-import api.files
-import api.pages
-import api.filters
 import api.applicationCycle
 import api.dashboard
 import api.parameters
 import api.voting
+import api.budget
 
 # Form pages
 import pages.create
 import pages.people
-import pages.bnumbers
+import api.bnumbers
 import pages.history
 import pages.irbyn
 import pages.upload

@@ -1,10 +1,8 @@
 from api.everything import *
-from api.faculty import getLDAPFaculty
 from api.projects import getProject, getProjectByID
-from api.programs import getAllPrograms
 from budget import getBudget
 from api.parameters import getParameters
-from collaborators import getCollaborators, getCollaboratorsById
+from api.collaborators import getCollaborators, getCollaboratorsById
 
 from upload import checkForFile
 
@@ -80,7 +78,7 @@ def review_GET ():
                             ldap = g.user
                           )
 
-
+# TODO: move outside of this file. It is an API endpoint
 @app.route("/urcpp/v1/project/<pID>/<username>/<year>", methods = ["GET"])
 @login_required
 def project_GET (pID, username, year):

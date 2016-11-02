@@ -2,7 +2,7 @@ from everything import *
 from faculty import getFaculty, getLDAPFaculty
 from projects import getProject
 from programs import getAllPrograms
-from pages.collaborators import getCollaborators
+from collaborators import getCollaborators
 from pages.budget import getBudget
 from pages import *
 from applicationCycle import getCurrentCycle

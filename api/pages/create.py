@@ -3,10 +3,8 @@ from api.everything import *
 from api.faculty import getFaculty, getFacultyByYear
 from api.projects import getProject
 from api.programs import getAllPrograms
-from budget import getBudget
+from api.budget import getBudget
 from api.parameters import getParameters
-from api.applicationCycle import getCurrentCycle
-
 
 @app.route("/create", methods = ["GET"])
 @login_required
@@ -43,7 +41,7 @@ def create_POST ():
   # First, update the project title
   proj = getProject(g.user.username)
   budg = getBudget(g.user.username)
-  year = getCurrentCycle().year
+  year = getParameters().year
   if proj is None:
     proj = Projects()
   
