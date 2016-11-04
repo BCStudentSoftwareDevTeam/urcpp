@@ -1,7 +1,7 @@
-from api.everything import *
-from api.parameters import getParameters
+from ..everything import *
+from ..API.parameters import getParameters
 
-from api.pages import *
+from ..pages import *
 
 
 

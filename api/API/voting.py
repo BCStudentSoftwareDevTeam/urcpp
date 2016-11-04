@@ -1,4 +1,4 @@
-from everything import *
+from ..everything import *
 
 def getVotesByProject(proj):
   """This function gets the average of all votes for a given project"""

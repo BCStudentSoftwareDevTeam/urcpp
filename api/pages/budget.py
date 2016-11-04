@@ -1,8 +1,8 @@
-from api.everything import *
-from api.projects import getProject
-from api.parameters import getParameters
+from ..everything import *
+from ..API.projects import getProject
+from ..API.parameters import getParameters
 
-from api.budget import getBudget
+from ..API.budget import getBudget
 
 @app.route("/budget", methods = ["GET"])
 @login_required

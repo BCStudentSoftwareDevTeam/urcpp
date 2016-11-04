@@ -1,13 +1,12 @@
 import xlsxwriter
-from everything import *
+from ..everything import *
 from string import ascii_uppercase as AtoZ
 from faculty import getFacultyWithProjects
 from parameters import getParameters
-from applicationCycle import getCurrentCycle
 
 
 def getFilename(fileType):
-  cycle = getCurrentCycle()
+  cycle = getParameters()
   fileName = cfg["downloads"]["downloadFileNameFormat"]
   fileType = cfg["downloads"]["downloadFileTypes"][fileType]
   fileName = fileName.replace("%%applicationCycle%%", str(cycle.year))
@@ -18,7 +17,7 @@ def getFilePath(fileType):
   '''
   This function returns the filepath with the filename and extension to be written into
   '''
-  cycle = getCurrentCycle()
+  cycle = getParameters()
   writeFileName = getFilename(fileType)
   writeFileType = cfg["downloads"]["downloadFileTypes"][fileType]
   fileExtension = cfg["downloads"]["downloadFileExtension"]
@@ -30,7 +29,7 @@ def checkFilePath(fileType):
   '''
   This function checks if the filepath for the fileType exists, if not it creates the filepath.
   '''
-  applicationCycle = getCurrentCycle()
+  applicationCycle = getParameters()
   fileType = cfg["downloads"]["downloadFileTypes"][fileType]
   path = cfg["filepaths"]["projectFiles"] + str(applicationCycle.year)
   here = os.path.dirname(__file__)
@@ -47,9 +46,9 @@ def checkFilePath(fileType):
     os.mkdir(path)
 
 def makeBudgetExcel():
-  applicationCycle = getCurrentCycle()
-  faculty = getFacultyWithProjects(applicationCycle.year)
   params = getParameters()
+
+  faculty = getFacultyWithProjects(params.year)
   
   checkFilePath("allBudgets")
   writeFilePath = getFilePath("allBudgets")
@@ -111,7 +110,7 @@ def makeBudgetExcel():
   workbook.close()
 
 def makeLaborExcel():
-  applicationCycle = getCurrentCycle()
+  applicationCycle = getParameters()
   faculty = getFacultyWithProjects(applicationCycle.year)
   params = getParameters()
   

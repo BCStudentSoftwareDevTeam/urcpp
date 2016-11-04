@@ -1,10 +1,10 @@
 import datetime
 from api.everything import *
-from api.faculty import getFaculty, getFacultyByYear
-from api.projects import getProject
-from api.programs import getAllPrograms
-from api.budget import getBudget
-from api.parameters import getParameters
+from ..API.faculty import getFaculty, getFacultyByYear
+from ..API.projects import getProject
+from ..API.programs import getAllPrograms
+from ..API.budget import getBudget
+from ..API.parameters import getParameters
 
 @app.route("/create", methods = ["GET"])
 @login_required

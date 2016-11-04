@@ -1,8 +1,8 @@
-from api.everything import *
-from api.faculty import getFacultyForProject
-from api.projects import getProjectByID
-from api.voting import getCommitteeVotes, getVote
-from api.collaborators import getCollaborators
+from ..everything import *
+from ..API.faculty import getFacultyForProject
+from ..API.projects import getProjectByID
+from ..API.voting import getCommitteeVotes, getVote
+from ..API.collaborators import getCollaborators
 
 @app.route("/committee/castVote/<pid>", methods = ["GET"])
 @login_required

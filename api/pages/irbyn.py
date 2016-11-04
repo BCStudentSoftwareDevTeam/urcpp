@@ -1,5 +1,5 @@
 from api.everything import *
-from api.projects import getProject
+from ..API.projects import getProject
 
 
 @app.route("/irbyn", methods = ["GET"])

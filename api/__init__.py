@@ -4,16 +4,21 @@ from everything import *
 import api.globalroutes
 
 # Our getters
-import api.applicationCycle
 import api.dashboard
-import api.parameters
-import api.voting
-import api.budget
+
+# Our API
+import API.bnumbers
+import API.collaborators
+import API.faculty
+import API.makeExcel
+import API.programs
+import API.projects
+
+
 
 # Form pages
 import pages.create
 import pages.people
-import api.bnumbers
 import pages.history
 import pages.irbyn
 import pages.upload

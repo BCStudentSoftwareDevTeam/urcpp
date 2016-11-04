@@ -1,8 +1,8 @@
-from api.everything import *
-from api.faculty import getFacultyWithProjects
-from api.parameters import getParameters
-from api.makeExcel import getFilename
-from api.pages import *
+from ..everything import *
+from ..API.faculty import getFacultyWithProjects
+from ..API.parameters import getParameters
+from ..API.makeExcel import getFilename
+from ..pages import *
 
 @app.route("/committee/allLabor", methods = ["GET"])
 @login_required

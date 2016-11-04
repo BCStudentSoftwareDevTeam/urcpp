@@ -1,4 +1,4 @@
-from everything import *
+from ..everything import *
 from projects import getProject
 def getBudget (username):
    proj = getProject(username);

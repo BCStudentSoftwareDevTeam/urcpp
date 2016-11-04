@@ -1,8 +1,8 @@
-from api.everything import *
-from api.faculty import getFacultyWithAcceptedProjects, getFacultyWithRejectedProjects
-from api.parameters import getParameters
+from ..everything import *
+from ..API.faculty import getFacultyWithAcceptedProjects, getFacultyWithRejectedProjects
+from ..API.parameters import getParameters
 
-from api.pages import *
+from ..pages import *
 
 @app.route("/chair", methods = ["GET"])
 @login_required

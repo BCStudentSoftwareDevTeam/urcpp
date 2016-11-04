@@ -1,5 +1,5 @@
 from everything import *
-from faculty import getLDAPFaculty
+from API.faculty import getLDAPFaculty
 from redirectback import redirect_url
 
 

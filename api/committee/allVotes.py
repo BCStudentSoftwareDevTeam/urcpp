@@ -1,7 +1,7 @@
-from api.everything import *
-from api.faculty import getFacultyWithProjects
-from api.voting import getVotesByProject
-from api.parameters import getParameters
+from ..everything import *
+from ..API.faculty import getFacultyWithProjects
+from ..API.voting import getVotesByProject
+from ..API.parameters import getParameters
 
 @app.route("/committee/allVotes", methods = ["GET"])
 def allVotes_GET ():

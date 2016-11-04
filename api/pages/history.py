@@ -1,6 +1,6 @@
 from api.everything import *
-from api.faculty import getFaculty
-from api.collaborators import getCollaborators
+from ..API.faculty import getFaculty
+from ..API.collaborators import getCollaborators
 
 def buildJSONHistory (data, username):
   jsonOut  = "{\n"

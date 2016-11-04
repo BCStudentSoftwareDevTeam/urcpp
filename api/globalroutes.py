@@ -1,11 +1,11 @@
 from everything import *
-from faculty import getLDAPFaculty
-from projects import getProject
-from programs import getAllPrograms
-from collaborators import getCollaborators
+from API.faculty import getLDAPFaculty
+from API.projects import getProject
+from API.programs import getAllPrograms
+from API.collaborators import getCollaborators
 from pages.budget import getBudget
 from pages import *
-from applicationCycle import getCurrentCycle
+from API.parameters import getParameters
 from datetime import datetime
 import pprint
 
@@ -30,7 +30,7 @@ def templates (path):
 def main ():
   ldap = getLDAPFaculty(g.user.username)
   project = getProject(g.user.username)
-  currentCycle = getCurrentCycle()
+  currentCycle = getParameters()
   today = datetime.now()
 
   return render_template ("start.html", 

@@ -1,4 +1,4 @@
-from everything import *
+from ..everything import *
 
 def getAllPrograms ():
   # This returns the program table

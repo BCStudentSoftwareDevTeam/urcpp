@@ -1,8 +1,8 @@
 from api.everything import *
-from api.projects import getProject, getProjectByID
+from ..API.projects import getProject, getProjectByID
 from budget import getBudget
-from api.parameters import getParameters
-from api.collaborators import getCollaborators, getCollaboratorsById
+from ..API.parameters import getParameters
+from ..API.collaborators import getCollaborators, getCollaboratorsById
 
 from upload import checkForFile
 

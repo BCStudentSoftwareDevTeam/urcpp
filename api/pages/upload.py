@@ -1,7 +1,7 @@
 from api.everything import *
 import os, re, errno
-from api.projects import getProject
-from api.parameters import getParameters
+from ..API.projects import getProject
+from ..API.parameters import getParameters
 
 def checkForFile(username, uploadType, year):
   #we need to know where we are at for file lookup issues

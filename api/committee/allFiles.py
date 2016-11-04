@@ -1,11 +1,8 @@
-from api.everything import *
-from api.faculty import getFacultyWithProjects
-from api.pages.upload import checkForFile
-from api.parameters import getParameters
+from ..everything import *
+from ..API.faculty import getFacultyWithProjects
+from ..pages.upload import checkForFile
+from ..API.parameters import getParameters
 from flask import send_file
-from api.applicationCycle import getCurrentCycle
-
-from api.pages import *
 
 import os, pprint, zipfile, uuid, time
 import shutil

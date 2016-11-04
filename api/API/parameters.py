@@ -1,5 +1,5 @@
 # TODO: we need to either prune this page or add functions for different parameter years
-from everything import *
+from ..everything import *
 
 def getParameters():
    

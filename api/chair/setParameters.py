@@ -1,5 +1,5 @@
-from api.everything import *
-from api.redirectback import redirect_url
+from ..everything import *
+from ..redirectback import redirect_url
 import datetime
 
 

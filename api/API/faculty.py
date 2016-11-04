@@ -1,4 +1,4 @@
-from everything import *
+from ..everything import *
 import json
 import projects
 
