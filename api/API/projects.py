@@ -18,6 +18,7 @@ def getProjectByYear(username, year):
     .join (URCPPFaculty, on = (URCPPFaculty.pID == Projects.pID))
     .where (URCPPFaculty.username == username)
     .where (Projects.year == year)
+    .where (Projects.status != cfg['projectStatus']['withdrawn'])
   )
   
   if projQ.exists():
