@@ -8,3 +8,6 @@ $(function() {
         dateFormat: "yy-mm-dd"
       });
     });
+    
+$('.selectpicker').selectpicker({
+});

@@ -11,7 +11,6 @@ def committee_GET ():
   if not g.user.isCommitteeMember:
     abort(403)
   parameters = getParameters()
-  ldap = getLDAPFaculty(g.user.username)
   
   return render_template ("committee.html", 
                            username = g.user.username,

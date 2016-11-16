@@ -83,6 +83,9 @@ chair:
   - title: "Set Parameters"
     link: "setParameters"
     longtitle: "Set URCPP Parameters"
+  - title: "Manage Committee"
+    link: "manageCommittee"
+    longtitle: "Manage Committee Members"
   # - title: "Manage Committee Members"
   #   link: "manageCommittee"
   #   longtitle: "Manage URCPP Committee Members"
@@ -177,7 +180,6 @@ models:
     - URCPPFaculty
     - URCPPStudents
     - Voting
-    - ApplicationCycle
     
 log:
   filename: "urcpp.log"
