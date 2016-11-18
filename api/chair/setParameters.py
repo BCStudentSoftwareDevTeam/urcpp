@@ -1,6 +1,7 @@
 from ..everything import *
 from ..redirectback import redirect_url
 import datetime
+from ..API.parameters import getParameters
 
 
 @app.route("/chair/setParameters", methods = ["GET", "POST"])

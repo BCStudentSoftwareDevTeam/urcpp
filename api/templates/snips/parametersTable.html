@@ -10,9 +10,9 @@
     {% for parameter in parameters_list %}
     <tr>
         <td>{{parameter.year}}</td>
-        <td>{{parameter.appOpenDate}}</td>
-        <td>{{parameter.appCloseDate}}</td>
-        <td>{{parameter.mileageRate}}</td>
+        <td>{{parameter.appOpenDate.strftime('%Y/%m/%d')}}</td>
+        <td>{{parameter.appCloseDate.strftime('%Y/%m/%d')}}</td>
+        <td>{{parameter.mileageRate}}</td>a
         <td>{{parameter.laborRate}}</td>
         <td>
             <a href={{url_for('deleteParameters', pID = parameter.pID)}}>
