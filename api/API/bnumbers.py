@@ -1,9 +1,21 @@
 from api.everything import *
+from ..API.projects import getProject
 
 @app.route("/<username>/bnumbers", methods = ["POST"])
+@auto.doc()
+@login_required
 def bnumbers_POST (username):
+  """This function does something.
+
+    :param name: The name to use. 
+    :type name: str. 
+    :param state: Current state to be in. 
+    :type state: bool. 
+    :returns: int -- the return code. 
+    :raises: AttributeError, KeyError
+
+    """ 
   # TODO: We really need to fix this function. We can do much better.
-  # TODO: we can really just remove this function if we use usernames instead
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
     
@@ -80,7 +92,13 @@ def bnumbers_POST (username):
   return redirect ( url_for( "history_GET" ))
 
 @app.route("/<username>/checkBNumber", methods = ["POST"])
+@login_required
 def checkBNumber (username):
+  """This function checks to see if a bnumber exists.
+     It checks the LDAPFaculty table and if finds a User 
+     it marks the bnum as good.
+     :param username: username of the user that is logged in.
+  """
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
 
@@ -101,3 +119,6 @@ def checkBNumber (username):
   else:
     return jsonify({ "response" : "NOTFOUND" })
 
+@app.route('/documentation')
+def documentation():
+    return auto.html()
