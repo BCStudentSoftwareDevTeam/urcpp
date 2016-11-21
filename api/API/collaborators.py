@@ -1,6 +1,7 @@
 from api.everything import *
 
 def getAllCollaborators():
+  """ gets all of the collaborators from the collaborators table"""
   collabQ = (Collaborators.select())
   if collabQ.exists():
     return collabQ.execute()
