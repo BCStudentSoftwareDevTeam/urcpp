@@ -2,7 +2,6 @@ from api.everything import *
 from ..API.projects import getProject
 
 @app.route("/<username>/bnumbers", methods = ["POST"])
-@auto.doc()
 @login_required
 def bnumbers_POST (username):
   """This function does something.

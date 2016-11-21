@@ -20,7 +20,6 @@ def getBudget (username):
    else:
       return None
       
-@auto.doc()
 def getAllBudgets ():
   """ Gets all of the budgets for the current application cycle """
   year = getCurrentCycle()
