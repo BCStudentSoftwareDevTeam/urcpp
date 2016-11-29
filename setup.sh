@@ -25,7 +25,9 @@ pip install XlsxWriter
 
 #for login
 pip install Flask-Login
+pip install PyMySQL
 # For QR Codes
+pip install flask-wtf
 #pip install sqlite-web
 #pip install pyotp
 #pip install qrcode

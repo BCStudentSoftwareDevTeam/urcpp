@@ -1,42 +1,33 @@
-from everything import *
-from projects import getProject
-from faculty import getFaculty
-from pages.budget import getBudget
+from api.everything import *
+from ..API.projects import getProject
 
-# FIXME: I'm pretty sure there are better ways to do almost 
-# everything in here... probably some nice SQL ways to search
-# better, etc. Also, I don't handle the case that someone
-# got the BNumber wrong. The user can enter a bogus BNumber,
-# and they have no idea it happened.
-@app.route("/urcpp/v1/set/people/<username>", methods = ["POST"])
-def set_people (username):
+@app.route("/<username>/bnumbers", methods = ["POST"])
+@login_required
+def bnumbers_POST (username):
+  """This function does something.
+
+    :param name: The name to use. 
+    :type name: str. 
+    :param state: Current state to be in. 
+    :type state: bool. 
+    :returns: int -- the return code. 
+    :raises: AttributeError, KeyError
+
+    """ 
+  # TODO: We really need to fix this function. We can do much better.
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
-  # Grab the .body() from the aja() POST
-  data = request.get_json()
+    
+  data = request.form
+  numCollab = int(data["numCollab"])
   
-  # This is what our post from this page looks like
-  # {cbnumber0: "B00660000", cname0: "Scott Heggen", numCollab: "1", numStu: "3"}
-  
-  app.logger.info("Setting people page: " + json.dumps(data))
-  
-  # We want to insert the number of students into the projects table,
-  # and the collaborators into the collab table... if they don't 
-  # already exist.
-  
-  # Update project
   proj = getProject(username)
-  if proj is None:
-    proj = Project()
-  
-  proj.numberStudents = data["numStu"]
-  proj.save()
   
   # So we can do a remove...
   submittedBNumbers = []
   
   # Now, update the collaborators.
-  for ndx in range(0, int(data["numCollab"])):
+  for ndx in range(0, numCollab + 1):
     if ("cbnumber" + str(ndx)) in data:
       bnumber = data["cbnumber" + str(ndx)]
       submittedBNumbers.append(bnumber)
@@ -58,6 +49,8 @@ def set_people (username):
         app.logger.info ("Found them!")
         # Now, we have their full info.
         collabFac = collabQ.get()
+        app.logger.info("collabFac.username is : " + collabFac.username)
+        
         # At this point, we need to see if they're in
         # the Collaborators table already.
         centryQ = (Collaborators.select()
@@ -86,12 +79,45 @@ def set_people (username):
     # of submittedBNumbers, they need to go.
     
     for c in collabs:
-      fac = c.username  
+      fac = c.username
+      
+      app.logger.info("fac is : " + str(m2d(fac)))
+        
       # If their bnumber is not in my submitted list...
       if fac.bnumber not in submittedBNumbers:
         app.logger.info ("Deleting collaborator: " + fac.username)
-        # FIXME: This is not deleting anything from the table.
         c.delete_instance()
-      
-  response = { "response" : "OK" }
-  return jsonify(response)
+
+  return redirect ( url_for( "history_GET" ))
+
+@app.route("/<username>/checkBNumber", methods = ["POST"])
+@login_required
+def checkBNumber (username):
+  """This function checks to see if a bnumber exists.
+     It checks the LDAPFaculty table and if finds a User 
+     it marks the bnum as good.
+     :param username: username of the user that is logged in.
+  """
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
+
+  bnumber = request.json['bnum']
+  print bnumber
+  if bnumber[0] == "b":
+    bnumber = "B" + bnumber[1:]
+    print ("Replaced Bnum: " + bnumber)
+  # We are assuming BNumbers are less than 10 characters
+  if (len(bnumber) < 12) and (bnumber.find("B") == 0):
+    facQ = (LDAPFaculty.select()
+      .where (LDAPFaculty.bnumber == bnumber)
+      )
+    if facQ.exists():
+      return jsonify({ "response" : "OK" })
+    else:
+      return jsonify({ "response" : "NOTFOUND" })
+  else:
+    return jsonify({ "response" : "NOTFOUND" })
+
+@app.route('/documentation')
+def documentation():
+    return auto.html()

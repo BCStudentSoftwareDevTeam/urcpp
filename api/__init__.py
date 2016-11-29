@@ -4,38 +4,41 @@ from everything import *
 import api.globalroutes
 
 # Our getters
-import api.files
-import api.pages
-import api.filters
-import api.applicationCycle
 import api.dashboard
 
+# Our API
+import API.bnumbers
+import API.collaborators
+import API.faculty
+import API.makeExcel
+import API.programs
+import API.projects
+
+
+
 # Form pages
-import api.create
-import api.people
-import api.bnumbers
-import api.history
-import api.irbyn
-import api.upload
-import api.done
-import api.parameters
-import api.budget
-import api.voting
-import api.download
+import pages.create
+import pages.people
+import pages.history
+import pages.irbyn
+import pages.upload
+import pages.done
+import pages.budget
+import pages.download
 
 #Committee pages
-import api.committee
-import api.allBudgets
-import api.allProjects
-import api.allFiles
-import api.allLabor
-# import api.vote
-import api.allVotes
-import api.castVote
+import committee.committee
+import committee.allBudgets
+import committee.allProjects
+import committee.allFiles
+import committee.allLabor
+# import committee.vote
+import committee.allVotes
+import committee.castVote
 
 #Chair pages
-import api.chair
-import api.setParameters
-import api.manageCommittee
+import chair.chair
+import chair.setParameters
+import chair.manageCommittee
 
 import flaskLogin

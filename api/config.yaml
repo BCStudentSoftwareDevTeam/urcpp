@@ -83,6 +83,9 @@ chair:
   - title: "Set Parameters"
     link: "setParameters"
     longtitle: "Set URCPP Parameters"
+  - title: "Manage Committee"
+    link: "manageCommittee"
+    longtitle: "Manage Committee Members"
   # - title: "Manage Committee Members"
   #   link: "manageCommittee"
   #   longtitle: "Manage URCPP Committee Members"
@@ -141,7 +144,7 @@ budget:
     placeholder: "Indicate the equipment you will need to purchase for your research"
     amountFieldName: "equipment"
     descFieldName: "equipmentDesc"
-  - title: "Materials "
+  - title: "Materials"
     placeholder: "Indicate the materials and supplies you know will be needed to conduct your research."
     amountFieldName: "materials"
     descFieldName: "materialsDesc"
@@ -203,9 +206,9 @@ response:
 filepaths:
   # directory: "/var/www/html/urcpp-flask/api/static/files/%%applicationCycle%%/%%username%%"
   # projectFiles: "/var/www/html/urcpp-flask/api/static/files/"
-  directory: "static/files/%%applicationCycle%%/%%username%%"
-  projectFiles: "static/files/"
-  downloadFiles: "static/files/"
+  directory: "../static/files/%%applicationCycle%%/%%username%%"
+  projectFiles: "../static/files/"
+  downloadFiles: "../static/files/"
   
   allowedFileExtensions:
     rtf: "Rich Text Format"

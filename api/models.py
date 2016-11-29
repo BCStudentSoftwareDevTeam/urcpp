@@ -58,8 +58,7 @@ class LDAPFaculty (DynamicModel):
       return False
       
   def __repr__(self):
-      return '<User %r>' % (self.username)
-
+    return '{0} {1}'.format(self.firstname, self.lastname)
 class LDAPStudents (DynamicModel):
   username          = PrimaryKeyField()
   bnumber           = TextField()
