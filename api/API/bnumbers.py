@@ -4,14 +4,15 @@ from ..API.projects import getProject
 @app.route("/<username>/bnumbers", methods = ["POST"])
 @login_required
 def bnumbers_POST (username):
-  """This function does something.
+  """This function updates the collaborators table
 
-    :param name: The name to use. 
-    :type name: str. 
-    :param state: Current state to be in. 
-    :type state: bool. 
-    :returns: int -- the return code. 
-    :raises: AttributeError, KeyError
+    Args:
+      username (str): The username of the person accessing the app
+      numCollab (str): POST number of collaborators project hasattr
+      cnumber<index> (str): POST the collaborators c number; there maybe one or more of these
+    
+    Returns:
+      Redirect: redirects to history_GET
 
     """ 
   # TODO: We really need to fix this function. We can do much better.
@@ -96,7 +97,12 @@ def checkBNumber (username):
   """This function checks to see if a bnumber exists.
      It checks the LDAPFaculty table and if finds a User 
      it marks the bnum as good.
-     :param username: username of the user that is logged in.
+      Args:
+        username (str): the user who is currently accessing the application
+        bnum (str): POST the number that needs to be checked
+       
+      Returns:
+        JSON: response that is either OK or NOTFOUND
   """
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
@@ -117,7 +123,3 @@ def checkBNumber (username):
       return jsonify({ "response" : "NOTFOUND" })
   else:
     return jsonify({ "response" : "NOTFOUND" })
-
-@app.route('/documentation')
-def documentation():
-    return auto.html()
