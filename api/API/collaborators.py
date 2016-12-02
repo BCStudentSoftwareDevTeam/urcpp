@@ -1,7 +1,11 @@
 from api.everything import *
 
 def getAllCollaborators():
-  """ gets all of the collaborators from the collaborators table"""
+  """ gets all of the collaborators from the collaborators table
+  
+      Returns:
+        Collaborator Select Query: all of the collaborators
+  """
   collabQ = (Collaborators.select())
   if collabQ.exists():
     return collabQ.execute()
@@ -9,6 +13,14 @@ def getAllCollaborators():
     return None
 
 def getCollaborators (username):
+  """ gets all of the collaborator for a user
+      
+      Args:
+        username (str): the user to whom the project belongs
+      
+      Returns:
+        Collaborators Select Query: the collaborators aiding the project
+  """
   collabQ = (Collaborators.select()
     .join (URCPPFaculty, on = (URCPPFaculty.pID == Collaborators.pID))
     .where (URCPPFaculty.username == username)
@@ -24,6 +36,14 @@ def getCollaborators (username):
     return None
 
 def getCollaboratorsById (pID):
+  """ gets collaborator based on an project id 
+      
+      Args: 
+        pID (int): the project that the collaborators are contributing to
+      
+      Returns:
+        list, None: the list of collaborators or None 
+  """
   collabQ = (Collaborators.select()
     .where (Collaborators.pID == pID)
     )
@@ -39,6 +59,15 @@ def getCollaboratorsById (pID):
 
 @app.route ("/urcpp/v1/collaborators/get/<username>", methods = ["POST"])
 def collaborators_get (username):
+  """ gets the collaborators of a user
+      
+      Args:
+        username (str): the username of whom the project belongs
+      
+      Returns:
+        JSON: a dictionary version of the models or noResults
+  """
+
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
 

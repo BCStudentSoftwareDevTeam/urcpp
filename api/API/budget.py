@@ -1,10 +1,13 @@
 from ..everything import *
 from projects import getProject
 def getBudget (username):
-   """ gets the budget for a user in the current 
-        application year.
-        :param username: user for whom the budget should be.
-        :returns (peewee object) budget: the budget for the user
+   """  gets the budget for a user in the current application year.
+    
+        Args:
+          username (str): the user to whom the budget should belong to
+            
+        Returns:
+          Budget Model: the budget for the user
    """
    proj = getProject(username);
    if proj:

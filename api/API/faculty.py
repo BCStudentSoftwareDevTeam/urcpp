@@ -2,17 +2,6 @@ from ..everything import *
 import json
 import projects
 
-# This query can go, same as below (getFaculty)
-def previousYearsFunded (username):
-  urcppFacultyQ = (URCPPFaculty.select()
-    .where (URCPPFaculty.username == username)
-  )
-  
-  if urcppFacultyQ.exists():
-    return urcppFacultyQ.get()
-  else:
-    return None
-
 def getLDAPFaculty (username):
     
   ldapQ = (LDAPFaculty.select()
