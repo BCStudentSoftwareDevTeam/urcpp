@@ -3,7 +3,15 @@ import json
 import projects
 
 def getLDAPFaculty (username):
-    
+  """ gets the LDAPFaculty by username
+      
+      Args:
+        username (str): the username that your are looking format
+      
+      Returns:
+        LDAPFaculty Object, None: the LDAPfaculty object if it finds it otherwise None
+  
+  """
   ldapQ = (LDAPFaculty.select()
     .where (LDAPFaculty.username == username)
     )
@@ -14,6 +22,14 @@ def getLDAPFaculty (username):
     return None
   
 def getFaculty (username):
+  """ gets the URCPPfaculty by username
+      
+      Args:
+        username (str): the username that is being looked for
+        
+      Returns:
+        URCPPfaculty Object, None: The URCPPFaculty object or None
+  """
   facQ = (URCPPFaculty.select()
     .where (URCPPFaculty.username == username)
     )
@@ -24,6 +40,16 @@ def getFaculty (username):
     return None
     
 def getFacultyByYear (username, year):
+  """ gets the faculty with project for a given years
+  
+      Args:
+        username (str): the username that is being looked for
+        year (int): the year that this faculty would belong to
+        
+      Returns:
+      URCPPFaculty Object: the faculty in that year
+      
+  """
   facQ = (URCPPFaculty.select().join(Projects)
     .where (URCPPFaculty.username == username)
     .where (Projects.year == year)
@@ -36,6 +62,14 @@ def getFacultyByYear (username, year):
 
 
 def getFacultyWithProjects (year):
+  """ gets faculty with project for a given year 
+  
+      Args:
+        year (int): the year that the faculty should have a project
+        
+      Returns:
+      URCPPFaculty Select Query: The faculty that have a prject in that year
+  """
   facQ = (URCPPFaculty.select().join(Projects).where(Projects.year == year))
 
   if facQ.exists():
@@ -45,6 +79,12 @@ def getFacultyWithProjects (year):
 
 
 def getFacultyWithPendingProjects ():
+  """ gets the faculty that have started but not submitted a project
+  
+      Returns:
+        URCPPFaculty Select Query: the faculty with pending Projects
+        
+  """
   facQ = (URCPPFaculty.select()
                         .join(Projects)
                         .where(Projects.status == cfg["projectStatus"]["pending"])
@@ -57,6 +97,15 @@ def getFacultyWithPendingProjects ():
     return None
     
 def getFacultyForProject (pid):
+  """ gets the faculty that belong to a project
+  
+      Args:
+      pid (int): the project id
+      
+      Returns:
+        URCPPFaculty Object: the faculty that owns the project
+        
+  """
   facQ =  ( URCPPFaculty.select()
                         .where(URCPPFaculty.pID == pid)
           )
@@ -66,6 +115,14 @@ def getFacultyForProject (pid):
     return None
 
 def getFacultyWithAcceptedProjects():
+  """ gets the faculty that have projects that have been accepted
+  
+      Returns:
+        URCPPFaculty Select Query: the faculty with accepted Projects
+        
+  """
+  
+  
   facQ = ( URCPPFaculty.select()
                         .join(Projects)
                         .where(Projects.status == cfg["projectStatus"]["accept"])
@@ -76,6 +133,11 @@ def getFacultyWithAcceptedProjects():
     return None
 
 def getFacultyWithRejectedProjects():
+  """ gets the faculty that have projects that have been rejected
+  
+      Returns:
+        URCPPFaculty Select Query: the faculty with rejected projects
+  """
   facQ = ( URCPPFaculty.select()
                         .join(Projects)
                         .where(Projects.status == cfg["projectStatus"]["reject"])
@@ -87,6 +149,15 @@ def getFacultyWithRejectedProjects():
     
 @app.route("/urcpp/v1/faculty/get/<username>", methods = ["POST"])
 def faculty_get (username):
+  """ gets the LDAPFaculty by username
+      
+      Args:
+        username (str): the username that your are looking format
+      
+      Returns:
+        JSON: Dictionary of the faculty or noResults
+  
+  """
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
   
