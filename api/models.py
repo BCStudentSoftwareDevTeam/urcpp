@@ -20,7 +20,7 @@ try:
 except:
   dynamicDB = MySQLDatabase("urcpp_flask", host="127.0.0.1", user="memo3301791", port=3306)
 
-dynamicDB = MySQLDatabase("urcpp_flask", host="127.0.0.1", user="memo3301791", port=3306)
+dynamicDB = MySQLDatabase("urcpp_flask", host="localhost", user="urcpp-flask", passwd="DanforthLabor123!")
 
 class DynamicModel (Model):
   class Meta:

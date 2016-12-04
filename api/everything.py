@@ -60,6 +60,7 @@ from api.config import load_config
 # cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
 cfg = load_config(os.path.join(here, 'config.yaml'))
 app.config['SECRET_KEY'] = open(os.path.join(here, 'secret_key'), 'rb').read()
+app.config['TEMPLATE_AUTO_RELOAD'] = True
 
 @app.before_request
 def before_request():

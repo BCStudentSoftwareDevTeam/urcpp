@@ -1,28 +1,16 @@
-# from everything import *
-# from faculty import getFaculty, getLDAPFaculty
-# from projects import getProject
-# from programs import getAllPrograms
-# from collaborators import getCollaborators
-# from pages.budget import getBudget
-# from pages import *
-# from applicationCycle import getCurrentCycle
-# from datetime import datetime
+from everything import *
+from API.faculty import getLDAPFaculty
+from API.projects import getProject
+from API.parameters import getParameters
+from datetime import datetime
 
-# @app.route("/dashboard", methods = ["GET"])
-# def dashboard():
-#   username = authUser(request.environ)
-#   # print(pprint.pformat (request.environ, depth = 5))
-#   print username  
-#   ldap = getLDAPFaculty(username)
-#   project = getProject(username)
-#   currentCycle = getCurrentCycle()
-#   today = datetime.now()
+@app.route("/dashboard", methods = ["GET"])
+@login_required
+def dashboard():
+  """ This page generate the dasboard """
+  ldap = getLDAPFaculty(g.user.username)
+  project = getProject(g.user.username)
+  currentCycle = getParameters()
+  today = datetime.now()
 
-#   return render_template ("dashboard.html", 
-#                           username = username,
-#                           ldap = ldap,
-#                           proj = project,
-#                           cfg = cfg,
-#                           currentCycle = currentCycle,
-#                           today = today
-#                           )
+  return render_template ("dashboard.html", cfg=cfg, ldap=ldap, proj=project, currentCycle=currentCycle, today=today)

@@ -1,68 +1,46 @@
 {% extends "base.html" %}
 {% set currentPage = "dashboard" %}
-{% block title %} Dashboard {% endblock %}
+
+{% block title %} URCPP Project Basics {% endblock %}
 
 {% block body %}
-<div class="container">
-  <div class="page-header">
-    <h1 id="timeline"> Project Timeline</h1>
-  </div>
-  <ul class="timeline">
-    <li>
-      <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
-      <div class="timeline-panel">
-        <div class="timeline-heading">
-          <h4 class="timeline-title">Incomplete</h4>
-        </div>
-        <div class="timeline-body">
-        </div>
-      </div>
-    </li>
-    {% for flow in cfg['flow'] %}
-    <li>
-      <div class="small-timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
-      <div class="small-timeline-panel">
-        <div class="timeline-heading">
-          <h5 class="timeline-title">{{flow}}</h5>
-        </div>
-        <div class="timeline-body">
-        </div>
-      </div>
-    </li>
-    {% endfor %}
-    <li class="timeline-inverted">
-      <div class="timeline-badge warning"><i class="glyphicon glyphicon-credit-card"></i></div>
-      <div class="timeline-panel">
-        <div class="timeline-heading">
-          <h4 class="timeline-title">Pending</h4>
-        </div>
-        <div class="timeline-body">
-          <p>Your application is being reviewed</p>
-        </div>
-      </div>
-    </li>
-    <li>
-      <div class="timeline-badge danger"><i class="glyphicon glyphicon-credit-card"></i></div>
-      <div class="timeline-panel">
-        <div class="timeline-heading">
-          <h4 class="timeline-title">Accepted</h4>
-        </div>
-        <div class="timeline-body">
-          
-        </div>
-      </div>
-    </li>
-    <li class="timeline-inverted">
-      <div class="timeline-badge danger"><i class="glyphicon glyphicon-credit-card"></i></div>
-      <div class="timeline-panel">
-        <div class="timeline-heading">
-          <h4 class="timeline-title">Denied</h4>
-        </div>
-        <div class="timeline-body">
-          
-        </div>
-      </div>
-    </li>
-  </ul>
+<h1>URCPP @ Berea College</h1>
+<br/>
+<div class="jumbotron">
+  <h1>Hello, {{ldap.firstname}} {{ldap.lastname}}!</h1>
+  <p></p>
+  <a href="{% if proj %} {{ cfg['projectStatusAction'][proj.status]['url']}}{% else %}{{cfg['projectStatusAction']['Start']['url']}}{% endif %}">
+    <button class="btn btn-default">
+    <span>{% if proj %} {{ cfg['projectStatusAction'][proj.status]['msg']}}{% else %}{{cfg['projectStatusAction']['Start']['msg']}}{% endif %}</span>
+    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+    </button>
+  </a>
 </div>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="project-progress-bar"
+      data-status="{% if proj %}{{proj.status}}{% else %}start{% endif %}">
+      <div class="bar">
+        <div style="width: 33%;" class="bar__fill"></div>
+      </div>
+      <div class="point" id="start">
+        <div class="bullet"></div>
+        <label class="bar-label">Start</label>
+      </div>
+      <div class="point" id="incomplete">
+        <div class="bullet"></div>
+        <label class="bar-label">Incomplete</label>
+      </div>
+      <div class="point" id="pending">
+        <div class="bullet"></div>
+        <label class="bar-label">Pending</label>
+      </div>
+      <div class="point" id="accept">
+        <div class="bullet"></div>
+        <label class="bar-label">Accepted</label>
+      </div>
+    </div>
+  </div>
+</div>
+    
 {% endblock %}

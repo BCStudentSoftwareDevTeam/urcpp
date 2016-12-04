@@ -33,10 +33,12 @@
   After you are finished, any project collaborators will need to login and submit their CVs as well. At that point, your submission will be complete.  
 </p>
 
-<form class = "form-horizontal col-sm-8 col-sm-offset-2"
+
+<form class = "form-horizontal"
       action = "/create" 
       method = "POST"
       >
+  <fieldset>
   <div class = "form-group">
     <label for="title" class = "col-sm-2 control-label">Project Title </label>
     <div class = "col-sm-9">
@@ -101,36 +103,6 @@
 </div>
   </div>
   
-
-  <script type = "text/javascript">
-    $(document).ready(function(){
-      $("#startDate").change(function(){
-        changeEndDate();
-      });
-      $("#duration").change(function(){
-        changeEndDate();
-      });
-    });
-    function changeEndDate() {
-      var startDateStr = $("#startDate").val();
-      var startDateArr= startDateStr.split("-")
-      var endDateObj = new Date(startDateArr[2], startDateArr[0], startDateArr[1]);
-      var weeks = $("#duration").val();
-      endDateObj.setDate(endDateObj.getDate() + weeks*7);
-      console.log(endDateObj);
-      $("#endDate").val(endDateObj.getMonth()+1 + '-' + endDateObj.getDate() + '-' + endDateObj.getFullYear());
-      $("#endDateDisplay").html(endDateObj.getMonth()+1 + '-' + endDateObj.getDate() + '-' + endDateObj.getFullYear());
-    }
-
-    $(function() {
-      $("#startDate").datepicker({
-        dateFormat: "mm-dd-yy", 
-        startDate: "01-01-{{params.year}}", 
-        endDate: "12-31-{{params.year}}"
-      });
-    });
-  </script>
-  
   <div class = "row col-md-offset-1" style="font-size:1.4em;">
     <div class = "checkbox">
       <label><input name = "isServiceToCommunity" 
@@ -170,6 +142,7 @@
       </button>
     </div>
   </div>
+  </fieldset>
 </form>
 
 {% endblock %}
