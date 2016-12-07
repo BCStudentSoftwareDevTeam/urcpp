@@ -12,7 +12,9 @@ def setParameters_GET ():
   if request.method == 'POST':
     data = request.form
     openDate = datetime.datetime.strptime(data['applicationOpenDate'], '%Y-%m-%d')
-    closeDate = datetime.datetime.strptime(data['applicationCloseDate'], '%Y-%m-%d')
+    closeDate = (datetime.datetime
+                         .strptime(data['applicationCloseDate'], '%Y-%m-%d')
+                         .replace(hour=11, minute=55) )
     parameters = Parameters(year = int(data['newYear']),
                             appOpenDate = openDate,
                             appCloseDate =closeDate,
