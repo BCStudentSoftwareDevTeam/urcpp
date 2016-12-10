@@ -22,7 +22,10 @@
     <!-- (Optional) Latest compiled and minified JavaScript translation files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/i18n/defaults-*.min.js"></script>
     
-        
+    
+     <!--needed to make polyfill work in internet explorer-->
+    <script type="text/javascript" src="/static/js/ext/number_polyfill.js"></script>
+    <link rel="stylesheet" href="/static/css/" type="text/css" />
     <link rel = "stylesheet" href="/s/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -38,7 +41,7 @@
     
     <script src = "/s/js/urcpp.js"> </script>
     <meta name="referrer" content="always">    
-
+       
   </head>
   <body>
     <script type = "text/javascript">
@@ -55,6 +58,7 @@
     <script type = "text/javascript"
             src  = "/s/js/pages/{{currentPage}}.js"
             > </script>
+
   </body>
 
 </html>
