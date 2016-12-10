@@ -102,7 +102,13 @@ def upload_file(whichfile, username):
       if exc.errno == errno.EEXIST and os.path.isdir(path):
           pass
       else: raise
-
+    
+    # delete the previous file 
+    # needed in case of extension change
+    previous_file = checkForFile(username, whichfile, cycle.year)
+    if previous_file:
+      os.remove(os.path.join(path, previous_file))
+    
     file.save(os.path.join(path, filename))
 
     return jsonify( { "response" : "OK" } )
