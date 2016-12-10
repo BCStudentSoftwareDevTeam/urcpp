@@ -60,8 +60,20 @@
                 id = "col{{loop.index0}}" 
                 style = "padding-right: 30px; text-align: right;"
                 >
+              <a data-toggle="popover"
+            data-trigger="focus"
+            data-content="{{person.pID.budgetID[field['descFieldName']]}}"
+            data-placement="right"
+            class="more-info"
+            tabindex="0"
+            role="button">
   	    {# FIXME: does not calculate correctly for miles traveled (convert to dollars). Needs an if id = mileage... multiply by mileage rate from parameters #}
-              {% if field['amountFieldName'] == "miles" %} {{ (person.pID.budgetID[field['amountFieldName']]|float  * params.mileageRate|float)|round(2)  }} {% else %} {{person.pID.budgetID[field['amountFieldName']]}} {% endif %}
+              {% if field['amountFieldName'] == "miles" %}
+                {{ (person.pID.budgetID[field['amountFieldName']]|float  * params.mileageRate|float)|round(2)  }} 
+              {% else %} 
+                {{person.pID.budgetID[field['amountFieldName']]}} 
+              {% endif %}
+              </a>
             </td>
           {% endfor %}
           
@@ -97,6 +109,8 @@
   var numRows = {{fac|count}};
   {% endif %}
   $('#incomplete').attr('checked', false);
+  
+  $("[ data-toggle='popover']").popover();
 </script>
 
 {% endblock %}
