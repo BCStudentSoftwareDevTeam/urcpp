@@ -21,6 +21,18 @@ def getLDAPFaculty (username):
   else:
     return None
   
+  
+def get_faculty_by_bnumbers(*bnumbers):
+  """ gets the faculty from bnumbers 
+      
+      Args:
+        *bnumbers (*): the bnumber of the faculty that we are trying to get
+      Returns:
+        Peewee Object: the select query of the faculty
+  """
+  return LDAPFaculty.select().where(LDAPFaculty.bnumber << bnumbers)
+        
+      
 def getFaculty (username):
   """ gets the URCPPfaculty by username
       
