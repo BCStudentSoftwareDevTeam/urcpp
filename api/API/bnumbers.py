@@ -1,7 +1,8 @@
 from api.everything import *
-from ..API.projects import getProject
+from projects import getProject
+from collaborators import delete_non_collaborators
 
-@app.route("/<username>/bnumbers", methods = ["POST"])
+@app.route("/bnumbers", methods = ["POST"])
 @login_required
 def bnumbers_POST (username):
   """This function updates the collaborators table
@@ -15,22 +16,18 @@ def bnumbers_POST (username):
       Redirect: redirects to history_GET
 
     """ 
-  # TODO: We really need to fix this function. We can do much better.
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
-    
-  data = request.form
-  numCollab = int(data["numCollab"])
+  post_variables = request.form
+  number_of_collaborators = int(post_variables["numCollab"])
   
-  proj = getProject(username)
+  proj = getProject(g.user.username)
   
   # So we can do a remove...
   submittedBNumbers = []
   
   # Now, update the collaborators.
-  for ndx in range(0, numCollab + 1):
-    if ("cbnumber" + str(ndx)) in data:
-      bnumber = data["cbnumber" + str(ndx)]
+  for ndx in range(0, number_of_collaborators + 1):
+    if ("cbnumber" + str(ndx)) in post_variables:
+      bnumber = post_variables["cbnumber" + str(ndx)]
       submittedBNumbers.append(bnumber)
       app.logger.info("Looking for collaborator by BNumber: " + bnumber)
     
@@ -41,7 +38,7 @@ def bnumbers_POST (username):
       collabQ = (LDAPFaculty.select()
         .where (LDAPFaculty.bnumber == bnumber)
         # Try and leave ourselves out of this...
-        .where (LDAPFaculty.username != username)
+        .where (LDAPFaculty.username != g.user.username)
         )
       
       # We now have my full info if this exists. That means that 
@@ -67,33 +64,16 @@ def bnumbers_POST (username):
           c.pID = proj.pID
           # And, save.
           c.save()
+  # I think this is better
   
-  # Now, I want to remove everyone who isn't in the set of submitted
-  # numbers. I'm confident there is a better way to do this.
-  collabsQ = (Collaborators.select()
-    .where (Collaborators.pID == proj.pID)
-    )
-    
-  if collabsQ.exists():
-    collabs = collabsQ.select()
-    # Now, if any of these don't have a BNumber in the list
-    # of submittedBNumbers, they need to go.
-    
-    for c in collabs:
-      fac = c.username
-      
-      app.logger.info("fac is : " + str(m2d(fac)))
-        
-      # If their bnumber is not in my submitted list...
-      if fac.bnumber not in submittedBNumbers:
-        app.logger.info ("Deleting collaborator: " + fac.username)
-        c.delete_instance()
+  delete_non_collaborators(submittedBNumbers, proj.pID)
+  
 
   return redirect ( url_for( "history_GET" ))
 
-@app.route("/<username>/checkBNumber", methods = ["POST"])
+@app.route("/checkBNumber", methods = ["POST"])
 @login_required
-def checkBNumber (username):
+def checkBNumber():
   """This function checks to see if a bnumber exists.
      It checks the LDAPFaculty table and if finds a User 
      it marks the bnum as good.
@@ -104,9 +84,6 @@ def checkBNumber (username):
       Returns:
         JSON: response that is either OK or NOTFOUND
   """
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
-
   bnumber = request.json['bnum']
   print bnumber
   if bnumber[0] == "b":
@@ -123,3 +100,5 @@ def checkBNumber (username):
       return jsonify({ "response" : "NOTFOUND" })
   else:
     return jsonify({ "response" : "NOTFOUND" })
+   
+   
