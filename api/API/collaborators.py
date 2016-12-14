@@ -83,21 +83,55 @@ def collaborators_get (username):
                  }
     return jsonify(response)  
     
-def delete_non_collaborators(collaborator_bnumbers, project_id):
+def get_collaborator(project_id, username):
+  """ gets a collaborator 
+      
+      Args:
+        username (str): the username of of the collaborators_get
+        project_id (int): the id of the project 
+        
+      Returns:
+        Collaborators: the collaborator"""
+  collaborator = (Collaborators.select()
+                        .where(Collaborators.username)
+                        .where(Collaborators.pID))
+                        
+  if collaborator.exists():
+    return collaborator.get()
+  else:
+    return None
+  
+    
+def delete_non_collaborators(project_id, *collaborators):
   """ deletes the current collaborators that are not in the list provided
       
       Args:
-        collaborators (list): the list of collaborators that are current_user
         project_id (int): the id of the project that the collaborators belong to
+        collaborator_bnumbers (splat): the collaborators that are current collaborators
         
       Returns:
         int: the number of rows affected
   """
-  current_collaborators = get_faculty_by_bnumbers(collaborator_bnumbers)
+  current_collaborators = get_faculty_by_bnumbers(collaborators)
   
   return (Collaborators.delete()
-                       .where(Collaborators.pID == project_id)
-                       .where(
+                      .where(Collaborators.pID == project_id)
+                      .where(
                               ~(Collaborators.username << current_collaborators)
                               )
           ).execute()
+        
+        
+def add_collaborators(project_id, *collaborator_bnumbers):
+  """ add the collaborators from collaborator bnumbers
+  
+      Args:
+        project_id (int): the id of the project that the collabors belong to
+        collaborator_bnumbers (splat): the collaborators that will be the current collaborators
+  """
+  
+  faculty = get_faculty_by_bnumbers(collaborator_bnumbers)
+  
+  for professor in faculty:
+    if get_collaborator(project_id, professor.username) is None:
+      Collaborators(pID = project_id, username = username).save()
