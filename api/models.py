@@ -98,7 +98,7 @@ class PostSurvey (DynamicModel):
 
 class Parameters (DynamicModel):
   pID                 = PrimaryKeyField()
-  year                = IntegerField()
+  year                = IntegerField(unique=True)
   appOpenDate         = DateTimeField()
   appCloseDate        = DateTimeField()
   mileageRate         = FloatField() # Or Double?
