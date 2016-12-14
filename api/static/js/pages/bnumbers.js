@@ -45,7 +45,7 @@ function checkValidBNumber (id) {
   
   var post = aja()
     .method ('POST')
-    .url ("/" + username + "/checkBNumber")
+    .url ("/checkBNumber")
     .body({ 'bnum' : bnumber })
     .type('json')
     .on ('success', setBNumberStatus(id) )
