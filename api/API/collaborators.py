@@ -93,8 +93,8 @@ def get_collaborator(project_id, username):
       Returns:
         Collaborators: the collaborator"""
   collaborator = (Collaborators.select()
-                        .where(Collaborators.username)
-                        .where(Collaborators.pID))
+                        .where(Collaborators.username==username)
+                        .where(Collaborators.pID==project_id))
                         
   if collaborator.exists():
     return collaborator.get()
@@ -134,4 +134,4 @@ def add_collaborators(project_id, *collaborator_bnumbers):
   
   for professor in faculty:
     if get_collaborator(project_id, professor.username) is None:
-      Collaborators(pID = project_id, username = username).save()
+      Collaborators(pID = project_id, username = professor.username).save()
