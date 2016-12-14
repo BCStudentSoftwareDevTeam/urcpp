@@ -1,10 +1,11 @@
 from api.everything import *
 from projects import getProject
-from collaborators import delete_non_collaborators
+from collaborators import delete_non_collaborators, add_collaborators
+from faculty import get_faculty_by_bnumbers
 
 @app.route("/bnumbers", methods = ["POST"])
 @login_required
-def bnumbers_POST (username):
+def update_collaborators ():
   """This function updates the collaborators table
 
     Args:
@@ -16,57 +17,15 @@ def bnumbers_POST (username):
       Redirect: redirects to history_GET
 
     """ 
-  post_variables = request.form
-  number_of_collaborators = int(post_variables["numCollab"])
-  
+   
   proj = getProject(g.user.username)
   
-  # So we can do a remove...
-  submittedBNumbers = []
+  submitted_bnumbers = request.form.getlist("cbnumbers[]")
   
-  # Now, update the collaborators.
-  for ndx in range(0, number_of_collaborators + 1):
-    if ("cbnumber" + str(ndx)) in post_variables:
-      bnumber = post_variables["cbnumber" + str(ndx)]
-      submittedBNumbers.append(bnumber)
-      app.logger.info("Looking for collaborator by BNumber: " + bnumber)
-    
-      # Start with my project. We have my username. That is the
-      # proj object up above. Then, we need to find the
-      # collaborators submitted by BNumber.
-    
-      collabQ = (LDAPFaculty.select()
-        .where (LDAPFaculty.bnumber == bnumber)
-        # Try and leave ourselves out of this...
-        .where (LDAPFaculty.username != g.user.username)
-        )
-      
-      # We now have my full info if this exists. That means that 
-      # a correct BNumber was entered into the field.
-      if collabQ.exists():
-        app.logger.info ("Found them!")
-        # Now, we have their full info.
-        collabFac = collabQ.get()
-        app.logger.info("collabFac.username is : " + collabFac.username)
-        
-        # At this point, we need to see if they're in
-        # the Collaborators table already.
-        centryQ = (Collaborators.select()
-          .where (Collaborators.username == collabFac.username)
-          .where (Collaborators.pID == proj.pID)
-          )
-        
-        # If they're in the table, we don't want to
-        # do anything. If they're not, we do.
-        if not centryQ.exists():
-          c = Collaborators()
-          c.username = collabFac.username
-          c.pID = proj.pID
-          # And, save.
-          c.save()
-  # I think this is better
-  
-  delete_non_collaborators(submittedBNumbers, proj.pID)
+  add_collaborators(proj.pID, submitted_bnumbers)
+          
+          
+  delete_non_collaborators(proj.pID, submitted_bnumbers)
   
 
   return redirect ( url_for( "history_GET" ))
@@ -85,7 +44,6 @@ def checkBNumber():
         JSON: response that is either OK or NOTFOUND
   """
   bnumber = request.json['bnum']
-  print bnumber
   if bnumber[0] == "b":
     bnumber = "B" + bnumber[1:]
     print ("Replaced Bnum: " + bnumber)

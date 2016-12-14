@@ -10,11 +10,9 @@
     <h1>Faculty's B-number </h1>
     
   <form class = "form-horizontal"
-      action = "{{username}}/bnumbers" 
+      action = "/bnumbers" 
       method = "POST"
       >
-
-    <input type = "hidden" name = "numCollab" value = "{{numCollab}}" />
   
     {% for id in range (0, numCollab) %}
       <div class = 'form-group' id = "cgroup{{id}}" style="margin-left:0px;">
@@ -24,7 +22,7 @@
             B-Number
           </label>
           <div class = 'col-sm-4'>
-            <input  name  = 'cbnumber{{id}}' 
+            <input  name  = 'cbnumbers[]' 
                     id    = 'cbnumber{{id}}' 
                     type  = 'text' 
                     class = 'form-control'
