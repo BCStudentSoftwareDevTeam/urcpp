@@ -25,7 +25,7 @@ def allFiles_GET ():
   prevFilepath = {}
   
   yearDir = cfg["filepaths"]["projectFiles"]+str(parameters.year)
-  yearDir = os.path.join(here,'../' ,yearDir)
+  yearDir = os.path.join(here ,yearDir)
   projectDir = cfg["filepaths"]["projectFiles"]
 
   projectDir = os.path.join(here, projectDir)
