@@ -47,7 +47,7 @@
         </td>
         {% for uploadType in ['narrative', 'vitae', 'irb'] %}
         <td>
-          {% if files[person.username.username][uploadType] %}<a href = "/{{username}}/document/{{files[person.username.username][uploadType]}}"
+          {% if files[person.username.username][uploadType] %}<a href = "/document/{{person.username.username}}/{{files[person.username.username][uploadType]}}"
              target = "_blank">
             <button type="button" class="btn btn-default btn-md btn-success">  Download  <span class="glyphicon glyphicon-download-alt"></button>
             

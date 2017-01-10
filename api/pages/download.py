@@ -1,20 +1,20 @@
 from api.everything import *
 import os
 from ..API.makeExcel import makeBudgetExcel, makeLaborExcel
-from flask import send_file
+from flask import send_file, abort
+from flask_login import login_required, current_user
 
-@app.route("/<username>/document/<filename>",
+@app.route("/document/<username>/<fileType>",
             defaults={'applicationYear' : cfg['urcpp']['applicationCycle'] }
         , methods = ['GET'])
-@app.route("/<username>/document/<filename>/<applicationYear>", methods = ['GET'])
-def documentDownload(username, filename, applicationYear):
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
-  
-  fileNameComponents = filename.split('-')
-  folder, fileType = fileNameComponents
+@app.route("/document/<username>/<fileType>/<applicationYear>", methods = ['GET'])
+@login_required
+def documentDownload(username, fileType, applicationYear):
+  if (not current_user.isCommitteeMember) and current_user.username != username:
+    abort(403)
+    
   relPath = '{0}{1}/{2}/{3}'.format(cfg["filepaths"]["downloadFiles"],
-                            applicationYear, folder, filename)
+                            applicationYear, username, fileType)
   
   here = os.path.dirname(__file__)
   fullPath = os.path.join(here, relPath)
