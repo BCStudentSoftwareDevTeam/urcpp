@@ -12,8 +12,6 @@ from upload import checkForFile
 def done_GET ():
    # All of our queries
   proj = getProject(g.user.username)
-  # TODO change budg to project.bID... in done.html will remove this line
-  budget = getBudget(g.user.username)
   parameters = getParameters()
   collaborators = getCollaborators(g.user.username)
   uploadedFiles = [];
@@ -78,15 +76,13 @@ def review_GET ():
                             ldap = g.user
                           )
 
-# TODO: move outside of this file. It is an API endpoint
 @app.route("/urcpp/v1/project/<pID>/<username>/<year>", methods = ["GET"])
 @login_required
 def project_GET (pID, username, year):
-  # TODO: add check to see if user seeing this is a committee member
-  
+  if not current_user.isCommitteeMember:
+    abort(403)
    # All of our queries
   proj = getProjectByID(pID)
-  # TODO: get cycle instead
   parameters = getParameters()
   collaborators = getCollaboratorsById(pID)
   uploadedFiles = [];
