@@ -20,9 +20,9 @@
   };
   
   
-  function widthdraw(projectID) {
+  function withdraw(projectID) {
     var postValue = {};
-    postValue[projectID] = 'widthdrawn';
+    postValue[projectID] = 'withdrawn';
     $.post("/committee/allProjects/updateStatus", postValue, function(result){
     });
     window.location.replace("/");
