@@ -21,21 +21,17 @@ def getCollaborators (username):
       Returns:
         Collaborators Select Query: the collaborators aiding the project
   """
-  collabQ = (Collaborators.select()
+  collaborators = (Collaborators.select()
     .join (URCPPFaculty, on = (URCPPFaculty.pID == Collaborators.pID))
     .where (URCPPFaculty.username == username)
     )
 
-  if collabQ.exists():
-    collaborators = []
-    collabs = collabQ.select()
-    for collab in collabs:
-      collaborators.append( collab )
+  if collaborators.exists():
     return collaborators
   else:
     return None
 
-def getCollaboratorsById (pID):
+def getCollaboratorsByProjectId (pID):
   """ gets collaborator based on an project id 
       
       Args: 
@@ -44,15 +40,11 @@ def getCollaboratorsById (pID):
       Returns:
         list, None: the list of collaborators or None 
   """
-  collabQ = (Collaborators.select()
+  collaborators = (Collaborators.select()
     .where (Collaborators.pID == pID)
     )
 
-  if collabQ.exists():
-    collaborators = []
-    collabs = collabQ.select()
-    for collab in collabs:
-      collaborators.append( collab )
+  if collaborators.exists():
     return collaborators
   else:
     return None

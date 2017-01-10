@@ -2,7 +2,7 @@ from api.everything import *
 from ..API.projects import getProject, getProjectByID
 from budget import getBudget
 from ..API.parameters import getParameters
-from ..API.collaborators import getCollaborators, getCollaboratorsById
+from ..API.collaborators import getCollaborators, getCollaboratorsByProjectId
 
 from upload import checkForFile
 
