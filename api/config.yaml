@@ -206,9 +206,9 @@ response:
 filepaths:
   # directory: "/var/www/html/urcpp-flask/api/static/files/%%applicationCycle%%/%%username%%"
   # projectFiles: "/var/www/html/urcpp-flask/api/static/files/"
-  directory: "../static/files/%%applicationCycle%%/%%username%%"
+  directory: "/static/files/%%applicationCycle%%/%%username%%"
   projectFiles: "static/files/"
-  downloadFiles: "../static/files/"
+  downloadFiles: "/static/files/"
   
   allowedFileExtensions:
     rtf: "Rich Text Format"
