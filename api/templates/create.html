@@ -8,10 +8,10 @@
 #}
 
 {% extends "base.html" %}
-{% set currentPage = "create" %}
+
 
 {% block title %} URCPP Project Basics {% endblock %}
-
+{% set currentPage = "create" %}
 {% block body %}
 
 <h1>URCPP Project Basics</h1>
@@ -101,7 +101,7 @@
 </div>
   </div>
   
-
+  <!--TODO: move this to it's own page outside the html-->
   <script type = "text/javascript">
     $(document).ready(function(){
       $("#startDate").change(function(){
@@ -140,8 +140,19 @@
                     class="checkbox" 
                     value = "{{proj.isServiceToCommunity}}">
         Does your project provide a service to the community?
-      </label>
+        
+      </label><span 
+            class="glyphicon glyphicon-info-sign"
+            data-toggle="popover"
+            data-trigger="focus"
+            data-content="{{cfg['termDefinition']['serviceToCommunity']}}"
+            data-placement="right"
+            tabindex="0"
+            role="button">
+        </span>
     </div>
+    
+    
   </div>
   
   <div class = "row col-md-offset-1" style="font-size:1.4em;">

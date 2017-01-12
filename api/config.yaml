@@ -238,4 +238,6 @@ downloads:
 #    vitae: "%%username%%-vitae.%%thing%%"
 #    narrative: "%%username%%-narrative.%%thing%%"
 #    irb: "%%username%%-irb.%%thing%%"
-  
+
+termDefinition:
+  serviceToCommunity: "A collaborative partnership between the college and the community. We believe that “collaborative” is a key word. The service-learning project should be relevant and beneficial to both the college and the community and should result from shared dialogue and negotiation."
