@@ -1,9 +1,10 @@
 from ..everything import *
-from ..API.faculty import  getFacultyWithProjects
+from ..API.faculty import  getFacultyWithProjects, getFacultyForProject
 from ..API.projects import getProjectByID
 from ..API.collaborators import getAllCollaborators
 from ..API.voting import getVote
 from ..API.parameters import getParameters
+from ..API.files import removeFiles
 
 @app.route("/committee/allProjects", methods = ["GET"])
 @login_required
@@ -43,6 +44,11 @@ def updateStatus_POST ():
     projectToSetStatus = getProjectByID(key)
     projectToSetStatus.status = value
     projectToSetStatus.save()
+    
+    professor = getFacultyForProject(key)
+    if projectToSetStatus.status == "withdrawn":
+      print "project status: ", projectToSetStatus.status
+      removeFiles(professor.username.username)
 
   # TODO: create redirect back function and use instead
   return redirect(url_for('allProjects_GET'))

@@ -27,3 +27,7 @@ function getProjects (username) {
       $("#myModal").modal("show");
   });
 }
+
+
+$("option[value='withdrawn']").attr("disabled", "disabled");
+

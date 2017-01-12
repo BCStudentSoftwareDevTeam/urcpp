@@ -43,21 +43,21 @@
      {% endif %}
      
      <dt>Budget</dt>
-     <dd>Faculty Stipend: ${{proj.bID.facultyStipend}}</dd>
-         <dd><strong>Description:</strong> {{proj.bID.facultyStipendDesc}}</dd>
-     <dd>Equipment: ${{proj.bID.equipment}}</dd>
-       <dd><strong>Description: </strong>{{proj.bID.equipmentDesc}}</dd>
-     <dd>Materials: ${{proj.bID.materials}}</dd>
-       <dd><strong>Description: </strong>{{proj.bID.materialsDesc}}</dd>
-     <dd>Travel: ${{proj.bID.otherTravel}}</dd>
-       <dd><strong>Description: </strong>{{proj.bID.otherTravelDesc}}</dd>
-       {% set mileageCost = '%.2f' | format(proj.bID.miles*params.mileageRate) %}
-     <dd>Mileage: {{proj.bID.miles}} miles (${{ mileageCost }} @ {{params.mileageRate}} / mile)</dd>
-       <dd><strong>Description: </strong>{{proj.bID.milesDesc}}</dd>
-     <dd>Other: ${{proj.bID.other}}</dd>
-       <dd><strong>Description: </strong>{{proj.bID.otherDesc}}</dd>
+     <dd>Faculty Stipend: ${{proj.budgetID.facultyStipend}}</dd>
+         <dd><strong>Description:</strong> {{proj.budgetID.facultyStipendDesc}}</dd>
+     <dd>Equipment: ${{proj.budgetID.equipment}}</dd>
+       <dd><strong>Description: </strong>{{proj.budgetID.equipmentDesc}}</dd>
+     <dd>Materials: ${{proj.budgetID.materials}}</dd>
+       <dd><strong>Description: </strong>{{proj.budgetID.materialsDesc}}</dd>
+     <dd>Travel: ${{proj.budgetID.otherTravel}}</dd>
+       <dd><strong>Description: </strong>{{proj.budgetID.otherTravelDesc}}</dd>
+       {% set mileageCost = '%.2f' | format(proj.budgetID.miles*params.mileageRate) %}
+     <dd>Mileage: {{proj.budgetID.miles}} miles (${{ mileageCost }} @ {{params.mileageRate}} / mile)</dd>
+       <dd><strong>Description: </strong>{{proj.budgetID.milesDesc}}</dd>
+     <dd>Other: ${{proj.budgetID.other}}</dd>
+       <dd><strong>Description: </strong>{{proj.budgetID.otherDesc}}</dd>
      <br />
-     {% set totalBudget = '%.2f' | format(proj.bID.facultyStipend + proj.bID.equipment + proj.bID.materials + proj.bID.otherTravel + proj.bID.miles*params.mileageRate + proj.bID.other) %}
+     {% set totalBudget = '%.2f' | format(proj.budgetID.facultyStipend + proj.budgetID.equipment + proj.budgetID.materials + proj.budgetID.otherTravel + proj.budgetID.miles*params.mileageRate + proj.budgetID.other) %}
      <dd><strong>Total Budget:</strong> ${{totalBudget}}</dd>
      <br />
      <dt>Files</dt>

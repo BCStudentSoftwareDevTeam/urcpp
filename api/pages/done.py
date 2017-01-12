@@ -27,7 +27,6 @@ def done_GET ():
                             proj = proj,
                             cfg = cfg,
                             ldap = g.user,
-                            budg = budget,
                             uploadedFiles = uploadedFiles,
                             params = parameters,
                             collabs = collaborators,
