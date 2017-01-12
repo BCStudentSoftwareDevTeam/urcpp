@@ -15,7 +15,6 @@ import shutil
 def allFiles_GET ():
   if not g.user.isCommitteeMember:
     abort(403)
-  here = os.path.dirname(__file__)
   
   # we need the year to the current projects
   # TODO: remove application cycle or get parameters
@@ -25,10 +24,12 @@ def allFiles_GET ():
   prevFilepath = {}
   
   yearDir = cfg["filepaths"]["projectFiles"]+str(parameters.year)
-  yearDir = os.path.join(here ,yearDir)
+  yearDir = os.path.join(base_path ,yearDir)
+  # I don't think this is needed anymore #######
   projectDir = cfg["filepaths"]["projectFiles"]
 
-  projectDir = os.path.join(here, projectDir)
+  projectDir = os.path.join(base_path, projectDir)
+  ##############################################
   if faculty:
     for fac in faculty:
       prevFilepath[fac.username.username] = {}
@@ -69,9 +70,8 @@ def allFiles_POST ():
   parameters = getParameters()
   prevFilepath = {}
   
-  here = os.path.dirname(__file__)
   yearDir = cfg["filepaths"]["projectFiles"]+str(parameters.year)
-  yearDir = os.path.join(here, '../', yearDir)
+  yearDir = os.path.join(base_path, yearDir)
 
   
   try:

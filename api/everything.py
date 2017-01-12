@@ -46,7 +46,7 @@ def authUser(env):
 # SETUP
 ######################################################
 # Set up the Flask app
-here = os.path.dirname(__file__)
+base_path = os.path.dirname(__file__)
 app = Flask(__name__)
 
 
@@ -58,8 +58,8 @@ from api.switch import switch
 from api.config import load_config
 
 # cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
-cfg = load_config(os.path.join(here, 'config.yaml'))
-app.config['SECRET_KEY'] = open(os.path.join(here, 'secret_key'), 'rb').read()
+cfg = load_config(os.path.join(base_path, 'config.yaml'))
+app.config['SECRET_KEY'] = open(os.path.join(base_path, 'secret_key'), 'rb').read()
 
 @app.before_request
 def before_request():

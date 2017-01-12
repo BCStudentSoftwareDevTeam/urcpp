@@ -1,8 +1,7 @@
 import datetime
 from peewee import *
 import os
-here = os.path.dirname(__file__)
-print here
+
 # Create a database
 from api.config import load_config
 
@@ -10,7 +9,7 @@ from api.config import load_config
 print("GETCWD MODELS: " + os.getcwd())
 
 
-# cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
+here = os.path.dirname(__file__)
 
 cfg = load_config(os.path.join(here, 'config.yaml'))
 #TODO: move information out and change password to keep secret

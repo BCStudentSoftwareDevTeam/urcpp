@@ -207,7 +207,7 @@ filepaths:
   # directory: "/var/www/html/urcpp-flask/api/static/files/%%applicationCycle%%/%%username%%"
   # projectFiles: "/var/www/html/urcpp-flask/api/static/files/"
   directory: "../static/files/%%applicationCycle%%/%%username%%"
-  projectFiles: "../static/files/"
+  projectFiles: "static/files/"
   downloadFiles: "../static/files/"
   
   allowedFileExtensions:

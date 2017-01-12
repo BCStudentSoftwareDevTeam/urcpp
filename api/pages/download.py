@@ -16,8 +16,7 @@ def documentDownload(username, fileType, applicationYear):
   relPath = '{0}{1}/{2}/{3}'.format(cfg["filepaths"]["downloadFiles"],
                             applicationYear, username, fileType)
   
-  here = os.path.dirname(__file__)
-  fullPath = os.path.join(here, relPath)
+  fullPath = os.path.join(base_path, relPath)
   
   
   return send_file (fullPath, as_attachment=True)
@@ -34,8 +33,7 @@ def generic_file_download (username, fileName):
   ext = cfg["downloads"]["downloadFileExtension"]
   relPath = cfg["filepaths"]["downloadFiles"] + applicationYear + "/" + folder + "/" + fileName + ext
   
-  here = os.path.dirname(__file__)
-  fullPath = os.path.join(here, relPath)
+  fullPath = os.path.join(base_path, relPath)
   
   if folder == cfg["downloads"]["downloadFileTypes"]["allLabor"]:
     makeLaborExcel()

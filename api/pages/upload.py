@@ -5,7 +5,6 @@ from ..API.parameters import getParameters
 
 def checkForFile(username, uploadType, year):
   #we need to know where we are at for file lookup issues
-  here = os.path.dirname(__file__)
   allowedExtensions = cfg["filepaths"]["allowedFileExtensions"].keys();
   for ext in allowedExtensions:
     fileDirectory = 'static/files'
@@ -13,14 +12,13 @@ def checkForFile(username, uploadType, year):
                                     year,
                                     username, username,
                                     uploadType, ext)
-    #prevFilepath = cfd['filepath']['directory']
-    prevFilepathAbs = os.path.join(here, prevFilepath)
+    prevFilepathAbs = os.path.join(base_path, prevFilepath)
     if not (os.path.exists(prevFilepathAbs)):
       prevFilepath =''
     else:
         app.logger.error(prevFilepath)
         pathComponents = prevFilepath.split('/')
-        prevFilepath = pathComponents[-1] # Something is inconsistent somewhere; this removes "api" from the beginning of the file path, which makes download work on the front end (allFiles.html)
+        prevFilepath = pathComponents[-1] 
         break
   return prevFilepath
 
@@ -88,13 +86,12 @@ def upload_file(whichfile, username):
       return jsonify( { "response" : "BADEXTENSION" } )
 
     app.logger.info("Filename appears to be: " + filename)
-    here = os.path.dirname(__file__)
     # Need to replace the cycle and username
     rawpath = cfg["filepaths"]["directory"]
     cycle   = getParameters()
     rawpath = rawpath.replace("%%applicationCycle%%", str(cycle.year))
     path    = rawpath.replace("%%username%%", username)
-    path    = os.path.join(here, path)
+    path    = os.path.join(base_path, path)
     app.logger.info("{0} saving {1} to {2}.".format(username, filename, path))
     try:
       os.makedirs(path)

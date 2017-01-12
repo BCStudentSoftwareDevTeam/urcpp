@@ -22,8 +22,7 @@ def getFilePath(fileType):
   writeFileType = cfg["downloads"]["downloadFileTypes"][fileType]
   fileExtension = cfg["downloads"]["downloadFileExtension"]
   relPath = cfg["filepaths"]["projectFiles"] + str(cycle.year) + "/" + writeFileType + "/" + writeFileName + fileExtension
-  here = os.path.dirname(__file__)
-  return os.path.join(here, relPath)
+  return os.path.join(base_path, relPath)
 
 def checkFilePath(fileType):
   '''
@@ -32,8 +31,7 @@ def checkFilePath(fileType):
   applicationCycle = getParameters()
   fileType = cfg["downloads"]["downloadFileTypes"][fileType]
   path = cfg["filepaths"]["projectFiles"] + str(applicationCycle.year)
-  here = os.path.dirname(__file__)
-  path = os.path.join(here, path)
+  path = os.path.join(base_path, path)
   if os.path.isdir(path):
     pass
   else:
