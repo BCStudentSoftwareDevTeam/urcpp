@@ -23,7 +23,7 @@ def done_GET ():
     if checkForFile != "":
       uploadedFiles.append(checkForFile(g.user.username, files, parameters.year))
    
-  return render_template (  "done.html",
+  return render_template (  "pages/done.html",
                             proj = proj,
                             cfg = cfg,
                             ldap = g.user,
@@ -65,7 +65,7 @@ def review_GET ():
     if checkForFile != "":
       uploadedFiles.append(checkForFile(g.user.username, files, parameters.year))
     
-  return render_template (  "projectView.html",
+  return render_template (  "pages/projectView.html",
                             proj = proj,
                             cfg = cfg,
                             uploadedFiles = uploadedFiles,
@@ -95,7 +95,7 @@ def project_GET (pID, username, year):
     if checkForFile != "":
       uploadedFiles.append(checkForFile(username, files, year))
     
-  return render_template (  "projectView.html",
+  return render_template (  "pages/projectView.html",
                             proj = proj,
                             cfg = cfg,
                             uploadedFiles = uploadedFiles,

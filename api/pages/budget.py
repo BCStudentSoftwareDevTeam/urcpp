@@ -17,7 +17,7 @@ def budget_GET ():
     flash("application has been submited")
     redirect(url_for("main"))
 
-  return render_template (  "budget.html",
+  return render_template (  "pages/budget.html",
                             proj = proj,
                             username = g.user.username,
                             cfg = cfg,

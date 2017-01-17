@@ -22,7 +22,7 @@ def history_GET ():
   if collaborators is None:
     collaborators = []    # Deals with null value
   
-  return render_template (  "history.html",
+  return render_template (  "pages/history.html",
                             username = g.user.username,
                             cfg = cfg,
                             fac = faculty,

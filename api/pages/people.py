@@ -9,7 +9,7 @@ def people_GET ():
   if proj.status == cfg["projectStatus"]["pending"]:
     return redirect(url_for('main'))
   
-  return render_template (  "people.html",
+  return render_template (  "pages/people.html",
                             proj = proj,
                             username = g.user.username,
                             cfg = cfg,
@@ -40,7 +40,7 @@ def people_POST ():
   proj.numberStudents = numStu
   proj.save()
   if numCollab > 0:
-    return render_template (  "bnumbers.html",
+    return render_template (  "pages/bnumbers.html",
                             username = g.user.username,
                             cfg = cfg,
                             numCollab = numCollab

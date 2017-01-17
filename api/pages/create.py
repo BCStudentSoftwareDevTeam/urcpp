@@ -19,7 +19,7 @@ def create_GET ():
     if proj.status == cfg["projectStatus"]["pending"]:
       redirect(url_for("main"))
   
-  return render_template (  "create.html",
+  return render_template (  "pages/create.html",
                             fac = faculty,
                             ldap = g.user,
                             proj = proj,

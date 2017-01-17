@@ -11,7 +11,7 @@ def irbyn_GET ():
   if proj.status == cfg["projectStatus"]["pending"]:
     return redirect(url_for("main"))
   
-  return render_template (  "irbyn.html",
+  return render_template (  "pages/irbyn.html",
                             proj = proj,
                             username = g.user.username,
                             cfg = cfg,

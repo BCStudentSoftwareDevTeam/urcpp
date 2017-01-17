@@ -41,7 +41,7 @@ def generic_file_upload (uploadType):
     prevFilepath = checkForFile(g.user.username, uploadType, applicationCycle.year)
     prev = prevFilepath
     #prevFilepath = prev.split("/").pop()
-    return render_template (  "upload.html",
+    return render_template (  "pages/upload.html",
                               proj = proj,
                               # we are passing both the username and user object
                               username = g.user.username,
