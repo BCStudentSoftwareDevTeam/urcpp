@@ -20,7 +20,7 @@ except:
   dynamicDB = MySQLDatabase("urcpp_flask", host="localhost", user="urcpp-flask", passwd="DanforthLabor123!")
 
 
-dynamicDB = MySQLDatabase("urcpp_flask", host="127.0.0.1", user="memo3301791", port=3306)
+dynamicDB = MySQLDatabase("urcpp_flask_v3", host="127.0.0.1", user="memo3301791", port=3306)
 class DynamicModel (Model):
   class Meta:
     database = dynamicDB
@@ -102,6 +102,7 @@ class Parameters (DynamicModel):
   appCloseDate        = DateTimeField()
   mileageRate         = FloatField() # Or Double?
   laborRate           = FloatField() # Or Double?
+  isCurrentParameter  = BooleanField(default=False)
 
 class Projects (DynamicModel):
   pID                   = PrimaryKeyField()
