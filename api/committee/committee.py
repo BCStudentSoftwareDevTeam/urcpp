@@ -1,5 +1,5 @@
 from ..everything import *
-from ..API.parameters import getParameters
+from ..API.parameters import getCurrentParameters
 
 from ..pages import *
 
@@ -10,7 +10,7 @@ from ..pages import *
 def committee_GET ():
   if not g.user.isCommitteeMember:
     abort(403)
-  parameters = getParameters()
+  parameters = getCurrentParameters()
   
   return render_template ("committee.html", 
                            username = g.user.username,

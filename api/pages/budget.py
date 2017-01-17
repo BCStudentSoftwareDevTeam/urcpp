@@ -1,6 +1,6 @@
 from ..everything import *
 from ..API.projects import getProject
-from ..API.parameters import getParameters
+from ..API.parameters import getCurrentParameters
 
 from ..API.budget import getBudget
 
@@ -11,7 +11,7 @@ def budget_GET ():
   # All of our queries
   proj = getProject(g.user.username)
   budget = getBudget(g.user.username)
-  parameters = getParameters()
+  parameters = getCurrentParameters()
   
   if not proj.status == cfg["projectStatus"]["incomplete"]:
     flash("application has been submited")

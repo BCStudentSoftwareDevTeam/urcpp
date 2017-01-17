@@ -4,7 +4,7 @@ from ..API.faculty import getFaculty, getFacultyByYear
 from ..API.projects import getProject
 from ..API.programs import getAllPrograms
 from ..API.budget import getBudget
-from ..API.parameters import getParameters
+from ..API.parameters import getCurrentParameters
 
 @app.route("/create", methods = ["GET"])
 @login_required
@@ -14,7 +14,7 @@ def create_GET ():
   faculty  = getFaculty(g.user.username)
   proj = getProject(g.user.username)
   progs = getAllPrograms()
-  parameters = getParameters()
+  parameters = getCurrentParameters()
   if proj is not None:
     if proj.status == cfg["projectStatus"]["pending"]:
       redirect(url_for("main"))
@@ -41,7 +41,7 @@ def create_POST ():
   # First, update the project title
   proj = getProject(g.user.username)
   budg = getBudget(g.user.username)
-  year = getParameters().year
+  year = getCurrentParameters().year
   if proj is None:
     proj = Projects()
   

@@ -1,5 +1,5 @@
 from ..everything import *
-from ..API.parameters import getParameters
+from ..API.parameters import getCurrentParameters
 from forms import ManageCommitteeForm
 from ..API.committee import addCommitteeMembers, removeCommitteeMembers, getCommitteeMembers
 
@@ -13,7 +13,7 @@ def manageCommittee_GET ():
   facultySelect = ManageCommitteeForm()
   facultySelect.committeeMember.default = getCommitteeMembers()
   facultySelect.process()
-  parameters = getParameters()
+  parameters = getCurrentParameters()
   return render_template ("manageCommittee.html", 
                            username = g.user.username,
                            ldap = g.user,

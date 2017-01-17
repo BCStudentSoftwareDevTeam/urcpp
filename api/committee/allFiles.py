@@ -1,7 +1,7 @@
 from ..everything import *
 from ..API.faculty import getFacultyWithProjects
 from ..pages.upload import checkForFile
-from ..API.parameters import getParameters
+from ..API.parameters import getCurrentParameters
 from flask import send_file
 
 import os, pprint, zipfile, uuid, time
@@ -18,7 +18,7 @@ def allFiles_GET ():
   
   # we need the year to the current projects
   # TODO: remove application cycle or get parameters
-  parameters = getParameters()
+  parameters = getCurrentParameters()
   # All of our queries
   faculty = getFacultyWithProjects(parameters.year)
   prevFilepath = {}
@@ -67,7 +67,7 @@ def allFiles_POST ():
     abort(403)
     
   # All of our queries
-  parameters = getParameters()
+  parameters = getCurrentParameters()
   prevFilepath = {}
   
   yearDir = cfg["filepaths"]["projectFiles"]+str(parameters.year)

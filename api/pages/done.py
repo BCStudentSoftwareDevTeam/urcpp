@@ -1,7 +1,7 @@
 from api.everything import *
 from ..API.projects import getProject, getProjectByID
 from budget import getBudget
-from ..API.parameters import getParameters
+from ..API.parameters import getCurrentParameters
 from ..API.collaborators import getCollaborators, getCollaboratorsByProjectId
 
 from upload import checkForFile
@@ -12,7 +12,7 @@ from upload import checkForFile
 def done_GET ():
    # All of our queries
   proj = getProject(g.user.username)
-  parameters = getParameters()
+  parameters = getCurrentParameters()
   collaborators = getCollaborators(g.user.username)
   uploadedFiles = [];
   
@@ -50,7 +50,7 @@ def finalize_POST ():
 def review_GET ():
   proj = getProject(g.user.username)
   budget = getBudget(g.user.username)
-  parameters = getParameters()
+  parameters = getCurrentParameters()
   collaborators = getCollaborators(g.user.username)
   uploadedFiles = [];
   
@@ -82,7 +82,7 @@ def project_GET (pID, username, year):
     abort(403)
    # All of our queries
   proj = getProjectByID(pID)
-  parameters = getParameters()
+  parameters = getCurrentParameters()
   collaborators = getCollaboratorsById(pID)
   uploadedFiles = [];
 

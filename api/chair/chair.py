@@ -1,6 +1,6 @@
 from ..everything import *
 from ..API.faculty import getFacultyWithAcceptedProjects, getFacultyWithRejectedProjects
-from ..API.parameters import getParameters
+from ..API.parameters import getCurrentParameters
 
 from ..pages import *
 
@@ -10,7 +10,7 @@ def chair_GET ():
   if not g.user.isChair:
     abort(403)
     
-  parameters = getParameters()
+  parameters = getCurrentParameters()
   
   acceptedFaculty = getFacultyWithAcceptedProjects()
   acceptedFacultyEmail = ""

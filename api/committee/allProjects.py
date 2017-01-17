@@ -3,7 +3,7 @@ from ..API.faculty import  getFacultyWithProjects, getFacultyForProject
 from ..API.projects import getProjectByID
 from ..API.collaborators import getAllCollaborators
 from ..API.voting import getVote
-from ..API.parameters import getParameters
+from ..API.parameters import getCurrentParameters
 from ..API.files import removeFiles
 
 @app.route("/committee/allProjects", methods = ["GET"])
@@ -13,7 +13,7 @@ def allProjects_GET ():
     abort(403)
   # All of our queries
   # we need the current year to get current faculty with projects
-  currentCycle = getParameters()
+  currentCycle = getCurrentParameters()
   
   faculty =  getFacultyWithProjects(currentCycle.year)
   collaborators = getAllCollaborators()

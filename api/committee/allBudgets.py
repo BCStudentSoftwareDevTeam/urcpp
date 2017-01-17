@@ -1,6 +1,6 @@
 from ..everything import *
 from ..API.faculty import getFacultyWithProjects
-from ..API.parameters import getParameters
+from ..API.parameters import getCurrentParameters
 from ..API.makeExcel import getFilename
 
 from ..pages import *
@@ -14,7 +14,7 @@ def allBudgets_GET ():
   
   # we need the current year to get the current projects
   # TODO: either keep this or keep line 22 not both
-  params = getParameters()
+  params = getCurrentParameters()
   # All of our queries
   faculty = getFacultyWithProjects(params.year)
   

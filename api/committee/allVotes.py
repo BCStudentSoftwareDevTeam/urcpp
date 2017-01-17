@@ -1,7 +1,7 @@
 from ..everything import *
 from ..API.faculty import getFacultyWithProjects
 from ..API.voting import getVotesByProject
-from ..API.parameters import getParameters
+from ..API.parameters import getCurrentParameters
 
 @app.route("/committee/allVotes", methods = ["GET"])
 def allVotes_GET ():
@@ -9,7 +9,7 @@ def allVotes_GET ():
     abort(403)
     
   # we need the current year to get the current projects
-  applicationCycle = getParameters()
+  applicationCycle = getCurrentParameters()
   # All of our queries
   faculty = getFacultyWithProjects(applicationCycle.year)
 

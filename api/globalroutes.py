@@ -5,7 +5,7 @@ from API.programs import getAllPrograms
 from API.collaborators import getCollaborators
 from pages.budget import getBudget
 from pages import *
-from API.parameters import getParameters
+from API.parameters import getCurrentParameters
 from datetime import datetime
 import pprint
 
@@ -30,7 +30,7 @@ def templates (path):
 def main ():
   ldap = getLDAPFaculty(g.user.username)
   project = getProject(g.user.username)
-  currentCycle = getParameters()
+  currentCycle = getCurrentParameters()
   today = datetime.now()
 
   return render_template ("start.html", 

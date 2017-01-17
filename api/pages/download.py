@@ -3,9 +3,10 @@ import os
 from ..API.makeExcel import makeBudgetExcel, makeLaborExcel
 from flask import send_file, abort
 from flask_login import login_required, current_user
+from ..API.parameters import getCurrentParameters
 
 @app.route("/document/<username>/<fileType>",
-            defaults={'applicationYear' : cfg['urcpp']['applicationCycle'] }
+            defaults={'applicationYear' : 2017 }
         , methods = ['GET'])
 @app.route("/document/<username>/<fileType>/<applicationYear>", methods = ['GET'])
 @login_required

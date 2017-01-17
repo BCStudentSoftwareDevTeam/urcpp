@@ -1,7 +1,7 @@
 from ..everything import *
 from ..redirectback import redirect_url
 import datetime
-from ..API.parameters import getParameters
+from ..API.parameters import getCurrentParameters
 
 
 @app.route("/chair/setParameters", methods = ["GET", "POST"])
@@ -26,7 +26,7 @@ def setParameters_GET ():
     flash('New application year succesfully created')
     return redirect(url_for('setParameters_GET', username = g.user.username))
     
-  parameters = getParameters()
+  parameters = getCurrentParameters()
   parameters_list = Parameters.select().order_by(-Parameters.year)
   
   return render_template ("setParameters.html", 

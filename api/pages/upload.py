@@ -1,7 +1,7 @@
 from api.everything import *
 import os, re, errno
 from ..API.projects import getProject
-from ..API.parameters import getParameters
+from ..API.parameters import getCurrentParameters
 
 def checkForFile(username, uploadType, year):
   #we need to know where we are at for file lookup issues
@@ -32,7 +32,7 @@ def checkForFile(username, uploadType, year):
 @login_required
 def generic_file_upload (uploadType):
   # we need the current cycle to upload only the current file
-  applicationCycle = getParameters()
+  applicationCycle = getCurrentParameters()
   if uploadType in cfg["filepaths"]["allowedFileNames"]:
     # All of our queries
     
@@ -88,7 +88,7 @@ def upload_file(whichfile, username):
     app.logger.info("Filename appears to be: " + filename)
     # Need to replace the cycle and username
     rawpath = cfg["filepaths"]["directory"]
-    cycle   = getParameters()
+    cycle   = getCurrentParameters()
     rawpath = rawpath.replace("%%applicationCycle%%", str(cycle.year))
     path    = rawpath.replace("%%username%%", username)
     path    = os.path.join(base_path, path)

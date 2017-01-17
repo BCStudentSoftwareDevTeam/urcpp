@@ -1,6 +1,6 @@
 from ..everything import *
 import os
-from parameters import getParameters
+from parameters import getCurrentParameters
 
 def getProjectByID(projectID):
   projQ = (Projects.select()
@@ -29,7 +29,7 @@ def getProjectByYear(username, year):
     
 def getProject (username):
   #get project for this user in the current cycle
-  currentCycle = getParameters()
+  currentCycle = getCurrentParameters()
   if currentCycle is not None:
 	year = currentCycle.year
   else:
@@ -47,7 +47,7 @@ def getAllCurrentProjectsByYear(year):
 
 def getAllCurrentProjects():
   # we only want to get projects for the current year
-  currentCycle = getParameters()
+  currentCycle = getCurrentParameters()
   if currentCycle is not None:
 	year = currentCycle.year
   
@@ -122,7 +122,7 @@ def projects_getNarrative (username, path):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
   
-  applicationCycle = getParameters()
+  applicationCycle = getCurrentParameters()
   dirPath = cfg["filepaths"]["directory"]
   dirPath = dirPath.replace("%%username%%", username)
   dirPath = dirPath.replace("%%applicationCycle%%", applicationCycle.year)
