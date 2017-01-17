@@ -6,7 +6,7 @@ from flask_login import login_required, current_user
 from ..API.parameters import getCurrentParameters
 
 @app.route("/document/<username>/<fileType>",
-            defaults={'applicationYear' : 2017 }
+            defaults={'applicationYear' : getCurrentParameters().year }
         , methods = ['GET'])
 @app.route("/document/<username>/<fileType>/<applicationYear>", methods = ['GET'])
 @login_required
