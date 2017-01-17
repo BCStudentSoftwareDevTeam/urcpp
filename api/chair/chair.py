@@ -24,7 +24,7 @@ def chair_GET ():
     for fac in rejectedFaculty:
       rejectedFacultyEmail += "{}@berea.edu;".format(fac.username.username)
   
-  return render_template ("chair.html", 
+  return render_template ("pages/chair.html", 
                            username = g.user.username,
                            ldap = g.user,
                            params = parameters,
