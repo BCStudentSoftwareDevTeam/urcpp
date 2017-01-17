@@ -19,7 +19,7 @@ def allVotes_GET ():
     for fac in faculty:
       votes.append(getVotesByProject(fac.pID.pID))
   
-  return render_template ("allVotes.html",
+  return render_template ("committee/allVotes.html",
                           cfg = cfg,
                           fac = faculty,
                           votes = votes,

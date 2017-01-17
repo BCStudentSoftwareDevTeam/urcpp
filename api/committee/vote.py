@@ -34,7 +34,7 @@ def vote_GET (username):
     for vote in theirVotes:
       outVotes.append(vote)
     
-  return render_template (  "vote.html",
+  return render_template (  "committee/vote.html",
                             proj = project,
                             username = username,
                             cfg = cfg,
@@ -85,7 +85,7 @@ def vote_POST (username):
   # print(pprint.pformat(theirVotes))
   # print theirVotes
   faculty =  getFacultyWithProjects()
-  return render_template (  "vote.html",
+  return render_template (  "committee/vote.html",
                             username = username,
                             cfg = cfg,
                             fac = faculty,

@@ -17,7 +17,7 @@ def allLabor_GET ():
   
   downloadFileName = getFilename("allLabor")
   
-  return render_template (  "allLabor.html",
+  return render_template (  "committee/allLabor.html",
                             username = g.user.username,
                             cfg = cfg,
                             fac = faculty,

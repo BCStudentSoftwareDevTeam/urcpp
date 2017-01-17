@@ -11,7 +11,7 @@ def vote_GET ( pid):
     abort(403)
   project = getProjectByID(pid)
   if project is None:
-    return render_template ("noProject.html", 
+    return render_template ("committee/noProject.html", 
                             cfg = cfg)
   faculty =  getFacultyForProject(pid)
   collaborators = getCollaborators(faculty)
@@ -32,7 +32,7 @@ def vote_GET ( pid):
   #                         )
   #           )
       votes = None
-  return render_template (  "castVote.html",
+  return render_template (  "committe/castVote.html",
                             proj = project,
                             username = g.user.username,
                             cfg = cfg,
@@ -78,7 +78,7 @@ def vote_POST (pid):
   votingTable.save()
 
   project = getProjectByID(pid)
-  return render_template (  "castVote.html",
+  return render_template (  "committee/castVote.html",
                             username = g.user.username,
                             cfg = cfg,
                             fac = faculty,

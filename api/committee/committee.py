@@ -12,7 +12,7 @@ def committee_GET ():
     abort(403)
   parameters = getCurrentParameters()
   
-  return render_template ("committee.html", 
+  return render_template ("committee/committee.html", 
                            username = g.user.username,
                            ldap = g.user,
                            params = parameters,

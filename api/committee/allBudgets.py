@@ -20,7 +20,7 @@ def allBudgets_GET ():
   
   downloadFileName = getFilename("allBudgets")
 
-  return render_template (  "allBudgets.html",
+  return render_template (  "committee/allBudgets.html",
                             username = g.user.username,
                             cfg = cfg,
                             fac = faculty,

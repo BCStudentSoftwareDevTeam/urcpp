@@ -25,7 +25,7 @@ def allProjects_GET ():
       else:
         previousVote[fac.pID.pID] = False
   
-  return render_template (  "allProjects.html",
+  return render_template (  "committee/allProjects.html",
                             username = g.user.username,
                             cfg = cfg,
                             fac = faculty,

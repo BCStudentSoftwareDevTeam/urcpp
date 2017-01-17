@@ -52,7 +52,7 @@ def allFiles_GET ():
       shutil.rmtree(fullPath)
     
 
-  return render_template (  "allFiles.html",
+  return render_template (  "committee/allFiles.html",
                             username = g.user.username,
                             cfg = cfg,
                             fac = faculty,
