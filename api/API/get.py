@@ -1,5 +1,5 @@
 from everything import *
-from applicationCycle import getCurrentCycle
+from parameters import getCurrentParameters
 # https://github.com/micha/resty
 # Also, Postman in Chrome
 # Also, http://blog.luisrei.com/articles/flaskrest.html
@@ -61,7 +61,7 @@ def getNarrative (username):
     return { "response": cfg["response"]["badUsername"] }
   
 
-  applicationCycle = getCurrentCycle().year
+  applicationCycle = getCurrentParameters().year
   
   knownFiles = os.listdir()
   
