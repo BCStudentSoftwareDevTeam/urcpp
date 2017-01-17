@@ -29,7 +29,7 @@ def setParameters_GET ():
   parameters = getCurrentParameters()
   parameters_list = Parameters.select().order_by(-Parameters.year)
   
-  return render_template ("pages/setParameters.html", 
+  return render_template ("chair/setParameters.html", 
                            username = g.user.username,
                            ldap = g.user,
                            params = parameters,

@@ -14,7 +14,7 @@ def manageCommittee_GET ():
   facultySelect.committeeMember.default = getCommitteeMembers()
   facultySelect.process()
   parameters = getCurrentParameters()
-  return render_template ("pages/manageCommittee.html", 
+  return render_template ("chair/manageCommittee.html", 
                            username = g.user.username,
                            ldap = g.user,
                            params = parameters,
