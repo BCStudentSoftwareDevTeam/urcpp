@@ -65,12 +65,11 @@
        <dd><a href = "/static/files/{{cfg['urcpp']['applicationCycle']}}/{{username}}/{{item}}" target = "_blank">{{item}}</a></dd>
        {% endfor %}
    </dl>
-
+    <div class="row">
+        <div class="col-xs-4">
     <button class="btn btn-danger" onclick="withdraw({{proj.pID}})">Withdraw</button>
-  <div class = "form-group"  >
-    <div class = "col-sm-offset-9 col-sm-2" 
-         id = "submitButton"
-         >
+    </div>
+    <div class="col-xs-4 col-xs-offset-4">
       <form id = "doneForm"
         class = "form-horizontal col-sm-10 col-sm-offset-1"
         action = "/finalize"
@@ -82,7 +81,7 @@
                 />
         Submit Your Application
       </button>
-    </div>
+      </div>
   </div>
 </div>
 
