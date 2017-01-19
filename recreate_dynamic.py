@@ -50,6 +50,7 @@ dynamicDB.create_tables(get_classes('dynamic'))
 
 # Add some dummy data.
 
+<<<<<<< HEAD
 # budget = Budget (
 #   facultyStipend      = 12,
 #   facultyStipendDesc  ="Awesome!",

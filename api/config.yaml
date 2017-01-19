@@ -198,6 +198,30 @@ projectStatus:
   # This means they are done, but not reviewed
   pending: Pending
 
+projectStatusAction:
+  Start:
+    msg: "Start your application"
+    url: "/create"
+  Accept: 
+    msg: "Your application has been accepted"
+    url: "/review"
+  Deny:
+    msg: "Your application has been denied"
+    url: "/review"
+  # Not sure what to do if withdrawn
+  Withdrawn:
+    msg: "Withdraw your application"
+    url: "#"
+  # This means they have not yet hit "Submit"
+  Incomplete:
+    msg: "Complete your application"
+    url: "/create"
+  # This means they are done, but not reviewed
+  Pending:
+    msag: "Review your application"
+    url: "/review"
+    
+
 response:
   badUsername: "Bad Username"
   noResults: "No Results"
