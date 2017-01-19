@@ -26,11 +26,14 @@ Please indicate when you and your proposed project collaborators last received f
       method = "POST"
       >
     <div class="checkbox_array">
+      <div class="primary">
     {{ checkblock (fac) }}
+    </div>
     {% if collabs is defined %}
       {% for collab in collabs %}
+        <div class="collab_checks">
         {{ checkblock (collab) }}
-        
+        </div>
       {% endfor %}
     {% endif%}
       </div>
