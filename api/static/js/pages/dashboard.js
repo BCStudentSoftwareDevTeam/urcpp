@@ -12,6 +12,32 @@ function animate(){
   point.addClass('point--active');
   point.prevAll().addClass('point--complete');
   point.nextAll().removeClass('point--complete');
+  
+  fillProgressBar(projStatus);
+}
+
+function fillProgressBar(projStatus) {
+  var fillPercent = 33;
+  var step = 0;
+  switch (projStatus) {
+    case "reject":
+      console.log("hello");
+      step = 3;
+      break;
+    case "accept":
+      step = 3;
+      break;
+    case "pending":
+      step = 2;
+      break;
+    case "incomplete":
+      step = 1;
+      break;
+    default:
+      step = 0;
+  }
+  console.log(step*fillPercent);
+  document.getElementById("bar_fill").style.width = (step*fillPercent) + "%";
 }
 /*
 Point Animation

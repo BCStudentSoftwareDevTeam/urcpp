@@ -202,10 +202,10 @@ projectStatusAction:
   Start:
     msg: "Start your application"
     url: "/create"
-  Accept: 
+  accept: 
     msg: "Your application has been accepted"
     url: "/review"
-  Deny:
+  reject:
     msg: "Your application has been denied"
     url: "/review"
   # Not sure what to do if withdrawn
@@ -217,7 +217,7 @@ projectStatusAction:
     msg: "Complete your application"
     url: "/create"
   # This means they are done, but not reviewed
-  Pending:
+  pending:
     msag: "Review your application"
     url: "/review"
     
