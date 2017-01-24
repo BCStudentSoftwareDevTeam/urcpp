@@ -1,0 +1,2 @@
+/* global $ */
+    $("#dashboard").load("/dashboard");

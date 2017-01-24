@@ -5,6 +5,7 @@ from API.parameters import getCurrentParameters
 from datetime import datetime
 
 @app.route("/dashboard", methods = ["GET"])
+@app.route("/", methods = ["GET"])
 @login_required
 def dashboard():
   """ This page generate the dasboard """

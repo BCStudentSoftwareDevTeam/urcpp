@@ -25,7 +25,7 @@ def templates (path):
 
 
 
-@app.route("/", methods = ["GET"])
+@app.route("/old_start", methods = ["GET"])
 @login_required
 def main ():
   ldap = getLDAPFaculty(g.user.username)

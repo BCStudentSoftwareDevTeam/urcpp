@@ -39,6 +39,8 @@ function fillProgressBar(projStatus) {
   console.log(step*fillPercent);
   document.getElementById("bar_fill").style.width = (step*fillPercent) + "%";
 }
+
+
 /*
 Point Animation
 

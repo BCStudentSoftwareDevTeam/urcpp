@@ -5,24 +5,25 @@
 
 {% block body %}
 {% include 'snips/messages.html' %}
-<h1>URCPP @ Berea College</h1>
+<!--<h1>URCPP @ Berea College</h1>-->
 
-<p>
-   Welcome {{ldap.firstname}} {{ldap.lastname}}.
-</p>
+<!--<p>-->
+<!--   Welcome {{ldap.firstname}} {{ldap.lastname}}.-->
+<!--</p>-->
 
-<div class = "col-sm-8 col-sm-offset-2">
+<!--<div class = "col-sm-8 col-sm-offset-2">-->
    
    <ul style = "font-size: 150%;">
 
       {% if currentCycle is not none and currentCycle.appOpenDate < today < currentCycle.appCloseDate %}
-         <li>  {% if proj and proj.status == cfg["projectStatus"]["incomplete"] %}
-                  <a href = "/create">Continue a Previous URCPP Project Submission</a>
+           {% if proj and proj.status == cfg["projectStatus"]["incomplete"] %}
+                  <!--<a href = "/create">Continue a Previous URCPP Project Submission</a>-->
+                  <div id="dashboard"></div>
                {% elif proj.status == cfg["projectStatus"]["pending"] %}  
                   <a href = "/review">Review your Submitted Application</a>
                {% elif proj.status == cfg["projectStatus"]["accept"] %}
                   Congratulations! Your project has been accepted.
-               {% else %}<a href = "/create">Start a new URCPP Project Submission</a>{% endif %}</li>
+               {% else %}<div id="dashboard"></div>{% endif %}
       {% else %}
          <li>Submissions are now closed. <br />Please contact <a href = "mailto:heggens@berea.edu">Scott Heggen </a> if you need additional support for your application. </li>
          <li><a href = "/upload/abstract?source=home">Upload Abstract</a></li>
@@ -32,7 +33,7 @@
       
       
    </ul>
-</div>
+<!--</div>-->
 
 <div>
   <p>Issues? Contact <a href="mailto:heggens@berea.edu">Scott Heggen</a> </p>
