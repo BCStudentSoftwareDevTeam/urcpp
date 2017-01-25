@@ -123,7 +123,7 @@ class Projects (DynamicModel):
   numberStudents    = IntegerField(default = 1)
   # Stati are in the config under the key
   # projectstatus: ... it is a list.
-  status            = TextField(default = cfg["projectStatus"]["incomplete"])
+  status            = TextField(default = cfg["projectStatus"]["Incomplete"])
   createdDate       = DateTimeField(default = datetime.datetime.now)
 
 class URCPPStudents (DynamicModel):

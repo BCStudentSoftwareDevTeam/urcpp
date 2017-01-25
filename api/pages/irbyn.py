@@ -8,7 +8,7 @@ def irbyn_GET ():
   # All of our queries
   proj = getProject(g.user.username)
   
-  if proj.status == cfg["projectStatus"]["pending"]:
+  if proj.status == cfg["projectStatus"]["Pending"]:
     return redirect(url_for("main"))
   
   return render_template (  "pages/irbyn.html",
@@ -24,7 +24,7 @@ def irbyn_POST ():
   
   proj = getProject(g.user.username)
   
-  if proj.status == cfg["projectStatus"]["pending"]:
+  if proj.status == cfg["projectStatus"]["Pending"]:
     return redirect(url_for("main"))
   proj.humanSubjects = (1 if request.form["irb"] == "Yes" else 0 )
   proj.save()

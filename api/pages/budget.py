@@ -13,7 +13,7 @@ def budget_GET ():
   budget = getBudget(g.user.username)
   parameters = getCurrentParameters()
   
-  if not proj.status == cfg["projectStatus"]["incomplete"]:
+  if not proj.status == cfg["projectStatus"]["Incomplete"]:
     flash("application has been submited")
     redirect(url_for("main"))
 

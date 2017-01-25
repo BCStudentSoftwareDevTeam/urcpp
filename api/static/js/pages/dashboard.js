@@ -20,17 +20,17 @@ function fillProgressBar(projStatus) {
   var fillPercent = 33;
   var step = 0;
   switch (projStatus) {
-    case "reject":
+    case "Reject":
       console.log("hello");
       step = 3;
       break;
-    case "accept":
+    case "Accept":
       step = 3;
       break;
-    case "pending":
+    case "Pending":
       step = 2;
       break;
-    case "incomplete":
+    case "Incomplete":
       step = 1;
       break;
     default:

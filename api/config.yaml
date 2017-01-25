@@ -194,9 +194,9 @@ projectStatus:
   reject: Deny
   withdrawn: Withdrawn
   # This means they have not yet hit "Submit"
-  incomplete: Incomplete
+  Incomplete: Incomplete
   # This means they are done, but not reviewed
-  pending: Pending
+  Pending: Pending
 
 projectStatusAction:
   Start:
@@ -217,8 +217,8 @@ projectStatusAction:
     msg: "Complete your application"
     url: "/create"
   # This means they are done, but not reviewed
-  pending:
-    msag: "Review your application"
+  Pending:
+    msg: "Review your application"
     url: "/review"
     
 

@@ -16,7 +16,7 @@ def done_GET ():
   collaborators = getCollaborators(g.user.username)
   uploadedFiles = [];
   
-  if not proj.status == cfg["projectStatus"]["incomplete"]:
+  if not proj.status == cfg["projectStatus"]["Incomplete"]:
     return redirect(url_for("main"))
   
   for files in cfg["filepaths"]["allowedFileNames"]:
@@ -39,7 +39,7 @@ def done_GET ():
 def finalize_POST ():
   
   proj = getProject(g.user.username)
-  proj.status = cfg["projectStatus"]["pending"]
+  proj.status = cfg["projectStatus"]["Pending"]
   proj.save()
   
   return redirect('/')

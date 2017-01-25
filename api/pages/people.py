@@ -6,7 +6,7 @@ def people_GET ():
   # All of our queries
   proj = getProject(g.user.username)
   
-  if proj.status == cfg["projectStatus"]["pending"]:
+  if proj.status == cfg["projectStatus"]["Pending"]:
     return redirect(url_for('main'))
   
   return render_template (  "pages/people.html",
@@ -34,7 +34,7 @@ def people_POST ():
   if proj is None:
     proj = Projects()
   
-  if proj.status == cfg["projectStatus"]["pending"]:
+  if proj.status == cfg["projectStatus"]["Pending"]:
     return redirect(url_for('main'))
     
   proj.numberStudents = numStu
