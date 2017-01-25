@@ -1,4 +1,4 @@
-/* global username, urcpp, Dropzone, referrer, getValue */
+/* global $ username, urcpp, Dropzone, referrer, getValue */
 
 function buttonMoveForward () {
   var localNextPage = "/";
@@ -9,28 +9,25 @@ function buttonMoveForward () {
   } else {
     window.location.href =  localNextPage;
   }
-};
+}
 
 function goNextPage() {
-  $("#moveForward").removeAttr('disabled');
-  $("#success").removeAttr('hidden');
- // window.location.href =  localNextPage;
-};
+  $("#moveForward").prop('disabled', false);
+  $("#success").prop('hidden', false);
+}
 
-$(document).ready ( function () {
-  /*global nextPage*/
-  console.log ("Looking up: " + username);
- 
-  Dropzone.options.drop = {
-    paramName: "file",
-    maxFilesize: 25,
-    accept: function (file, done) {
-      done()
-    },
-    init: function () {
-      this.on("success", function (file, serverResponse) {       
-				          goNextPage()
-      });
-    },
-  };
-});
+Dropzone.options.drop = {
+  paramName: "file",
+  maxFilesize: 25,
+  accept: function (file, done) {
+    console.log("jsdhf");
+    done();
+  },
+  init: function () {
+    console.log("sakdjfklasd");
+    this.on("success", function (file, serverResponse) {
+      console.log("success")
+			          goNextPage()
+    });
+  },
+};

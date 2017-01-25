@@ -15,8 +15,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/i18n/defaults-*.min.js"></script>
     
     
-     <!--needed to make polyfill work in internet explorer-->
-    <script type="text/javascript" src="/static/js/ext/number_polyfill.js"></script>
+     
+   
     <link rel="stylesheet" href="/static/css/" type="text/css" />
 
     <link rel = "stylesheet" href="/s/css/bootstrap.min.css">
@@ -55,7 +55,8 @@
     <script src = "/s/js/ext/aja.min.js"> </script>
     <script src = "/s/js/ext/sweetalert.min.js"> </script>
     <script src = "/s/js/ext/dropzone.js"> </script>
-    
+    <!--needed to make polyfill work in internet explorer-->
+     <script type="text/javascript" src="/static/js/ext/number_polyfill.js"></script>
     
     <script src='http://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js'></script>
     
@@ -63,6 +64,7 @@
     <script type = "text/javascript"
             src  = "/static/js/pages/{{currentPage}}.js"
             > </script>
+    {% block footer_imports %} {% endblock %}
 
   </body>
 
