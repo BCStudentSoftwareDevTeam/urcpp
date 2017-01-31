@@ -95,7 +95,19 @@ def get_collaborator(project_id, username):
   else:
     return None
   
-    
+def delete_all_collaborators(project_id):
+  """ deletes all of the currect collaborators 
+      
+      Args:
+        project_id (int): the id of the project that the collaborators belong to
+        
+      Returns:
+        int: the number of rows affected
+  """
+  return(Collaborators.delete()
+                    .where(Collaborators.pID == project_id)).execute()
+                    
+        
 def delete_non_collaborators(project_id, *collaborators):
   """ deletes the current collaborators that are not in the list provided
       

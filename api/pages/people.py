@@ -1,5 +1,6 @@
 from api.everything import *
 from ..API.projects import getProject
+from ..API.collaborators import delete_all_collaborators, getCollaborators
 
 @app.route("/people", methods = ["GET"])
 def people_GET ():
@@ -8,12 +9,16 @@ def people_GET ():
   
   if proj.status == cfg["projectStatus"]["Pending"]:
     return redirect(url_for('main'))
+    
+  collabs = getCollaborators(g.user.username)
+  
   
   return render_template (  "pages/people.html",
                             proj = proj,
                             username = g.user.username,
                             cfg = cfg,
                             ldap = g.user,
+                            collabs = collabs
                           )
 
 
@@ -40,10 +45,13 @@ def people_POST ():
   proj.numberStudents = numStu
   proj.save()
   if numCollab > 0:
+    collabs = getCollaborators(g.user.username)
     return render_template (  "pages/bnumbers.html",
                             username = g.user.username,
                             cfg = cfg,
-                            numCollab = numCollab
+                            numCollab = numCollab,
+                            collabs = collabs
                           )
   else:
+    delete_all_collaborators(proj.pID)
     return redirect(url_for('history_GET'))
