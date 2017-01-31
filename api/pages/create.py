@@ -16,7 +16,7 @@ def create_GET ():
   progs = getAllPrograms()
   parameters = getCurrentParameters()
   if proj is not None:
-    if proj.status == cfg["projectStatus"]["pending"]:
+    if proj.status == cfg["projectStatus"]["Pending"]:
       redirect(url_for("main"))
   
   return render_template (  "pages/create.html",
