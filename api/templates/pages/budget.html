@@ -1,7 +1,16 @@
 {% extends "base.html" %}
 {% set currentPage = "budget" %}
 {% block body %}
-
+<ol class="breadcrumb">
+  <li><a href="/">Home</a></li>
+  <li><a href="/create">Create</a></li>
+  <li><a href="/people">People</a></li>
+  <li><a href="/history">History</a></li>
+  <li><a href="/upload/irb">IRB upload</a></li>
+  <li><a href="/upload/vitae">Vitae upload</a></li>
+  <li><a href="/upload/narrative">Narrative upload</a></li>
+  <li class="active">Budget</li>
+</ol>
 <h1> Budget </h1>
 <p>
 URCPP can provide stipends for you (up to $5300 per faculty) and your students, plus up to $3000 for equipment, supplies, and related travel.
