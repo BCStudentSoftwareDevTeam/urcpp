@@ -1,4 +1,4 @@
-/* global Mustache */
+/* global Mustache $ */
 var stuSpin = $("#numStu")
   .TouchSpin( {
     verticalbuttons: true,
