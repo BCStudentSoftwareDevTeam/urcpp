@@ -4,7 +4,12 @@
 {% block title %} Faculty Collaborator(s) B-numbers {% endblock %}
 
 {% block body %}
-
+<ol class="breadcrumb">
+  <li><a href="/">Home</a></li>
+  <li><a href="/create">Create</a></li>
+  <li><a href="/people">People</a></li>
+  <li class="active">Bnumbers</li>
+</ol>
 <div class = "row">
   <div class = "col-sm-8 col-sm-offset-2">
     <h1>Faculty's B-number </h1>
@@ -29,14 +34,7 @@
                     placeholder = 'B012345678'
                     required
                     />
-            <script type = "text/javascript">
-              /* global delay, checkValidBNumber, BNUMBERCHECKDELAY */
-              $("#cbnumber{{id}}").keyup ( function() {
-                delay( function () { 
-                          checkValidBNumber("{{id}}"); 
-                      }, BNUMBERCHECKDELAY);
-              });
-            </script>
+            
           </div>
       
         </div>
@@ -64,4 +62,17 @@
   var numCollabs = parseInt("{{numCollab}}");
   var username = "{{username}}";
 </script>
+{% endblock %}
+
+{% block footer_imports %}
+{% for id in range (0, numCollab) %}
+<script type = "text/javascript">
+              /* global delay, checkValidBNumber, BNUMBERCHECKDELAY */
+              $("#cbnumber{{id}}").keyup ( function() {
+                delay( function () { 
+                          checkValidBNumber("{{id}}"); 
+                      }, BNUMBERCHECKDELAY);
+              });
+            </script>
+{% endfor %}
 {% endblock %}
