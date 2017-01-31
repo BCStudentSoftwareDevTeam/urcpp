@@ -16,6 +16,14 @@ function goNextPage() {
   $("#success").prop('hidden', false);
 }
 
+var localNextPage = "/";
+localNextPage = localNextPage.concat(nextPage);
+if (getValue == "home") {
+   // If coming from the home page to upload CV, this takes you back there
+    $(".breadcrumb").hide();
+  
+}
+
 Dropzone.options.drop = {
   paramName: "file",
   maxFilesize: 25,
