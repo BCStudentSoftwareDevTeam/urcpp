@@ -25,22 +25,22 @@ def templates (path):
 
 
 
-@app.route("/old_start", methods = ["GET"])
-@login_required
-def main ():
-  ldap = getLDAPFaculty(g.user.username)
-  project = getProject(g.user.username)
-  currentCycle = getCurrentParameters()
-  today = datetime.now()
-
-  return render_template ("start.html", 
-                           username = g.user.username,
-                           ldap = ldap,
-                           proj = project,
-                           cfg = cfg,
-                           currentCycle = currentCycle,
-                           today = today
-                           )
+#@app.route("/old_start", methods = ["GET"])
+#@login_required
+#def main ():
+#  ldap = getLDAPFaculty(g.user.username)
+#  project = getProject(g.user.username)
+#  currentCycle = getCurrentParameters()
+#  today = datetime.now()
+#
+#  return render_template ("start.html", 
+#                           username = g.user.username,
+#                           ldap = ldap,
+#                           proj = project,
+#                           cfg = cfg,
+#                           currentCycle = currentCycle,
+#                           today = today
+#                           )
                           
 
 @app.route("/<username>", methods = ["GET"])
