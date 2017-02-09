@@ -21,5 +21,5 @@ def login():
 @app.route('/logout')
 def logout():
     logout_user()
-    return redirect('http://login.berea.edu/idp/profile/Logout')
+    return redirect('https://login.berea.edu/idp/profile/Logout')
             
