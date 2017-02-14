@@ -53,6 +53,8 @@ def checkBNumber():
       .where (LDAPFaculty.bnumber == bnumber)
       )
     if facQ.exists():
+      if facQ[0].username == g.user.username:
+        return jsonify({"response" : "USER"})
       return jsonify({ "response" : "OK" })
     else:
       return jsonify({ "response" : "NOTFOUND" })
