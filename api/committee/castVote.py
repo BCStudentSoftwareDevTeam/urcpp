@@ -32,7 +32,7 @@ def vote_GET ( pid):
   #                         )
   #           )
       votes = None
-  return render_template (  "committe/castVote.html",
+  return render_template (  "committee/castVote.html",
                             proj = project,
                             username = g.user.username,
                             cfg = cfg,
