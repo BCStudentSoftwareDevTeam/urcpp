@@ -4,10 +4,9 @@
   - You will need to have mysql and python mysql-db
   - Start your mysql server and add a database with following username and password
     - Database Name: urcpp_flask
-* CREATE DATABASE urcpp_flask;
     - User Name: urcspp-flask
     - User Password: DanforthLabor123!
-*CREATE USER 'urcpp-flask'@'localhost' IDENTIFIED BY 'DanforthLabor123!';
+
   - Alternatively, the following MySQL queries can be used:
     - CREATE DATABASE urcpp_flask;
     - CREATE USER 'urcpp-flask'@'%' IDENTIFIED BY 'DanforthLabor123!';
