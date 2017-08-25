@@ -181,5 +181,6 @@ params = Parameters(
   appCloseDate        = "2016-01-31",
   mileageRate         = 0.52,
   laborRate           = 8.00,
+  isCurrentParameter  = True
   )
 params.save()
