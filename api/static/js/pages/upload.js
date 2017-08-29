@@ -13,28 +13,31 @@ function buttonMoveForward () {
 
 function goNextPage() {
   $("#moveForward").prop('disabled', false);
-  $("#success").prop('hidden', false);
+  $("#success").hide()
+  $("#success").fadeIn("slow")
+  $("#failed").hide()
 }
 
 var localNextPage = "/";
 localNextPage = localNextPage.concat(nextPage);
 if (getValue == "home") {
-   // If coming from the home page to upload CV, this takes you back there
-    $(".breadcrumb").hide();
-  
+   // If coming from the home page to upload CV change the breadcrumbs to only go home
+   $(".breadcrumb").html('<li><a href="/">Home</a></li>')  
 }
 
 Dropzone.options.drop = {
   paramName: "file",
   maxFilesize: 25,
-  accept: function (file, done) {
-    console.log("jsdhf");
-    done();
+  acceptedFiles: ".doc, .docx, .odt, .pdf, .rtf",
+  error: function(file, errormessage, xhr){
+    $("#success").hide()
+    $("#failed").hide()
+    $("#errormessage").text(errormessage)
+    $("#failed").fadeIn("slow")
+    this.removeFile(file)
   },
   init: function () {
-    console.log("sakdjfklasd");
     this.on("success", function (file, serverResponse) {
-      console.log("success")
 			          goNextPage()
     });
   },
