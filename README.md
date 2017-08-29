@@ -11,10 +11,10 @@
 4. run `phpmyadmin-ctl install` to run the phpmyadmin client.
 5. navigate to the phpmyadmin interface
 6. create a database named `urcpp_flask_v2`
-7. add a user named `urcpp-flask` with read and write permissions on the db
-    See instructions [here](https://docs.google.com/document/d/1K2Ex8xsa65SwvCG3UdZ9bL-hLey9rTguOA9kfbENtwY/edit?usp=sharing)
-8. comment out lines 20-27 in `__init__.py`
-9. create a file `app/secret_key` with alphanumeric characters in the file
+7. add a user named `urcpp-flask` with password `DanforthLabor123` and check `grant all permissions on database urcpp_flask_v2`
+   - See instructions [here](https://docs.google.com/document/d/1K2Ex8xsa65SwvCG3UdZ9bL-hLey9rTguOA9kfbENtwY/edit?usp=sharing) for more aid
+8. comment out lines 20-27 in `api/__init__.py`
+9. create a file `api/secret_key` with alphanumeric characters in the file
 9. run `python recreate_static`
 10. run `python recreate_dynamic`
 11. comment lines 20-27 back in
