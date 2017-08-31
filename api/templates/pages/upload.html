@@ -20,6 +20,9 @@
 <div hidden id = "success" class="alert alert-success">
   <strong>Success!</strong> Your {{uploadType}} has been uploaded.
 </div>
+<div hidden id = "failed" class="alert alert-danger">
+  <strong>Error!</strong> <span id = "errormessage"> </span>
+</div>
 <div class = "row">
    <div class = "col-sm-8 col-sm-offset-2">
       <form class = "dropzone" id = "drop" action = "/v1/upload/{{uploadType}}/{{username}}">
