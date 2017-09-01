@@ -5,6 +5,7 @@ from ..API.collaborators import getAllCollaborators
 from ..API.voting import getVote
 from ..API.parameters import getCurrentParameters
 from ..API.files import removeFiles
+from ..API.projects import getProject
 
 @app.route("/committee/allProjects", methods = ["GET"])
 @login_required
@@ -35,20 +36,34 @@ def allProjects_GET ():
 
 @app.route("/committee/allProjects/updateStatus", methods = ["POST"])
 @login_required
+
 def updateStatus_POST ():
-  if not g.user.isCommitteeMember:
-    abort(403)
   
   data = request.form
-  for key, value in data.iteritems():
-    projectToSetStatus = getProjectByID(key)
-    projectToSetStatus.status = value
-    projectToSetStatus.save()
-    
-    professor = getFacultyForProject(key)
-    if projectToSetStatus.status == "withdrawn":
-      print "project status: ", projectToSetStatus.status
-      removeFiles(professor.username.username)
-
-  # TODO: create redirect back function and use instead
+  if not g.user.isCommitteeMember:
+    try:
+      proj = getProject(g.user.username)
+      m = dict(data)
+      proj.status = m[str(proj.pID)][0]
+      proj.save()
+      if proj.status == "withdrawn":
+        print "project status: ", proj.status
+        removeFiles(g.user.username)  
+    except:
+      abort(403)
+      
+  else:
+    for key, value in data.iteritems():
+      projectToSetStatus = getProjectByID(key)
+      projectToSetStatus.status = value
+      projectToSetStatus.save()
+      
+      professor = getFacultyForProject(key)
+      if projectToSetStatus.status == "withdrawn":
+        print "project status: ", projectToSetStatus.status
+        removeFiles(professor.username.username)
+      
+      
+  
   return redirect(url_for('allProjects_GET'))
+
