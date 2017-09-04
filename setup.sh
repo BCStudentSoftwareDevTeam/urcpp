@@ -12,6 +12,7 @@ fi
 pip install Flask
 pip install peewee
 pip install pyyaml
+
 # For security, for LDAP
 pip install pyopenssl ndg-httpsclient pyasn1
 pip install ldap3
@@ -19,7 +20,8 @@ pip install ldap3
 pip install mkdocs
 pip install gunicorn
 pip install tornado
-
+#for emailing users
+pip install Flask-Mail
 # additional python library
 pip install XlsxWriter
 
