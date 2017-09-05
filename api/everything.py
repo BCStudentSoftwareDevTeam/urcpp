@@ -48,6 +48,8 @@ def authUser(env):
 # Set up the Flask app
 base_path = os.path.dirname(__file__)
 app = Flask(__name__)
+app.config.from_pyfile("settings.py")
+
 
 
 login_manager = LoginManager()
