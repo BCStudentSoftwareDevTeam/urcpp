@@ -15,8 +15,8 @@ def budget_GET ():
   
   if not proj.status == cfg["projectStatus"]["Incomplete"]:
     flash("application has been submited")
-    redirect(url_for("main"))
-
+    return redirect(url_for("main_with_username", username = g.user.username))
+    
   return render_template (  "pages/budget.html",
                             proj = proj,
                             username = g.user.username,
