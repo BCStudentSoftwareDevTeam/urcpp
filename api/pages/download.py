@@ -5,9 +5,16 @@ from flask import send_file, abort
 from flask_login import login_required, current_user
 from ..API.parameters import getCurrentParameters
 
-@app.route("/document/<username>/<fileType>",
-            defaults={'applicationYear' : getCurrentParameters().year }
-        , methods = ['GET'])
+@app.route("/document/<username>/<fileType>"
+        ,methods = ['GET'])
+# Trying out temporal stuff
+def document(username,fileType):
+  if username and fileType:
+    if request.method == GET:
+      defaults={'applicationYear' : getCurrentParameters().year }
+    
+    return app.add_url_rule("/document",username,fileType,defaults)
+        
 @app.route("/document/<username>/<fileType>/<applicationYear>", methods = ['GET'])
 @login_required
 def documentDownload(username, fileType, applicationYear):
