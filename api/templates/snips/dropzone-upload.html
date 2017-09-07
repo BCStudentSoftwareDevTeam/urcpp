@@ -3,7 +3,11 @@
         <div class="dz-image center-block" style="background:transparent;"><img class='center-block' src="/static/fonts/file.svg" /></div>
         <div class="dz-details center-block" >
             <br>
-            <div class="dz-filename " ><span data-dz-name></span></div>
+            <div class="dz-filename " >
+               <a href = "/static/files/{{cycle}}/{{ldap.username}}/{{prevFilepath}}" target = '_blank'>
+                  <span data-dz-name></span>
+               </a>
+            </div>
         </div>
         <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
         <div class="dz-error-message"><span data-dz-errormessage></span></div>
@@ -33,7 +37,7 @@
 
         <div class='col-xs-12'>
             <div class='col-xs-6' id="dropzone-download" hidden>
-            <a href = "/{{ldap.username}}/document/" download='{{prevFilepath}}' target = ''>
+            <a href = "/static/files/{{cycle}}/{{ldap.username}}/{{prevFilepath}}" download='{{prevFilepath}}' target = ''>
 <button type="button" class="btn btn-md btn-success ">
               <span class="glyphicon glyphicon-download"></span> Download
             </button>          </a>

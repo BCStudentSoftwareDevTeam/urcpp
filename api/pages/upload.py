@@ -37,7 +37,7 @@ def generic_file_upload (uploadType):
     # All of our queries
     
     proj = getProject(g.user.username)
-
+    cycle = getCurrentParameters().year
     prevFilepath = checkForFile(g.user.username, uploadType, applicationCycle.year)
     prev = prevFilepath
     #prevFilepath = prev.split("/").pop()
@@ -50,6 +50,7 @@ def generic_file_upload (uploadType):
                               uploadType = uploadType,
                               fullpath = prev,
                               prevFilepath = prevFilepath,
+                              cycle = cycle
                             )
   else:
     return "File upload type not recognized."
