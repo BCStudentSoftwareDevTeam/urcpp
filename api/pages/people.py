@@ -8,6 +8,7 @@ def people_GET ():
   proj = getProject(g.user.username)
   
   if proj.status == cfg["projectStatus"]["Pending"]:
+    flash("Application has already been submited.")
     return redirect(url_for("main_with_username", username = g.user.username))
     
   collabs = getCollaborators(g.user.username)
@@ -40,6 +41,7 @@ def people_POST ():
     proj = Projects()
   
   if proj.status == cfg["projectStatus"]["Pending"]:
+    flash("Application has already been submited.")
     return redirect(url_for("main_with_username", username = g.user.username))
     
   proj.numberStudents = numStu
