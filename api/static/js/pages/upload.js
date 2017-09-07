@@ -74,18 +74,20 @@ Dropzone.options.drop = {
     $("#dropzone-remove").show()
     $("#dropzone-download").hide()
     $("#successmessage").text("Your " + uploadType + " has been uploaded.")
+
     
   },
   init: function () {
       if ( prevFilepath != "")
       {
-        var  file = { name: prevFilepath};       
+        var  file = { name: prevFilepath, accepted:true};       
         this.options.addedfile.call(this, file);
         this.options.processing.call(this,file)
         this.options.success.call(this,file)
-
+        this.files.push(file)
         this.options.complete.call(this,file)
         this.options.maxfilesreached.call(this,file)
+
         $("#dropzone-remove").show()
         $("#dropzone-download").show()
 
