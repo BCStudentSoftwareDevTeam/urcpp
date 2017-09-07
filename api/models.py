@@ -12,9 +12,15 @@ print("GETCWD MODELS: " + os.getcwd())
 here = os.path.dirname(__file__)
 
 cfg = load_config(os.path.join(here, 'config.yaml'))
-#TODO: move information out and change password to keep secret
 
-dynamicDB = MySQLDatabase("urcpp_flask_v2", host="localhost", user="urcpp-flask", passwd="DanforthLabor123!")
+#TODO: move information out and change password to keep secret
+if app.config['debug']:
+  dynamicDB = MySQLDatabase("urcpp_local", host="localhost", user="urcpp_local", passwd="DanforthLabor123!") 
+elif app.config['test']:
+  dynamicDB = MySQLDatabase("urcpp_test", host="localhost", user="urcpp_test", passwd="DanforthLabor123!")
+else:
+  dynamicDB =  MySQLDatabase("urcpp_prod", host="localhost", user="urcpp_prod", passwd="DanforthLabor123!")
+
 
 class DynamicModel (Model):
   class Meta:
