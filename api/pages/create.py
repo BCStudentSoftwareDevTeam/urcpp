@@ -17,6 +17,7 @@ def create_GET ():
   parameters = getCurrentParameters()
   if proj is not None:
     if proj.status == cfg["projectStatus"]["Pending"]:
+      flash("Application has already been submited.")
       return redirect(url_for("main_with_username", username = g.user.username))
   
   return render_template (  "pages/create.html",

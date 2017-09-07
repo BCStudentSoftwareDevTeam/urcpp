@@ -13,5 +13,8 @@ def dashboard():
   project = getProject(g.user.username)
   currentCycle = getCurrentParameters()
   today = datetime.now()
-
-  return render_template ("dashboard.html", cfg=cfg, ldap=ldap, proj=project, currentCycle=currentCycle, today=today)
+  isAdmin = 0
+  if g.user.isChair:
+    isAdmin = 1
+    
+  return render_template ("dashboard.html", cfg=cfg, isAdmin = isAdmin, ldap=ldap, proj=project, currentCycle=currentCycle, today=today)
