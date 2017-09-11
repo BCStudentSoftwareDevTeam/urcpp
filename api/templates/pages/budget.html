@@ -43,7 +43,9 @@ URCPP can provide stipends for you (up to $5300 per faculty) and your students, 
                     onchange = "findTotal()"
                     required
 		    step  = "1"
-                    placeholder = {% if budget.title != "Miles " %}'($)' {% else %} "# Miles" {% endif %}
+                    placeholder = {% if budget.title != "Miles " %}{% if budget.title == "Faculty Stipend(s) " %} 
+                    "($) Keep in mind that each Faculty member can recieve a maximum of $5300"{else} "($)" {% endif %}
+                    {% if budget.title != "Faculty Stipend(s) " or "Miles " %} "($)" {% endif %}{% else %} "# Miles" {% endif %}
                     />
           </div>
       </div>    
@@ -108,5 +110,4 @@ URCPP can provide stipends for you (up to $5300 per faculty) and your students, 
 <script type = "text/javascript">
   var mileageRate = parseFloat("{% if params.mileageRate %}{{params.mileageRate}}{% else %} 0 {% endif %}");
 </script>
-
 {% endblock %}
