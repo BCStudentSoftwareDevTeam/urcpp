@@ -53,7 +53,14 @@ def create_POST ():
   proj.title      = data["title"]
   proj.startDate  = datetime.datetime.strptime(data["startDate"], '%m-%d-%Y')
   proj.endDate    = datetime.datetime.strptime(data["endDate"], '%m-%d-%Y')
-  proj.duration   = int(data["duration"])
+  dur = request.form.getlist('duration')
+  if(dur):
+    print "FIRST"
+    proj.duration = int(data["duration"])  
+  else:
+    print "SECOND"
+    proj.duration   = 0
+  
   proj.budgetID   = budg.bID
   proj.year       = year
   proj.isServiceToCommunity = data["isServiceToCommunity"] if "isServiceToCommunity" in data is not None else False 
