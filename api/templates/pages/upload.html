@@ -18,33 +18,20 @@
 
 {% include "snips/" ~ uploadType ~ "-info.html" ignore missing with context %}
 <div hidden id = "success" class="alert alert-success">
-  <strong>Success!</strong> Your {{uploadType}} has been uploaded.
+  <strong>Success!</strong> <span id = "successmessage"> </span>
 </div>
 <div hidden id = "failed" class="alert alert-danger">
   <strong>Error!</strong> <span id = "errormessage"> </span>
 </div>
 <div class = "row">
    <div class = "col-sm-8 col-sm-offset-2">
-      <form class = "dropzone" id = "drop" action = "/v1/upload/{{uploadType}}/{{username}}">
+      <form class = "dropzone center-block" style="border-radius:20px;max-width:fit-content;" id = "drop" action = "/v1/upload/{{uploadType}}/{{username}}">
       </form>
-      <label>Current File:&nbsp; </label>
-      <label id="fileLabel">
-        {% if prevFilepath != "" %}
-        <a href = "/{{ldap.username}}/document/{{prevFilepath}}" target = '_blank'>
-            {{prevFilepath}}
-          </a>
-        {% else %} 
-          None yet 
-        {% endif %}
-      </label>
    </div>
 </div>
-
 <div class = "row">
 &nbsp;
 </div>
-
-
 
 {% include "snips/allowed-file-types.html" %}
 <div class = "form-group"  >
@@ -63,14 +50,21 @@
  </div>
 </div>
 
+{% include "snips/dropzone-upload.html" %}
+
+
 <script>
   var uploadType = "{{uploadType}}";
   var nextPage = "{{currentPage}}";
   var getValue = "{{ request.args.get('source') }}";
+  var prevFilepath = "{{prevFilepath}}";
+  var username = "{{username}}"
+  var removefileAPI = "{{url_for('remove_file', username=username, uploadType=uploadType)}}"
   
   // var referrer =  document.referrer.split("/").pop();
   
   // console.log("Coming from " + referrer);
+
 
 </script>
 
