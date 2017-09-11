@@ -37,7 +37,7 @@ URCPP can provide stipends for you (up to $5300 per faculty) and your students, 
           <div class = 'col-sm-8'>
           <input  name  = '{{budget["amountFieldName"]}}' 
                     id    = '{{budget["title"]|lower}}' 
-                    type  = 'text' 
+                    type  = 'number' 
                     class = 'form-control quantity'
                     {% if budg[budget["amountFieldName"]] is not none %}value = '{{budg[budget["amountFieldName"]]|int}}'{%endif%}
                     onchange = "findTotal()"
@@ -109,13 +109,5 @@ URCPP can provide stipends for you (up to $5300 per faculty) and your students, 
 
 <script type = "text/javascript">
   var mileageRate = parseFloat("{% if params.mileageRate %}{{params.mileageRate}}{% else %} 0 {% endif %}");
-</script>
-<script type = "text/javascript">
-stipend = document.getElementById('faculty stipend(s) ').value;
-if ($ ('#stipend') == param.maxStipend){
-  $('#alertModal').modal({
-      show: true
-  })
-}
 </script>
 {% endblock %}
