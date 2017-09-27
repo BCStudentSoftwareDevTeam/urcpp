@@ -3,20 +3,26 @@
 
 {% block body %}
 
-<div class="col-md-12">
-  <h1 class ="col-md-6 pull-left"> Award Letters </h1>
-</div>
 <!--Menu-->
 <ul class="nav nav-tabs">
   {% for menuItem in cfg["chair"] %}
     <li role="presentation"><a href="{{menuItem['link']}}">{{menuItem['title']}}</a></li>
   {% endfor %}
 </ul>
+
+<div class="col-md-12">
+  <h1 class ="col-md-6 pull-left"> Award Letters </h1>
+</div>
+
 <button data-toggle="modal" data-target="#emailModal" onclick="getLetter()" type='button' class=" text-center pull-right btn btn-default btn-sm">
   <p class="">Edit Email &nbsp
     <i class="glyphicon glyphicon-pencil"></i>
   </p>
 </button>
+
+<div class="col-xs-12">
+  <br/>
+</div>
 
 <div class = "row">
     <table class = "table table-striped table-hover table-sm">

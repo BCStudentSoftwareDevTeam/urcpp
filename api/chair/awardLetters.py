@@ -69,8 +69,8 @@ def awardLetters_generate(username,pID):
   funding = str(getTotalBudget(project.budgetID))
   project_title = project.title
   student_count = str(project.numberStudents)
-  start = str(project.startDate.strftime("%d. %B %Y"))
-  end = str(project.endDate.strftime("%d. %B %Y"))
+  start = str(project.startDate.strftime("%B %d, %Y"))
+  end = str(project.endDate.strftime("%B %d, %Y"))
   stipend = str(project.budgetID.facultyStipend)
   
   # Replace all placeholder text

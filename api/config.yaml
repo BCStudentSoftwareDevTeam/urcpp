@@ -113,7 +113,7 @@ chair:
     longtitle: "Manage Committee Members"
   - title: "Award Letters"
     link: "awardLetters"
-    longtitle: "Send Award Emails to Faculty"
+    longtitle: "Email all faculties with accepted projects"
   # - title: "Manage Committee Members"
   #   link: "manageCommittee"
   #   longtitle: "Manage URCPP Committee Members"
