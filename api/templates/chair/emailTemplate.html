@@ -1,0 +1,29 @@
+<!-- Modal -->
+<div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="emailLabel">Award Letter</h4>
+      </div>
+      <div class="modal-body" id="emailBody">
+        <input type = "text" id = "subject" class="form-control"/>
+        <br>
+        <textarea name="body" id="body" rows="10" cols="80">
+        </textarea>      
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="postLetter()" class="btn btn-success" data-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+    CKEDITOR.replace( 'body' );
+</script>
+

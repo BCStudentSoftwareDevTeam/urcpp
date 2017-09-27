@@ -32,12 +32,14 @@ import committee.allBudgets
 import committee.allProjects
 import committee.allFiles
 import committee.allLabor
+
 # import committee.vote
 import committee.allVotes
 import committee.castVote
 
 #Chair pages
 import chair.chair
+import chair.awardLetters
 import chair.setParameters
 import chair.manageCommittee
 

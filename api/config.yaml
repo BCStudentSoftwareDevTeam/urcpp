@@ -59,6 +59,32 @@ allProjectsTable:
   - title: "Status"
     fieldName: "status"
 
+# Controls the table columns in the awardLetter.html table
+awardLetterTable:
+  - title: "Duration"
+    fieldName: "duration"
+  - title: "Start Date"
+    fieldName: "startDate"
+  - title: "End Date"
+    fieldName: "endDate"
+  - title: "Amount Funded"
+    fieldName: "funding"
+  - title: "Amount Stipend"
+    fieldName: "stipend"
+  - title: "# Students"
+    fieldName: "numberStudents"
+  - title: "Email"
+    fieldName: "email"
+    
+# Controls the fields that are added up to get a total budget
+totalBudget:
+  - "facultyStipend"
+  - "miles"
+  - "otherTravel"
+  - "equipment"
+  - "materials"
+  - "other"
+
 # Controls the menu for the committee interfaces
 committee:
   - title: "Projects"
@@ -85,6 +111,9 @@ chair:
   - title: "Manage Committee"
     link: "manageCommittee"
     longtitle: "Manage Committee Members"
+  - title: "Award Letters"
+    link: "awardLetters"
+    longtitle: "Send Award Emails to Faculty"
   # - title: "Manage Committee Members"
   #   link: "manageCommittee"
   #   longtitle: "Manage URCPP Committee Members"
@@ -170,6 +199,7 @@ models:
     - LDAPStudents
     - Programs
   dynamic:
+    - EmailTemplates
     - Budget
     - Collaborators
     - Parameters
