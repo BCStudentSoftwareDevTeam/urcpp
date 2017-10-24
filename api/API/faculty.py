@@ -126,7 +126,7 @@ def getFacultyForProject (pid):
   else:
     return None
 
-def getFacultyWithAcceptedProjects():
+def getFacultyWithAcceptedProjects(year=None):
   """ gets the faculty that have projects that have been accepted
   
       Returns:
@@ -139,6 +139,8 @@ def getFacultyWithAcceptedProjects():
                         .join(Projects)
                         .where(Projects.status == cfg["projectStatus"]["accept"])
           )
+  if year is not None:
+    facQ.where(Projects.year == year)
   if facQ.exists():
     return facQ.execute()
   else:
@@ -154,6 +156,7 @@ def getFacultyWithRejectedProjects():
                         .join(Projects)
                         .where(Projects.status == cfg["projectStatus"]["reject"])
           )
+          
   if facQ.exists():
     return facQ.execute()
   else:

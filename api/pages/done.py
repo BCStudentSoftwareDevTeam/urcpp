@@ -84,7 +84,7 @@ def project_GET (pID, username, year):
    # All of our queries
   proj = getProjectByID(pID)
   parameters = getCurrentParameters()
-  collaborators = getCollaboratorsById(pID)
+  collaborators = getCollaboratorsByProjectId(pID)
   uploadedFiles = [];
 
   if request.referrer:
