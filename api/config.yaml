@@ -220,8 +220,8 @@ tag: "urcpp"
 timeout: 10
 
 projectStatus:
-  accept: Accept
-  reject: Deny
+  Accept: Accept
+  Reject: Deny
   withdrawn: Withdrawn
   # This means they have not yet hit "Submit"
   Incomplete: Incomplete
@@ -232,10 +232,10 @@ projectStatusAction:
   Start:
     msg: "Start your application"
     url: "/create"
-  accept: 
+  Accept: 
     msg: "Your application has been accepted"
     url: "/review"
-  reject:
+  Reject:
     msg: "Your application has been denied"
     url: "/review"
   # Not sure what to do if withdrawn
@@ -293,4 +293,4 @@ downloads:
 #    irb: "%%username%%-irb.%%thing%%"
 
 termDefinition:
-  serviceToCommunity: "A collaborative partnership between the college and the community. We believe that ‚Äúcollaborative‚Äù is a key word. The service-learning project should be relevant and beneficial to both the college and the community and should result from shared dialogue and negotiation."
+  serviceToCommunity: "A collaborative partnership between the college and the community. We believe that ìcollaborativeî is a key word. The service-learning project should be relevant and beneficial to both the college and the community and should result from shared dialogue and negotiation."
