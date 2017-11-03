@@ -226,7 +226,7 @@ projectStatus:
   # This means they have not yet hit "Submit"
   Incomplete: Incomplete
   # This means they are done, but not reviewed
-  pending: Pending
+  Pending: Pending
 
 projectStatusAction:
   Start:
@@ -247,7 +247,7 @@ projectStatusAction:
     msg: "Complete your application"
     url: "/create"
   # This means they are done, but not reviewed
-  pending:
+  Pending:
     msg: "Review your application"
     url: "/review"
     
