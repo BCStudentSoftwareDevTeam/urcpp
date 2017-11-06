@@ -46,7 +46,7 @@ def updateStatus_POST ():
       m = dict(data)
       proj.status = m[str(proj.pID)][0]
       proj.save()
-      if proj.status == "withdrawn":
+      if proj.status == "Withdrawn":
         print "project status: ", proj.status
         removeFiles(g.user.username)  
     except:
@@ -59,7 +59,7 @@ def updateStatus_POST ():
       projectToSetStatus.save()
       
       professor = getFacultyForProject(key)
-      if projectToSetStatus.status == "withdrawn":
+      if projectToSetStatus.status == "Withdrawn":
         print "project status: ", projectToSetStatus.status
         removeFiles(professor.username.username)
       
