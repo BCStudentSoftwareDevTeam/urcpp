@@ -26,6 +26,7 @@ from playhouse.shortcuts import model_to_dict as m2d
 
 # Import the models
 from models import *
+from flask_mail import Mail
 
 # For unique values
 import uuid
@@ -55,6 +56,8 @@ app.config.from_pyfile("settings.py")
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+mail = Mail(app)  #mail using configuration values of the application
+
 
 from api.switch import switch
 from api.config import load_config
