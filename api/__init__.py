@@ -42,5 +42,6 @@ import chair.chair
 import chair.awardLetters
 import chair.setParameters
 import chair.manageCommittee
+import chair.email_accepted
 
 import flaskLogin
