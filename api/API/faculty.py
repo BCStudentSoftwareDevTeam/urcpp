@@ -99,7 +99,7 @@ def getFacultyWithPendingProjects ():
   """
   facQ = (URCPPFaculty.select()
                         .join(Projects)
-                        .where(Projects.status == cfg["projectStatus"]["pending"])
+                        .where(Projects.status == cfg["projectStatus"]["Pending"])
                         .where(Projects.pID == URCPPFaculty.pID)
                         )
 
@@ -126,7 +126,7 @@ def getFacultyForProject (pid):
   else:
     return None
 
-def getFacultyWithAcceptedProjects():
+def getFacultyWithAcceptedProjects(year=None):
   """ gets the faculty that have projects that have been accepted
   
       Returns:
@@ -137,8 +137,10 @@ def getFacultyWithAcceptedProjects():
   
   facQ = ( URCPPFaculty.select()
                         .join(Projects)
-                        .where(Projects.status == cfg["projectStatus"]["accept"])
+                        .where(Projects.status == cfg["projectStatus"]["Accept"])
           )
+  if year is not None:
+    facQ.where(Projects.year == year)
   if facQ.exists():
     return facQ.execute()
   else:
@@ -152,8 +154,9 @@ def getFacultyWithRejectedProjects():
   """
   facQ = ( URCPPFaculty.select()
                         .join(Projects)
-                        .where(Projects.status == cfg["projectStatus"]["reject"])
+                        .where(Projects.status == cfg["projectStatus"]["Reject"])
           )
+          
   if facQ.exists():
     return facQ.execute()
   else:

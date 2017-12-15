@@ -9,7 +9,8 @@ def irbyn_GET ():
   proj = getProject(g.user.username)
   
   if proj.status == cfg["projectStatus"]["Pending"]:
-    return redirect(url_for("main"))
+    flash("Application has already been submited.")
+    return redirect(url_for("main_with_username", username = g.user.username))
   
   return render_template (  "pages/irbyn.html",
                             proj = proj,
@@ -25,7 +26,8 @@ def irbyn_POST ():
   proj = getProject(g.user.username)
   
   if proj.status == cfg["projectStatus"]["Pending"]:
-    return redirect(url_for("main"))
+    return redirect(url_for("main_with_username", username = g.user.username))
+    
   proj.humanSubjects = (1 if request.form["irb"] == "Yes" else 0 )
   proj.save()
   

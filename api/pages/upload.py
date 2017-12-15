@@ -37,7 +37,7 @@ def generic_file_upload (uploadType):
     # All of our queries
     
     proj = getProject(g.user.username)
-
+    cycle = getCurrentParameters().year
     prevFilepath = checkForFile(g.user.username, uploadType, applicationCycle.year)
     prev = prevFilepath
     #prevFilepath = prev.split("/").pop()
@@ -50,6 +50,7 @@ def generic_file_upload (uploadType):
                               uploadType = uploadType,
                               fullpath = prev,
                               prevFilepath = prevFilepath,
+                              cycle = cycle
                             )
   else:
     return "File upload type not recognized."
@@ -59,6 +60,23 @@ def removeLeadingDot (line):
   line = re.sub('[.]', '', line)
   return line
 
+@app.route('/upload/removefile/<uploadType>/<username>', methods=['POST'])
+def remove_file(username, uploadType):
+  if username != authUser(request.environ):
+    return { "response": cfg["response"]["badUsername"] }
+  else:
+    rawpath = cfg["filepaths"]["directory"]
+    cycle   = getCurrentParameters()
+    rawpath = rawpath.replace("%%applicationCycle%%", str(cycle.year))
+    path    = rawpath.replace("%%username%%", username)
+    path    = os.path.join(base_path, path)
+    previous_file = checkForFile(username, uploadType, cycle.year)
+
+    if previous_file:
+      app.logger.info("{0} removing {1}.".format(username, path))
+      os.remove(os.path.join(path, previous_file))
+      return "File Deleted"
+  return "Error, File Not Deleted"
 # Captures file upload from the dropzone and saves to server
 @app.route('/v1/upload/<whichfile>/<username>', methods=['POST'])
 def upload_file(whichfile, username):

@@ -59,6 +59,32 @@ allProjectsTable:
   - title: "Status"
     fieldName: "status"
 
+# Controls the table columns in the awardLetter.html table
+awardLetterTable:
+  - title: "Duration"
+    fieldName: "duration"
+  - title: "Start Date"
+    fieldName: "startDate"
+  - title: "End Date"
+    fieldName: "endDate"
+  - title: "Amount Funded"
+    fieldName: "funding"
+  - title: "Amount Stipend"
+    fieldName: "stipend"
+  - title: "# Students"
+    fieldName: "numberStudents"
+  - title: "Email"
+    fieldName: "email"
+    
+# Controls the fields that are added up to get a total budget
+totalBudget:
+  - "facultyStipend"
+  - "miles"
+  - "otherTravel"
+  - "equipment"
+  - "materials"
+  - "other"
+
 # Controls the menu for the committee interfaces
 committee:
   - title: "Projects"
@@ -85,6 +111,9 @@ chair:
   - title: "Manage Committee"
     link: "manageCommittee"
     longtitle: "Manage Committee Members"
+  - title: "Award Letters"
+    link: "awardLetters"
+    longtitle: "Email all faculties with accepted projects"
   # - title: "Manage Committee Members"
   #   link: "manageCommittee"
   #   longtitle: "Manage URCPP Committee Members"
@@ -170,6 +199,7 @@ models:
     - LDAPStudents
     - Programs
   dynamic:
+    - EmailTemplates
     - Budget
     - Collaborators
     - Parameters
@@ -190,9 +220,9 @@ tag: "urcpp"
 timeout: 10
 
 projectStatus:
-  accept: Accept
-  reject: Deny
-  withdrawn: Withdrawn
+  Accept: Accept
+  Reject: Deny
+  Withdrawn: Withdrawn
   # This means they have not yet hit "Submit"
   Incomplete: Incomplete
   # This means they are done, but not reviewed
@@ -202,10 +232,10 @@ projectStatusAction:
   Start:
     msg: "Start your application"
     url: "/create"
-  accept: 
+  Accept: 
     msg: "Your application has been accepted"
     url: "/review"
-  reject:
+  Reject:
     msg: "Your application has been denied"
     url: "/review"
   # Not sure what to do if withdrawn
@@ -263,4 +293,4 @@ downloads:
 #    irb: "%%username%%-irb.%%thing%%"
 
 termDefinition:
-  serviceToCommunity: "A collaborative partnership between the college and the community. We believe that “collaborative” is a key word. The service-learning project should be relevant and beneficial to both the college and the community and should result from shared dialogue and negotiation."
+  serviceToCommunity: "A collaborative partnership between the college and the community. We believe that collaborative is a key word. The service-learning project should be relevant and beneficial to both the college and the community and should result from shared dialogue and negotiation."

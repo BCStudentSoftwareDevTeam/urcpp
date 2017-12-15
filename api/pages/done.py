@@ -16,8 +16,9 @@ def done_GET ():
   collaborators = getCollaborators(g.user.username)
   uploadedFiles = [];
   
-  if not proj.status == cfg["projectStatus"]["Incomplete"]:
-    return redirect(url_for("main"))
+  if proj.status == cfg["projectStatus"]["Pending"]:
+    flash("Application has already been submited.")
+    return redirect(url_for("main_with_username", username = g.user.username))
   
   for files in cfg["filepaths"]["allowedFileNames"]:
     if checkForFile != "":
@@ -83,7 +84,7 @@ def project_GET (pID, username, year):
    # All of our queries
   proj = getProjectByID(pID)
   parameters = getCurrentParameters()
-  collaborators = getCollaboratorsById(pID)
+  collaborators = getCollaboratorsByProjectId(pID)
   uploadedFiles = [];
 
   if request.referrer:

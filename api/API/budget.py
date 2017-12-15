@@ -1,5 +1,6 @@
 from ..everything import *
 from projects import getProject
+
 def getBudget (username):
    """  gets the budget for a user in the current application year.
     
@@ -22,7 +23,22 @@ def getBudget (username):
         return None
    else:
       return None
-      
+
+def getTotalBudget(bID):
+    """ Returns the sum of the budget """ 
+    budgQ = (Budget.select()
+          .where (Budget.bID == bID)
+          )
+    if budgQ.exists():
+        budget = budgQ.get()
+        total = 0
+        for fund in cfg["totalBudget"]:
+            total += int(getattr(budget, fund))
+        return total
+    else:
+        return None
+
+
 def getAllBudgets ():
   """ Gets all of the budgets for the current application cycle """
   year = getCurrentCycle()

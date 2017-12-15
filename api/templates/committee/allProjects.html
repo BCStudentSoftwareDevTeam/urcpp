@@ -59,10 +59,10 @@
               {% elif column['fieldName'] == "status" %}
                 {% if person.pID[column['fieldName']] != cfg["projectStatus"]["incomplete"] %}
                   <select class="form-control" id = "{{person.pID.pID}}-status" onchange = "updateStatus({{person.pID.pID}});">
-                    <option value = "pending" {% if person.pID.status == "pending" %}selected{% endif%}>{{cfg["projectStatus"]["pending"]}}</option>
-                    <option value = "withdrawn"{% if person.pID.status == "withdrawn" %}selected{% endif%}>{{cfg["projectStatus"]["withdrawn"]}}</option>
-                    <option value = "reject"{% if person.pID.status == "reject" %}selected{% endif%}>{{cfg["projectStatus"]["reject"]}}</option>
-                    <option value = "accept"{% if person.pID.status == "accept" %}selected{% endif%}>{{cfg["projectStatus"]["accept"]}}</option>
+                    <option value = "Pending" {% if person.pID.status == "Pending" %}selected{% endif%}>{{cfg["projectStatus"]["Pending"]}}</option>
+                    <option value = "Withdrawn"{% if person.pID.status == "Withdrawn" %}selected{% endif%}>{{cfg["projectStatus"]["Withdrawn"]}}</option>
+                    <option value = "Reject"{% if person.pID.status == "Reject" %}selected{% endif%}>{{cfg["projectStatus"]["Reject"]}}</option>
+                    <option value = "Accept"{% if person.pID.status == "Accept" %}selected{% endif%}>{{cfg["projectStatus"]["Accept"]}}</option>
                   </select>
                 {% else %}{{person.pID[column['fieldName']]}}{% endif %}
               {% else %}  

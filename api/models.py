@@ -169,3 +169,7 @@ class Voting (DynamicModel):
   timeline              = FloatField(null = True)
   comments              = TextField(null = True)
   
+class EmailTemplates (DynamicModel):
+  eID                   = PrimaryKeyField()
+  Body                  = TextField(null = True)
+  Subject               = TextField(null = True)
