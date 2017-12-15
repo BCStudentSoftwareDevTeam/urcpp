@@ -35,7 +35,7 @@
 function(isConfirm){
   if (isConfirm) {
     var postValue = {};
-    postValue[projectID] = 'withdrawn';
+    postValue[projectID] = 'Withdrawn';
     $.post("/committee/allProjects/updateStatus", postValue, function(result){
     });
     window.location.replace("/");

@@ -25,7 +25,7 @@ def getCollaborators (username):
     .join (URCPPFaculty, on = (URCPPFaculty.pID == Collaborators.pID))
     .where (URCPPFaculty.username == username)
     .join(Projects, on =(Projects.pID == Collaborators.pID))
-    .where (Projects.status != "withdrawn")
+    .where (Projects.status != "Withdrawn")
     )
 
   if collaborators.exists():
