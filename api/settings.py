@@ -1,6 +1,7 @@
-MAIL_SERVER='your-server',
-MAIL_PORT=25,
-MAIL_USE_SSL=True,
-DEBUG=True,
-MAIL_USERNAME="your_email@example.com",
-MAIL_PASSWORD="your-password"
+MAIL_SERVER = 'smtp.office365.com'
+MAIL_PORT = 587
+MAIL_DEBUG = True
+MAIL_USERNAME = "email"
+MAIL_PASSWORD = "passypass"
+MAIL_SUPRESS_SEND = False
+TESTING = False
