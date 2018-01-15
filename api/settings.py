@@ -1,4 +1,4 @@
-MAIL_SERVER = 'smtp.office365.com'
+MAIL_SERVER = 'server.com'
 MAIL_PORT = 587
 MAIL_DEBUG = True
 MAIL_USERNAME = "email"
