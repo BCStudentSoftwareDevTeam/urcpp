@@ -2,6 +2,7 @@ from ..everything import *
 from ..API.faculty import getFacultyWithProjects
 from ..pages.upload import checkForFile
 from ..API.parameters import getCurrentParameters
+from ..API.parameters import getParametersByYear
 from flask import send_file
 
 import os, pprint, zipfile, uuid, time
@@ -11,14 +12,18 @@ import shutil
 
 
 @app.route("/committee/allFiles", methods = ["GET"])
+@app.route("/committee/allFiles/<int:year>", methods = ["GET"])
 @login_required
-def allFiles_GET ():
+def allFiles_GET(year=None):
   if not g.user.isCommitteeMember:
     abort(403)
   
-  # we need the year to the current projects
-  # TODO: remove application cycle or get parameters
-  parameters = getCurrentParameters()
+  if year is None:
+    parameters = getCurrentParameters()
+  else:
+    flash("You are viewing files from applicationCycle {}".format(year), 'warning')
+    parameters = getParametersByYear(year)
+    
   # All of our queries
   faculty = getFacultyWithProjects(parameters.year)
   prevFilepath = {}
@@ -37,7 +42,8 @@ def allFiles_GET ():
         if checkForFile(fac.username.username, uploadType, parameters.year) != "":
           prevFilepath[fac.username.username][uploadType]= checkForFile(fac.username.username, uploadType, parameters.year)
       allFac = [fac.username.username for fac in faculty]
-
+  else:
+    allFac = []
   # Does the zipping
   shutil.make_archive(yearDir, 'zip', yearDir)
     

@@ -53,6 +53,7 @@ app = Flask(__name__)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+login_manager.login_message = None
 
 from api.switch import switch
 from api.config import load_config

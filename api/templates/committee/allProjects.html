@@ -2,14 +2,10 @@
 {% set currentPage = "allProjects" %}
 
 {% block body %}
-
+{% include 'snips/messages.html' %}
 <h1> Projects Summary </h1>
 <!--Menu-->
-<ul class="nav nav-tabs">
-  {% for menuItem in cfg["committee"] %}
-    <li role="presentation"><a href="{{menuItem['link']}}">{{menuItem['title']}}</a></li>
-  {% endfor %}
-</ul>
+{% include 'committee/_navTabs.html' %}
 <p></p>
 
 <div class = "row">

@@ -1,20 +1,26 @@
 from ..everything import *
 from ..API.faculty import getFacultyWithProjects
 from ..API.parameters import getCurrentParameters
+from ..API.parameters import getParametersByYear
 from ..API.makeExcel import getFilename
 
 from ..pages import *
 
 
 @app.route("/committee/allBudgets", methods = ["GET"])
+@app.route("/committee/allBudgets/<int:year>", methods = ["GET"])
 @login_required
-def allBudgets_GET ():
+def allBudgets_GET(year=None):
   if not g.user.isCommitteeMember:
     return abort(403)
+    
+  if year is None:
+    params = getCurrentParameters()
+  else:
+    flash("You are viewing budgets from applicationCycle {}".format(year), 'warning')
+    params = getParametersByYear(year)
   
-  # we need the current year to get the current projects
-  # TODO: either keep this or keep line 22 not both
-  params = getCurrentParameters()
+  
   # All of our queries
   faculty = getFacultyWithProjects(params.year)
   
