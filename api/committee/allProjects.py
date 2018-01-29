@@ -4,17 +4,24 @@ from ..API.projects import getProjectByID
 from ..API.collaborators import getAllCollaborators
 from ..API.voting import getVote
 from ..API.parameters import getCurrentParameters
+from ..API.parameters import getParametersByYear
 from ..API.files import removeFiles
 from ..API.projects import getProject
 
+@app.route("/committee/allProjects/<int:year>", methods = ["GET"])
 @app.route("/committee/allProjects", methods = ["GET"])
 @login_required
-def allProjects_GET ():
+def allProjects_GET (year=None):
   if not g.user.isCommitteeMember:
     abort(403)
   # All of our queries
   # we need the current year to get current faculty with projects
-  currentCycle = getCurrentParameters()
+  if year is None:
+    currentCycle = getCurrentParameters()
+  else:
+    flash("You are viewing projects from applicationCycle: {}".format(year), category='warning')
+    currentCycle = getParametersByYear(year)
+    
   
   faculty =  getFacultyWithProjects(currentCycle.year)
   collaborators = getAllCollaborators()

@@ -4,11 +4,7 @@
 {% block body %}
 <h1> Cast Your Votes </h1>
 <!--Menu-->
-<ul class="nav nav-tabs">
-  {% for menuItem in cfg["committee"] %}
-    <li role="presentation"><a href="{{menuItem['link']}}">{{menuItem['title']}}</a></li>
-  {% endfor %}
-</ul>
+{% include 'committee/_navTabs.html' %}
 <p></p>
 <p style = "font-size: 150%; margin-bottom: 20px;">Use the table below to cast your votes for each project. You can change your vote at any time.</p>
 <div class = "row">

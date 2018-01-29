@@ -73,7 +73,8 @@ def review_GET ():
                             params = parameters,
                             collabs = collaborators,
                             previous_url = previous_url,
-                            ldap = g.user
+                            ldap = g.user,
+                            username = g.user.username
                           )
 
 @app.route("/urcpp/v1/project/<pID>/<username>/<year>", methods = ["GET"])
@@ -102,5 +103,6 @@ def project_GET (pID, username, year):
                             uploadedFiles = uploadedFiles,
                             params = parameters,
                             collabs = collaborators,
-                            previous_url = previous_url
+                            previous_url = previous_url,
+                            username=username
                           )

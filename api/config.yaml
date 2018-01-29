@@ -88,19 +88,19 @@ totalBudget:
 # Controls the menu for the committee interfaces
 committee:
   - title: "Projects"
-    link: "allProjects"
+    link: "allProjects_GET"
     longtitle: "View all Projects"
   - title: "Files"
-    link: "allFiles"
+    link: "allFiles_GET"
     longtitle: "View all Files"
   - title: "Budgets"
-    link: "allBudgets"
+    link: "allBudgets_GET"
     longtitle: "View all Budgets"
   - title: "Labor"
-    link: "allLabor"
+    link: "allLabor_GET"
     longtitle: "View all Labor Allocations"
   - title: "Review Votes"
-    link: "allVotes"
+    link: "allVotes_GET"
     longtitle: "Review Votes"
     
 # Controls the menu for the chair interface

@@ -9,11 +9,10 @@ from ..API.parameters import getCurrentParameters
         ,methods = ['GET'])
 # Trying out temporal stuff
 def document(username,fileType):
-  if username and fileType:
-    if request.method == GET:
-      defaults={'applicationYear' : getCurrentParameters().year }
-    
-    return app.add_url_rule("/document",username,fileType,defaults)
+    return redirect(url_for("documentDownload", 
+                            username=username,
+                            fileType=fileType,
+                            applicationYear=getCurrentParameters().year))
         
 @app.route("/document/<username>/<fileType>/<applicationYear>", methods = ['GET'])
 @login_required
