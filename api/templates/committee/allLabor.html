@@ -2,13 +2,13 @@
 {% set currentPage = "allLabor" %}
 
 {% block body %}
-
+{% include 'snips/messages.html' %}
 <h1> Labor Summary </h1>
 
 <!--Menu-->
 <ul class="nav nav-tabs">
   {% for menuItem in cfg["committee"] %}
-    <li role="presentation"><a href="{{menuItem['link']}}">{{menuItem['title']}}</a></li>
+    <li role="presentation"><a href="{{url_for(menuItem['link'])}}">{{menuItem['title']}}</a></li>
   {% endfor %}
   {# if fac is empty we don't want to show the button. we perform two other tests like this #}
   {% if fac is not none %}

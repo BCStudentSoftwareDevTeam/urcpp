@@ -4,10 +4,6 @@
 {% block body %}
 <h1> Error!</h1>
 <!--Menu-->
-<ul class="nav nav-tabs">
-  {% for menuItem in cfg["committee"] %}
-    <li role="presentation"><a href="{{menuItem['link']}}">{{menuItem['title']}}</a></li>
-  {% endfor %}
-</ul>
+{% include 'committee/_navTabs.html' %}
 <h2>It appears you seek a project that does not exist. Contact <a href="mailto:heggens@berea.edu">Scott Heggen</a> if you believe this is a problem.</h2>
 {% endblock %}

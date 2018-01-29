@@ -4,7 +4,7 @@
 {# This page is for reviewing the votes made by all committee members #}
 
 {% block body %}
-
+{% include 'snips/messages.html' %}
 <!--why are there two scripts?-->
 <script>
   {% if fac is not none %}
@@ -18,11 +18,7 @@
 
 <h1> Voting Summary </h1>
 <!--Menu-->
-<ul class="nav nav-tabs">
-  {% for menuItem in cfg["committee"] %}
-    <li role="presentation"><a href="{{menuItem['link']}}">{{menuItem['title']}}</a></li>
-  {% endfor %}
-</ul>
+{% include 'committee/_navTabs.html' %}
 <p></p>
 <p style = "font-size: 150%; margin-bottom: 20px;">The table below shows the average of all committee members' votes.</p>
 <div class = "row">

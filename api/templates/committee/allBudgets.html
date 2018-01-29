@@ -2,13 +2,13 @@
 {% set currentPage = "allBudgets" %}
 
 {% block body %}
-
+{% include 'snips/messages.html' %}
 <h1> Budget Summary </h1>
 
 <!--Menu-->
 <ul class="nav nav-tabs">
   {% for menuItem in cfg["committee"] %}
-    <li role="presentation"><a href="{{menuItem['link']}}">{{menuItem['title']}}</a></li>
+    <li role="presentation"><a href="{{url_for(menuItem['link'])}}">{{menuItem['title']}}</a></li>
   {% endfor %}
   {% if fac is not none %}
   <li style="float: right;"><a href="/{{username}}/download/{{downloadFileName}}"><span class="glyphicon glyphicon-download-alt"></span> Download Budgets</a></li>

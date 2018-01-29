@@ -20,6 +20,14 @@ def getParameters(parameters_id):
   else:
     return None
 
+def getParametersByYear(year):
+  parameters = (Parameters.select()
+                    .where(Parameters.year == year))
+  if parameters.exists():
+    return parameters.get()
+  else:
+    return None
+  
 @app.route("/set/current_parameters/<int:parameters_id>", methods=["GET"])
 @login_required
 def set_current_parameters(parameters_id):
