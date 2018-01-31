@@ -81,7 +81,7 @@ def awardLetters_generate(username,pID):
   body = body.replace("@@Stipend@@",stipend)
   email_address = "%s@berea.edu" % (username)
   try:
-    acceptance_email = create_message(email_address , body)
+    acceptance_email = create_message(subject, email_address , body)
     mail.send(acceptance_email)
   except Exception as e:
       return {"mail_to": "Failed to send email to: %s" % (email_address)}

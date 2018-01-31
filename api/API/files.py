@@ -24,14 +24,14 @@ def removeFiles(username):
 
 
 
-def create_message(username_email, body):
+def create_message(subject, recipients, body):
   '''
   Parameters: 
     username_email(s) - Emails of the recipients
     body - The body of the email
   '''
-  msg = Message("Subject",
+  msg = Message(subject,
                   sender=app.config['MAIL_USERNAME'],
-                  recipients=[username_email])  #create a message instance
+                  recipients=[recipients])  #create a message instance
   msg.html = body
   return msg
