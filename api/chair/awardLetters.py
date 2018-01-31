@@ -4,6 +4,7 @@ from forms import ManageCommitteeForm
 from ..API.committee import addCommitteeMembers, removeCommitteeMembers, getCommitteeMembers
 from ..API.faculty import getFacultyWithAcceptedProjects
 from ..API.budget import getTotalBudget
+from ..API.files import create_message
 
 
 from ..pages import *
@@ -60,7 +61,6 @@ def awardLetters_generate(username,pID):
   if not g.user.isCommitteeMember:
     abort(403)
   # All of our queries
-  print(pID)
   project = Projects.get(Projects.pID == pID)
   # we need the current year to get current faculty with projects
   template = EmailTemplates.get(EmailTemplates.eID == 1)
@@ -80,19 +80,8 @@ def awardLetters_generate(username,pID):
   body = body.replace("@@Start Date@@",start)
   body = body.replace("@@End Date@@",end)
   body = body.replace("@@Stipend@@",stipend)
-  
-  mail_to = "mailto:%s@berea.edu?subject=%s&body=%s" % (username, subject, body)
-  
-  #Replace common html tags to ascii hex values
-  mail_to = mail_to.replace("&nbsp;"," ")
-  mail_to = mail_to.replace("&ldquo;","%22")
-  mail_to = mail_to.replace("&rdquo;","%22")
-  mail_to = mail_to.replace("&rsquo;","%27")
-  mail_to = mail_to.replace(" ", "%20")
-  mail_to = mail_to.replace("\n", "%0A")
-  mail_to = mail_to.replace("<p>","")
-  mail_to = mail_to.replace("</p>","%0A")
-  
+  acceptance_email = create_message("%s@berea.edu" % (username), body)
+  mail.send(acceptance_email)
+  mail_to = "JESSON IS HERE"
+
   return jsonify({"mail_to": mail_to})
-  
-  
