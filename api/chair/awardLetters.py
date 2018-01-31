@@ -36,11 +36,10 @@ def awardLetters_save ():
     abort(403)
   # All of our queries
   # we need the current year to get current faculty with projects
-  template = EmailTemplates.get(EmailTemplates.eID == 1)
+  template, created = EmailTemplates.get_or_create(eID = 1)
   template.Body = request.form['body']
   template.Subject = request.form['subject']  
   template.save()
-  template = EmailTemplates.get(EmailTemplates.eID == 1)
   return jsonify({"success": True})
 
 @app.route("/chair/awardLetters/get", methods = ["GET"])
@@ -55,7 +54,7 @@ def awardLetters_get ():
   subject = template.Subject
   return jsonify({"body": body, "subject":subject})
   
-@app.route("/chair/awardLetters/generate/<username>/<pID>", methods = ["GET"])
+@app.route("/chair/awardLetters/send/<username>/<pID>", methods = ["GET"])
 @login_required
 def awardLetters_generate(username,pID):
   if not g.user.isCommitteeMember:
@@ -80,8 +79,11 @@ def awardLetters_generate(username,pID):
   body = body.replace("@@Start Date@@",start)
   body = body.replace("@@End Date@@",end)
   body = body.replace("@@Stipend@@",stipend)
-  acceptance_email = create_message("%s@berea.edu" % (username), body)
-  mail.send(acceptance_email)
-  mail_to = "JESSON IS HERE"
+  email_address = "%s@berea.edu" % (username)
+  try:
+    acceptance_email = create_message(email_address , body)
+    mail.send(acceptance_email)
+  except Exception as e:
+      return {"mail_to": "Failed to send email to: %s" % (email_address)}
 
-  return jsonify({"mail_to": mail_to})
+  return jsonify({"mail_to":"Email sent to: %s"  % (email_address) })

@@ -1,14 +1,27 @@
 function getEmail(pID, username) {
     $.ajax({
-        url: '/chair/awardLetters/generate/'+ username +'/' + String(pID),
+        url: '/chair/awardLetters/send/'+ username +'/' + String(pID),
         dataType: 'json',
         type: 'GET',
         success: function(response) {
-            window.location.href = response['mail_to'];
-             console.log(response)
+          result = response["mail_to"]
+
+          if (result.includes("Failed")){
+            $("#flash_message_div").removeClass("alert-success")
+            $("#flash_message_div").addClass("alert-danger")
+            $("#flash_message_div").show()
+          }else{
+            $("#flash_message_div").addClass("alert-success")
+            $("#flash_message_div").removeClass("alert-danger")
+            $("#flash_message_div").show()
+          }
+            $("#flash_message").text(result)
         },
         error: function(error) {
-            console.log(error);
+            $("#flash_message_div").removeClass("alert-success")
+            $("#flash_message_div").addClass("alert-danger")
+            $("#flash_message_div").show()
+            $("#flash_message").text("Failed to send email")
         }
     });
 }
