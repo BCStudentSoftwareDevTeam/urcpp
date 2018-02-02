@@ -19,9 +19,11 @@ def awardLetters ():
   currentCycle = getCurrentParameters()
   faculty =  getFacultyWithAcceptedProjects(currentCycle.year)
   funding = {}
-  for entry in faculty:
-    bID = entry.pID.budgetID
-    funding[bID] = getTotalBudget(bID)
+  
+  if faculty is not None:
+    for entry in faculty:
+      bID = entry.pID.budgetID
+      funding[bID] = getTotalBudget(bID)
   return render_template (  "chair/awardLetters.html",
                             username = g.user.username,
                             cfg = cfg,
