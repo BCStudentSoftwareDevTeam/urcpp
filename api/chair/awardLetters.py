@@ -4,6 +4,7 @@ from forms import ManageCommitteeForm
 from ..API.committee import addCommitteeMembers, removeCommitteeMembers, getCommitteeMembers
 from ..API.faculty import getFacultyWithAcceptedProjects
 from ..API.budget import getTotalBudget
+from ..API.files import create_message
 
 
 from ..pages import *
@@ -35,11 +36,10 @@ def awardLetters_save ():
     abort(403)
   # All of our queries
   # we need the current year to get current faculty with projects
-  template = EmailTemplates.get(EmailTemplates.eID == 1)
+  template, created = EmailTemplates.get_or_create(eID = 1)
   template.Body = request.form['body']
   template.Subject = request.form['subject']  
   template.save()
-  template = EmailTemplates.get(EmailTemplates.eID == 1)
   return jsonify({"success": True})
 
 @app.route("/chair/awardLetters/get", methods = ["GET"])
@@ -54,13 +54,12 @@ def awardLetters_get ():
   subject = template.Subject
   return jsonify({"body": body, "subject":subject})
   
-@app.route("/chair/awardLetters/generate/<username>/<pID>", methods = ["GET"])
+@app.route("/chair/awardLetters/send/<username>/<pID>", methods = ["GET"])
 @login_required
 def awardLetters_generate(username,pID):
   if not g.user.isCommitteeMember:
     abort(403)
   # All of our queries
-  print(pID)
   project = Projects.get(Projects.pID == pID)
   # we need the current year to get current faculty with projects
   template = EmailTemplates.get(EmailTemplates.eID == 1)
@@ -80,19 +79,11 @@ def awardLetters_generate(username,pID):
   body = body.replace("@@Start Date@@",start)
   body = body.replace("@@End Date@@",end)
   body = body.replace("@@Stipend@@",stipend)
-  
-  mail_to = "mailto:%s@berea.edu?subject=%s&body=%s" % (username, subject, body)
-  
-  #Replace common html tags to ascii hex values
-  mail_to = mail_to.replace("&nbsp;"," ")
-  mail_to = mail_to.replace("&ldquo;","%22")
-  mail_to = mail_to.replace("&rdquo;","%22")
-  mail_to = mail_to.replace("&rsquo;","%27")
-  mail_to = mail_to.replace(" ", "%20")
-  mail_to = mail_to.replace("\n", "%0A")
-  mail_to = mail_to.replace("<p>","")
-  mail_to = mail_to.replace("</p>","%0A")
-  
-  return jsonify({"mail_to": mail_to})
-  
-  
+  email_address = "%s@berea.edu" % (username)
+  try:
+    acceptance_email = create_message(subject, email_address , body)
+    mail.send(acceptance_email)
+  except Exception as e:
+      return {"mail_to": "Failed to send email to: %s" % (email_address)}
+
+  return jsonify({"mail_to":"Email sent to: %s"  % (email_address) })
