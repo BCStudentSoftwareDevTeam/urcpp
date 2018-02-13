@@ -5,7 +5,7 @@
 {% include 'snips/messages.html' %}
 <h1> Projects Summary </h1>
 <!--Menu-->
-{% include 'committee/_navTabs.html' %}
+{% include 'committee/nav_tabs.html' %}
 <p></p>
 
 <div class = "row">
@@ -82,4 +82,8 @@
   };
 </script>
 
+{% endblock %}
+
+{% block footer_imports %}
+<script type="text/javascript" src="/static/js/pages/awardLetters.js"></script>
 {% endblock %}

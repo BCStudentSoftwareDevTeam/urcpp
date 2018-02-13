@@ -8,3 +8,4 @@ otp/static/qr
 secret_config.yaml
 api/static/files/
 secret*
+settings.py

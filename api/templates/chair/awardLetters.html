@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% set currentPage = "allProjects" %}
+{% set currentPage = "awardLetters" %}
 
 {% block body %}
 
@@ -10,11 +10,18 @@
   {% endfor %}
 </ul>
 
+<div id="flash_message_div" class="alert alert-danger alert-dismissible" role="alert" hidden>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <span aria-hidden="true">×</span></button>
+    <p id="flash_message">You should not be seeing this</p>
+</div>
+
+
 <div class="col-md-12">
   <h1 class ="col-md-6 pull-left"> Award Letters </h1>
 </div>
 
-<button data-toggle="modal" data-target="#emailModal" onclick="getLetter()" type='button' class=" text-center pull-right btn btn-default btn-sm">
+<button data-toggle="modal" data-target="#emailTemplateModal" onclick="getLetter()" type='button' class=" text-center pull-right btn btn-default btn-sm">
   <p class="">Edit Email &nbsp
     <i class="glyphicon glyphicon-pencil"></i>
   </p>
@@ -65,9 +72,10 @@
                 {{funding[person.pID.budgetID]}}
               <!--Handle Everything else-->
               {% elif column['fieldName'] == "email" %}
-              <button type='button' onclick="getEmail('{{person.pID.pID}}', '{{person.username.username}}')" class="btn btn-default btn-md">
+              <button type='button' data-toggle="modal" data-target="#emailPreviewModal" data-name="{{person.username.firstname}} {{person.username.lastname}}" data-project-title = "{{person.pID.title}}" data-pid="{{person.pID.pID}}" class="btn btn-default btn-md">
                 <i class="glyphicon glyphicon-envelope"></i>
               </button>
+
               {% else %}  
                 {{person.pID[column['fieldName']]}}
               {% endif %}
@@ -81,10 +89,15 @@
 </div>
 
 
-<script src="/static/js/ext/ckeditor/ckeditor.js"></script>
-<script src="/static/js/pages/awardLetters.js"></script>
+
 
 
 {% include "snips/projectsModal.html" %}
 {% include "chair/emailTemplate.html" %}
+{% include "chair/_emailPreviewModal.html" %}
+
+{% endblock %}
+
+{% block footer_imports %}
+<script src="/static/js/ext/ckeditor/ckeditor.js"></script>
 {% endblock %}
