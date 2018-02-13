@@ -31,10 +31,10 @@ function updateFilters () {
     // Iterates each status option
     for (var i = 0; i < statii.length; i++ ) {
       if (!statii[i].checked && 
-          projectStatii[j].textContent.toLowerCase().trim() == statii[i].value.trim()) {
+          projectStatii[j].textContent.toLowerCase().trim() == statii[i].value.toLowerCase().trim()) {
         rows[j].style.display = 'none';
       } else if (statii[i].checked && 
-                 projectStatii[j].textContent.toLowerCase().trim() == statii[i].value.trim()) {
+                 projectStatii[j].textContent.toLowerCase().trim() == statii[i].value.toLowerCase().trim()) {
         rows[j].style.display = "table-row";
       }
     }
@@ -47,4 +47,6 @@ $(document).ready(function () {
   $('#incomplete').attr('checked', false);
   updateFilters();
   countBudgetRows();
+  $('#incomplete').attr('checked', false);
+  $("[ data-toggle='popover']").popover();
 });
