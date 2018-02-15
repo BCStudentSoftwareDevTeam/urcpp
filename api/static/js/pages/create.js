@@ -9,7 +9,7 @@ $(document).ready(function(){
 function changeEndDate() {
   var startDateStr = $("#startDate").val();
   var startDateArr= startDateStr.split("-")
-  var endDateObj = new Date(startDateArr[2], startDateArr[0], startDateArr[1]);
+  var endDateObj = new Date(startDateArr[2], startDateArr[0]-1, startDateArr[1]);
   var weeks = $("#duration").val();
   endDateObj.setDate(endDateObj.getDate() + weeks*7);
   console.log(endDateObj);
