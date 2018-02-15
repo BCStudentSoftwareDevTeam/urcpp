@@ -1,5 +1,6 @@
 from ..everything import *
 from projects import getProject
+from .parameters import getCurrentParameters
 
 def getBudget (username):
    """  gets the budget for a user in the current application year.
@@ -29,11 +30,16 @@ def getTotalBudget(bID):
     budgQ = (Budget.select()
           .where (Budget.bID == bID)
           )
+    parameters = getCurrentParameters()
     if budgQ.exists():
         budget = budgQ.get()
         total = 0
         for fund in cfg["totalBudget"]:
-            total += int(getattr(budget, fund))
+            if fund == 'miles':
+                amount = int(getattr(budget, fund)) * parameters.mileageRate
+            else:
+                amount = int(getattr(budget, fund))
+            total += amount
         return total
     else:
         return None
