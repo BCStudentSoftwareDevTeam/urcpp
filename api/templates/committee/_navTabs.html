@@ -1,0 +1,5 @@
+<ul class="nav nav-tabs">
+  {% for menuItem in cfg["committee"] %}
+    <li role="presentation"><a href="{{url_for(menuItem['link'])}}">{{menuItem['title']}}</a></li>
+  {% endfor %}
+</ul>

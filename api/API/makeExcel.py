@@ -53,7 +53,7 @@ def makeBudgetExcel():
 
   workbook = xlsxwriter.Workbook(writeFilePath)
   workbook.set_properties({
-  'title':    'Budget for {}'.format(applicationCycle.year),
+  'title':    'Budget for {}'.format(params.year),
   'author':   'URCPP System',
   'comments': 'Created with Python and XlsxWriter'})
   
