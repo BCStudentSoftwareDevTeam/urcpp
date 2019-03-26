@@ -36,7 +36,7 @@ function(isConfirm){
     change_check_color(parameters_id);
     });
   } else {
-    swal("Cancelled", "Everythig is normal");
+    swal("Cancelled", "Everything is normal");
   }
 });
 
@@ -58,7 +58,7 @@ function(isConfirm){
   if (isConfirm) {
     location.replace(url);
   } else {
-    swal("Cancelled", "Everythig is normal");
+    swal("Cancelled", "Everything is normal");
   }
 });
 }
