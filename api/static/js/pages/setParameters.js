@@ -36,7 +36,7 @@ function(isConfirm){
     change_check_color(parameters_id);
     });
   } else {
-    swal("Cancelled", "Everythig is normal");
+    swal("Cancelled", "Everything is normal");
   }
 });
 
@@ -58,7 +58,7 @@ function(isConfirm){
   if (isConfirm) {
     location.replace(url);
   } else {
-    swal("Cancelled", "Everythig is normal");
+    swal("Cancelled", "Everything is normal");
   }
 });
 }
@@ -68,3 +68,15 @@ $("#delete_parameters").click(function(e) {
   var linkURL = $(this).attr("href");
   warnBeforeRedirect(linkURL);
 });
+
+function addEvent(node, type, callback) {
+  if (node.addEventListener) {
+    node.addEventListener(type, function(e) {
+      callback(e, e.target);
+    }, false);
+  } else if (node.attachEvent) {
+    node.attachEvent('on' + type, function(e) {
+      callback(e, e.srcElement);
+    });
+  }
+}
