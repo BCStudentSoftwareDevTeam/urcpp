@@ -14,7 +14,7 @@ here = os.path.dirname(__file__)
 cfg = load_config(os.path.join(here, 'config.yaml'))
 #TODO: move information out and change password to keep secret
 
-dynamicDB = MySQLDatabase("urcpp_flask_v2", host="localhost", user="urcpp_flask", passwd="password")
+dynamicDB = MySQLDatabase("urcpp_flask_v2", host="localhost", user="urcpp_flask", passwd="DanforthLabor123!")
 
 class DynamicModel (Model):
   class Meta:
