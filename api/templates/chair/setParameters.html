@@ -36,8 +36,8 @@
                   required
                   step  = "1"
                   placeholder = "Enter a new URCPP year"
+                  oninput = "this.value = Math.abs(this.value)"
                   min = "2015"
-                  pattern = ".{4,}"
                   />
       </div>
       
@@ -87,7 +87,7 @@
                   step  = "0.01"
                   placeholder = "Enter milage rate ($ per mile)"
                   min = "0.00"
-                  oninput="this.value = Math.abs(this.value)"
+                  oninput = "this.value = Math.abs(this.value)"
                   />
       </div>
       </div>
@@ -106,7 +106,7 @@
                   step  = "0.01"
                   placeholder = "Enter labor rate ($ per hour)"
                   min = "0.00"
-                  oninput="this.value = Math.abs(this.value)"
+                  oninput = "this.value = Math.abs(this.value)"
                   />
       </div>
       </div>
