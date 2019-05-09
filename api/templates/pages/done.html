@@ -53,19 +53,19 @@
      {% endif %}
      
      <dt>Budget</dt>
-     <dd>Faculty Stipend: ${{proj.budgetID.facultyStipend}}</dd>
-         <dd><strong>Description:</strong> {{proj.budgetID.facultyStipendDesc}}</dd>
-     <dd>Equipment: ${{proj.budgetID.equipment}}</dd>
-       <dd><strong>Description: </strong>{{proj.budgetID.equipmentDesc}}</dd>
-     <dd>Materials: ${{proj.budgetID.materials}}</dd>
-       <dd><strong>Description: </strong>{{proj.budgetID.materialsDesc}}</dd>
-     <dd>Travel: ${{proj.budgetID.otherTravel}}</dd>
-       <dd><strong>Description: </strong>{{proj.budgetID.otherTravelDesc}}</dd>
+     <dd><strong>Faculty Stipend:</strong> ${{proj.budgetID.facultyStipend}}</dd>
+         <dd>Description: {{proj.budgetID.facultyStipendDesc}}</dd>
+     <dd><strong>Equipment:</strong> ${{proj.budgetID.equipment}}</dd>
+       <dd>Description:{{proj.budgetID.equipmentDesc}}</dd>
+     <dd><strong>Materials:</strong> ${{proj.budgetID.materials}}</dd>
+       <dd>Description:{{proj.budgetID.materialsDesc}}</dd>
+     <dd><strong>Travel:</strong> ${{proj.budgetID.otherTravel}}</dd>
+       <dd>Description:{{proj.budgetID.otherTravelDesc}}</dd>
        {% set mileageCost = '%.2f' | format(proj.budgetID.miles*params.mileageRate) %}
-     <dd>Mileage: {{proj.budgetID.miles}} miles (${{ mileageCost }} @ {{params.mileageRate}} / mile)</dd>
-       <dd><strong>Description: </strong>{{proj.budgetID.milesDesc}}</dd>
-     <dd>Other: ${{proj.budgetID.other}}</dd>
-       <dd><strong>Description: </strong>{{proj.budgetID.otherDesc}}</dd>
+     <dd><strong>Mileage:</strong> {{proj.budgetID.miles}} miles (${{ mileageCost }} @ {{params.mileageRate}} / mile)</dd>
+       <dd>Description:{{proj.budgetID.milesDesc}}</dd>
+     <dd><strong>Other:</strong> ${{proj.budgetID.other}}</dd>
+       <dd>Description:{{proj.budgetID.otherDesc}}</dd>
      <br />
      {% set totalBudget = '%.2f' | format(proj.budgetID.facultyStipend + proj.budgetID.equipment + proj.budgetID.materials + proj.budgetID.otherTravel + proj.budgetID.miles*params.mileageRate + proj.budgetID.other) %}
      <dd><strong>Total Budget:</strong> ${{totalBudget}}</dd>
