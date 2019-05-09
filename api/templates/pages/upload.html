@@ -5,7 +5,11 @@
 {% block body %}
 {% include "snips/breadcrumbs_for_uploads.html" %}
 <div class = "row">
-   <h1> URCPP {{ uploadType | capitalize }} Submission </h1>
+   <h1> URCPP {% if uploadType == "irb" %}
+    {{uploadType | upper}}
+    {% else %}
+    {{uploadType | capitalize}}
+    {% endif %} Submission </h1>
 </div>
 
 {# 

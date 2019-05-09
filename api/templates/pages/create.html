@@ -25,7 +25,7 @@
 
 <ol>
   <li> Project Basics (this page) </li>
-  <li> Collaborators (students & faculty (if any)) </li>
+  <li> Collaborators (students & faculty) </li>
   <li> A project budget </li>
   <li> A project narrative (.docx or PDF) </li>
   <li> A CV </li>
@@ -64,7 +64,7 @@
   <div class = "form-group"> 
     <label for = "duration" class = "col-sm-2 control-label">Duration </label>
     <div class = "col-sm-9">
-      <select name = "duration" id = "duration" class="form-control selectpicker" required> 
+      <select name = "duration" id = "duration" class="form-control" required> 
         <option value = "---" disabled {% if proj.duration is not defined %} selected {% endif %}>---</option>
         {% for dur in cfg["urcpp"]["possibleDurations"] | sort %}
           <option value = "{{dur}}" {% if proj.duration == dur %} selected {% endif %}>{{dur}}</option>
