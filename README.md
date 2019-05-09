@@ -19,3 +19,4 @@
 10. run `python recreate_dynamic`
 11. comment lines 20-27 back in
 12. run `python api.py`
+13. if application does not load, comment out lines 90-83 in urcpp-flask/api/everything.py
