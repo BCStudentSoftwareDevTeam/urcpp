@@ -59,7 +59,7 @@
                   id = "irbNo" 
                   value = "No" 
                   style = "width: .8em; height: .8em;"
-                  {% if proj.humanSubjects%}checked{% endif %}/>
+                  {% if not proj.humanSubjects%}checked{% endif %}/>
           <label for = "irbNo">No</label>
         </label>
       </div>
