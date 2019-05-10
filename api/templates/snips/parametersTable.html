@@ -12,8 +12,8 @@
         <td>{{parameter.year}}</td>
         <td>{{parameter.appOpenDate.strftime('%Y/%m/%d')}}</td>
         <td>{{parameter.appCloseDate.strftime('%Y/%m/%d')}}</td>
-        <td>{{parameter.mileageRate}}</td>
-        <td>{{parameter.laborRate}}</td>
+        <td>${{parameter.mileageRate}}</td>
+        <td>${{parameter.laborRate}}</td>
         <td>
             <a id="delete_parameters" href={{url_for('deleteParameters', pID = parameter.pID)}}>
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
