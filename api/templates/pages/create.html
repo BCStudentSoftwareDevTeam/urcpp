@@ -96,11 +96,10 @@
     <div class = "col-sm-9">
       <input  id    = "endDate"
 	            name  = "endDate"  
-	            type  = "text"
-	            class = "form-control"
+	            type = "text"
  	            value = "{% if proj.endDate is defined %}{{proj.endDate.strftime('%m-%d-%Y')}}{% endif %}" 
               placeholder = "mm-dd-yyyy"
-	            disabled>
+	            required>
       <!--<div id="endDateDisplay">{% if proj.endDate is defined %}{{proj.endDate.strftime('%m-%d-%Y')}}{% endif %}</div>-->
     </div>
 </div>
