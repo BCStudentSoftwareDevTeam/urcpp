@@ -14,85 +14,93 @@
   <li><a href="/budget">Budget</a></li>
   <li class="active">Done</li>
 </ol>
-<h1>Review Your Application</h1>
-
-<p>
-   How does it look, {{ldap.firstname}}?
-</p>
-
+<div style="text-align:center;">
+    <h1>Review Your Application</h1>
+</div>
+<div style="text-align:center;">
+    <p>
+       How does it look, {{ldap.firstname}}?
+    </p>
+</div>
 <div class = "col-sm-8 col-sm-offset-2">
-   <dl class="dl-horizontal">
-     <dt>Project Info</dt>
-       <dd>Title: {{proj.title}}</dd>
-       <dd>Start Date: {{proj.startDate}}</dd>
-       <dd>Duration: {{proj.duration}} weeks</dd>
-       <dd>Number of Students: {{proj.numberStudents}}</dd>
-       <dd>Community Partners:
-         {% if proj.hasCommunityPartner %}
-           Yes 
-         {% else %} 
-           No 
-         {% endif %}
-       </dd>
-       <dd>Community Service: 
-         {% if proj.isServiceToCommunity %}
-           Yes 
-         {% else %} 
-           No 
-         {% endif %}
-       </dd>
-       <dd>Date Submitted: {{proj.createdDate.strftime('%Y-%m-%d @ %I:%m %p')}}</dd>
-       <dd>Status: {{proj.status}}</dd>
-     <br />
-     {% if collabs is not none %}
-     <dt>Collaborators</dt>
-       {% for collaborator in collabs %}
-         <dd>{{collaborator.username.firstname}} {{collaborator.username.lastname}}</dd>
-       {% endfor %}
-       <br />
-     {% endif %}
-     
-     <dt>Budget</dt>
-     <dd><strong>Faculty Stipend:</strong> ${{proj.budgetID.facultyStipend}}</dd>
-         <dd>Description: {{proj.budgetID.facultyStipendDesc}}</dd>
-     <dd><strong>Equipment:</strong> ${{proj.budgetID.equipment}}</dd>
-       <dd>Description:{{proj.budgetID.equipmentDesc}}</dd>
-     <dd><strong>Materials:</strong> ${{proj.budgetID.materials}}</dd>
-       <dd>Description:{{proj.budgetID.materialsDesc}}</dd>
-     <dd><strong>Travel:</strong> ${{proj.budgetID.otherTravel}}</dd>
-       <dd>Description:{{proj.budgetID.otherTravelDesc}}</dd>
-       {% set mileageCost = '%.2f' | format(proj.budgetID.miles*params.mileageRate) %}
-     <dd><strong>Mileage:</strong> {{proj.budgetID.miles}} miles (${{ mileageCost }} @ {{params.mileageRate}} / mile)</dd>
-       <dd>Description:{{proj.budgetID.milesDesc}}</dd>
-     <dd><strong>Other:</strong> ${{proj.budgetID.other}}</dd>
-       <dd>Description:{{proj.budgetID.otherDesc}}</dd>
-     <br />
-     {% set totalBudget = '%.2f' | format(proj.budgetID.facultyStipend + proj.budgetID.equipment + proj.budgetID.materials + proj.budgetID.otherTravel + proj.budgetID.miles*params.mileageRate + proj.budgetID.other) %}
-     <dd><strong>Total Budget:</strong> ${{totalBudget}}</dd>
-     <br />
-     <dt>Files</dt>
-       {% for item in uploadedFiles %}
-       <dd><a href = "/static/files/{{cfg['urcpp']['applicationCycle']}}/{{username}}/{{item}}" target = "_blank">{{item}}</a></dd>
-       {% endfor %}
-   </dl>
-    <div class="row">
-        <div class="col-xs-4">
-    <a href="/create"><button class="btn btn-danger" >Edit</button></a>
-    </div>
-    <div class="col-xs-4 col-xs-offset-4">
-      <form id = "doneForm"
-        class = "form-horizontal col-sm-10 col-sm-offset-1"
-        action = "/finalize"
-        method = "POST">
-        <button id = "submit" 
-                type = "submit" 
-                class="btn btn-primary"
-                class = "form-control"
-                />
-        Submit Your Application
-      </button>
+    <div style="background-color:ECF0F1">
+         <div class="container" >
+           <dl class="dl-horizontal">
+             <dt>Project Info</dt>
+               <dd>Title: {{proj.title}}</dd>
+               <dd>Start Date: {{proj.startDate}}</dd>
+               <dd>Duration: {{proj.duration}} weeks</dd>
+               <dd>Number of Students: {{proj.numberStudents}}</dd>
+               <dd>Community Partners:
+                 {% if proj.hasCommunityPartner %}
+                   Yes 
+                 {% else %} 
+                   No 
+                 {% endif %}
+               </dd>
+               <dd>Community Service: 
+                 {% if proj.isServiceToCommunity %}
+                   Yes 
+                 {% else %} 
+                   No 
+                 {% endif %}
+               </dd>
+               <dd>Date Submitted: {{proj.createdDate.strftime('%Y-%m-%d @ %I:%m %p')}}</dd>
+               <dd>Status: {{proj.status}}</dd>
+             <br />
+             {% if collabs is not none %}
+             <dt>Collaborators</dt>
+               {% for collaborator in collabs %}
+                 <dd>{{collaborator.username.firstname}} {{collaborator.username.lastname}}</dd>
+               {% endfor %}
+               <br />
+             {% endif %}
+             
+             <dt>Budget</dt>
+             <dd><strong>Faculty Stipend:</strong> ${{proj.budgetID.facultyStipend}}</dd>
+                 <dd>Description: {{proj.budgetID.facultyStipendDesc}}</dd>
+             <dd><strong>Equipment:</strong> ${{proj.budgetID.equipment}}</dd>
+               <dd>Description:{{proj.budgetID.equipmentDesc}}</dd>
+             <dd><strong>Materials:</strong> ${{proj.budgetID.materials}}</dd>
+               <dd>Description:{{proj.budgetID.materialsDesc}}</dd>
+             <dd><strong>Travel:</strong> ${{proj.budgetID.otherTravel}}</dd>
+               <dd>Description:{{proj.budgetID.otherTravelDesc}}</dd>
+               {% set mileageCost = '%.2f' | format(proj.budgetID.miles*params.mileageRate) %}
+             <dd><strong>Mileage:</strong> {{proj.budgetID.miles}} miles (${{ mileageCost }} @ {{params.mileageRate}} / mile)</dd>
+               <dd>Description:{{proj.budgetID.milesDesc}}</dd>
+             <dd><strong>Other:</strong> ${{proj.budgetID.other}}</dd>
+               <dd>Description:{{proj.budgetID.otherDesc}}</dd>
+             <br />
+             {% set totalBudget = '%.2f' | format(proj.budgetID.facultyStipend + proj.budgetID.equipment + proj.budgetID.materials + proj.budgetID.otherTravel + proj.budgetID.miles*params.mileageRate + proj.budgetID.other) %}
+             <dd><strong>Total Budget:</strong> ${{totalBudget}}</dd>
+             <br />
+             <dt>Files</dt>
+               {% for item in uploadedFiles %}
+               <dd><a href = "/static/files/{{cfg['urcpp']['applicationCycle']}}/{{username}}/{{item}}" target = "_blank">{{item}}</a></dd>
+               {% endfor %}
+           </dl>
+          </div>
       </div>
-  </div>
+    <div style="padding-top:20px">
+        <div class="row">
+            <div class="col-xs-4">
+        <a href="/create"><button class="btn btn-danger" >Edit</button></a>
+        </div>
+        <div class="col-xs-4 col-xs-offset-4">
+          <form id = "doneForm"
+            class = "form-horizontal col-sm-10 col-sm-offset-1"
+            action = "/finalize"
+            method = "POST">
+            <button id = "submit" 
+                    type = "submit" 
+                    class="btn btn-primary"
+                    class = "form-control"
+                    />
+            Submit Your Application
+          </button>
+          </div>
+          </div>
+    </div>
 </div>
 
 
