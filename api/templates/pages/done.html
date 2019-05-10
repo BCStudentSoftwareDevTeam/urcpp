@@ -27,26 +27,26 @@
          <div class="container" >
            <dl class="dl-horizontal">
              <dt>Project Info</dt>
-               <dd>Title: {{proj.title}}</dd>
-               <dd>Start Date: {{proj.startDate}}</dd>
-               <dd>Duration: {{proj.duration}} weeks</dd>
-               <dd>Number of Students: {{proj.numberStudents}}</dd>
-               <dd>Community Partners:
+               <dd><strong>Title:</strong> {{proj.title}}</dd>
+               <dd><strong>Start Date:</strong> {{proj.startDate}}</dd>
+               <dd><strong>Duration:</strong> {{proj.duration}} weeks</dd>
+               <dd><strong>Number of Students:</strong> {{proj.numberStudents}}</dd>
+               <dd><strong>Community Partners:</strong>
                  {% if proj.hasCommunityPartner %}
                    Yes 
                  {% else %} 
                    No 
                  {% endif %}
                </dd>
-               <dd>Community Service: 
+               <dd><strong>Community Service:</strong> 
                  {% if proj.isServiceToCommunity %}
                    Yes 
                  {% else %} 
                    No 
                  {% endif %}
                </dd>
-               <dd>Date Submitted: {{proj.createdDate.strftime('%Y-%m-%d @ %I:%m %p')}}</dd>
-               <dd>Status: {{proj.status}}</dd>
+               <dd><strong>Date Submitted:</strong> {{proj.createdDate.strftime('%Y-%m-%d @ %I:%m %p')}}</dd>
+               <dd><strong>Status:</strong> {{proj.status}}</dd>
              <br />
              {% if collabs is not none %}
              <dt>Collaborators</dt>
