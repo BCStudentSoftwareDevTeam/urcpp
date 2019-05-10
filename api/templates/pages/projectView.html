@@ -3,17 +3,22 @@
 {% block title %} Review Your Application {% endblock %}
 
 {% block body %}
-<h1>Review Project</h1>
-{% include "snips/projectInfo.html" %}
+<div style="text-align:center;">
+    <h1>Review Project</h1>
+</div>
+<div style="background-color:ECF0F1">
+    {% include "snips/projectInfo.html" %}
+</div>
 <div>
     <div class = "row">
         <div class="col-xs-4 col-xs-offset-2">
         <button class="btn btn-danger" onclick="withdraw({{proj.pID}})">Withdraw</button>
         </div>
-        <div class="col-xs-offset-1 col-xs-4">
+        <div class="col-xs-4 col-xs-offset-2">
         <a href="{{previous_url}}">
           <button class="btn btn-primary" class = "form-control"/>Done</button>  
         </a>
         </div>
     </div>
+</div>
 {% endblock %}

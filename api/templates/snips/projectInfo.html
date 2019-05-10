@@ -1,56 +1,58 @@
 <div class = "col-sm-8 col-sm-offset-2">
-   <dl class="dl-horizontal">
-     <dt>Project Info</dt>
-       <dd>Title: {{proj.title}}</dd>
-       <dd>Start Date: {{proj.startDate}}</dd>
-       <dd>Duration: {{proj.duration}} weeks</dd>
-       <dd>Number of Students: {{proj.numberStudents}}</dd>
-       <dd>Community Partners:
-         {% if proj.hasCommunityPartner %}
-           Yes 
-         {% else %} 
-           No 
+    <div style="background-color:ECF0F1">
+       <dl class="dl-horizontal">
+         <dt>Project Info</dt>
+           <dd>Title: {{proj.title}}</dd>
+           <dd>Start Date: {{proj.startDate}}</dd>
+           <dd>Duration: {{proj.duration}} weeks</dd>
+           <dd>Number of Students: {{proj.numberStudents}}</dd>
+           <dd>Community Partners:
+             {% if proj.hasCommunityPartner %}
+               Yes 
+             {% else %} 
+               No 
+             {% endif %}
+           </dd>
+           <dd>Community Service: 
+             {% if proj.isServiceToCommunity %}
+               Yes 
+             {% else %} 
+               No 
+             {% endif %}
+           </dd>
+           <dd>Date Submitted: {{proj.createdDate.strftime('%Y-%m-%d @ %I:%m %p')}}</dd>
+           <dd>Status: {{proj.status}}</dd>
+         <br />
+         {% if collabs is not none %}
+         <dt>Collaborators</dt>
+           {% for collaborator in collabs %}
+             <dd>{{collaborator.username.firstname}} {{collaborator.username.lastname}}</dd>
+           {% endfor %}
+           <br />
          {% endif %}
-       </dd>
-       <dd>Community Service: 
-         {% if proj.isServiceToCommunity %}
-           Yes 
-         {% else %} 
-           No 
-         {% endif %}
-       </dd>
-       <dd>Date Submitted: {{proj.createdDate.strftime('%Y-%m-%d @ %I:%m %p')}}</dd>
-       <dd>Status: {{proj.status}}</dd>
-     <br />
-     {% if collabs is not none %}
-     <dt>Collaborators</dt>
-       {% for collaborator in collabs %}
-         <dd>{{collaborator.username.firstname}} {{collaborator.username.lastname}}</dd>
-       {% endfor %}
-       <br />
-     {% endif %}
-     
-     <dt>Budget</dt>
-     <dd>Faculty Stipend: ${{proj.budgetID.facultyStipend}}</dd>
-         <dd><strong>Description:</strong> {{proj.budgetID.facultyStipendDesc}}</dd>
-     <dd>Equipment: ${{proj.budgetID.equipment}}</dd>
-       <dd><strong>Description: </strong>{{proj.budgetID.equipmentDesc}}</dd>
-     <dd>Materials: ${{proj.budgetID.materials}}</dd>
-       <dd><strong>Description: </strong>{{proj.budgetID.materialsDesc}}</dd>
-     <dd>Travel: ${{proj.budgetID.otherTravel}}</dd>
-       <dd><strong>Description: </strong>{{proj.budgetID.otherTravelDesc}}</dd>
-       {% set mileageCost = '%.2f' | format(proj.budgetID.miles*params.mileageRate) %}
-     <dd>Mileage: {{proj.budgetID.miles}} miles (${{ mileageCost }} @ {{params.mileageRate}} / mile)</dd>
-       <dd><strong>Description: </strong>{{proj.budgetID.milesDesc}}</dd>
-     <dd>Other: ${{proj.budgetID.other}}</dd>
-       <dd><strong>Description: </strong>{{proj.budgetID.otherDesc}}</dd>
-     <br />
-     {% set totalBudget = '%.2f' | format(proj.budgetID.facultyStipend + proj.budgetID.equipment + proj.budgetID.materials + proj.budgetID.otherTravel + proj.budgetID.miles*params.mileageRate + proj.budgetID.other) %}
-     <dd><strong>Total Budget:</strong> ${{totalBudget}}</dd>
-     <br />
-     <dt>Files</dt>
-       {% for item in uploadedFiles %}
-       <dd><a href = "/static/files/{{proj.year.year}}/{{username}}/{{item}}" target = "_blank">{{item}}</a></dd>
-       {% endfor %}
-   </dl>
-   </div>
+         
+         <dt>Budget</dt>
+         <dd>Faculty Stipend: ${{proj.budgetID.facultyStipend}}</dd>
+             <dd><strong>Description:</strong> {{proj.budgetID.facultyStipendDesc}}</dd>
+         <dd>Equipment: ${{proj.budgetID.equipment}}</dd>
+           <dd><strong>Description: </strong>{{proj.budgetID.equipmentDesc}}</dd>
+         <dd>Materials: ${{proj.budgetID.materials}}</dd>
+           <dd><strong>Description: </strong>{{proj.budgetID.materialsDesc}}</dd>
+         <dd>Travel: ${{proj.budgetID.otherTravel}}</dd>
+           <dd><strong>Description: </strong>{{proj.budgetID.otherTravelDesc}}</dd>
+           {% set mileageCost = '%.2f' | format(proj.budgetID.miles*params.mileageRate) %}
+         <dd>Mileage: {{proj.budgetID.miles}} miles (${{ mileageCost }} @ {{params.mileageRate}} / mile)</dd>
+           <dd><strong>Description: </strong>{{proj.budgetID.milesDesc}}</dd>
+         <dd>Other: ${{proj.budgetID.other}}</dd>
+           <dd><strong>Description: </strong>{{proj.budgetID.otherDesc}}</dd>
+         <br />
+         {% set totalBudget = '%.2f' | format(proj.budgetID.facultyStipend + proj.budgetID.equipment + proj.budgetID.materials + proj.budgetID.otherTravel + proj.budgetID.miles*params.mileageRate + proj.budgetID.other) %}
+         <dd><strong>Total Budget:</strong> ${{totalBudget}}</dd>
+         <br />
+         <dt>Files</dt>
+           {% for item in uploadedFiles %}
+           <dd><a href = "/static/files/{{proj.year.year}}/{{username}}/{{item}}" target = "_blank">{{item}}</a></dd>
+           {% endfor %}
+       </dl>
+      </div>
+</div>
