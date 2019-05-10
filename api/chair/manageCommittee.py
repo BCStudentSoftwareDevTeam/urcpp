@@ -31,6 +31,7 @@ def addCommitteMember():
     
   desiredCommitteeList = request.form.getlist('committeeMember') # get the list of chair
   print desiredCommitteeList
+
   #remove old committee Members
   removeCommitteeMembers(desiredCommitteeList)
   
