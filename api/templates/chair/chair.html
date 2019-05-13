@@ -10,13 +10,15 @@
 <p>
   Welcome {{ldap.firstname}}. What would you like to do?
 </p>
-<div role = "navigation">
-   <ul class="nav nav-pills nav-stacked" style = "font-size: 150%;">
+<br>
+<div role = "navigation" >
+   <div class="list-group" style= "font-size: 150%;">
     {% for menuItem in cfg["chair"] %}
-      <li role="presentation"><a href="chair/{{menuItem['link']}}">{{menuItem['longtitle']}}</a></li>
+      <button type="button" class="list-group-item"><a href="chair/{{menuItem['link']}}">{{menuItem['longtitle']}}</a></button>
     {% endfor %}
-    <li role="presentation"><a href="mailto:?bcc={{rejectedFacultyEmail}}">Email all faculties with rejected projects</a></li>
-  </ul>
+    <button type="button" class="list-group-item"><a href="mailto:?bcc={{rejectedFacultyEmail}}">Email all faculties with rejected projects</a></button>
+  </div>
 </div>
+</br>
 
 {% endblock %}
