@@ -3,25 +3,29 @@
 
 {% block body %}
 {% include 'snips/messages.html' %}
-<h1> Download all Project Files </h1>
+<div style="text-align:center;">
+  <h1> Project Files </h1>
+</div>
 <!--Menu-->
 {% include 'committee/nav_tabs.html' %}
 <p></p>
 {% if fac is not none %}
-<form 
+<div style="text-align:right;">
+  <form 
         class = "form-horizontal"
         action = "/committee/allFiles"
         method = "POST">
-   <input id = "submit" 
+   <button id = "submit" 
               type = "submit" 
               value = "Download all project files"
-              class="form-control btn btn-block btn-success"
+              class="btn btn-success glyphicon glyphicon-download-alt"
               data-toggle="tooltip" 
               title = "Download all project files"
               /> 
-    </input>
-
-</form>  
+              Download project files
+    </button>
+  </form>
+</div>
 {% endif %}
 <div class = "row">
   <table class = "table table-striped table-hover table-sm">
@@ -60,5 +64,6 @@
     
   </table>
 </div>
+
 
 {% endblock %}

@@ -5,14 +5,16 @@
 
 {% block body %}
 
-<h1>URCPP Chair Portal</h1>
-
-<p>
-  Welcome {{ldap.firstname}}. What would you like to do?
-</p>
-<br>
-<div role = "navigation" >
-   <div class="list-group" style= "font-size: 150%;">
+<div style="text-align:center;">
+    <h1>URCPP Chair Portal</h1>
+</div>
+<div style="text-align:center;">
+    <p>
+      Welcome {{ldap.firstname}}. What would you like to do?
+    </p>
+</div>
+<div role = "navigation" style="background-color:ECF0F1">
+   <ul class="nav nav-pills nav-stacked" style = "font-size: 150%;">
     {% for menuItem in cfg["chair"] %}
       <button type="button" class="list-group-item"><a href="chair/{{menuItem['link']}}">{{menuItem['longtitle']}}</a></button>
     {% endfor %}
