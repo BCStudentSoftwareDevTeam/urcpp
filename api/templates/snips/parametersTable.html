@@ -1,28 +1,29 @@
-<table class="table">
-    <caption>Past Parameters</caption>
+<table class="table table-bordered" style="border: solid #2c3e50">
+    <caption style="padding-bottom: 20px"><strong>Past Parameters</strong></caption>
     <tr>
-        <th>Year</th>
-        <th>Application Open Date</th>
-        <th>Application Close Date</th>
-        <th>Mileage Rate</th>
-        <th>Labor Rate</th>
+        <th style="border: solid #2c3e50">Year</th>
+        <th style="border: solid #2c3e50">Application Open Date</th>
+        <th style="border: solid #2c3e50">Application Close Date</th>
+        <th style="border: solid #2c3e50">Mileage Rate</th>
+        <th style="border: solid #2c3e50">Labor Rate</th>
     </tr>
     {% for parameter in parameters_list %}
     <tr>
-        <td>{{parameter.year}}</td>
-        <td>{{parameter.appOpenDate.strftime('%Y/%m/%d')}}</td>
-        <td>{{parameter.appCloseDate.strftime('%Y/%m/%d')}}</td>
-        <td>${{parameter.mileageRate}}</td>
-        <td>${{parameter.laborRate}}</td>
-        <td>
+        <td style="border: solid #2c3e50">{{parameter.year}}</td>
+        <td style="border: solid #2c3e50">{{parameter.appOpenDate.strftime('%Y/%m/%d')}}</td>
+        <td style="border: solid #2c3e50">{{parameter.appCloseDate.strftime('%Y/%m/%d')}}</td>
+        <td style="border: solid #2c3e50">${{parameter.mileageRate}}</td>
+        <td style="border: solid #2c3e50">${{parameter.laborRate}}</td>
+        <td  style="border: solid #2c3e50">
             <a id="delete_parameters" href={{url_for('deleteParameters', pID = parameter.pID)}}>
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
             </a>
             <span class="glyphicon glyphicon-ok isCurrentParameter {% if not parameter.isCurrentParameter %} disabled {% endif %}" 
-                  style="cursor:help;" 
+                  style="cursor:help;"
                   title="Click this to make it the current cycle parameters"
                   id="set_current_parameters-{{parameter.pID}}"
-                  onclick="set_current_parameters({{parameter.pID}})"></span>
+                  onclick="set_current_parameters({{parameter.pID}})"
+                  ></span>
         </td>
     </tr>
     {% endfor %}
