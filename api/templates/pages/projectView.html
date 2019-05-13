@@ -8,17 +8,18 @@
 </div>
 <div style="background-color:ECF0F1">
     {% include "snips/projectInfo.html" %}
-</div>
-<div class="container">
-    <div class = "row">
-        <div class="col-xs-4 col-xs-offset-2">
-        <button class="btn btn-danger" onclick="withdraw({{proj.pID}})">Withdraw</button>
-        </div>
-        <div class="col-xs-4" style="text-align:right">
-        <a href="{{previous_url}}">
-          <button class="btn btn-primary" class = "form-control"/>Done</button>  
-        </a>
-        </div>
     </div>
 </div>
+<div class = "row">
+    </br>
+    <div class="col-xs-4 col-xs-offset-3">
+    <button class="btn btn-danger" onclick="withdraw({{proj.pID}})">Withdraw</button>
+    </div>
+    <div class="col-xs-4 col-xs-offset-1">
+    <a href="{{previous_url}}">
+      <button class="btn btn-primary" class = "form-control"/>Done</button>  
+    </a>
+    </div>
+</div>
+
 {% endblock %}
