@@ -37,19 +37,20 @@
 </p>
 
 
-<form class = "form-horizontal"
+<form class = "form-horizontal needs-validation" 
+
       action = "/create" 
       method = "POST"
       >
   <fieldset>
-  <div class = "form-group">
+  <div id="projectTitleGroup" class="form-group">
     <label for="title" class = "col-sm-2 control-label">Project Title </label>
     <div class = "col-sm-9">
-      <input name = "title" id = "title" type = "text" class="form-control" value = "{{proj.title}}" required></input>
+      <input name="title" id="title" type="text" class="form-control" value="{{proj.title}}" required></input>
     </div>
   </div>
   
-  <div class = "form-group">
+  <div  id="projectProgramGroup" class = "form-group">
     <label for = "program" class = "col-sm-2 control-label">Program </label>
     <div class = "col-sm-9">
       <select name = "program" id = "program" class="form-control" required> 
@@ -151,6 +152,7 @@
               class="btn btn-block btn-primary"
               class = "form-control"
               type = "submit"
+              onclick = "checkForRequired()"
               />
         Submit
       </button>
