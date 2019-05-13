@@ -6,22 +6,25 @@
 {% block body %}
 {% include 'snips/messages.html' %}
 {% include "chair/nav_tabs.html" %}
-<h1>URCPP Parameters</h1>
 
-<p>
-  {{ldap.firstname}}, what would you like to change?
-</p>
-
+<div style="text-align:center;">
+    <h1>URCPP Parameters</h1>
+</div>
+<div style="text-align:center;">
+    <p>
+      {{ldap.firstname}}, what would you like to change?
+    </p>
+</div>
+</br>
  <!--Set the application start date-->
  <!--Set the application end date-->
  <!--Set the mileage rate-->
  <!--Set the labor rate-->
- 
+<div style="background-color:ECF0F1">
  <form id = "parametersForm"
        class = "form-horizontal col-sm-10 col-sm-offset-1"
        action = "/chair/setParameters"
        method = "POST">
-  
     <div  class = "row" 
           style = "padding-bottom: 10px;">
       <label  for='newYear' 
@@ -38,9 +41,8 @@
                   placeholder = "Enter a new URCPP year"
                   />
       </div>
-      
-      </div>
-       <div  class = "row" 
+    </div>
+    <div  class = "row" 
           style = "padding-bottom: 10px;">
       <label  for='applicationOpenDate' 
               class = 'col-sm-4 control-label'>
@@ -53,7 +55,7 @@
                   required
                   placeholder = "yyyy/mm/dd"
                   />
-      </div>
+       </div>
       </div>
       <div  class = "row" 
           style = "padding-bottom: 10px;">
@@ -68,7 +70,7 @@
                   required
                   placeholder = "yyyy/mm/dd"
                   />
-      </div>
+       </div>
       </div>
       <div  class = "row" 
           style = "padding-bottom: 10px; ">
@@ -85,7 +87,7 @@
                   step  = "0.01"
                   placeholder = "Enter milage rate"
                   />
-      </div>
+        </div>
       </div>
       <div  class = "row" 
           style = "padding-bottom: 10px; ">
@@ -102,8 +104,9 @@
                   step  = "0.01"
                   placeholder = "Enter labor rate"
                   />
+       </div>
       </div>
-      </div>
+</div> <!--Closing 3rd box-->
       <div class = "form-group"  >
       <div class = "col-sm-offset-10 col-sm-2" 
            id = "submitButton"
@@ -118,7 +121,7 @@
       </div>
     </div>
   </form>
-  
+   
   {% include "snips/parametersTable.html" %}
 
 
