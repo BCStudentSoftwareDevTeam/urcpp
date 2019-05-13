@@ -25,3 +25,13 @@ $(function() {
   });
 });
 $("[ data-toggle='popover']").popover();
+
+
+function checkForRequired() {
+  if ($("#title").val().length == 0) {
+    $("#projectTitleGroup").addClass("has-error");
+  };
+  if ($("#program").val() == "---") {
+    $("#projectProgramGroup").addClass("has-error");
+  };
+}
