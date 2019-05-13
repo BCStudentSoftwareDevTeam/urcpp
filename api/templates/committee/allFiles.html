@@ -11,7 +11,20 @@
 <p></p>
 {% if fac is not none %}
 <div style="text-align:right;">
- <li style="float: right;"><a href="/{{username}}/download/{{downloadFileName}}"><span class="glyphicon glyphicon-download-alt"></span> Download Budgets</a></li>
+  <form 
+        class = "form-horizontal"
+        action = "/committee/allFiles"
+        method = "POST">
+   <button id = "submit" 
+              type = "submit" 
+              value = "Download all project files"
+              class="btn btn-success glyphicon glyphicon-download-alt"
+              data-toggle="tooltip" 
+              title = "Download all project files"
+              /> 
+              Download project files
+    </button>
+  </form>
 </div>
 {% endif %}
 <div class = "row">
