@@ -11,14 +11,18 @@
   <li><a href="/upload/narrative">Narrative upload</a></li>
   <li class="active">Budget</li>
 </ol>
-<h1> Budget </h1>
-<p>
-URCPP can provide stipends for you (up to $5300 per faculty) and your students, plus up to $3000 for equipment, supplies, and related travel.
-</p>
-
+<div style="text-align:center;">
+  <h1> Budget </h1>
+</div>
+<div style="text-align:center;">
+  <p>
+  URCPP can provide stipends for you (up to $5300 per faculty) and your students, plus up to $3000 for equipment, supplies, and related travel.
+  </p>
+</div>
 <!-- This is the only actual HTML on the page.
      The rest of it is JavaScript. -->
 <div class = "row">
+  <div class="container"  style="background-color:ECF0F1">
   <form id = "budgetForm"
         class = "form-horizontal col-sm-10 col-sm-offset-1"
         action = "/budget"
@@ -65,7 +69,6 @@ URCPP can provide stipends for you (up to $5300 per faculty) and your students, 
     </div>
     {% endfor %}
     <!-- Loop ends here for each box -->
-    
     <div class = 'form-group has-success' id = "totalGroup" >
       <div class = "row">
         <label for='total' class = 'col-sm-4 control-label'>
@@ -88,12 +91,12 @@ URCPP can provide stipends for you (up to $5300 per faculty) and your students, 
           <p >WARNING: Excludes mileage costs.</p>
         </div>
       </div>
-
-   
-  
-    <div class = "form-group"  >
+    </div>
+    </br>
+    <div class = "form-group" >
     <div class = "col-sm-offset-10 col-sm-2" 
          id = "submitButton"
+         style="padding-bottom:20px"
          >
       <button id = "submit" 
               type = "submit" 
@@ -104,8 +107,10 @@ URCPP can provide stipends for you (up to $5300 per faculty) and your students, 
         Submit
       </button>
     </div>
-  </div>
-</form>
+    </div>
+    </br>
+  </form>
+</div>
 
 <script type = "text/javascript">
   var mileageRate = parseFloat("{% if params.mileageRate %}{{params.mileageRate}}{% else %} 0 {% endif %}");

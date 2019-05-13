@@ -7,78 +7,83 @@
   <li><a href="/create">Create</a></li>
   <li class="active">People</li>
 </ol>
-<h1> Students and Collaborators </h1>
-
-<p>
-  How many students will you be working with?
-</p>
-
-<form class = "form-horizontal col-sm-8 col-sm-offset-2"
-      action = "/people" 
-      method = "POST"
-      >
-  
-  <div id = "numStudents">
-    <h3> Students </h3>
-    <p> Indicate how many students you intend to work with here. </p>
-    <div class = "form-group spinner">
-      <label  for = "numberOfStudents"
-              name = "numberOfStudents"
-              class = "col-sm-3 control-label">
-        Number of Students
-      </label>
-      
-      <div class = "col-sm-8">
-        <input  id = "numStu" 
-                type = "text" 
-                value = "{{proj.numberStudents}}" 
-                name = "numStu"
-                style = "text-align: right;"
-                > </input>
+<div style="text-align:center;">
+  <h1> Students and Collaborators </h1>
+</div>
+  <div style="text-align:center;">
+  <p>
+    How many students will you be working with?
+  </p>
+</div>
+<div style="background-color:ECF0F1">
+  <div class="container">
+    <form class = "form-horizontal"
+          action = "/people" 
+          method = "POST"
+          >
+      <div id = "numStudents">
+        <h3 style="text-align:center;"> Students </h3>
+        <p style="text-align:center;"> Indicate how many students you intend to work with here. </p>
+        <div class = "form-group spinner">
+          <label  for = "numberOfStudents"
+                  name = "numberOfStudents"
+                  class = "col-sm-3 control-label">
+            Number of Students
+          </label>
+          
+          <div class = "col-sm-8">
+            <input  id = "numStu" 
+                    type = "text" 
+                    value = "{{proj.numberStudents}}" 
+                    name = "numStu"
+                    style = "text-align: right;"
+                    > </input>
+          </div>
+        </div>
+      </div> <!-- numStudentsID -->
+      <div id = "moreCollaborators">
+        <h3 style="text-align:center;"> Faculty Collaborators </h3>
+        <p style="text-align:center;"> 
+          How many additional Berea College faculty/staff collaborators (if any) do you intend to have on this project?
+        </p>
+        <div class = "form-group spinner">
+          <label  for = "numberOfCollaborators"
+                  name = "numberOfCollaborators"
+                  class = "col-sm-3 control-label">
+            Number of Collaborators
+          </label>
+          <div class = "col-sm-8">
+            <input  id = "numCollab" 
+                    type = "text" 
+                    value = "{% if collabs is not none %}
+                              {{collabs|length}}
+                             {% endif %}  
+                            "
+                    name = "numCollab"
+                    style = "text-align: right;"
+                    > </input>
+           </div>
+        </div>
       </div>
     </div>
-  </div> <!-- numStudentsID -->
-  
-  <div id = "moreCollaborators">
-    <h3> Faculty Collaborators </h3>
-    <p> 
-      How many additional Berea College faculty/staff collaborators (if any) do you intend to have on this project?
-    </p>
-    
-    <div class = "form-group spinner">
-      <label  for = "numberOfCollaborators"
-              name = "numberOfCollaborators"
-              class = "col-sm-3 control-label">
-        Number of Collaborators
-      </label>
-      
-      <div class = "col-sm-8">
-        <input  id = "numCollab" 
-                type = "text" 
-                value = "{% if collabs is not none %}
-                          {{collabs|length}}
-                         {% endif %}  
-                        "
-                name = "numCollab"
-                style = "text-align: right;"
-                > </input>
+    <br/> <!--extra space at bottom-->
+   </div>
+   <br/>
+   <div class="container">
+    <div class = "form-group"  >
+      <div class = "col-sm-offset-9 col-sm-2" 
+           id = "submitButton"
+           >
+        <button id = "submit" 
+                type = "submit" 
+                class="btn btn-block btn-primary form-control"
+                type="submit"
+                />
+          Submit
+        </button>
       </div>
-    </div>
-      
-  <div class = "form-group"  >
-    <div class = "col-sm-offset-9 col-sm-2" 
-         id = "submitButton"
-         >
-      <button id = "submit" 
-              type = "submit" 
-              class="btn btn-block btn-primary form-control"
-              
-              />
-        Submit
-      </button>
     </div>
   </div>
-
 </form>
 
 {% endblock %}

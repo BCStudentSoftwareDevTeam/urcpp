@@ -149,7 +149,7 @@ voting:
   - title: "Clarity/Quality of Proposal"
     dbName: "proposalQuality"
     longDescription: "Proposal is written in clear and concise language that is understandable by colleagues outside the discipline. Overall appearance of the proposal is professional and complete."
-  - title: "Budget (Appropriateness and Justification"
+  - title: "Budget (Appropriateness and Justification)"
     dbName: "budget"
     longDescription: "Budget is realistic, as well as justified by and consistent with the scope of the proposed project."
   - title: "Timeline"
