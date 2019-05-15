@@ -14,7 +14,7 @@ function countBudgetRows () {
     });
     // console.log("Sum: " + sum);
     var truncatedSum = Math.round(sum*100)/100;
-    $("#rowTotal" + idx).html(truncatedSum);
+    $("#rowTotal" + idx).text("$" + truncatedSum.toFixed(2));
     grandTotal += sum;
     $("#grandTotal").text("$" + grandTotal.toFixed(2));
     }
