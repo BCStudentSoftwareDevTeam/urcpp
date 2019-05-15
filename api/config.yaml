@@ -52,7 +52,7 @@ allProjectsTable:
     fieldName: "isServiceToCommunity"
   - title: "Comm. Partner"
     fieldName: "hasCommunityPartner" # Will this work with two?
-  - title: "# Students"
+  - title: "#Students"
     fieldName: "numberStudents"
   - title: "Created"
     fieldName: "createdDate"
