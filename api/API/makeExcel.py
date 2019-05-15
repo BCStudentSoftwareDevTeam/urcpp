@@ -127,7 +127,7 @@ def makeLaborExcel():
   
   # add titles
   worksheet.write(row, 0, 'Faculty/Proj. Title')
-  worksheet.write(row, 1, '# Students')
+  worksheet.write(row, 1, '#Students')
   worksheet.write(row, 2, 'Duration')
   worksheet.write(row, 3, 'Total')
   row += 1
