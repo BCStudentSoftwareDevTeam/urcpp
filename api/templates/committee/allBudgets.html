@@ -33,33 +33,33 @@
 </div>
 <p></p>
 <div class = "row">
-  <table class = "table table-striped table-hover table-sm">
+  <table class = "table table-striped table-hover table-sm" style="border: solid #2c3e50; text-align: center;" cellspacing ="15">
     <tr>
-      <th>Faculty/Proj. Title</th>
-      <th>Project Status</th>
+      <th style="border: solid #2c3e50; padding-top: 15px; text-align: center;">Faculty/Proj. Title</th>
+      <th style="border: solid #2c3e50; padding-top: 15px; text-align: center;">Project Status</th>
       {% for title in cfg["budget"]%}
-      <th>
+      <th style="border: solid #2c3e50; padding-top: 15px; text-align: center;">
         {{title["title"]}}
       </th>
       {% endfor %}
-      <th style = "text-align: right; padding-right: 20px;">Total</th>
+      <th style="border: solid #2c3e50; padding-top: 15px; text-align: center;">Total</th>
     </tr>
     {% if fac is not none %}
       {% for person in fac %}
         <tr id="row{{loop.index0}}" name = "leRow">
-          <td>
+          <td style="border: solid #2c3e50; padding-top: 15px; text-align: center;">
             {{person.username.firstname}} {{person.username.lastname}} <span class = "small">({{person.programID.name}})</span>
             <br />
             <span class = "small">{{person.pID.title|truncate(50, True)}}</span>
           </td>
-          <td id = "{{person.pID.pID}}-status" name = "projectStatus">
+          <td id = "{{person.pID.pID}}-status" name = "projectStatus" style="border: solid #2c3e50; padding-top: 15px; text-align: center;">
             {{person.pID.status}}
           </td>
           {% for field in cfg["budget"] %} 
             <td name = "rowValue" 
                 class = "{{field['amountFieldName']}}" 
                 id = "col{{loop.index0}}" 
-                style = "padding-right: 30px; text-align: right;"
+                style="border: solid #2c3e50; text-align: center; padding-top: 15px;"
                 >
               <a data-toggle="popover"
             data-trigger="focus"
@@ -70,16 +70,18 @@
             role="button">
   	    {# FIXME: does not calculate correctly for miles traveled (convert to dollars). Needs an if id = mileage... multiply by mileage rate from parameters #}
               {% if field['amountFieldName'] == "miles" %}
-                {{ (person.pID.budgetID[field['amountFieldName']]|float  * params.mileageRate|float)|round(2)  }} 
+              {{"%.2f"|format((person.pID.budgetID[field['amountFieldName']]|float  * params.mileageRate|float)|round(2))}}
+               
               {% else %} 
-                {{person.pID.budgetID[field['amountFieldName']]}} 
+                {{ "%.2f"|format(person.pID.budgetID[field['amountFieldName']]|float) }}
+               
               {% endif %}
               </a>
             </td>
           {% endfor %}
           
           <th id = "rowTotal{{loop.index0}}"
-              style = "padding-right: 30px; text-align: right;"
+              style="border: solid #2c3e50; padding-top: 15px; text-align: right;"
               >
           </th>
         </tr>
@@ -87,21 +89,16 @@
       {% endfor %}
     {% endif %}
     
-    <tr>
-      <th>Total</th>
-      <th></th>
-      {% for field in cfg["budget"] %} 
-      <th id = "columnTotal{{loop.index0}}" 
-          style = "padding-right: 30px; text-align: right;"
-          >
-      </th>
-      {% endfor %}
-      <th id = "grandTotal"
-          style = "padding-right: 30px; text-align: right;"
-          >
-      </th>
-    </tr>
   </table>
+    <p style = "text-align: right">
+      <span><strong>Total = </span>
+      {% for field in cfg["budget"] %} 
+      <span id = "columnTotal{{loop.index0}}" >
+      </span>
+      {% endfor %}
+      <span id = "grandTotal" >
+      </strong></span>
+    </p>
 </div>
 
 
