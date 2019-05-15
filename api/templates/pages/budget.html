@@ -48,7 +48,7 @@
                     required
 		                step  = "1"
 		                min = "0"
-		                max = "8300"
+		                
 		                oninput = "this.value = Math.abs(this.value)"
                     placeholder = {% if budget.title != "Miles " %}
                     
@@ -87,6 +87,7 @@
 		  step = "0.01"
                   readonly
                   />
+            
         </div>
       </div>
     </div>
@@ -103,19 +104,37 @@
          style="padding-bottom:20px"
          >
       <button id = "submit" 
-              type = "submit" 
+              type = "button" 
               class="btn btn-block btn-primary"
-              onclick = "submitData();"
-              class = "form-control"
+              
+              
+              data-toggle="modal"
+              data-target="#exceeding"
               />
         Submit
       </button>
     </div>
     </div>
     </br>
-  </form>
 </div>
-
+<!-- Modal -->
+<div class="modal fade" id="exceeding" tabindex="-1" role="dialog" aria-labelledby="exceeding" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel" style="text-align:center;">WARNING!</h3>
+      </div>
+      <div class="modal-body">
+        Your budget request is exceeding $8300. Are you sure you would like to submit?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">No, Go Back</button>
+        <button type="submit" class="btn btn-success " onclick = "submitData();">Yes, Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
 <script type = "text/javascript">
   var mileageRate = parseFloat("{% if params.mileageRate %}{{params.mileageRate}}{% else %} 0 {% endif %}");
 </script>
