@@ -70,9 +70,11 @@
             role="button">
   	    {# FIXME: does not calculate correctly for miles traveled (convert to dollars). Needs an if id = mileage... multiply by mileage rate from parameters #}
               {% if field['amountFieldName'] == "miles" %}
-                {{ (person.pID.budgetID[field['amountFieldName']]|float  * params.mileageRate|float)|round(2)  }} 
+              {{"%.2f"|format((person.pID.budgetID[field['amountFieldName']]|float  * params.mileageRate|float)|round(2))}}
+               
               {% else %} 
-                {{person.pID.budgetID[field['amountFieldName']]}} 
+                {{ "%.2f"|format(person.pID.budgetID[field['amountFieldName']]|float) }}
+               
               {% endif %}
               </a>
             </td>
