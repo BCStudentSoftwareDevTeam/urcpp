@@ -4,6 +4,7 @@
 {% block title %} URCPP Chair Portal {% endblock %}
 
 {% block body %}
+
 <div style="text-align:center;">
     <h1>URCPP Chair Portal</h1>
 </div>
@@ -15,10 +16,11 @@
 <div role = "navigation" style="background-color:ECF0F1">
    <ul class="nav nav-pills nav-stacked" style = "font-size: 150%;">
     {% for menuItem in cfg["chair"] %}
-      <li role="presentation"><a href="chair/{{menuItem['link']}}">{{menuItem['longtitle']}}</a></li>
+      <button type="button" class="list-group-item"><a href="chair/{{menuItem['link']}}">{{menuItem['longtitle']}}</a></button>
     {% endfor %}
-    <li role="presentation"><a href="mailto:?bcc={{rejectedFacultyEmail}}">Email all faculties with rejected projects</a></li>
-  </ul>
+    <button type="button" class="list-group-item"><a href="mailto:?bcc={{rejectedFacultyEmail}}">Email all faculties with rejected projects</a></button>
+  </div>
 </div>
+</br>
 
 {% endblock %}

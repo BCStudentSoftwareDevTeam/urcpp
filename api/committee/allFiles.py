@@ -15,7 +15,7 @@ import shutil
 @app.route("/committee/allFiles", methods = ["GET"])
 @app.route("/committee/allFiles/<int:year>", methods = ["GET"])
 @login_required
-def allFiles_GET(year=None):
+def allFiles(year=None):
   if not g.user.isCommitteeMember:
     abort(403)
   
@@ -65,6 +65,7 @@ def allFiles_GET(year=None):
                             fac = faculty,
                             files = prevFilepath,
                             params = parameters
+                       
                           )
                           # downloadFileName = downloadFileName
                           

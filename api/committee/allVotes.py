@@ -5,7 +5,7 @@ from ..API.parameters import getCurrentParameters
 from ..API.parameters import getParametersByYear
 @app.route("/committee/allVotes/<int:year>", methods = ["GET"])
 @app.route("/committee/allVotes", methods = ["GET"])
-def allVotes_GET (year=None):
+def allVotes(year=None):
   if not g.user.isCommitteeMember:
     abort(403)
     

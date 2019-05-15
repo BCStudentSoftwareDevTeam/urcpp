@@ -10,7 +10,7 @@ from ..pages import *
 @app.route("/committee/allBudgets", methods = ["GET"])
 @app.route("/committee/allBudgets/<int:year>", methods = ["GET"])
 @login_required
-def allBudgets_GET(year=None):
+def allBudgets(year=None):
   if not g.user.isCommitteeMember:
     return abort(403)
     
