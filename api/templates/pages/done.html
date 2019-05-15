@@ -77,7 +77,7 @@
              <br />
              <dt>Files</dt>
                {% for item in uploadedFiles %}
-               <dd><a href = "/static/files/{{cfg['urcpp']['applicationCycle']}}/{{username}}/{{item}}" target = "_blank">{{item}}</a></dd>
+               <dd><a href = "/static/files/{{proj.year.year}}/{{username}}/{{item}}" target = "_blank">{{item}}</a></dd>
                {% endfor %}
            </dl>
           </div>
