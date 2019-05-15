@@ -8,7 +8,7 @@ from ..pages import *
 @app.route("/committee/allLabor/<int:year>", methods = ["GET"])
 @app.route("/committee/allLabor", methods = ["GET"])
 @login_required
-def allLabor_GET(year=None):
+def allLabor(year=None):
   if not g.user.isCommitteeMember:
     abort(403)
     

@@ -45,9 +45,8 @@ def checkFilePath(fileType):
 
 def makeBudgetExcel():
   params = getCurrentParameters()
-
   faculty = getFacultyWithProjects(params.year)
-  
+  applicationCycle = getCurrentParameters()
   checkFilePath("allBudgets")
   writeFilePath = getFilePath("allBudgets")
 

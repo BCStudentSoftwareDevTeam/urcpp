@@ -3,19 +3,20 @@
 
 {% block body %}
 {% include 'snips/messages.html' %}
-<h1> Projects Summary </h1>
+<div style="text-align:center;">
+  <h1> Projects Summary </h1>
+</div>
 <!--Menu-->
 {% include 'committee/nav_tabs.html' %}
-<p></p>
 
 <div class = "row">
     <table class = "table table-striped table-hover table-sm">
       <tr>
-        <th>Vote</th>
+        <th style="text-align:center;">Vote</th>
        
-        <th>Faculty/Proj. Title</th>
+        <th style="text-align:center;">Faculty/Proj. Title</th>
         {% for column in cfg["allProjectsTable"] %}
-        <th>
+        <th style="text-align:center;">
           {{column["title"]}}
         </th>
         {% endfor %}
