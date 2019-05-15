@@ -18,7 +18,7 @@
 <div role = "navigation"  style="background-color:ECF0F1">
    <ul class="nav nav-pills nav-stacked" style = "font-size: 150%;">
     {% for menuItem in cfg["committee"] %}
-      <li role="presentation"><a href="{{url_for(menuItem['link'])}}">{{menuItem['longtitle']}}</a></li>
+      <button type="button" class="list-group-item"><a href="{{url_for(menuItem['link'])}}">{{menuItem['longtitle']}}</a></button>
     {% endfor %}
   </ul>
 </div>
