@@ -17,7 +17,7 @@ def done_GET ():
   uploadedFiles = [];
   
   if proj.status == cfg["projectStatus"]["Pending"]:
-    flash("Application has already been submited.")
+    flash("Application has already been submitted.")
     return redirect(url_for("main_with_username", username = g.user.username))
   
   for files in cfg["filepaths"]["allowedFileNames"]:
@@ -42,7 +42,7 @@ def finalize_POST ():
   proj = getProject(g.user.username)
   proj.status = cfg["projectStatus"]["Pending"]
   proj.save()
-  
+  flash("Application has been submitted." , "success")
   return redirect('/')
 
 
