@@ -108,8 +108,11 @@ def accept_letters_get(pID):
   start = str(project.startDate.strftime("%B %d, %Y"))
   end = str(project.endDate.strftime("%B %d, %Y"))
   stipend = str(project.budgetID.facultyStipend)
+  faculty = URCPPFaculty.get(project.pID == URCPPFaculty.pID)
   
   # Replace all placeholder text
+  body = body.replace("@@Date@@", str(datetime.datetime.now().strftime("%m/%d/%y")))
+  body = body.replace("@@Faculty@@",faculty.username.firstname+ " " +faculty.username.lastname)
   body = body.replace("@@Funding@@",funding)
   body = body.replace("@@ProjectTitle@@",project_title)
   body = body.replace("@@Students@@",student_count)
