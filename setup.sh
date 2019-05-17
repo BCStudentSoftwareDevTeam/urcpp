@@ -41,6 +41,36 @@ pip install Flask-Mail
 # Database setup
 # python recreate_dynamic.py
 
+# Set up config files
+
+# TODO Need to check if api/settings.py file exists
+# TODO If it does, don't do anything
+# TODO If not exists, create it
+FILE=$PWD + /api/settings.py
+if test -f "$FILE"; then
+    echo "$FILE exist"
+echo "Please Fill out the information"
+read  -p 'MAIL_SERVER= ' mail_server_var
+read  -p 'MAIL_PORT= ' mail_port_var
+read  -p 'MAIL_DEFAULT_SENDER= ' mail_default_sender_var
+sed -i 's/""/$mail_server_var/g' $PWD + /api/settings.py
+# echo $mail_port_var > FILE
+# echo $mail_default_sender_var > FILE
+else 
+   touch $FILE
+   echo "$FILE created"
+   echo "Please Fill out the information"
+   read  -p 'MAIL_SERVER= ' mail_server_var
+   read  -p 'MAIL_PORT= ' mail_port_var
+   read  -p 'MAIL_DEFAULT_SENDER= ' mail_default_sender_var
+   echo $mail_server_var > settings.py
+   echo $mail_port_var > settings.py
+   echo $mail_default_sender_var > settings.py
+fi
+
+# TODO Enter information to fill in the file in interactive mode in shell
+
+
 # To deactivate the venv, use
 #
 # $ deactivate
@@ -49,3 +79,4 @@ pip install Flask-Mail
 # To set up the venv again, then type
 #
 # $ source setup.sh
+

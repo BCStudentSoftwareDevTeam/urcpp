@@ -62,7 +62,9 @@ def awardLetters_generate(username,pID):
   if not g.user.isCommitteeMember:
     abort(403)
   # All of our queries
+  
   project = Projects.get(Projects.pID == pID)
+  
   # we need the current year to get current faculty with projects
   template = EmailTemplates.get(EmailTemplates.eID == 1)
   body = template.Body
@@ -86,13 +88,17 @@ def awardLetters_generate(username,pID):
   body = body.replace("@@Start Date@@",start)
   body = body.replace("@@End Date@@",end)
   body = body.replace("@@Stipend@@",stipend)
-  email_address = "%s@berea.edu" % (username)
-  try:
-    acceptance_email = create_message(subject, email_address , body)
-    mail.send(acceptance_email)
-  except Exception as e:
-      return {"mail_to": "Failed to send email to: %s" % (email_address)}
+  email_address = "%s@berea.edu" % (str(faculty.username.username))
 
+  try:
+    
+    acceptance_email = create_message(subject, email_address, body)
+    
+    mail.send(acceptance_email)
+    
+  except Exception as e:
+      return jsonify({"mail_to": "Failed to send email with error: %s" % (e)})
+ 
   return jsonify({"mail_to":"Email sent to: %s"  % (email_address) })
 
 @app.route("/chair/awardLetters/get/<pID>", methods = ["GET"])
