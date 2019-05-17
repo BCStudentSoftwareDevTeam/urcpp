@@ -68,3 +68,13 @@ $("#delete_parameters").click(function(e) {
   var linkURL = $(this).attr("href");
   warnBeforeRedirect(linkURL);
 });
+
+function editParameters(){
+  console.log("editParemeters called yo");
+  
+  var year = parseInt(document.getElementById('parameterYear').innerHTML);
+  console.log("year   "+ year);
+
+  document.getElementById('newYear').value=(year);
+  console.log("After newYear");
+}
