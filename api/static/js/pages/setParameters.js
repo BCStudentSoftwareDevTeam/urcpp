@@ -70,11 +70,25 @@ $("#delete_parameters").click(function(e) {
 });
 
 function editParameters(){
+  //populates inputs above table with info from set parameter
   console.log("editParemeters called yo");
   
-  var year = parseInt(document.getElementById('parameterYear').innerHTML);
-  console.log("year   "+ year);
-
+  var year = document.getElementById('parameterYear').innerHTML;
+  // console.log("year   "+ year);
   document.getElementById('newYear').value=(year);
-  console.log("After newYear");
+  // console.log("After newYear");
+  var openDate = document.getElementById('openDate').innerHTML;
+  document.getElementById('applicationOpenDate').value=(openDate);
+  
+  var closeDate = document.getElementById('closeDate').innerHTML;
+  document.getElementById('applicationCloseDate').value=(closeDate);
+  
+  // console.log("time for vroomies");
+  // var mileageRate = document.getElementById('mileageRates').innerHTML;
+  // console.log("mileageRate   "+ mileageRate);
+  // document.getElementById('mileageRate').value=(mileageRate);
+  // console.log("AHHH");
+  
+  // var laborRate = document.getElementById('laborRates').innerHTML;
+  // document.getElementById('laborRate').value=(laborRate);
 }
