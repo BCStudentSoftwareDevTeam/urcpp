@@ -83,12 +83,9 @@ function editParameters(){
   var closeDate = document.getElementById('closeDate').innerHTML;
   document.getElementById('applicationCloseDate').value=(closeDate);
   
-  // console.log("time for vroomies");
-  // var mileageRate = document.getElementById('mileageRates').innerHTML;
-  // console.log("mileageRate   "+ mileageRate);
-  // document.getElementById('mileageRate').value=(mileageRate);
-  // console.log("AHHH");
+  var mileageRate = document.getElementById('mileageRates').innerHTML.substr(1);
+  document.getElementById('mileageRate').value=(mileageRate);
   
-  // var laborRate = document.getElementById('laborRates').innerHTML;
-  // document.getElementById('laborRate').value=(laborRate);
+  var laborRate = document.getElementById('laborRates').innerHTML.substr(1);
+  document.getElementById('laborRate').value=(laborRate);
 }
