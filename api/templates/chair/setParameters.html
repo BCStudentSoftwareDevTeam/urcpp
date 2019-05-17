@@ -6,24 +6,27 @@
 {% block body %}
 {% include 'snips/messages.html' %}
 {% include "chair/nav_tabs.html" %}
-<h1>URCPP Parameters</h1>
 
-<p>
-  {{ldap.firstname}}, what would you like to change?
-</p>
-
+<div style="text-align:center;">
+    <h1>URCPP Parameters</h1>
+</div>
+<div style="text-align:center;">
+    <p>
+      {{ldap.firstname}}, what would you like to change?
+    </p>
+</div>
  <!--Set the application start date-->
  <!--Set the application end date-->
  <!--Set the mileage rate-->
  <!--Set the labor rate-->
- 
+
  <form id = "parametersForm"
        class = "form-horizontal col-sm-10 col-sm-offset-1"
        action = "/chair/setParameters"
        method = "POST">
-  
+    <div style="background-color:ECF0F1;" id="box">
     <div  class = "row" 
-          style = "padding-bottom: 10px;">
+          style = "padding-bottom: 10px; padding-top: 10px; padding-right: 10px;">
       <label  for='newYear' 
               class = 'col-sm-4 control-label'>
          Year
@@ -36,12 +39,13 @@
                   required
                   step  = "1"
                   placeholder = "Enter a new URCPP year"
+                  oninput = "this.value = Math.abs(this.value)"
+                  min = "2015"
                   />
       </div>
-      
-      </div>
-       <div  class = "row" 
-          style = "padding-bottom: 10px;">
+    </div>
+    <div  class = "row" 
+          style = "padding-bottom: 10px; padding-right: 10px;">
       <label  for='applicationOpenDate' 
               class = 'col-sm-4 control-label'>
          Application Open Date
@@ -51,12 +55,12 @@
                   id    = 'applicationOpenDate' 
                   class = 'form-control hasDatePicker'
                   required
-                  placeholder = "yyyy/mm/dd"
+                  placeholder = "Choose the application open date"
                   />
-      </div>
+       </div>
       </div>
       <div  class = "row" 
-          style = "padding-bottom: 10px;">
+          style = "padding-bottom: 10px; padding-right: 10px;">
       <label  for='applicationCloseDate' 
               class = 'col-sm-4 control-label'>
          Application Close Date
@@ -66,12 +70,12 @@
                   id    = 'applicationCloseDate' 
                   class = 'form-control hasDatePicker'
                   required
-                  placeholder = "yyyy/mm/dd"
+                  placeholder = "Choose the application close date"
                   />
-      </div>
+       </div>
       </div>
       <div  class = "row" 
-          style = "padding-bottom: 10px; ">
+          style = "padding-bottom: 10px; padding-right: 10px;">
       <label  for='mileageRate' 
               class = 'col-sm-4 control-label'>
          Mileage Rate
@@ -83,12 +87,14 @@
                   class = 'form-control quantity'
                   required
                   step  = "0.01"
-                  placeholder = "Enter milage rate"
+                  placeholder = "Enter milage rate ($ per mile)"
+                  min = "0.00"
+                  oninput = "this.value = Math.abs(this.value)"
                   />
-      </div>
+        </div>
       </div>
       <div  class = "row" 
-          style = "padding-bottom: 10px; ">
+          style = "padding-bottom: 10px; padding-right: 10px;">
       <label  for='laborRate' 
               class = 'col-sm-4 control-label'>
          Labor Rate
@@ -100,11 +106,14 @@
                   class = 'form-control quantity'
                   required
                   step  = "0.01"
-                  placeholder = "Enter labor rate"
+                  placeholder = "Enter labor rate ($ per hour)"
+                  min = "0.00"
+                  oninput = "this.value = Math.abs(this.value)"
                   />
+       </div>
       </div>
-      </div>
-      <div class = "form-group"  >
+    </div> <!--Closing box div-->
+      <div class = "form-group" style="padding-top: 10px;">
       <div class = "col-sm-offset-10 col-sm-2" 
            id = "submitButton"
            >
@@ -120,6 +129,6 @@
   </form>
   
   {% include "snips/parametersTable.html" %}
-
+ 
 
 {% endblock %}

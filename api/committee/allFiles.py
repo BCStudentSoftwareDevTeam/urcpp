@@ -4,6 +4,7 @@ from ..pages.upload import checkForFile
 from ..API.parameters import getCurrentParameters
 from ..API.parameters import getParametersByYear
 from flask import send_file
+from ..API.makeExcel import getFilename
 
 import os, pprint, zipfile, uuid, time
 import shutil
@@ -14,7 +15,7 @@ import shutil
 @app.route("/committee/allFiles", methods = ["GET"])
 @app.route("/committee/allFiles/<int:year>", methods = ["GET"])
 @login_required
-def allFiles_GET(year=None):
+def allFiles(year=None):
   if not g.user.isCommitteeMember:
     abort(403)
   
@@ -49,7 +50,7 @@ def allFiles_GET(year=None):
     
   allFolders = os.walk(yearDir).next()[1]
 
-  
+  # downloadFileName = getFilename("allFiles")
   
 
   for folder in allFolders:
@@ -64,7 +65,9 @@ def allFiles_GET(year=None):
                             fac = faculty,
                             files = prevFilepath,
                             params = parameters
+                       
                           )
+                          # downloadFileName = downloadFileName
                           
 @app.route("/committee/allFiles", methods = ["POST"])
 @login_required

@@ -6,10 +6,7 @@
     - progs (a list of programs)
     - cfg
 #}
-
 {% extends "base.html" %}
-
-
 {% block title %} URCPP Project Basics {% endblock %}
 {% set currentPage = "create" %}
 {% block body %}
@@ -17,130 +14,129 @@
   <li><a href="/">Home</a></li>
   <li class="active">Create</li>
 </ol>
-<h1>URCPP Project Basics</h1>
-
-<p>
-  {{ldap.firstname}}, your project submission will require you to provide:
-</p>
-
-<ol>
-  <li> Project Basics (this page) </li>
-  <li> Collaborators (students & faculty (if any)) </li>
-  <li> A project budget </li>
-  <li> A project narrative (.docx or PDF) </li>
-  <li> A CV </li>
-  <li> An IRB (if necessary) </li>
-</ol>
-
-<p>
-  After you are finished, any project collaborators will need to login and submit their CVs as well. At that point, your submission will be complete.  
-</p>
-
-
-<form class = "form-horizontal"
-      action = "/create" 
-      method = "POST"
-      >
-  <fieldset>
-  <div class = "form-group">
-    <label for="title" class = "col-sm-2 control-label">Project Title </label>
-    <div class = "col-sm-9">
-      <input name = "title" id = "title" type = "text" class="form-control" value = "{{proj.title}}" required></input>
-    </div>
-  </div>
-  
-  <div class = "form-group">
-    <label for = "program" class = "col-sm-2 control-label">Program </label>
-    <div class = "col-sm-9">
-      <select name = "program" id = "program" class="form-control" required> 
-        <option value = "---" disabled {% if fac.programID is not defined %} selected {% endif %}>---</option>
-        {% for prog in progs %}
-          <option value = "{{prog.pID}}" {% if fac.programID is defined and fac.programID.pID == prog.pID %} selected {% endif %}>{{prog.abbreviation}}: {{prog.name}} </option>
-        {% endfor %}
-      </select>
-    </div>
-  </div>
-  
-  <div class = "form-group"> 
-    <label for = "duration" class = "col-sm-2 control-label">Duration </label>
-    <div class = "col-sm-9">
-      <select name = "duration" id = "duration" class="form-control selectpicker" required> 
-        <option value = "---" disabled {% if proj.duration is not defined %} selected {% endif %}>---</option>
-        {% for dur in cfg["urcpp"]["possibleDurations"] | sort %}
-          <option value = "{{dur}}" {% if proj.duration == dur %} selected {% endif %}>{{dur}}</option>
-        {% endfor %}
-      </select>  
-    </div>
-  </div>
-  
-  <div class="form-group">
-    <label for = "startDate" class = "col-sm-2 control-label">Start Date </label>
-    <div class = "input-group date">
-
-    <div class = "col-sm-9">
-      <input  id    = "startDate"
-	            name  = "startDate"  
-	            type  = "text" 
- 	            class = "form-control" 
- 	            value = "{% if proj.startDate is defined %}{{proj.startDate.strftime('%m-%d-%Y')}}{% endif %}" 
-              placeholder = "mm-dd-yyyy"
-	            onkeydown="return false"
-	            required>
-    </div>
+<div style="text-align:center;">
+  <h1>URCPP Project Basics</h1>
 </div>
+<!--<div style="background-color:ECF0F1">-->
+  <div class="container">
+    <p>
+      {{ldap.firstname}}, your project submission will require you to provide:
+    </p>
+    <ol>
+      <li> Project Basics (this page) </li>
+      <li> Collaborators (students & faculty) </li>
+      <li> A project budget </li>
+      <li> A project narrative (.docx or PDF) </li>
+      <li> A CV </li>
+      <li> An IRB (if necessary) </li>
+    </ol>
+    <p>
+      After you are finished, any project collaborators will need to login and submit their CVs as well. At that point, your submission will be complete.  
+    </p>
   </div>
-
-  <div class="form-group">
-    <label for = "startDate" class = "col-sm-2 control-label">End Date </label>
-    <div class = "input-group date">
-
-    <div class = "col-sm-9">
-      <input  id    = "endDate"
-	            name  = "endDate"  
-	            type  = "hidden" 
- 	            value = "{% if proj.endDate is defined %}{{proj.endDate.strftime('%m-%d-%Y')}}{% endif %}" 
-              placeholder = "mm-dd-yyyy"
-	            required>
-      <div id="endDateDisplay">{% if proj.endDate is defined %}{{proj.endDate.strftime('%m-%d-%Y')}}{% endif %}</div>
+  <div style="background-color:ECF0F1; padding-top:10px">
+  <div></div>
+    <form class = "form-horizontal"
+          action = "/create" 
+          method = "POST"
+          >
+      <fieldset>
+      <div class = "form-group">
+        <label for="title" class = "col-sm-2 control-label">Project Title </label>
+        <div class = "col-sm-9">
+          <input name = "title" id = "title" type = "text" class="form-control" value = "{{proj.title}}" required></input>
+        </div>
+      </div>
+      
+      <div class = "form-group">
+        <label for = "program" class = "col-sm-2 control-label">Program </label>
+        <div class = "col-sm-9">
+          <select name = "program" id = "program" class="form-control" required> 
+            <option value = "---" disabled {% if fac.programID is not defined %} selected {% endif %}>---</option>
+            {% for prog in progs %}
+              <option value = "{{prog.pID}}" {% if fac.programID is defined and fac.programID.pID == prog.pID %} selected {% endif %}>{{prog.abbreviation}}: {{prog.name}} </option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      
+      <div class = "form-group"> 
+        <label for = "duration" class = "col-sm-2 control-label">Duration </label>
+        <div class = "col-sm-9">
+          <select name = "duration" id = "duration" class="form-control" required> 
+            <option value = "---" disabled {% if proj.duration is not defined %} selected {% endif %}>---</option>
+            {% for dur in cfg["urcpp"]["possibleDurations"] | sort %}
+              <option value = "{{dur}}" {% if proj.duration == dur %} selected {% endif %}>{{dur}}</option>
+            {% endfor %}
+          </select>  
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for = "startDate" class = "col-sm-2 control-label">Start Date </label>
+        <div class = "input-group date">
+        <div class = "col-sm-9">
+          <input  id    = "startDate"
+    	            name  = "startDate"  
+    	            type  = "text" 
+     	            class = "form-control" 
+     	            value = "{% if proj.startDate is defined %}{{proj.startDate.strftime('%m-%d-%Y')}}{% endif %}" 
+                  placeholder = "mm-dd-yyyy"
+    	            onkeydown="return false"
+    	            required>
+        </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for = "startDate" class = "col-sm-2 control-label">End Date </label>
+        <div class = "input-group date">
+          <div class = "col-sm-9">
+            <input  id    = "endDate"
+      	            name  = "endDate"  
+      	            type = "text"
+      	            class = "form-control"
+       	            value = "{% if proj.endDate is defined %}{{proj.endDate.strftime('%m-%d-%Y')}}{% endif %}" 
+                    placeholder = "mm-dd-yyyy"
+      	            required>
+            <!--<div id="endDateDisplay">{% if proj.endDate is defined %}{{proj.endDate.strftime('%m-%d-%Y')}}{% endif %}</div>-->
+          </div>
+        </div>
     </div>
-</div>
-  </div>
-  
-  <div class = "row col-md-offset-1" style="font-size:1.4em;">
-    <div class = "checkbox">
-      <label><input name = "isServiceToCommunity" 
-                    {% if proj.isServiceToCommunity %} checked {% endif %} 
-                    id = "isServiceToCommunity" 
-                    type = "checkbox"  
-                    class="checkbox" 
-                    value = "{{proj.isServiceToCommunity}}">
-        Does your project provide a service to the community?
-        
-      </label><span 
-            class="glyphicon glyphicon-info-sign"
-            data-toggle="popover"
-            data-trigger="hover"
-            data-content="{{cfg['termDefinition']['serviceToCommunity']}}"
-            data-placement="right"
-            tabindex="0"
-            role="button">
-        </span>
+    <div class="container">
+      <div class = "row col-md-offset-1" style="font-size:1.4em;">
+        <div class = "checkbox">
+          <label><input name = "isServiceToCommunity" 
+                        {% if proj.isServiceToCommunity %} checked {% endif %} 
+                        id = "isServiceToCommunity" 
+                        type = "checkbox"  
+                        class="checkbox" 
+                        value = "{{proj.isServiceToCommunity}}">
+            Does your project provide a service to the community?
+          </label><span 
+                class="glyphicon glyphicon-info-sign"
+                data-toggle="popover"
+                data-trigger="focus"
+                data-content="{{cfg['termDefinition']['serviceToCommunity']}}"
+                data-placement="right"
+                tabindex="0"
+                role="button">
+            </span>
+        </div>
+      </div>
+      <div class = "row col-md-offset-1" style="font-size:1.4em;">
+        <div class = "checkbox">
+          <label><input name = "hasCommunityPartner" 
+                        {% if proj.hasCommunityPartner %} checked {% endif %} 
+                        id = "hasCommunityPartner" 
+                        type = "checkbox"  
+                        class="checkbox" 
+                        value = "{{proj.hasCommunityPartner}}">
+            Does your project involve working with community partners? 
+          </label>
+        </div>
+      </div>
     </div>
-    
-    
-  </div>
-  
-  <div class = "row col-md-offset-1" style="font-size:1.4em;">
-    <div class = "checkbox">
-      <label><input name = "hasCommunityPartner" 
-                    {% if proj.hasCommunityPartner %} checked {% endif %} 
-                    id = "hasCommunityPartner" 
-                    type = "checkbox"  
-                    class="checkbox" 
-                    value = "{{proj.hasCommunityPartner}}">
-        Does your project involve working with community partners? 
-      </label>
-    </div>
+    <br/>
   </div>
   <br />
   <div class = "form-group"  >
@@ -151,14 +147,22 @@
       <button id = "submit"  
               class="btn btn-block btn-primary form-control"
               type = "submit"
+<<<<<<< HEAD
               style="width:100px;"
+=======
+              onclick = "checkForRequired()"
+>>>>>>> development
               />
         Submit
       </button>
     </div>
   </div>
-  </fieldset>
+</fieldset>
 </form>
+<<<<<<< HEAD
 <input type="button" value="Back" onclick="window.history.back()" class="btn btn-success" /> 
 
+=======
+</div>
+>>>>>>> development
 {% endblock %}

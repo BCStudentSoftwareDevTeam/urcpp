@@ -8,59 +8,62 @@
   <li><a href="/people">People</a></li>
   <li class="active">History</li>
 </ol>
-<h1>Previous URCPP Funding</h1>
-
-Please indicate when you and your proposed project collaborators last received funding support through the URCPP program.
-
-{% macro checkblock (ldap) -%}
-  <h4 style = "margin-top: 20px;">{{ldap.username.firstname}} {{ldap.username.lastname}}</h4>
+<div style="text-align:center;">
+  <h1>Previous URCPP Funding</h1>
+</div>  
+<div class = "container">
+  <div style="text-align:center;">
+    Please indicate when you and your proposed project collaborators last received funding support through the URCPP program.
+  </div>
+  <br/>
+<div style="background-color:ECF0F1">
+  {% macro checkblock (ldap) -%}
+    <!--<h4 style = "margin-top: 20px;">{{ldap.username.firstname}} {{ldap.username.lastname}}</h4>-->
+    
+    {% for when in cfg["history"] %}
   
-  {% for when in cfg["history"] %}
-
-    <div class="checkbox">
-      <label>
-        <input name = "{{ldap.username.username}}-{{when['db']}}" id = "{{ldap.fID}}-{{when['db']}}" value = "{{ldap.username.username}}-{{when['db']}}" type="checkbox" {% if when['db'] in ldap.yearsFunded%} checked {% endif %}> {{when["desc"]}}
-      </label>
-    </div>
-  {% endfor %}
-{%- endmacro %}
-
-<div class = "row">
-  <form class = "form-horizontal col-sm-8 col-sm-offset-1"
-      action = "/history" 
-      method = "POST"
-      >
-    <div class="checkbox_array">
-      <div class="primary">
-    {{ checkblock (fac) }}
-    </div>
-    {% if collabs is defined %}
-      {% for collab in collabs %}
-        <div class="collab_checks">
-        {{ checkblock (collab) }}
-        </div>
-      {% endfor %}
-    {% endif%}
+      <div class="checkbox">
+        <label>
+          <input name = "{{ldap.username.username}}-{{when['db']}}" id = "{{ldap.fID}}-{{when['db']}}" value = "{{ldap.username.username}}-{{when['db']}}" type="checkbox" {% if when['db'] in ldap.yearsFunded%} checked {% endif %}> {{when["desc"]}}
+        </label>
       </div>
-  <div class = "form-group"  >
-    <div class = "col-sm-offset-9 col-sm-2" 
-         id = "submitButton"
-         >
-      <button id = "submit" 
-              type = "submit" 
-              class="btn btn-block btn-primary form-control"
-              style="width:100px;"
-              
-              disabled/>
-        Submit
-      </button>
-    </div>
+    {% endfor %}
+  {%- endmacro %}
+  
+  <div class = "row">
+    <form class = "form-horizontal col-sm-8 col-sm-offset-1"
+        action = "/history" 
+        method = "POST"
+        >
+      <div class="checkbox_array">
+        <div class="primary">
+      {{ checkblock (fac) }}
+      </div>
+      {% if collabs is defined %}
+        {% for collab in collabs %}
+          <div class="collab_checks">
+          {{ checkblock (collab) }}
+          </div>
+        {% endfor %}
+      {% endif%}
+        </div>
+</div> <!--End of background div-->
+</div>
+</br>
+    <div class = "form-group"  >
+      <div class = "col-sm-offset-9 col-sm-2" 
+           id = "submitButton"
+           >
+        <button id = "submit" 
+                type = "submit" 
+                class="btn btn-block btn-primary form-control"
+                
+                disabled/>
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
 
-
-  </form>
-</div>
-
-<input type="button" value="Back" onclick="window.history.back()" class="btn btn-success"
-style="margin-top:200px;position:relative; left:20px mergin:0px 97px;" /> 
 {% endblock %}
