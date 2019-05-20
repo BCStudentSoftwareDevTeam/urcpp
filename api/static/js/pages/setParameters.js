@@ -71,7 +71,7 @@ $("#delete_parameters").click(function(e) {
 
 function editParameters(year){
   //populates inputs above table with info from set parameter
-  console.log("editParemeters called yo");
+  // console.log("editParemeters called yo");
   
   // var year = document.getElementById('parameterYear').innerHTML;
   document.getElementById('newYear').value=(year);
