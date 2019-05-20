@@ -16,7 +16,6 @@ def setParameters_GET ():
                          .strptime(data['applicationCloseDate'], '%Y-%m-%d')
                          .replace(hour=11, minute=55) )
     parameters = Parameters.get_or_create(year = int(data['newYear']))[0]
-    # print("ayyy", parameters)
     parameters.appOpenDate = openDate
     parameters.appCloseDate =closeDate
     parameters.mileageRate = data['mileageRate']
