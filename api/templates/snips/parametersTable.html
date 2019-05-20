@@ -1,42 +1,39 @@
 <table class="table table-bordered" style="border: solid #2c3e50">
     <caption style="padding-bottom: 20px"><strong>Past Parameters</strong></caption>
     <tr>
-        <th style="border: solid #2c3e50">Year</th>
-        <th style="border: solid #2c3e50">Application Open Date</th>
-        <th style="border: solid #2c3e50">Application Close Date</th>
-        <th style="border: solid #2c3e50">Mileage Rate</th>
-        <th style="border: solid #2c3e50">Labor Rate</th>
+        <th style="border: solid #2c3e50; text-align: center">Year</th>
+        <th style="border: solid #2c3e50; text-align: center">Application Open Date</th>
+        <th style="border: solid #2c3e50; text-align: center">Application Close Date</th>
+        <th style="border: solid #2c3e50; text-align: center">Mileage Rate</th>
+        <th style="border: solid #2c3e50; text-align: center">Labor Rate</th>
     </tr>
     {% for parameter in parameters_list %}
-    <tr >
-        <td style="border: solid #2c3e50" id="parameterYear{{parameter.year}}">{{parameter.year}}</td>
-        <td style="border: solid #2c3e50" id="openDate{{parameter.year}}" >{{parameter.appOpenDate.strftime('%Y/%m/%d')}}</td>
-        <td style="border: solid #2c3e50" id="closeDate{{parameter.year}}" >{{parameter.appCloseDate.strftime('%Y/%m/%d')}}</td>
-        <td style="border: solid #2c3e50" id="mileageRates{{parameter.year}}">${{parameter.mileageRate}}</td>
-        <td style="border: solid #2c3e50" id="laborRates{{parameter.year}}">${{parameter.laborRate}}</td>
-        <td style="border: solid #2c3e50">
+    <tr>
+        <td style="border: solid #2c3e50; text-align: center" id="parameterYear{{parameter.year}}">{{parameter.year}}</td>
+        <td style="border: solid #2c3e50; text-align: center" id="openDate{{parameter.year}}" >{{parameter.appOpenDate.strftime('%Y/%m/%d')}}</td>
+        <td style="border: solid #2c3e50; text-align: center" id="closeDate{{parameter.year}}" >{{parameter.appCloseDate.strftime('%Y/%m/%d')}}</td>
+        <td style="border: solid #2c3e50; text-align: center" id="mileageRates{{parameter.year}}">${{parameter.mileageRate}}</td>
+        <td style="border: solid #2c3e50; text-align: center" id="laborRates{{parameter.year}}">${{parameter.laborRate}}</td>
+        <td style="border: solid #2c3e50; text-align: center">   
             <a id="delete_parameters" href={{url_for('deleteParameters', pID = parameter.pID)}}>
                 <span class="glyphicon glyphicon-trash" 
                     aria-hidden="true" 
-                    style= color:#dc3545;
+                    style= color:#dc3545; "padding-right: 20px"
                     title="Click to delete these parameters"
-                    ></span>
+                    > </span>
             </a>
             <span class="glyphicon glyphicon-pencil" 
                   style="cursor:help; "
                   title="Click to edit parameters"
                   id="editParameters-{{parameter.pID}}"
                   onclick="editParameters({{parameter.year}})"
-                  ></span>
-            
+                  > </span> 
             <span class="glyphicon glyphicon-ok isCurrentParameter {% if not parameter.isCurrentParameter %} disabled {% endif %}" 
                   style="cursor:help; color:#28a745"
                   title="Click to make this the current cycle parameters"
                   id="set_current_parameters-{{parameter.pID}}"
                   onclick="set_current_parameters({{parameter.pID}})"
-                  ></span>
-            
-            
+                  > </span>
         </td>
     </tr>
     {% endfor %}
