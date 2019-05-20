@@ -69,25 +69,24 @@ $("#delete_parameters").click(function(e) {
   warnBeforeRedirect(linkURL);
 });
 
-function editParameters(){
+function editParameters(year){
   //populates inputs above table with info from set parameter
   console.log("editParemeters called yo");
   
-  var year = document.getElementById('parameterYear').innerHTML;
-  // console.log("year   "+ year);
+  // var year = document.getElementById('parameterYear').innerHTML;
   document.getElementById('newYear').value=(year);
-  // console.log("After newYear");
-  var unformattedOpenDate = document.getElementById('openDate').innerHTML;
+
+  var unformattedOpenDate = document.getElementById('openDate'+year).innerHTML;
   var openDate = unformattedOpenDate.replace(/\//g, "-")
-  // console.log("FORMATTED:"+openDate)
   document.getElementById('applicationOpenDate').value=(openDate);
-  var unformattedCloseDate = document.getElementById('closeDate').innerHTML;
-  var closeDate = unformattedCloseDate.replace(/\//g, "-")
+  
+  var unformattedCloseDate = document.getElementById('closeDate'+year).innerHTML;
+  var closeDate = unformattedCloseDate.replace(/\//g, "-") //Replaces "/" with "-"
   document.getElementById('applicationCloseDate').value=(closeDate);
   
-  var mileageRate = document.getElementById('mileageRates').innerHTML.substr(1);
+  var mileageRate = document.getElementById('mileageRates'+year).innerHTML.substr(1);
   document.getElementById('mileageRate').value=(mileageRate);
   
-  var laborRate = document.getElementById('laborRates').innerHTML.substr(1);
+  var laborRate = document.getElementById('laborRates'+year).innerHTML.substr(1);
   document.getElementById('laborRate').value=(laborRate);
 }
