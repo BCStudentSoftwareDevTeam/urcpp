@@ -77,10 +77,12 @@ function editParameters(){
   // console.log("year   "+ year);
   document.getElementById('newYear').value=(year);
   // console.log("After newYear");
-  var openDate = document.getElementById('openDate').innerHTML;
+  var unformattedOpenDate = document.getElementById('openDate').innerHTML;
+  var openDate = unformattedOpenDate.replace(/\//g, "-")
+  // console.log("FORMATTED:"+openDate)
   document.getElementById('applicationOpenDate').value=(openDate);
-  
-  var closeDate = document.getElementById('closeDate').innerHTML;
+  var unformattedCloseDate = document.getElementById('closeDate').innerHTML;
+  var closeDate = unformattedCloseDate.replace(/\//g, "-")
   document.getElementById('applicationCloseDate').value=(closeDate);
   
   var mileageRate = document.getElementById('mileageRates').innerHTML.substr(1);
