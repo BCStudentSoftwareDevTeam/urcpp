@@ -16,18 +16,22 @@
         <td style="border: solid #2c3e50" id="laborRates">${{parameter.laborRate}}</td>
         <td style="border: solid #2c3e50">
             <a id="delete_parameters" href={{url_for('deleteParameters', pID = parameter.pID)}}>
-                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-trash" 
+                    aria-hidden="true" 
+                    style=color:#dc3545 
+                    title="Click to delete these parameters"
+                    ></span>
             </a>
             <span class="glyphicon glyphicon-pencil" 
-                  style="cursor:help;"
+                  style="cursor:help; "
                   title="Click to edit parameters"
                   id="editParameters-{{parameter.pID}}"
                   onclick="editParameters({{parameter.pID}})"
                   ></span>
             
             <span class="glyphicon glyphicon-ok isCurrentParameter {% if not parameter.isCurrentParameter %} disabled {% endif %}" 
-                  style="cursor:help;"
-                  title="Click this to make it the current cycle parameters"
+                  style="cursor:help; color:#28a745"
+                  title="Click to make this the current cycle parameters"
                   id="set_current_parameters-{{parameter.pID}}"
                   onclick="set_current_parameters({{parameter.pID}})"
                   ></span>
