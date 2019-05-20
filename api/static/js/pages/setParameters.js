@@ -58,7 +58,7 @@ function(isConfirm){
   if (isConfirm) {
     location.replace(url);
   } else {
-    swal("Cancelled", "Everything is normal");
+    swal("Cancelled", "Nothing has changed");
   }
 });
 }

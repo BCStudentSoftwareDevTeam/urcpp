@@ -8,7 +8,7 @@
         <th style="border: solid #2c3e50">Labor Rate</th>
     </tr>
     {% for parameter in parameters_list %}
-    <tr>
+    <tr >
         <td style="border: solid #2c3e50" id="parameterYear{{parameter.year}}">{{parameter.year}}</td>
         <td style="border: solid #2c3e50" id="openDate{{parameter.year}}" >{{parameter.appOpenDate.strftime('%Y/%m/%d')}}</td>
         <td style="border: solid #2c3e50" id="closeDate{{parameter.year}}" >{{parameter.appCloseDate.strftime('%Y/%m/%d')}}</td>
@@ -18,7 +18,7 @@
             <a id="delete_parameters" href={{url_for('deleteParameters', pID = parameter.pID)}}>
                 <span class="glyphicon glyphicon-trash" 
                     aria-hidden="true" 
-                    style=color:#dc3545 
+                    style= color:#dc3545;
                     title="Click to delete these parameters"
                     ></span>
             </a>
