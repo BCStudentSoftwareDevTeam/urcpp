@@ -138,22 +138,28 @@
     </div>
     <br/>
   </div>
-  <br />
-  <div class = "form-group"  >
-    <div class = "col-sm-offset-9 col-sm-2" 
+  <br /> 
+    <div class = "row">
+    <div class = "col-sm-1">
+      <input type="button" value="Back" onclick="window.history.back()" class="btn btn-primary"/> 
+      </input>
+    </div>
+    <div class = "col-sm-1 col-sm-offset-10" 
          id = "submitButton"
          >
       <button id = "submit"  
-              class="btn btn-block btn-primary"
+              class="btn btn-success"
               class = "form-control"
               type = "submit"
               onclick = "checkForRequired()"
               />
         Submit
       </button>
-    </div>
+      
+      </div>
+    
   </div>
 </fieldset>
 </form>
-</div>
+
 {% endblock %}
