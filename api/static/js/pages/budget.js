@@ -39,3 +39,16 @@ function submitData() {
   var obj = formToObj(document.querySelector("form"));
   console.log(obj);
 };
+
+function limit() {
+
+  var currentTotal = findTotal();
+  console.log(currentTotal)
+
+ if( currentTotal > 8300) {
+   $("#exceeding").modal();
+   }
+   else {
+   submitData();
+   }
+ };
