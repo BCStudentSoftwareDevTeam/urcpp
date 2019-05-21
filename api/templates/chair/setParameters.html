@@ -39,6 +39,8 @@
                   required
                   step  = "1"
                   placeholder = "Enter a new URCPP year"
+                  oninput = "this.value = Math.abs(this.value)"
+                  min = "2015"
                   />
       </div>
     </div>
@@ -53,7 +55,7 @@
                   id    = 'applicationOpenDate' 
                   class = 'form-control hasDatePicker'
                   required
-                  placeholder = "yyyy/mm/dd"
+                  placeholder = "Choose the application open date"
                   />
        </div>
       </div>
@@ -68,7 +70,7 @@
                   id    = 'applicationCloseDate' 
                   class = 'form-control hasDatePicker'
                   required
-                  placeholder = "yyyy/mm/dd"
+                  placeholder = "Choose the application close date"
                   />
        </div>
       </div>
@@ -85,7 +87,9 @@
                   class = 'form-control quantity'
                   required
                   step  = "0.01"
-                  placeholder = "Enter milage rate"
+                  placeholder = "Enter milage rate ($ per mile)"
+                  min = "0.00"
+                  oninput = "this.value = Math.abs(this.value)"
                   />
         </div>
       </div>
@@ -102,7 +106,9 @@
                   class = 'form-control quantity'
                   required
                   step  = "0.01"
-                  placeholder = "Enter labor rate"
+                  placeholder = "Enter labor rate ($ per hour)"
+                  min = "0.00"
+                  oninput = "this.value = Math.abs(this.value)"
                   />
        </div>
       </div>
