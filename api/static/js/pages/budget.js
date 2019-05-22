@@ -39,23 +39,23 @@ api = urcpp("v1");
 
 function submitData() {  
   var obj =  document.getElementById("budgetForm");
-  console.log($("#budgetForm"));
+  //console.log($("#budgetForm"));
   /* Ajax the data to /budget */
   $("#budgetForm")[0].submit();  
-  console.log("Submitted");
+  //console.log("Submitted");
 };
 
 
 function limit() {
 
   var currentTotal = findTotal();
-  console.log(currentTotal);
+  //console.log(currentTotal);
 
   if( currentTotal > 8300) {
      $("#exceeding").modal();
    }
    else {
-     console.log("About to submit");     
+     //console.log("About to submit");     
      submitData();
    }
  };
