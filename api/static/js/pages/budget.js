@@ -23,6 +23,8 @@ function findTotal() {
   
 // Set the total.
 $("#total").val(tot.toFixed(2));
+
+return tot;
 };
 
 // Need to run on first page load.
@@ -35,20 +37,25 @@ $(document).ready ( function () {
  /* global urcpp, api, username, formToObj, show */
 api = urcpp("v1"); 
 
-function submitData() {
-  var obj = formToObj(document.querySelector("form"));
-  console.log(obj);
+function submitData() {  
+  var obj =  document.getElementById("budgetForm");
+  console.log($("#budgetForm"));
+  /* Ajax the data to /budget */
+  $("#budgetForm")[0].submit();  
+  console.log("Submitted");
 };
+
 
 function limit() {
 
   var currentTotal = findTotal();
-  console.log(currentTotal)
+  console.log(currentTotal);
 
- if( currentTotal > 8300) {
-   $("#exceeding").modal();
+  if( currentTotal > 8300) {
+     $("#exceeding").modal();
    }
    else {
-   submitData();
+     console.log("About to submit");     
+     submitData();
    }
  };
