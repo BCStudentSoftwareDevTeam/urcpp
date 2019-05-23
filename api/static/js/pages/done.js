@@ -37,8 +37,9 @@ function(isConfirm){
     var postValue = {};
     postValue[projectID] = 'Withdrawn';
     $.post("/committee/allProjects/updateStatus", postValue, function(result){
-    });
     window.location.replace("/");
+    });
+    
   } else {
     swal("Cancelled", "Your imaginary file is safe :)", "error");
   }

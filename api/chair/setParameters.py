@@ -21,6 +21,7 @@ def setParameters_GET ():
                             mileageRate = data['mileageRate'],
                             laborRate = data['laborRate'])
     
+    
     parameters.save()
     
     flash('New application year succesfully created')
