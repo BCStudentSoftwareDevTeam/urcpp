@@ -14,7 +14,8 @@ def done_GET ():
    # All of our queries
   proj = getProject(g.user.username)
   parameters = getCurrentParameters()
-  collaborators = getCollaborators(g.user.username)
+  collaborators = getCollaboratorsByProjectId(proj.pID)
+  faculty = URCPPFaculty.get(URCPPFaculty.pID == proj.pID)
   uploadedFiles = [];
   
   if proj.status == cfg["projectStatus"]["Pending"]:
@@ -32,7 +33,8 @@ def done_GET ():
                             uploadedFiles = uploadedFiles,
                             params = parameters,
                             collabs = collaborators,
-                            username = g.user.username
+                            username = g.user.username,
+                            faculty = faculty
                           )
 
 
