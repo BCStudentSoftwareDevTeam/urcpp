@@ -60,6 +60,7 @@ login_manager.login_message = None
 
 mail = Mail(app)  #mail using configuration values of the application
 
+
 from api.switch import switch
 from api.config import load_config
 

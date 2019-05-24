@@ -72,7 +72,7 @@
                 {{funding[person.pID.budgetID]}}
               <!--Handle Everything else-->
               {% elif column['fieldName'] == "email" %}
-              <button type='button' data-toggle="modal" data-target="#emailPreviewModal" data-name="{{person.username.firstname}} {{person.username.lastname}}" data-project-title = "{{person.pID.title}}" data-pid="{{person.pID.pID}}" class="btn btn-default btn-md">
+              <button type='button' data-toggle="modal" data-target="#emailPreviewModal" data-name="{{person.username.username}}" data-project-title = "{{person.pID.title}}" data-pid="{{person.pID.pID}}" class="btn btn-default btn-md">
                 <i class="glyphicon glyphicon-envelope"></i>
               </button>
 

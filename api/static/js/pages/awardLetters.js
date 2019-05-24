@@ -1,5 +1,5 @@
 
-function getEmail(pID, username) {
+function getEmail(username, pID) {
     $.ajax({
         url: '/chair/awardLetters/send/'+ username +'/' + String(pID),
         dataType: 'json',
@@ -77,7 +77,9 @@ $('#emailPreviewModal').on('show.bs.modal', function (event) {
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
   var modal = $(this)
   getAcceptLetter(pid)
-  modal.find('.modal-title').text(faculty + ' - ' + project_title)
+  modal.find('.modal-title').text(project_title)
+  // Modifies the Send email button's onclick to include necessary fields (pid and username)
+  $("#sendEmailButton").attr('onclick', 'getEmail("' + faculty + '", "' + pid + '")')
 //   modal.find('.modal-body input').val(recipient)
 })
 $(document).ready(function(){

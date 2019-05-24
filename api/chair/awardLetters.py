@@ -59,6 +59,7 @@ def awardLetters_get ():
 @app.route("/chair/awardLetters/send/<username>/<pID>", methods = ["GET"])
 @login_required
 def awardLetters_generate(username,pID):
+  print("Starting emailer")
   if not g.user.isCommitteeMember:
     abort(403)
   # All of our queries
@@ -78,6 +79,7 @@ def awardLetters_generate(username,pID):
   year = str(project.startDate.strftime("%Y"))
   student = str(project.numberStudents)
   funding = str(getTotalBudget(project.budgetID)-project.budgetID.facultyStipend)
+  print("Still getting email ready")
   # Replace all placeholder text
   body = body.replace("@@Students@@", student)
   body = body.replace("@@Year@@", year)
@@ -89,14 +91,14 @@ def awardLetters_generate(username,pID):
   body = body.replace("@@End Date@@",end)
   body = body.replace("@@Stipend@@",stipend)
   email_address = "%s@berea.edu" % (str(faculty.username.username))
-
   try:
     
     acceptance_email = create_message(subject, email_address, body)
-    
+    print('Acc email: ', acceptance_email.html)
     mail.send(acceptance_email)
-    
+    print("Sent the email")
   except Exception as e:
+      print("Emailer failed", e)
       return jsonify({"mail_to": "Failed to send email with error: %s" % (e)})
  
   return jsonify({"mail_to":"Email sent to: %s"  % (email_address) })

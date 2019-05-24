@@ -46,7 +46,6 @@ def templates (path):
 @app.route("/<username>", methods = ["GET"])
 @login_required
 def main_with_username (username):
-  print "Going home"
   return redirect('/')
 
 
