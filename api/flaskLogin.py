@@ -14,7 +14,6 @@ def login():
             abort(403)
         else:
             login_user(user)
-            print user.username
         return redirect(redirect_url())
             
 
