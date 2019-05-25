@@ -7,9 +7,10 @@ def getCommitteeMembers():
     Returns:
       LDAPFaculty Select Query: The committee members
   """
-  return (LDAPFaculty.select()
-                    .where(LDAPFaculty.isCommitteeMember == True))
-                    
+  return (LDAPFaculty.select(LDAPFaculty.username)
+                    .where(LDAPFaculty.isCommitteeMember == True)
+                    )
+                   
                     
 def removeCommitteeMembers(commiteeList):
   """removes the committee members from a list
@@ -21,11 +22,10 @@ def removeCommitteeMembers(commiteeList):
       int: The number of rows changed
   """
       
-  removeQuery = (LDAPFaculty.update(isCommitteeMember = False)
-                        .where(LDAPFaculty.isCommitteeMember == True) # currentCommittee Members
-                        .where(~(LDAPFaculty.fID << commiteeList))) # not in the list passed through
+  makeCommitteeMembers = (LDAPFaculty.update(isCommitteeMember = False)
+                                      .where(LDAPFaculty.fID << commiteeList))
                         
-  return removeQuery.execute()
+  return makeCommitteeMembers.execute()
   
   
 def addCommitteeMembers(desiredCommitteeList):
