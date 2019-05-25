@@ -15,15 +15,15 @@ def setParameters_GET ():
     closeDate = (datetime.datetime
                          .strptime(data['applicationCloseDate'], '%Y-%m-%d')
                          .replace(hour=11, minute=55) )
-    parameters = Parameters(year = int(data['newYear']),
-                            appOpenDate = openDate,
-                            appCloseDate =closeDate,
-                            mileageRate = data['mileageRate'],
-                            laborRate = data['laborRate'])
+    parameters = Parameters.get_or_create(year = int(data['newYear']))[0]
+    parameters.appOpenDate = openDate
+    parameters.appCloseDate =closeDate
+    parameters.mileageRate = data['mileageRate']
+    parameters.laborRate = data['laborRate']
     
     parameters.save()
     
-    flash('New application year succesfully created')
+    flash("Successfully saved" , "success")
     return redirect(url_for('setParameters_GET', username = g.user.username))
     
   parameters = getCurrentParameters()
@@ -47,7 +47,7 @@ def deleteParameters(pID):
     parameters.delete_instance()
   
   except Parameters.DoesNotExist:
-    flash('Parameters not found')
+    flash("Parameters not found" , "danger")
   return redirect(redirect_url())
   
   
