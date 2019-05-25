@@ -29,7 +29,7 @@ def budget_GET ():
 @app.route("/budget", methods = ["POST"])
 @login_required 
 def budget_POST ():
-  
+  print("Inside budget")
   # Data is an immutable dictionary
   data = request.form
   
@@ -56,4 +56,5 @@ def budget_POST ():
   budg.otherDesc            = data["otherDesc"]
   budg.save()
   
+  print("Budget saved successfully")
   return redirect(url_for("done_GET"))
