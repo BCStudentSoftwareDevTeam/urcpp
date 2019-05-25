@@ -140,9 +140,9 @@ def getFacultyWithAcceptedProjects(year=None):
                         .where(Projects.status == cfg["projectStatus"]["Accept"])
           )
   if year is not None:
-    facQ.where(Projects.year == year)
-  if facQ.exists():
-    return facQ.execute()
+    facQ = facQ.where(Projects.year == year).execute()
+  if facQ:
+    return facQ
   else:
     return None
 
