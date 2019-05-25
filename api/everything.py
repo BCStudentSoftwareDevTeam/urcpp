@@ -82,7 +82,7 @@ def before_request():
 @app.teardown_request
 def teardown_request(exception):
     dbS = getattr(g, 'dbStatic', None)
-    dbD = getattr(g, 'dbDynamic', None)
+#    dbD = getattr(g, 'dbDynamic', None)
     if (dbS is not None) and (not dbS.is_closed()):
       dbS.close()
     #if (dbD is not None) and (not dbD.is_closed()):
