@@ -93,6 +93,5 @@ function editParameters(year){
 
 $("#laborRate").change(function() {
     var curr_val = parseFloat($(this).val());
-    console.log(curr_val);
     $(this).val(curr_val.toFixed(2));
 });
