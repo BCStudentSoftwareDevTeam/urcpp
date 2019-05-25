@@ -15,3 +15,4 @@ def dashboard():
   today = datetime.now()
     
   return render_template ("dashboard.html", cfg=cfg, ldap=ldap, proj=project, currentCycle=currentCycle, today=today)
+  
