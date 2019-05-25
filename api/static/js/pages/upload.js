@@ -14,17 +14,7 @@ function deleteFile(){
   if (prevFilepath != "")
   {
     var data = {"username": username, "uploadType":uploadType}
-     $.ajax({
-        type : "POST",
-        url : removefileAPI,
-        data: JSON.stringify(data),
-        contentType: 'application/json;charset=UTF-8',
-        success: function(result) {
-          Dropzone.options.maxFiles = 1 
-          console.log(Dropzone.options.maxFiles)
-          $("#drop").removeClass("dz-max-files-reached")
-        }
-    });
+    
   }
     $("#dropzone-cancel").hide()
     $("#dropzone-remove").show()

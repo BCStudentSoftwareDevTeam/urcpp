@@ -7,7 +7,7 @@ from redirectback import redirect_url
 def login():
         # get the user from shibboleth
         system_user = authUser(request.environ)
-        
+	print(system_user)        
         # look for user in our database
         user = getLDAPFaculty(system_user)
         if user is None:
