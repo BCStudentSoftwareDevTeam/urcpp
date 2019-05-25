@@ -90,3 +90,9 @@ function editParameters(year){
   var laborRate = document.getElementById('laborRates'+year).innerHTML.substr(1);
   document.getElementById('laborRate').value=(laborRate);
 }
+
+$("#laborRate").change(function() {
+    var curr_val = parseFloat($(this).val());
+    console.log(curr_val);
+    $(this).val(curr_val.toFixed(2));
+});

@@ -14,7 +14,7 @@
         <td style="border: solid #2c3e50; text-align: center" id="openDate{{parameter.year}}" >{{parameter.appOpenDate.strftime('%Y/%m/%d')}}</td>
         <td style="border: solid #2c3e50; text-align: center" id="closeDate{{parameter.year}}" >{{parameter.appCloseDate.strftime('%Y/%m/%d')}}</td>
         <td style="border: solid #2c3e50; text-align: center" id="mileageRates{{parameter.year}}">${{parameter.mileageRate}}</td>
-        <td style="border: solid #2c3e50; text-align: center" id="laborRates{{parameter.year}}">${{parameter.laborRate}}</td>
+        <td style="border: solid #2c3e50; text-align: center" id="laborRates{{parameter.year}}">${{'%0.2f'| format(parameter.laborRate|float)}}</td>
         <td style="border: solid #2c3e50; text-align: center">   
             <div class= "row justify-content-md-center">
                     <a id="delete_parameters" href={{url_for('deleteParameters', pID = parameter.pID)}}>
