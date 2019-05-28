@@ -15,9 +15,19 @@ def setParameters_GET ():
     closeDate = (datetime.datetime
                          .strptime(data['applicationCloseDate'], '%Y-%m-%d')
                          .replace(hour=11, minute=55) )
+    ProposalOpenDate = datetime.datetime.strptime(data['ProposalOpenDate'], '%Y-%m-%d')
+    ProposalAcceptanceDate = datetime.datetime.strptime(data['ProposalAcceptanceDate'], '%Y-%m-%d')
+    ProposalClosedDate = datetime.datetime.strptime(data['ProposalClosedDate'], '%Y-%m-%d')
+    AbstractnarrativesAcceptanceDate = datetime.datetime.strptime(data['AbstractnarrativesAcceptanceDate'], '%Y-%m-%d')
+    AllSubmissionsClosedDate = datetime.datetime.strptime(data['AllSubmissionsClosedDate'], '%Y-%m-%d')
     parameters = Parameters(year = int(data['newYear']),
                             appOpenDate = openDate,
                             appCloseDate =closeDate,
+                            ProposalOpenDate =ProposalOpenDate,
+                            ProposalAcceptanceDate =ProposalAcceptanceDate,
+                            ProposalClosedDate =ProposalClosedDate,
+                            AbstractnarrativesAcceptanceDate =AbstractnarrativesAcceptanceDate,
+                            AllSubmissionsClosedDate =AllSubmissionsClosedDate,
                             mileageRate = data['mileageRate'],
                             laborRate = data['laborRate'])
     

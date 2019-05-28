@@ -95,6 +95,11 @@ class Parameters (DynamicModel):
   year                = IntegerField(unique=True)
   appOpenDate         = DateTimeField()
   appCloseDate        = DateTimeField()
+  ProposalOpenDate    = DateTimeField()
+  ProposalAcceptanceDate = DateTimeField()
+  ProposalClosedDate = DateTimeField()
+  AbstractnarrativesAcceptanceDate = DateTimeField()
+  AllSubmissionsClosedDate = DateTimeField()
   mileageRate         = FloatField() # Or Double?
   laborRate           = FloatField() # Or Double?
   isCurrentParameter  = BooleanField(default=False)
@@ -129,6 +134,7 @@ class URCPPStudents (DynamicModel):
   preSurveyID       = ForeignKeyField(PreSurvey)
   postSurveyID      = ForeignKeyField(PostSurvey)
   projectID         = ForeignKeyField(Projects)
+
 
 class URCPPFaculty (DynamicModel):
   fID               = PrimaryKeyField()

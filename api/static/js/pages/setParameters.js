@@ -4,7 +4,27 @@ $(function() {
         dateFormat: "yy-mm-dd"
       });
       
-      $("#applicationCloseDate").datepicker({
+      $("#applicationOpenDate").datepicker({
+        dateFormat: "yy-mm-dd"
+      });
+      
+      $("#ProposalOpenDate").datepicker({
+        dateFormat: "yy-mm-dd"
+      });
+      
+      $("#ProposalAcceptanceDate").datepicker({
+        dateFormat: "yy-mm-dd"
+      });
+      
+       $("#ProposalClosedDate").datepicker({
+        dateFormat: "yy-mm-dd"
+      });
+      
+       $("#AbstractnarrativesAcceptanceDate").datepicker({
+        dateFormat: "yy-mm-dd"
+      });
+      
+       $("#AllSubmissionsClosedDate").datepicker({
         dateFormat: "yy-mm-dd"
       });
     });

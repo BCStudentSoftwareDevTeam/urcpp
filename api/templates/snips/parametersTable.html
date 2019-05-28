@@ -6,6 +6,13 @@
         <th style="border: solid #2c3e50">Application Close Date</th>
         <th style="border: solid #2c3e50">Mileage Rate</th>
         <th style="border: solid #2c3e50">Labor Rate</th>
+        <th style="border: solid #2c3e50">Proposal Open Date</th>
+        <th style="border: solid #2c3e50">Proposal Acceptance Date</th>
+        <th style="border: solid #2c3e50">Proposal Closed Date</th>
+        <th style="border: solid #2c3e50">Abstract/narratives Acceptance Date</th>
+        <th style="border: solid #2c3e50">All Submissions Closed Date</th>
+        
+        
     </tr>
     {% for parameter in parameters_list %}
     <tr>
@@ -14,6 +21,10 @@
         <td style="border: solid #2c3e50">{{parameter.appCloseDate.strftime('%Y/%m/%d')}}</td>
         <td style="border: solid #2c3e50">${{parameter.mileageRate}}</td>
         <td style="border: solid #2c3e50">${{parameter.laborRate}}</td>
+        <td style="border: solid #2c3e50">{{parameter.ProposalOpenDate.strftime('%Y/%m/%d')}}</td>
+        <td style="border: solid #2c3e50">{{parameter.ProposalAcceptanceDate.strftime('%Y/%m/%d')}}</td>
+        <td style="border: solid #2c3e50">{{parameter.AbstractnarrativesAcceptanceDate.strftime('%Y/%m/%d')}}</td>
+        <td style="border: solid #2c3e50">{{parameter.AllSubmissionsClosedDate.strftime('%Y/%m/%d')}}</td>
         <td  style="border: solid #2c3e50">
             <a id="delete_parameters" href={{url_for('deleteParameters', pID = parameter.pID)}}>
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
