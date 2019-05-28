@@ -1,6 +1,7 @@
 <table class="table table-bordered" style="border: solid #2c3e50">
     <caption style="padding-bottom: 20px"><strong>Past Parameters</strong></caption>
     <tr>
+
         <th style="border: solid #2c3e50">Year</th>
         <th style="border: solid #2c3e50">Application Open Date</th>
         <th style="border: solid #2c3e50">Application Close Date</th>
@@ -20,22 +21,33 @@
         <td style="border: solid #2c3e50">{{parameter.appOpenDate.strftime('%Y/%m/%d')}}</td>
         <td style="border: solid #2c3e50">{{parameter.appCloseDate.strftime('%Y/%m/%d')}}</td>
         <td style="border: solid #2c3e50">${{parameter.mileageRate}}</td>
-        <td style="border: solid #2c3e50">${{parameter.laborRate}}</td>
+        <td style="border: solid #2c3e50">${{'%0.2f'| format(parameter.laborRate|float)}}</td>
         <td style="border: solid #2c3e50">{{parameter.ProposalOpenDate.strftime('%Y/%m/%d')}}</td>
         <td style="border: solid #2c3e50">{{parameter.ProposalAcceptanceDate.strftime('%Y/%m/%d')}}</td>
         <td style="border: solid #2c3e50">{{parameter.AbstractnarrativesAcceptanceDate.strftime('%Y/%m/%d')}}</td>
         <td style="border: solid #2c3e50">{{parameter.AllSubmissionsClosedDate.strftime('%Y/%m/%d')}}</td>
         <td  style="border: solid #2c3e50">
-            <a id="delete_parameters" href={{url_for('deleteParameters', pID = parameter.pID)}}>
-                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-            </a>
-            <span class="glyphicon glyphicon-ok isCurrentParameter {% if not parameter.isCurrentParameter %} disabled {% endif %}" 
-                  style="cursor:help;"
-                  title="Click this to make it the current cycle parameters"
-                  id="set_current_parameters-{{parameter.pID}}"
-                  onclick="set_current_parameters({{parameter.pID}})"
-                  ></span>
-        </td>
-    </tr>
-    {% endfor %}
+            <div class= "row justify-content-md-center">
+                    <a id="delete_parameters" href={{url_for('deleteParameters', pID = parameter.pID)}}>
+                    <span class="glyphicon glyphicon-trash" 
+                        aria-hidden="true" 
+                        style= "color:#dc3545; padding-right: 5px"
+                        title="Click to delete these parameters"
+                        > </span>
+                </a>
+                    <span class="glyphicon glyphicon-pencil" 
+                          style="cursor:help; padding-right: 3px"
+                          title="Click to edit parameters"
+                          id="editParameters-{{parameter.pID}}"
+                          onclick="editParameters({{parameter.year}})"
+                          > </span> 
+                    <span class="glyphicon glyphicon-ok isCurrentParameter {% if not parameter.isCurrentParameter %} disabled {% endif %}" 
+                          style="cursor:help; color:#28a745"
+                          title="Click to make this the current cycle parameters"
+                          id="set_current_parameters-{{parameter.pID}}"
+                          onclick="set_current_parameters({{parameter.pID}})"
+                          > </span>
+            </div>
+
+       
 </table>

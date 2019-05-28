@@ -15,12 +15,13 @@ def setParameters_GET ():
     closeDate = (datetime.datetime
                          .strptime(data['applicationCloseDate'], '%Y-%m-%d')
                          .replace(hour=11, minute=55) )
+
     ProposalOpenDate = datetime.datetime.strptime(data['ProposalOpenDate'], '%Y-%m-%d')
     ProposalAcceptanceDate = datetime.datetime.strptime(data['ProposalAcceptanceDate'], '%Y-%m-%d')
     ProposalClosedDate = datetime.datetime.strptime(data['ProposalClosedDate'], '%Y-%m-%d')
     AbstractnarrativesAcceptanceDate = datetime.datetime.strptime(data['AbstractnarrativesAcceptanceDate'], '%Y-%m-%d')
     AllSubmissionsClosedDate = datetime.datetime.strptime(data['AllSubmissionsClosedDate'], '%Y-%m-%d')
-    parameters = Parameters(year = int(data['newYear']),
+    parameters = Parameters.get_or_create(year = int(data['newYear']))[0],
                             appOpenDate = openDate,
                             appCloseDate =closeDate,
                             ProposalOpenDate =ProposalOpenDate,
@@ -30,10 +31,11 @@ def setParameters_GET ():
                             AllSubmissionsClosedDate =AllSubmissionsClosedDate,
                             mileageRate = data['mileageRate'],
                             laborRate = data['laborRate'])
+
     
     parameters.save()
     
-    flash('New application year succesfully created')
+    flash("Successfully saved" , "success")
     return redirect(url_for('setParameters_GET', username = g.user.username))
     
   parameters = getCurrentParameters()
@@ -57,7 +59,7 @@ def deleteParameters(pID):
     parameters.delete_instance()
   
   except Parameters.DoesNotExist:
-    flash('Parameters not found')
+    flash("Parameters not found" , "danger")
   return redirect(redirect_url())
   
   

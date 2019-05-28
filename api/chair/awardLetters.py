@@ -62,32 +62,43 @@ def awardLetters_generate(username,pID):
   if not g.user.isCommitteeMember:
     abort(403)
   # All of our queries
+  
   project = Projects.get(Projects.pID == pID)
+  
   # we need the current year to get current faculty with projects
   template = EmailTemplates.get(EmailTemplates.eID == 1)
   body = template.Body
   subject = template.Subject
   funding = str(getTotalBudget(project.budgetID))
   project_title = project.title
-  student_count = str(project.numberStudents)
   start = str(project.startDate.strftime("%B %d, %Y"))
   end = str(project.endDate.strftime("%B %d, %Y"))
   stipend = str(project.budgetID.facultyStipend)
-  
+  faculty = URCPPFaculty.get(project.pID == URCPPFaculty.pID)
+  year = str(project.startDate.strftime("%Y"))
+  student = str(project.numberStudents)
+  funding = str(getTotalBudget(project.budgetID)-project.budgetID.facultyStipend)
   # Replace all placeholder text
+  body = body.replace("@@Students@@", student)
+  body = body.replace("@@Year@@", year)
+  body = body.replace("@@Date@@", str(datetime.datetime.now().strftime("%m/%d/%y")))
+  body = body.replace("@@Faculty@@",faculty.username.firstname+ " " +faculty.username.lastname)
   body = body.replace("@@Funding@@",funding)
   body = body.replace("@@ProjectTitle@@",project_title)
-  body = body.replace("@@Students@@",student_count)
   body = body.replace("@@Start Date@@",start)
   body = body.replace("@@End Date@@",end)
   body = body.replace("@@Stipend@@",stipend)
-  email_address = "%s@berea.edu" % (username)
-  try:
-    acceptance_email = create_message(subject, email_address , body)
-    mail.send(acceptance_email)
-  except Exception as e:
-      return {"mail_to": "Failed to send email to: %s" % (email_address)}
+  email_address = "%s@berea.edu" % (str(faculty.username.username))
 
+  try:
+    
+    acceptance_email = create_message(subject, email_address, body)
+    
+    mail.send(acceptance_email)
+    
+  except Exception as e:
+      return jsonify({"mail_to": "Failed to send email with error: %s" % (e)})
+ 
   return jsonify({"mail_to":"Email sent to: %s"  % (email_address) })
 
 @app.route("/chair/awardLetters/get/<pID>", methods = ["GET"])
@@ -102,17 +113,23 @@ def accept_letters_get(pID):
   template = EmailTemplates.get(EmailTemplates.eID == 1)
   body = template.Body
   subject = template.Subject
-  funding = str(getTotalBudget(project.budgetID))
+  funding = str(getTotalBudget(project.budgetID)-project.budgetID.facultyStipend)
   project_title = project.title
   student_count = str(project.numberStudents)
   start = str(project.startDate.strftime("%B %d, %Y"))
   end = str(project.endDate.strftime("%B %d, %Y"))
   stipend = str(project.budgetID.facultyStipend)
+  faculty = URCPPFaculty.get(project.pID == URCPPFaculty.pID)
+  year = str(project.startDate.strftime("%Y"))
+  student = str(project.numberStudents)
   
   # Replace all placeholder text
+  body = body.replace("@@Students@@", student)
+  body = body.replace("@@Year@@", year)
+  body = body.replace("@@Date@@", str(datetime.datetime.now().strftime("%m/%d/%y")))
+  body = body.replace("@@Faculty@@",faculty.username.firstname+ " " +faculty.username.lastname)
   body = body.replace("@@Funding@@",funding)
   body = body.replace("@@ProjectTitle@@",project_title)
-  body = body.replace("@@Students@@",student_count)
   body = body.replace("@@Start Date@@",start)
   body = body.replace("@@End Date@@",end)
   body = body.replace("@@Stipend@@",stipend)
