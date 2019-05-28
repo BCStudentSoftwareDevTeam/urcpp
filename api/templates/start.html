@@ -15,7 +15,7 @@
    
    <ul style = "font-size: 150%;">
 
-      {% if currentCycle is not none and currentCycle.appOpenDate < today < currentCycle.appCloseDate %}
+      {% if currentCycle is not none and currentCycle.ProposalOpenDate < today < currentCycle.ProposalClosedDate %}
            {% if proj and proj.status == cfg["projectStatus"]["incomplete"] %}
                   <!--<a href = "/create">Continue a Previous URCPP Project Submission</a>-->
                   <div id="dashboard"></div>

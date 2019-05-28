@@ -227,11 +227,20 @@ projectStatus:
   Incomplete: Incomplete
   # This means they are done, but not reviewed
   Pending: Pending
-
+  AllClosed: AllClosed 
+  Abstract: Abstract
+  PanelClosed: PanelClosed
+  
 projectStatusAction:
   Start:
     msg: "Start your application"
     url: "/create"
+  AllClosed:
+    msg: "All Submissions are closed for this year"
+    url: "#"
+  Abstract:
+    msg: "Please Submit your Abstract"
+    url: "/upload/abstract?source=home"
   Accept: 
     msg: "Your application has been accepted"
     url: "/review"
@@ -246,6 +255,9 @@ projectStatusAction:
   Incomplete:
     msg: "Complete your application"
     url: "/create"
+  PanelClosed:
+    msg: "Application Panel is closed"
+    url: "#"
   # This means they are done, but not reviewed
   Pending:
     msg: "Review your application"

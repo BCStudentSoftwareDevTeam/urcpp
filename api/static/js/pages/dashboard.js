@@ -17,19 +17,25 @@ function animate(){
 }
 
 function fillProgressBar(projStatus) {
-  var fillPercent = 33;
+  var fillPercent = 17;
   var step = 0;
   switch (projStatus) {
+    case "AllClosed":
+      step = 6;
+    case "Abstract":
+      step = 5;
     case "Reject":
       console.log("hello");
-      step = 3;
+      step = 4;
       break;
     case "Accept":
-      step = 3;
+      step = 4;
       break;
     case "Pending":
-      step = 2;
+      step = 3;
       break;
+    case "PanelClosed":
+      step = 2;
     case "Incomplete":
       step = 1;
       break;
