@@ -48,7 +48,7 @@
       </div>
       <div class="point" id="start">
         <div class="bullet"></div>
-        <label class="bar-label" style="text-align: center">Start <br><small style="font-size:12px;" "text-align: center;">(Proposal Open Date:  )</small></label>
+        <label class="bar-label" style="text-align: center">Start <br><small style="font-size:12px;" "text-align: center;">(Proposal Open Date: {{currentCycle.ProposalOpenDate.strftime("%Y/%m/%d")}})</small></label>
       </div>
       <div class="point" id="incomplete">
         <div class="bullet"></div>
@@ -56,7 +56,7 @@
       </div>
       <div class="point" id="proposal_close_date">
         <div class="bullet"></div>
-        <label class="bar-label" style="text-align: center">Proposal Panel Closes <br><small style="font-size:12px;" "text-align: center;">(Date:  )</small></label>
+        <label class="bar-label" style="text-align: center">Proposal Panel Closes <br><small style="font-size:12px;" "text-align: center;">({{currentCycle.ProposalClosedDate.strftime("%Y/%m/%d")}})</small></label>
       </div>
       <div class="point" id="pending">
         <div class="bullet"></div>
@@ -64,15 +64,15 @@
       </div>
       <div class="point" id="accept">
         <div class="bullet"></div>
-        <label class="bar-label" style="text-align: center">Decision Reached <br><small style="font-size:12px;" "text-align: center;">(Proposal Acceptance Date:  )</small></label>
+        <label class="bar-label" style="text-align: center">Decision Reached <br><small style="font-size:12px;" "text-align: center;">(Proposal Acceptance Date: {{currentCycle.ProposalAcceptanceDate.strftime("%Y/%m/%d")}})</small></label>
       </div>
        <div class="point" id="abstractsubmission">
         <div class="bullet"></div>
-        <label class="bar-label" style="text-align: center">Abstract Submissions <br><small style="font-size:12px;" "text-align: center;">(Due Date:  )</small></label>
+        <label class="bar-label" style="text-align: center">Abstract Submissions <br><small style="font-size:12px;" "text-align: center;">(Due Date: {{currentCycle.AbstractnarrativesAcceptanceDate.strftime("%Y/%m/%d")}})</small></label>
       </div>
       <div class="point" id="allsubmissionscloses">
         <div class="bullet"></div>
-        <label class="bar-label" style="text-align: center">All Submissions Close <br><small style="font-size:12px;" "text-align: center;">(Date:  )</small></label>
+        <label class="bar-label" style="text-align: center">All Submissions Close <br><small style="font-size:12px;" "text-align: center;">({{currentCycle.AllSubmissionsClosedDate.strftime("%Y/%m/%d")}})</small></label>
       </div>
       
       
