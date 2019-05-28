@@ -4,14 +4,13 @@ $(function() {
         dateFormat: "yy-mm-dd"
       });
       
-      $("#applicationOpenDate").datepicker({
+      $("#applicationCloseDate").datepicker({
         dateFormat: "yy-mm-dd"
       });
       
       $("#ProposalOpenDate").datepicker({
         dateFormat: "yy-mm-dd"
       });
-      
       $("#ProposalAcceptanceDate").datepicker({
         dateFormat: "yy-mm-dd"
       });
