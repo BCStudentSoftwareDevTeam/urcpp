@@ -13,6 +13,6 @@ def dashboard():
   project = getProject(g.user.username)
   currentCycle = getCurrentParameters()
   today = datetime.now()
-    
-  return render_template ("dashboard.html", cfg=cfg, ldap=ldap, proj=project, currentCycle=currentCycle, today=today)
+
+  return render_template ("dashboard.html",  cfg=cfg, ldap=ldap, proj=project, currentCycle=currentCycle, today=today)
   

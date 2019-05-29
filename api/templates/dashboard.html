@@ -6,6 +6,37 @@
 {% block body %}
 <br/>
 {% include "snips/messages.html" %}
+
+ {% if currentCycle and currentCycle.AllSubmissionsClosedDate < today %}
+ 
+ <div class = "col-lg-6">
+<h1>URCPP @ Berea College</h1>
+</div>
+<div class="col-lg-6">
+  <br/>
+  {% include 'snips/menu.html'%}
+</div>
+<br/>
+<div class="jumbotron">
+  <h1>Hello, {{ldap.firstname}} {{ldap.lastname}}!</h1>
+  <p></p>
+  <br/>
+   <a href="/upload/abstract?source=home">
+    <button class="btn btn-default">
+    <span>Upload an Abstract</span>
+    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+    </button>
+  </a>
+  <a href="/upload/finalReport?source=home">
+    <button class="btn btn-default">
+    <span>Upload Final Report</span>
+    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+    </button>
+  </a>
+</div> 
+ <h3>Submissions are now closed.</h3><h4>Please contact <a href = "mailto:heggens@berea.edu">Scott Heggen </a> if you need additional support for your application. </h4>
+ 
+  {% else %}
 <div class = "col-lg-6">
 <h1>URCPP @ Berea College</h1>
 </div>
@@ -23,10 +54,12 @@
     <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
     </button>
   </a>
+  
+  <!--//if proj is accepted, show buttons-->
   <a href="/upload/vitae?source=home">
     <button class="btn btn-default">
     <span>Upload a CV</span>
-    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>   
     </button>
   </a>
   
@@ -37,7 +70,7 @@
     <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
     </button>
   </a>
-  
+  <!--//-->
 </div>
 <div class="panel panel-default">
   <div class="panel-body">
@@ -62,10 +95,17 @@
         <div class="bullet"></div>
         <label class="bar-label">Pending</label>
       </div>
+      {%if proj.status == "Reject"%}
+      <div class="point" id="reject">
+        <div class="bullet"></div>
+        <label class="bar-label" style="text-align: center">Decision Reached <br><small style="font-size:12px;" "text-align: center;">(Proposal Acceptance Date: {{currentCycle.ProposalAcceptanceDate.strftime("%Y/%m/%d")}})</small></label>
+      </div>
+      {% else %}
       <div class="point" id="accept">
         <div class="bullet"></div>
         <label class="bar-label" style="text-align: center">Decision Reached <br><small style="font-size:12px;" "text-align: center;">(Proposal Acceptance Date: {{currentCycle.ProposalAcceptanceDate.strftime("%Y/%m/%d")}})</small></label>
       </div>
+      {% endif %}
        <div class="point" id="abstractsubmission">
         <div class="bullet"></div>
         <label class="bar-label" style="text-align: center">Abstract Submissions <br><small style="font-size:12px;" "text-align: center;">(Due Date: {{currentCycle.AbstractnarrativesAcceptanceDate.strftime("%Y/%m/%d")}})</small></label>
@@ -80,6 +120,10 @@
   </div>
 </div>
 
+
+
+         
+{% endif %}
 <footer class="footer">
     <span><b>Issues? Contact:</b><a href="mailto:heggens@berea.edu"> Scott Heggen</a> </span>
 </footer>

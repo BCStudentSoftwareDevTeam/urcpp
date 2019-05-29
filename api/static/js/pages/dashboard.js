@@ -3,11 +3,13 @@ $(document).ready(animate);
 function animate(){
   var progressBar = $(".project-progress-bar");
   var projStatus = progressBar.data('status');
-  if (projStatus == "reject"){
-    var accept = $("#accept");
-    accept.attr("id", "reject");
-    accept.find("label").text("Denied");
-  }
+  // if (projStatus == "Reject"){
+  //   var accept = $("#accept");
+  //   accept.attr("id", "reject");
+  //   document.getElementById("accept").setAttribute("id", "reject");
+    
+  //   accept.find("label").text("Denied");
+  // }
   var point = progressBar.find("#" + projStatus);
   point.addClass('point--active');
   point.prevAll().addClass('point--complete');
@@ -17,15 +19,16 @@ function animate(){
 }
 
 function fillProgressBar(projStatus) {
-  var fillPercent = 17;
+  var fillPercent = 16.6;
   var step = 0;
   switch (projStatus) {
     case "AllClosed":
       step = 6;
+      break;
     case "Abstract":
       step = 5;
+      break;
     case "Reject":
-      console.log("hello");
       step = 4;
       break;
     case "Accept":
