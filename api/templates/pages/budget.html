@@ -98,21 +98,26 @@
       </div>
     </div>
     </br>
+    <div class = "row">
     <div class = "form-group" >
-    <div class = "col-sm-offset-10 col-sm-2" 
+     <div class = "col-sm-1">
+      <input type="button" value="Back" onclick="window.history.back()" class="btn btn-primary"/> 
+      </input>
+    </div>
+    <div class = "col-sm-offset-9 col-sm-2" 
          id = "submitButton"
          style="padding-bottom:20px"
          >
-      <button id = "submit" 
+      <button id = "first_submit_button" 
               type = "button" 
-              class="btn btn-block btn-primary"
-              
-              
+              class="btn btn-block btn-success"
               data-toggle="modal"
               data-target="#exceeding"
               />
         Submit
       </button>
+      
+    </div>
     </div>
     </div>
     </br>
@@ -129,7 +134,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">No, Go Back</button>
-        <button type="submit" class="btn btn-success " onclick = "submitData();">Yes, Submit</button>
+        <button type="button" class="btn btn-success " onclick = "submitData();">Yes, Submit</button>
       </div>
     </div>
   </div>
