@@ -29,7 +29,7 @@ function fillProgressBar(projStatus) {
       step = 5;
       break;
     case "Reject":
-      step = 4;
+      step = 6;
       break;
     case "Accept":
       step = 4;

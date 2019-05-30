@@ -55,7 +55,7 @@
     </button>
   </a>
   
-  <!--//if proj is accepted, show buttons-->
+ {% if proj.status != "Reject" %}
   <a href="/upload/vitae?source=home">
     <button class="btn btn-default">
     <span>Upload a CV</span>
@@ -70,7 +70,7 @@
     <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
     </button>
   </a>
-  <!--//-->
+ {% endif %}
 </div>
 <div class="panel panel-default">
   <div class="panel-body">
@@ -106,6 +106,7 @@
         <label class="bar-label" style="text-align: center">Decision Reached <br><small style="font-size:12px;" "text-align: center;">(Proposal Acceptance Date: {{currentCycle.ProposalAcceptanceDate.strftime("%Y/%m/%d")}})</small></label>
       </div>
       {% endif %}
+      {% if proj.status != "Reject" %}
        <div class="point" id="abstractsubmission">
         <div class="bullet"></div>
         <label class="bar-label" style="text-align: center">Abstract Submissions <br><small style="font-size:12px;" "text-align: center;">(Due Date: {{currentCycle.AbstractnarrativesAcceptanceDate.strftime("%Y/%m/%d")}})</small></label>
@@ -114,7 +115,7 @@
         <div class="bullet"></div>
         <label class="bar-label" style="text-align: center">All Submissions Close <br><small style="font-size:12px;" "text-align: center;">({{currentCycle.AllSubmissionsClosedDate.strftime("%Y/%m/%d")}})</small></label>
       </div>
-      
+      {% endif %}
       
     </div>
   </div>
