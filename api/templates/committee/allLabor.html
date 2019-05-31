@@ -8,6 +8,7 @@
 </div>
 <!--Menu-->
 <ul class="nav nav-tabs">
+  <li><a href="/">Home</a></li>
   {% for menuItem in cfg["committee"] %}
     <li role="presentation"><a href="{{url_for(menuItem['link'])}}">{{menuItem['title']}}</a></li>
   {% endfor %}
