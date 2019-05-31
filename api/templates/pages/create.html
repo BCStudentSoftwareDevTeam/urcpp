@@ -64,7 +64,7 @@
         <label for = "duration" class = "col-sm-2 control-label">Duration </label>
         <div class = "col-sm-9">
           <select name = "duration" id = "duration" class="form-control" required> 
-            <option value = "---" disabled {% if proj.duration is not defined %} selected {% endif %}>---</option>
+            <option value = "totalweeks" disabled {% if proj.duration is not defined %} selected {% endif %}>Total number of weeks</option>
             {% for dur in cfg["urcpp"]["possibleDurations"] | sort %}
               <option value = "{{dur}}" {% if proj.duration == dur %} selected {% endif %}>{{dur}}</option>
             {% endfor %}
