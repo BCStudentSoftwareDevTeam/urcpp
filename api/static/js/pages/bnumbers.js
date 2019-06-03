@@ -62,3 +62,48 @@ function checkValidBNumber (id) {
     .go();
   
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function submitData() {  
+  var obj =  document.getElementById("#bnumbersForm");
+  //console.log($("#bnumbersForm"));
+  /* Ajax the data to /budget */
+  $("#bnumbersForm")[0].submit();  
+  //console.log("Submitted");
+};
+
+
+function valid_submit() {
+
+  var bnumber_status = "hello";
+  //console.log(currentTotal);
+
+  if(bnumber_status == "no") {
+     $("#bnumber").modal();
+   }
+   else {
+     //console.log("About to submit");     
+     submitData();
+   }
+ };

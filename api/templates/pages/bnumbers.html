@@ -14,7 +14,8 @@
   <div class = "col-sm-8 col-sm-offset-2">
     <h1>Faculty's B-number </h1>
     
-  <form class = "form-horizontal"
+  <form id = "bnumbersForm"
+      class = "form-horizontal"
       action = "/bnumbers" 
       method = "POST"
       >
@@ -34,8 +35,7 @@
                     placeholder = 'B012345678'
                     value = 
                     "{% if collabs is not none and id < collabs|length %}{{collabs[id].username.bnumber}}{% endif %}"
-                    required
-                    />
+                    required <!-- is this neeeded? -->
             
           </div>
       
@@ -47,22 +47,55 @@
         </input>
       </div>
 
-      <div class = "col-sm-offset-9 col-sm-2" 
+       <div class = "col-sm-offset-9 col-sm-2" 
          id = "submitButton"
+         style="padding-bottom:20px"
          >
-        <button id = "submit" 
-              type = "submit" 
-              class="btn btn-block btn-primary form-control"
-              disabled
+      <button id = "first_submit_button" 
+              type = "button" 
+              class="btn btn-block btn-success"
+              data-toggle="modal"
+              data-target="#bnumber"
               />
-          Submit
-        </button>
-      </div>
+        Submit
+      </button>
     </div>
  
-    </form>
+
+<!-- Modal -->
+<div class="modal fade" id="bnumber" tabindex="-1" role="dialog" aria-labelledby="bnumber" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel" style="text-align:center;">WARNING!</h3>
+      </div>
+      <div class="modal-body" style="text-align:center;">
+        You did not enter a valid B-number! Are you sure you would like to continue?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">No, Go Back</button>
+        <button type="button" class="btn btn-success " onclick = "submitData();">Yes, Submit</button>
+      </div>
+    </div>
   </div>
 </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
   var numCollabs = parseInt("{{numCollab}}");
