@@ -36,7 +36,6 @@
                     value = 
                     "{% if collabs is not none and id < collabs|length %}{{collabs[id].username.bnumber}}{% endif %}"
                     required <!-- is this neeeded? -->
-            
           </div>
       
         </div>
@@ -54,9 +53,7 @@
       <button id = "first_submit_button" 
               type = "button" 
               class="btn btn-block btn-success"
-              data-toggle="modal"
-              data-target="#bnumber"
-              />
+              onclick = "valid_submit()">
         Submit
       </button>
     </div>

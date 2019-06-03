@@ -14,11 +14,11 @@ var delay = (function(){
 })();
 
 function setBNumberStatus (id) {
-  return function (data) {
+    return function (data) {
     // console.log("Response: " + data["response"]);
     // console.log("BNumber Status: " + JSON.stringify(data));  
     var selector = "#cgroup" + id;
-    var wrong_alert =  '<div class="alert alert-danger col-sm-4" id="wrong-id-'+id+'"role="alert">Faculty Not Found</div>'
+    var wrong_alert =  '<div class="alert alert-danger col-sm-4" id="wrong-id-'+id+'"role="alert">Faculty Not Found </div>'
     var user_alert = '<div class="alert alert-danger col-sm-4" id="user-'+id+'"role="alert">You are already a collaborator</div>'
     $('#user-'+id).remove()
     $('#wrong-id-'+id).remove();
@@ -46,7 +46,9 @@ function setBNumberStatus (id) {
       $(selector).addClass("has-error");
       $(selector).append(wrong_alert);
     }
-  };};
+    
+  };
+  };
 
 function checkValidBNumber (id) {
   /* global api */
@@ -96,14 +98,14 @@ function submitData() {
 
 function valid_submit() {
 
-  var bnumber_status = 11;
+  var bnumber_status = 1;
   //console.log(bnumber_status);
 
-  if( bnumber_status > 12) {
+  if( bnumber_status > 0) {
      $("#bnumber").modal();
    }
    else {
-     //console.log("About to submit");     
+     console.log("About to submit");  
      submitData();
    }
  };
