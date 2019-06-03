@@ -1,34 +1,21 @@
-<table class="table table-bordered" style="border: solid #2c3e50">
+<table class="table table-bordered">
     <caption style="padding-bottom: 20px"><strong>Past Parameters</strong></caption>
     <tr>
-
-        <th style="border: solid #2c3e50; text-align:center;">Year</th>
-        <th style="border: solid #2c3e50; text-align:center;">Application Open Date</th>
-        <th style="border: solid #2c3e50; text-align:center;">Application Close Date</th>
-        <th style="border: solid #2c3e50; text-align:center;">Mileage Rate</th>
-        <th style="border: solid #2c3e50; text-align:center;">Labor Rate</th>
-        <th style="border: solid #2c3e50; text-align:center;">Proposal Open Date</th>
-        <th style="border: solid #2c3e50; text-align:center;">Proposal Acceptance Date</th>
-        <th style="border: solid #2c3e50; text-align:center;">Proposal Closed Date</th>
-        <th style="border: solid #2c3e50; text-align:center;">Abstract/narratives Acceptance Date</th>
-        <th style="border: solid #2c3e50; text-align:center;">All Submissions Closed Date</th>
-        <th style="border: solid #2c3e50; text-align:center;">Actions</th>
-        
-        
+        <th style="text-align: center">Year</th>
+        <th style="text-align: center">Application Open Date</th>
+        <th style="text-align: center">Application Close Date</th>
+        <th style="text-align: center">Mileage Rate</th>
+        <th style="text-align: center">Labor Rate</th>
+        <th style="text-align: center">Actions</th>
     </tr>
     {% for parameter in parameters_list %}
     <tr>
-        <td style="border: solid #2c3e50; text-align:center;">{{parameter.year}}</td>
-        <td style="border: solid #2c3e50; text-align:center;">{{parameter.appOpenDate.strftime('%Y/%m/%d')}}</td>
-        <td style="border: solid #2c3e50; text-align:center;">{{parameter.appCloseDate.strftime('%Y/%m/%d')}}</td>
-        <td style="border: solid #2c3e50; text-align:center;">${{parameter.mileageRate}}</td>
-        <td style="border: solid #2c3e50; text-align:center;">${{'%0.2f'| format(parameter.laborRate|float)}}</td>
-        <td style="border: solid #2c3e50; text-align:center;">{{parameter.ProposalOpenDate.strftime('%Y/%m/%d')}}</td>
-        <td style="border: solid #2c3e50; text-align:center;">{{parameter.ProposalAcceptanceDate.strftime('%Y/%m/%d')}}</td>
-        <td style="border: solid #2c3e50; text-align:center;">{{parameter.ProposalClosedDate.strftime('%Y/%m/%d')}}</td>
-        <td style="border: solid #2c3e50; text-align:center;">{{parameter.AbstractnarrativesAcceptanceDate.strftime('%Y/%m/%d')}}</td>
-        <td style="border: solid #2c3e50; text-align:center;">{{parameter.AllSubmissionsClosedDate.strftime('%Y/%m/%d')}}</td>
-        <td  style="border: solid #2c3e50; text-align:center;">
+        <td style="text-align: center" id="parameterYear{{parameter.year}}">{{parameter.year}}</td>
+        <td style="text-align: center" id="openDate{{parameter.year}}" >{{parameter.appOpenDate.strftime('%Y/%m/%d')}}</td>
+        <td style="text-align: center" id="closeDate{{parameter.year}}" >{{parameter.appCloseDate.strftime('%Y/%m/%d')}}</td>
+        <td style="text-align: center" id="mileageRates{{parameter.year}}">${{parameter.mileageRate}}</td>
+        <td style="text-align: center" id="laborRates{{parameter.year}}">${{'%0.2f'| format(parameter.laborRate|float)}}</td>
+        <td style="text-align: center">   
             <div class= "row justify-content-md-center">
                     <a id="delete_parameters" href={{url_for('deleteParameters', pID = parameter.pID)}}>
                     <span class="glyphicon glyphicon-trash" 
