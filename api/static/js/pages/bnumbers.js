@@ -86,7 +86,7 @@ function checkValidBNumber (id) {
 
 
 function submitData() {  
-  var obj =  document.getElementById("#bnumbersForm");
+  var obj =  document.getElementById("bnumbersForm");
   //console.log($("#bnumbersForm"));
   /* Ajax the data to /budget */
   $("#bnumbersForm")[0].submit();  
@@ -96,10 +96,10 @@ function submitData() {
 
 function valid_submit() {
 
-  var bnumber_status = "hello";
-  //console.log(currentTotal);
+  var bnumber_status = 11;
+  //console.log(bnumber_status);
 
-  if(bnumber_status == "no") {
+  if( bnumber_status > 12) {
      $("#bnumber").modal();
    }
    else {
