@@ -52,10 +52,11 @@ function limit() {
   //console.log(currentTotal);
 
   if( currentTotal > 8300) {
-     $("#exceeding").modal();
+     $("#exceeding").modal('show');
    }
    else {
-     //console.log("About to submit");     
+     //console.log("About to submit");
      submitData();
    }
  };
+ 
