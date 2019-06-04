@@ -173,7 +173,7 @@ budget:
     amountFieldName: "equipment"
     descFieldName: "equipmentDesc"
   - title: "Materials"
-    placeholder: "Indicate the materials and supplies you know will be needed to conduct your research"
+    placeholder: "Indicate the materials and supplies that will be needed for your research"
     amountFieldName: "materials"
     descFieldName: "materialsDesc"
   - title: "Travel "
