@@ -20,6 +20,7 @@ function setBNumberStatus (id) {
     var selector = "#cgroup" + id;
     var wrong_alert =  '<div class="alert alert-danger col-sm-4" id="wrong-id-'+id+'"role="alert">Faculty Not Found </div>'
     var user_alert = '<div class="alert alert-danger col-sm-4" id="user-'+id+'"role="alert">You are already a collaborator</div>'
+    var zero_alert = '<div class="alert alert-danger col-sm-4" id="user-'+id+'"role="alert">You have an entered an invalid B-number</div>'
     $('#user-'+id).remove()
     $('#wrong-id-'+id).remove();
     if (data["response"] == "OK") {
@@ -37,16 +38,20 @@ function setBNumberStatus (id) {
         $("#submit").prop('disabled', false);
       }
     } else if (data["response"] == "USER") {
-      $(selector).removeClass( "has-success");
+      $(selector).removeClass("has-success");
       $(selector).addClass("has-error");
       $(selector).append(user_alert);
       
-    } else {
+    } else if (data["response"] == "ZERO") {
+      $(selector).removeClass("has-success");
+      $(selector).addClass("has-error");
+      $(selector).append(zero_alert);
+   }
+    else {
       $(selector).removeClass("has-success");
       $(selector).addClass("has-error");
       $(selector).append(wrong_alert);
     }
-    
   };
   };
 
