@@ -20,7 +20,7 @@ function setBNumberStatus (id) {
     var selector = "#cgroup" + id;
     var wrong_alert =  '<div class="alert alert-danger col-sm-4" id="wrong-id-'+id+'"role="alert">Faculty Not Found </div>'
     var user_alert = '<div class="alert alert-danger col-sm-4" id="user-'+id+'"role="alert">You are already a collaborator</div>'
-    var zero_alert = '<div class="alert alert-danger col-sm-4" id="user-'+id+'"role="alert">You have an entered an invalid B-number</div>'
+    var zero_alert = '<div class="alert alert-danger col-sm-4" id="user-'+id+'"role="alert">You have an entered an invalid B#</div>'
     $('#user-'+id).remove()
     $('#wrong-id-'+id).remove();
     if (data["response"] == "OK") {
