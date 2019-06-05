@@ -48,7 +48,7 @@ def people_POST ():
   proj.save()
   if numCollab > 0:
     collabs = getCollaborators(g.user.username)
-    return render_template (  "pages/bnumbers.html",
+    return render_template ("pages/identification.html",
                             username = g.user.username,
                             cfg = cfg,
                             numCollab = numCollab,
