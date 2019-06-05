@@ -94,11 +94,15 @@ function editParameters(year){
   
   // var year = document.getElementById('parameterYear').innerHTML;
   document.getElementById('newYear').value=(year);
-
+   var irbchair = document.getElementById('IRBchair'+year).innerHTML;
+  document.getElementById('IRBchair').value=(irbchair);
+  var current_chair = document.getElementById('currentchair'+year).innerHTML;
+  document.getElementById('currentchair').value=(current_chair);
+   var staff_support = document.getElementById('staffsupport'+year).innerHTML;
+  document.getElementById('staffsupport').value=(staff_support);
   var unformattedOpenDate = document.getElementById('openDate'+year).innerHTML;
   var openDate = unformattedOpenDate.replace(/\//g, "-")
   document.getElementById('applicationOpenDate').value=(openDate);
-  
   var unformattedCloseDate = document.getElementById('closeDate'+year).innerHTML;
   var closeDate = unformattedCloseDate.replace(/\//g, "-") //Replaces "/" with "-"
   document.getElementById('applicationCloseDate').value=(closeDate);

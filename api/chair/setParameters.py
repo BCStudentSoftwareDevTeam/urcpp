@@ -21,6 +21,9 @@ def setParameters_GET ():
     AbstractnarrativesAcceptanceDate = datetime.datetime.strptime(data['AbstractnarrativesAcceptanceDate'], '%Y-%m-%d')
     AllSubmissionsClosedDate = datetime.datetime.strptime(data['AllSubmissionsClosedDate'], '%Y-%m-%d')
     parameters = Parameters(year = int(data['newYear']),
+                            IRBchair = data['IRBchair'],
+                            currentchair = data['currentchair'],
+                            staffsupport = data['staffsupport'],
                             appOpenDate = openDate,
                             appCloseDate =closeDate,
                             ProposalOpenDate =ProposalOpenDate,
