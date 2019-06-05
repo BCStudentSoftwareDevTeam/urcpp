@@ -28,16 +28,17 @@ history:
 # Makes the upload sequence less painful as all three are together, which is important 
 # for technical reasons, not usability.  
 flow:
-  start:        "create"
-  create:       "people"
-  people:       "history"
-  history:      "irbyn"
-  irbyn:        "upload/irb"
-  irb:          "upload/vitae"
-  vitae:        "upload/narrative"
-  narrative:    "budget"
-  budget:       "done"
-  done:         "start"
+  start:          "create"
+  create:         "people"
+  people:         "collaborators"
+  collaborators:  "history"
+  history:        "irbyn"
+  irbyn:          "upload/irb"
+  irb:            "upload/vitae"
+  vitae:          "upload/narrative"
+  narrative:      "budget"
+  budget:         "done"
+  done:           "start"
 # END NO MAS
 
 # Controls the table columns in the allProjects.html table

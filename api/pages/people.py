@@ -23,7 +23,7 @@ def people_GET ():
                           )
 
 
-@app.route("/people", methods = ["POST"])
+@app.route("/collaborators", methods = ["POST"])
 def people_POST ():
     
   numStu    = int(request.form["numStu"])
