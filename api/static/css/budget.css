@@ -1,21 +1,17 @@
-
 .footer {
-  right: 0;
-  background-color:  #ecf0f1;
-  color:#1e2433;
-  text-align: center;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  left: 0;
-  line-height: 60px; /* Vertically center the text there */
-  
-  
+
+right: 0;
+background-color:  #ecf0f1;
+color:#1e2433;
+text-align: center;
+position: relative;
+bottom: 0;
+width: 100%;
+/* Set the fixed height of the footer here */
+height: 60px;
+left: 0;
+line-height: 60px; /* Vertically center the text there */
 }
- a {
+a {
 color: #51638c;
 } 
-
-
