@@ -94,8 +94,8 @@ function editParameters(year){
   
   // var year = document.getElementById('parameterYear').innerHTML;
   document.getElementById('newYear').value=(year);
-   var irbchair = document.getElementById('IRBchair'+year).innerHTML;
-  document.getElementById('IRBchair').value=(irbchair);
+   var irbchair = document.getElementById('IRBchair_id'+year).innerHTML;
+  document.getElementById('IRBchair_id').value=(irbchair);
   var current_chair = document.getElementById('currentchair'+year).innerHTML;
   document.getElementById('currentchair').value=(current_chair);
    var staff_support = document.getElementById('staffsupport'+year).innerHTML;

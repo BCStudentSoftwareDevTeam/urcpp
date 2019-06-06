@@ -103,9 +103,9 @@ class Parameters (DynamicModel):
   mileageRate         = FloatField() # Or Double?
   laborRate           = FloatField() # Or Double?
   isCurrentParameter  = BooleanField(default=False)
-  IRBchair            = ForeignKeyField(LDAPFaculty, to_field = "username")
-  currentchair        = ForeignKeyField(LDAPFaculty, to_field = "username")
-  staffsupport        = ForeignKeyField(LDAPFaculty, to_field = "username")
+  IRBchair_id            = ForeignKeyField(LDAPFaculty, to_field = "username")
+  currentchair_id        = ForeignKeyField(LDAPFaculty, to_field = "username")
+  staffsupport_id        = ForeignKeyField(LDAPFaculty, to_field = "username")
 class Projects (DynamicModel):
   pID                   = PrimaryKeyField()
   title                 = TextField()

@@ -21,9 +21,9 @@ def setParameters_GET ():
     AbstractnarrativesAcceptanceDate = datetime.datetime.strptime(data['AbstractnarrativesAcceptanceDate'], '%Y-%m-%d')
     AllSubmissionsClosedDate = datetime.datetime.strptime(data['AllSubmissionsClosedDate'], '%Y-%m-%d')
     parameters = Parameters(year = int(data['newYear']),
-                            IRBchair = data['IRBchair'],
-                            currentchair = data['currentchair'],
-                            staffsupport = data['staffsupport'],
+                            IRBchair_id = data['IRBchair_id'],
+                            currentchair_id = data['currentchair_id'],
+                            staffsupport_id = data['staffsupport_id'],
                             appOpenDate = openDate,
                             appCloseDate =closeDate,
                             ProposalOpenDate =ProposalOpenDate,
@@ -33,7 +33,7 @@ def setParameters_GET ():
                             AllSubmissionsClosedDate =AllSubmissionsClosedDate,
                             mileageRate = data['mileageRate'],
                             laborRate = data['laborRate'])
-
+    
     
     parameters.save()
     
@@ -42,13 +42,14 @@ def setParameters_GET ():
     
   parameters = getCurrentParameters()
   parameters_list = Parameters.select().order_by(-Parameters.year)
-  
+  faculty = LDAPFaculty.select() # retrieves all the faculty from the data base
   return render_template ("chair/setParameters.html", 
                            username = g.user.username,
                            ldap = g.user,
                            params = parameters,
                            parameters_list = parameters_list,
                            cfg = cfg,
+                           allfaculty = faculty,
                            )
                            
 @app.route("/delete/parameters/<pID>", methods=['GET'])

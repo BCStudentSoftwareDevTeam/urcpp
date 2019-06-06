@@ -5,10 +5,10 @@
         <th style="border: solid #2c3e50; text-align:center;">IRB Chair</th>
         <th style="border: solid #2c3e50; text-align:center;">Current Chair</th>
         <th style="border: solid #2c3e50; text-align:center;">Staff Support</th>
-        <th style="border: solid #2c3e50; text-align:center;">Application Open Date</th>
-        <th style="border: solid #2c3e50; text-align:center;">Application Close Date</th>
         <th style="border: solid #2c3e50; text-align:center;">Mileage Rate</th>
         <th style="border: solid #2c3e50; text-align:center;">Labor Rate</th>
+        <th style="border: solid #2c3e50; text-align:center;">Application Open Date</th>
+        <th style="border: solid #2c3e50; text-align:center;">Application Close Date</th>
         <th style="border: solid #2c3e50; text-align:center;">Proposal Open Date</th>
         <th style="border: solid #2c3e50; text-align:center;">Proposal Acceptance Date</th>
         <th style="border: solid #2c3e50; text-align:center;">Proposal Closed Date</th>
@@ -21,13 +21,13 @@
     {% for parameter in parameters_list %}
     <tr>
         <td style="border: solid #2c3e50; text-align:center;">{{parameter.year}}</td>
-        <td style="border: solid #2c3e50; text-align:center;">{{parameter.IRBchair.firstname}} {{parameter.IRBchair.lastname}}</td>
-        <td style="border: solid #2c3e50; text-align:center;">{{parameter.currentchair.firstname}} {{parameter.currentchair.lastname}}</td>
-        <td style="border: solid #2c3e50; text-align:center;">{{parameter.staffsupport.firstname}} {{parameter.staffsupport.lastname}}</td>
-        <td style="border: solid #2c3e50; text-align:center;">{{parameter.appOpenDate.strftime('%Y/%m/%d')}}</td>
-        <td style="border: solid #2c3e50; text-align:center;">{{parameter.appCloseDate.strftime('%Y/%m/%d')}}</td>
+        <td style="border: solid #2c3e50; text-align:center;">{{parameter.IRBchair_id.firstname}} {{parameter.IRBchair_id.lastname}}</td>
+        <td style="border: solid #2c3e50; text-align:center;">{{parameter.currentchair_id.firstname}} {{parameter.currentchair_id.lastname}}</td>
+        <td style="border: solid #2c3e50; text-align:center;">{{parameter.staffsupport_id.firstname}} {{parameter.staffsupport_id.lastname}}</td>
         <td style="border: solid #2c3e50; text-align:center;">${{parameter.mileageRate}}</td>
         <td style="border: solid #2c3e50; text-align:center;">${{'%0.2f'| format(parameter.laborRate|float)}}</td>
+        <td style="border: solid #2c3e50; text-align:center;">{{parameter.appOpenDate.strftime('%Y/%m/%d')}}</td>
+        <td style="border: solid #2c3e50; text-align:center;">{{parameter.appCloseDate.strftime('%Y/%m/%d')}}</td>
         <td style="border: solid #2c3e50; text-align:center;">{{parameter.ProposalOpenDate.strftime('%Y/%m/%d')}}</td>
         <td style="border: solid #2c3e50; text-align:center;">{{parameter.ProposalAcceptanceDate.strftime('%Y/%m/%d')}}</td>
         <td style="border: solid #2c3e50; text-align:center;">{{parameter.ProposalClosedDate.strftime('%Y/%m/%d')}}</td>

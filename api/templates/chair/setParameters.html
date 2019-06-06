@@ -44,82 +44,70 @@
                   />
       </div>
     </div>
-    <div  class = "row" 
+    <div  class = "row " 
           style = "padding-bottom: 10px; padding-right: 10px;">
-      <label  for='IRBchair' 
+      <label  for='IRBchair_id' 
               class = 'col-sm-4 control-label'>
          IRB Chair
       </label>
       <div class = 'col-sm-8'>
-        <input  name  = 'IRBchair' 
-                  id    = 'IRBchair' 
-                  class = 'form-control'
-                  required
-                  placeholder = "Specify the IRB Chair for this year"
+        <select  name  = 'IRBchair_id' 
+                  id    = 'IRBchair_id' 
+                  class = 'form-control selectpicker' title="Specify the IRB chair for this year"
+                  data-live-search="true"
                   />
+        {% for faculty in allfaculty %}
+           <option value={{faculty.username}}>
+             {{faculty.firstname}} {{faculty.lastname}}
+           </option>
+
+        {% endfor %}
+        </select>
        </div>
       </div>
-      <div  class = "row" 
+      <div  class = "row " 
           style = "padding-bottom: 10px; padding-right: 10px;">
-      <label  for='currentchair' 
+      <label  for='currentchair_id' 
               class = 'col-sm-4 control-label'>
          Current Chair
       </label>
       <div class = 'col-sm-8'>
-        <input  name  = 'currentchair' 
-                  id    = 'currentchair' 
-                  class = 'form-control'
-                  required
-                  placeholder = "Specify the current Chair for this year"
+        <select  name  = 'currentchair_id' 
+                  id    = 'currentchair_id' 
+                  class = 'form-control selectpicker' title="Specify the current chair for this year"
+                  data-live-search="true"
                   />
+        {% for faculty in allfaculty %}
+
+           <option value={{faculty.username}}>
+             {{faculty.firstname}} {{faculty.lastname}}
+           </option>
+
+        {% endfor %}
+        </select>
        </div>
       </div>
-      <div  class = "row" 
+      <div  class = "row " 
           style = "padding-bottom: 10px; padding-right: 10px;">
-      <label  for='staffsupport' 
+      <label  for='staffsupport_id' 
               class = 'col-sm-4 control-label'>
          Staff Support
       </label>
       <div class = 'col-sm-8'>
-        <input  name  = 'staffsupport' 
-                  id    = 'staffsupport' 
-                  class = 'form-control'
-                  required
-                  placeholder = "Specify the Staff Support for this year"
+        <select  name  = 'staffsupport_id' 
+                  id    = 'staffsupport_id' 
+                  class = 'form-control selectpicker' title="Specify the current staff support for this year"
+                  data-live-search="true"
                   />
+        {% for faculty in allfaculty %}
+           <option value={{faculty.username}}>
+             {{faculty.firstname}} {{faculty.lastname}}
+           </option>
+        {% endfor %}
+        </select>
        </div>
       </div>
-    <div  class = "row" 
-          style = "padding-bottom: 10px; padding-right: 10px;">
-      <label  for='applicationOpenDate' 
-              class = 'col-sm-4 control-label'>
-         Application Open Date
-      </label>
-      <div class = 'col-sm-8'>
-        <input  name  = 'applicationOpenDate' 
-                  id    = 'applicationOpenDate' 
-                  class = 'form-control hasDatePicker'
-                  required
-                  placeholder = "Choose the application open date"
-                  />
-       </div>
-      </div>
-      <div  class = "row" 
-          style = "padding-bottom: 10px; padding-right: 10px;">
-      <label  for='applicationCloseDate' 
-              class = 'col-sm-4 control-label'>
-         Application Close Date
-      </label>
-      <div class = 'col-sm-8'>
-         <input  name  = 'applicationCloseDate' 
-                  id    = 'applicationCloseDate' 
-                  class = 'form-control hasDatePicker'
-                  required
-                  placeholder = "Choose the application close date"
-                  />
-       </div>
-      </div>
-      <div  class = "row" 
+       <div  class = "row" 
           style = "padding-bottom: 10px; padding-right: 10px;">
       <label  for='mileageRate' 
               class = 'col-sm-4 control-label'>
@@ -157,6 +145,37 @@
                   />
        </div>
       </div>
+    <div  class = "row" 
+          style = "padding-bottom: 10px; padding-right: 10px;">
+      <label  for='applicationOpenDate' 
+              class = 'col-sm-4 control-label'>
+         Application Open Date
+      </label>
+      <div class = 'col-sm-8'>
+        <input  name  = 'applicationOpenDate' 
+                  id    = 'applicationOpenDate' 
+                  class = 'form-control hasDatePicker'
+                  required
+                  placeholder = "Choose the application open date"
+                  />
+       </div>
+      </div>
+      <div  class = "row" 
+          style = "padding-bottom: 10px; padding-right: 10px;">
+      <label  for='applicationCloseDate' 
+              class = 'col-sm-4 control-label'>
+         Application Close Date
+      </label>
+      <div class = 'col-sm-8'>
+         <input  name  = 'applicationCloseDate' 
+                  id    = 'applicationCloseDate' 
+                  class = 'form-control hasDatePicker'
+                  required
+                  placeholder = "Choose the application close date"
+                  />
+       </div>
+      </div>
+     
     <div  class = "row" 
           style = "padding-bottom: 10px; padding-right: 10px;">
       <label  for='ProposalOpenDate' 
