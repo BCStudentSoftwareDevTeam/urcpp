@@ -5,7 +5,7 @@ import api.globalroutes
 
 # Our getters
 import api.dashboard
-import contributors
+import api.contrib
 
 # Our API
 import API.bnumbers
