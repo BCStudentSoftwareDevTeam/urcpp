@@ -54,32 +54,26 @@
     <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
     </button>
 
+
   </a>
   
 {% if proj.status != "Reject" %}
-
   </a> 
     {% if proj.status == "Incomplete" or proj.status == "Pending" or proj.status == "Accept" %}
-
   <a href="/upload/vitae?source=home">
     <button class="btn btn-default">
     <span>Upload a CV</span>
     <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>   
     </button>
   </a>
-  
-  
   <a href="/upload/abstract?source=home">
     <button class="btn btn-default">
     <span>Upload an Abstract</span>
     <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
     </button>
   </a>
-
 {% endif %}
-
   {% endif %}
-
 </div>
 <div class="panel panel-default">
   <div class="panel-body">
