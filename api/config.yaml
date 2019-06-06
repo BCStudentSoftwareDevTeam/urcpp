@@ -30,9 +30,8 @@ history:
 flow:
   start:          "create"
   create:         "people"
-  people:         "collaborators"
-  collaborators:  "history"
-  history:        "irbyn"
+  people:         "collabID"
+  collabID:       "irbyn"
   irbyn:          "upload/irb"
   irb:            "upload/vitae"
   vitae:          "upload/narrative"

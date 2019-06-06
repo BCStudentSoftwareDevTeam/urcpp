@@ -23,7 +23,7 @@ def people_GET ():
                           )
 
 
-@app.route("/collaborators", methods = ["POST"])
+@app.route("/collabID", methods = ["POST"])
 def people_POST ():
     
   numStu    = int(request.form["numStu"])
@@ -48,7 +48,7 @@ def people_POST ():
   proj.save()
   if numCollab > 0:
     collabs = getCollaborators(g.user.username)
-    return render_template ("pages/identification.html",
+    return render_template ("pages/collabID.html",
                             username = g.user.username,
                             cfg = cfg,
                             numCollab = numCollab,
@@ -56,4 +56,4 @@ def people_POST ():
                           )
   else:
     delete_all_collaborators(proj.pID)
-    return redirect(url_for('history_GET'))
+    return redirect(url_for('irbyn_GET'))
