@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block title %} Collaborations {% endblock %}
+{% set currentPage = "Collaborations" %}
+
+{% block body %}
+<ol class="breadcrumb">
+ <li><a href="/">Home</a></li>
+  <li><a href="/create">Create</a></li>
+  <li><a href="/people">People</a></li>
+  <li class="active">Collaborations</li>
+</ol>
+
+<div class = "row">
+  <div class = "col-sm-8 col-sm-offset-2">
+    <div style="margin-left:35px;">
+      <h1>Faculty Collaborator(s) </h1>
+    </div>
+    
+  <form class = "form-horizontal"
+      action = "/collaborations" 
+      method = "POST"
+      >
+  
+    {% for id in range (0, numCollab) %}
+      <div class = 'form-group' id = "cgroup{{id}}" style="margin-left:100px;">
+        <h4> <b> Collaborator #{{id + 1}} </b> </h4>
+          
+          <label for='firstname{{id}}' class = 'col-sm-2 control-label'>
+           First Name:
+          </label>
+          <div class = 'col-sm-7'>
+            <input  name  = 'firstname[]' 
+                    id    = 'firstname{{id}}' 
+                    type  = 'text' 
+                    class = 'form-control'
+                    placeholder = 'John'
+                    required
+                    />
+          </div>
+          </div>
+          
+        <div class = 'form-group' id = "cgroup{{id}}" style="margin-left:100px;">    
+            <label for='lastname{{id}}' class = 'col-sm-2 control-label'>
+           Last Name:
+          </label>
+          <div class = 'col-sm-7'>
+            <input  name  = 'lastname[]' 
+                    id    = 'lastname{{id}}' 
+                    type  = 'text' 
+                    class = 'form-control'
+                    placeholder = 'Doe'
+                    required
+                    />
+          </div>
+          </div>
+                  
+        <div class = 'form-group' id = "cgroup{{id}}" style="margin-left:100px;">   
+            <label for='username{{id}}' class = 'col-sm-2 control-label'>
+           Username:
+          </label>
+          <div class = 'col-sm-7'>
+            <input  name  = 'username[]' 
+                    id    = 'username{{id}}' 
+                    type  = 'text' 
+                    class = 'form-control'
+                    placeholder = 'doej'
+                    required
+                    />
+          </div>
+        </div>
+      {% endfor %}        
+    
+   <div class="row">
+    <div class = "form-group"  >
+      <div class = "col-sm-1">
+      <input type="button" value="Back" onclick="window.history.back()" class="btn btn-primary"/> 
+      </input>
+    </div>
+    
+    
+    <div class = "col-sm-offset-9 col-sm-2" id = "submitButton">
+      <button id = "submit" 
+        type = "submit" 
+        class="btn btn-block btn-primary form-control"
+        type="submit"/>
+          Submit
+      </button>
+    </div>
+   </div>
+ 
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+  var numCollabs = parseInt("{{numCollab}}");
+  var username = "{{username}}";
+</script>
+{% endblock %}
+
+{% block footer_imports %}
+{% for id in range (0, numCollab) %}
+<script type = "text/javascript">
+              /* global delay, checkValidBNumber, BNUMBERCHECKDELAY */
+              $("#cbnumber{{id}}").keyup ( function() {
+                delay( function () { 
+                          checkValidBNumber("{{id}}"); 
+                      }, BNUMBERCHECKDELAY);
+              });
+            </script>
+{% endfor %}
+{% endblock %}
