@@ -95,16 +95,18 @@
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+  padding-top: 6px; 
+  height: 85px;
+  line-height:30px;
 }
  a {
 color: #51638c;
 } /*Because of the way the page is currently set it can't read the css file unless 
    the names are changed. that is why we have the footer style in html */
 </style>
-<footer class="footer">
-    <span><b>Issues? Contact:</b><a href="mailto:support@bereacollege.onmicrosoft.com"> Systems Support</a> </span>
-</footer>
+ <footer class="footer">
+      <span><b>Issues? Contact:</b><a href="mailto:support@bereacollege.onmicrosoft.com"> Systems Support</a>
+      <p><b>Created & Designed by the </b><a href="/contributor/" id = "contribLink">Student Software Developers Group.</a></p></span>
+    </footer>
 
 {% endblock %}
