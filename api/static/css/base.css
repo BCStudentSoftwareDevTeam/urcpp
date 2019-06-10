@@ -1,5 +1,8 @@
+body {
+   padding-bottom: 90px;
+}
 .footer {
-  position: relative;
+  position: absolute;
   left: 0;
   background-color:  #ecf0f1;
   color:#1e2433;

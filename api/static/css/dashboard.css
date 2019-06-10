@@ -171,19 +171,3 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
-.footer {
-  position: relative;
-  left: 0;
-  background-color:  #ecf0f1;
-  color:#1e2433;
-  text-align: center;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  padding-top: 6px; 
-  height: 85px;
-  line-height:30px; /* Vertically center the text there */
-}
- a {
-color: #51638c;
-} 
