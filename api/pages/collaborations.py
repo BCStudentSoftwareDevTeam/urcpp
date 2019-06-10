@@ -4,9 +4,11 @@ from ..API.collaborators import *
 from ..API.faculty import *
 
 
+ 
+
 @app.route("/collaborations", methods = ["POST"])
-def people_POST ():
-    
+@login_required
+def people_POST ():    
   numStu    = int(request.form["numStu"])
   numCollab = int(request.form["numCollab"])
   
@@ -25,26 +27,25 @@ def people_POST ():
     flash("Application has already been submitted.")
     return redirect(url_for("main_with_username", username = g.user.username))
     
+  #Save the number of students to the project
   proj.numberStudents = numStu
   proj.save()
+  
+  # Get all the faculty for the dropdown
+  allFaculty = LDAPFaculty.select().order_by(LDAPFaculty.username)
+  
   if numCollab > 0:
     collabs = getCollaborators(g.user.username)
     return render_template ("pages/collaborations.html",
                             username = g.user.username,
                             cfg = cfg,
                             numCollab = numCollab,
-                            collabs = collabs
+                            collabs = collabs,
+                            allFaculty = allFaculty
                           )
   else:
     delete_all_collaborators(proj.pID)
     return redirect(url_for('irbyn_GET'))
-
-
-
-
-
-
-
 
 @login_required
 def update_collaborators ():
@@ -62,7 +63,7 @@ def update_collaborators ():
    
   proj = getProject(g.user.username)
   
-  submitted_usernames = request.form.getlist("username[]") #This shall be our test function
+  submitted_usernames = request.form.getlist("username[]") #Hailey I think we need this in order for ou
   
   add_collaborators(proj.pID, submitted_usernames)
           

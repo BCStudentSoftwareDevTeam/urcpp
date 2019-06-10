@@ -2,6 +2,8 @@ from api.everything import *
 from ..API.projects import getProject
 from ..API.collaborators import delete_all_collaborators, getCollaborators
 
+
+
 @app.route("/people", methods = ["GET"])
 def people_GET ():
   # All of our queries

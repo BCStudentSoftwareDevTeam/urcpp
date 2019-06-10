@@ -20,6 +20,15 @@
       action = "/collaborations" 
       method = "POST"
       >
+      
+      <!--   <form action="/addCommitteeMember" method="post">
+    <select class="selectpicker form-control" data-role="chosen" id="addCommitteeMember" multiple="" name="addCommitteeMember">
+      {% for committeeMember in notCommittee %}
+        <option value="{{committeeMember.fID}}">{{committeeMember.firstname}} {{committeeMember.lastname}}</option>
+      {% endfor %}
+    </select>
+      
+      -->
   
     {% for id in range (0, numCollab) %}
       <div class = 'form-group' id = "cgroup{{id}}" style="margin-left:100px;">
@@ -54,18 +63,27 @@
           </div>
           </div>
                   
-        <div class = 'form-group' id = "cgroup{{id}}" style="margin-left:100px;">   
+        <div class = 'form-group' id = "cgroup{{id}}" style = "margin-left:100px;">  
             <label for='username{{id}}' class = 'col-sm-2 control-label'>
            Username:
           </label>
           <div class = 'col-sm-7'>
-            <input  name  = 'username[]' 
+           <select class = "selectpicker form-control" data-live-search="true" id = "getCollabUsernames" name = "getCollabUsernames">
+             <option disabled selected> --- </option>
+             {% for faculty in allFaculty %}
+               {% if faculty.lastname != "" %}
+                 <option value="{{faculty.fID}}">{{faculty.username}}</option>
+             <!-- <option value="" disabled selected>doej</option> -->
+               {% endif %}
+             {% endfor %}
+            </select>
+      <!--      <input  name  = 'username[]' 
                     id    = 'username{{id}}' 
                     type  = 'text' 
                     class = 'form-control'
                     placeholder = 'doej'
                     required
-                    />
+                    /> -->
           </div>
         </div>
       {% endfor %}        
