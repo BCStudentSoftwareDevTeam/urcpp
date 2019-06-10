@@ -50,21 +50,21 @@ dynamicDB.create_tables(get_classes('dynamic'))
 
 # Add some dummy data.
 
-# budget = Budget (
-#   facultyStipend      = 12,
-#   facultyStipendDesc  ="Awesome!",
-#   miles               = 12,
-#   milesDesc           ="Awesome!",
-#   otherTravel         = 12,
-#   otherTravelDesc     ="Awesome!",
-#   equipment           = 12,
-#   equipmentDesc       ="Awesome!",
-#   materials           = 12,
-#   materialsDesc       ="Awesome!",
-#   other               = 12,
-#   otherDesc           ="Awesome!",
-#   )
-# budget.save()
+budget = Budget (
+  facultyStipend      = 12,
+  facultyStipendDesc  ="Awesome!",
+  miles               = 12,
+  milesDesc           ="Awesome!",
+  otherTravel         = 12,
+  otherTravelDesc     ="Awesome!",
+  equipment           = 12,
+  equipmentDesc       ="Awesome!",
+  materials           = 12,
+  materialsDesc       ="Awesome!",
+  other               = 12,
+  otherDesc           ="Awesome!",
+  )
+budget.save()
 
 # budget = Budget (
 #   facultyStipend      = 13,
@@ -97,19 +97,19 @@ dynamicDB.create_tables(get_classes('dynamic'))
 #   )
 # budget.save()
 
-# proj = Projects (
-#   title                 = "Super Dooper Robots",
-#   budgetID              = 1,
-#   duration              = 8,
-#   startDate             = "2015-12-15",
-#   endDate               = "2016-02-09",
-#   year                  = 2016,
-#   hasCommunityPartner   = True,
-#   isServiceToCommunity  = True,
-#   humanSubjects         = True,
-#   numberStudents        = 3
-#   )
-# proj.save()
+proj = Projects (
+  title                 = "Super Dooper Robots",
+  budgetID              = 1,
+  duration              = 8,
+  startDate             = "2015-12-15",
+  endDate               = "2016-02-09",
+  year                  = 2016,
+  hasCommunityPartner   = True,
+  isServiceToCommunity  = True,
+  humanSubjects         = True,
+  numberStudents        = 3
+  )
+proj.save()
 
 # fac = URCPPFaculty (
 #   pID               = proj.pID,
@@ -164,15 +164,15 @@ dynamicDB.create_tables(get_classes('dynamic'))
 #   )
 # collab.save()
 
-# fac = URCPPFaculty (
-#   pID               = proj.pID,
-#   username          = "jadudm",
-#   # Possible values: oneyr, twoyr, threeToFiveyr, sixToTenyr, elevenPlus
-#   yearsFunded       = "{oneyr:1,twoyr:1,threeToFiveyr:1,sixToTenyr:1,elevenPlus:1}",
-#   relatedFunding    = "I got big bucks and I cannot lie.",
-#   programID         = 1,
-#   )
-# fac.save()
+fac = URCPPFaculty (
+  pID               = proj.pID,
+  username          = "jadudm",
+  # Possible values: oneyr, twoyr, threeToFiveyr, sixToTenyr, elevenPlus
+  yearsFunded       = "{oneyr:1,twoyr:1,threeToFiveyr:1,sixToTenyr:1,elevenPlus:1}",
+  relatedFunding    = "I got big bucks and I cannot lie.",
+  programID         = 1,
+  )
+fac.save()
 
 params = Parameters(
   year                = 2016,

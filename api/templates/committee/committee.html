@@ -5,15 +5,20 @@
 
 {% block body %}
 {% include 'snips/messages.html' %}
-<h1>URCPP Committee Portal</h1>
+<div style="text-align:center;">
+    <h1>URCPP Committee Portal</h1>
+</div>
 
-<p>
-  Welcome {{ldap.firstname}}. What would you like to do?
-</p>
-<div role = "navigation">
+<div style="text-align:center;">
+    <p>
+      Welcome {{ldap.firstname}}. What would you like to do?
+    </p>
+</div>
+
+<div role = "navigation"  style="background-color:ECF0F1">
    <ul class="nav nav-pills nav-stacked" style = "font-size: 150%;">
     {% for menuItem in cfg["committee"] %}
-      <li role="presentation"><a href="{{url_for(menuItem['link'])}}">{{menuItem['longtitle']}}</a></li>
+      <button type="button" class="list-group-item"><a href="{{url_for(menuItem['link'])}}">{{menuItem['longtitle']}}</a></button>
     {% endfor %}
   </ul>
 </div>

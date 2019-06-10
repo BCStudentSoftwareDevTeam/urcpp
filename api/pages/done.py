@@ -3,7 +3,7 @@ from ..API.projects import getProject, getProjectByID
 from budget import getBudget
 from ..API.parameters import getCurrentParameters
 from ..API.collaborators import getCollaborators, getCollaboratorsByProjectId
-
+from ..API.faculty import getFacultyForProject
 from upload import checkForFile
 
 
@@ -17,7 +17,7 @@ def done_GET ():
   uploadedFiles = [];
   
   if proj.status == cfg["projectStatus"]["Pending"]:
-    flash("Application has already been submited.")
+    flash("Application has already been submitted.")
     return redirect(url_for("main_with_username", username = g.user.username))
   
   for files in cfg["filepaths"]["allowedFileNames"]:
@@ -42,7 +42,7 @@ def finalize_POST ():
   proj = getProject(g.user.username)
   proj.status = cfg["projectStatus"]["Pending"]
   proj.save()
-  
+  flash("Application has been submitted." , "success")
   return redirect('/')
 
 
@@ -54,7 +54,8 @@ def review_GET ():
   parameters = getCurrentParameters()
   collaborators = getCollaborators(g.user.username)
   uploadedFiles = [];
-  
+  primary_faculty = getFacultyForProject(proj.pID)
+
   # TODO: I don't think this is being used, keeping it for now, but need to check
   # if it is removed
   if request.referrer:
@@ -74,7 +75,9 @@ def review_GET ():
                             collabs = collaborators,
                             previous_url = previous_url,
                             ldap = g.user,
-                            username = g.user.username
+                            username = g.user.username,
+			    currentUser = g.user.username,		# Need both because of next route, which has to have it as well (and it won't be the same as username)
+			    primary_faculty = primary_faculty
                           )
 
 @app.route("/urcpp/v1/project/<pID>/<username>/<year>", methods = ["GET"])
@@ -87,6 +90,7 @@ def project_GET (pID, username, year):
   parameters = getCurrentParameters()
   collaborators = getCollaboratorsByProjectId(pID)
   uploadedFiles = [];
+  primary_faculty = getFacultyForProject(pID)
 
   if request.referrer:
     previous_url = request.referrer
@@ -104,5 +108,7 @@ def project_GET (pID, username, year):
                             params = parameters,
                             collabs = collaborators,
                             previous_url = previous_url,
-                            username=username
+                            username = username,
+			    primary_faculty = primary_faculty, 
+			    currentUser = g.user.username
                           )

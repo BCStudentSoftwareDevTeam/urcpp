@@ -22,13 +22,15 @@
     <span>{% if proj %} {{ cfg['projectStatusAction'][proj.status]['msg']}}{% else %}{{cfg['projectStatusAction']['Start']['msg']}}{% endif %}</span>
     <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
     </button>
-  </a>
+  </a> 
+  {% if proj.status == "Incomplete" or proj.status == "Pending" or proj.status == "Accept" %}
   <a href="/upload/vitae?source=home">
     <button class="btn btn-default">
     <span>Upload a CV</span>
     <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
     </button>
   </a>
+  {% endif %}
 </div>
 <div class="panel panel-default">
   <div class="panel-body">
@@ -60,5 +62,6 @@
 <footer class="footer">
     <span><b>Issues? Contact:</b><a href="mailto:heggens@berea.edu"> Scott Heggen</a> </span>
 </footer>
+
     
 {% endblock %}

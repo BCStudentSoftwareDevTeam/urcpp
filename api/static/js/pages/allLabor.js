@@ -11,7 +11,7 @@ function countLaborRows () {
     var duration = $("#row" + idx).find("td[name='duration']").text();
     console.log("Dur: " + duration);
     sum = (numStudents * duration * laborRate * 40);
-    $("#rowTotal" + idx).html(sum.toFixed(2));
+    $("#rowTotal" + idx).html("$" + sum.toFixed(2));
     grandTotal += sum;
   };
   $("#grandTotal").text("$" + grandTotal.toFixed(2));
