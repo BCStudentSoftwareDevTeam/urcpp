@@ -39,6 +39,7 @@ def generic_file_upload (uploadType):
     proj = getProject(g.user.username)
     cycle = getCurrentParameters().year
     prevFilepath = checkForFile(g.user.username, uploadType, applicationCycle.year)
+    year = str(proj.startDate.strftime("%Y"))
     prev = prevFilepath
     #prevFilepath = prev.split("/").pop()
     return render_template (  "pages/upload.html",
@@ -50,7 +51,8 @@ def generic_file_upload (uploadType):
                               uploadType = uploadType,
                               fullpath = prev,
                               prevFilepath = prevFilepath,
-                              cycle = cycle
+                              cycle = cycle,
+                              year = year
                             )
   else:
     return "File upload type not recognized."
