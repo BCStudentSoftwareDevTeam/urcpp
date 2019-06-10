@@ -172,7 +172,7 @@ body {
   margin-bottom: 60px;
 }
 .footer {
-  position: absolute;
+  position: relative;
   left: 0;
   background-color:  #ecf0f1;
   color:#1e2433;
