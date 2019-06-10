@@ -14,7 +14,7 @@ here = os.path.dirname(__file__)
 cfg = load_config(os.path.join(here, 'config.yaml'))
 #TODO: move information out and change password to keep secret
 
-dynamicDB = MySQLDatabase("urcpp_flask_v2", host="localhost", user="urcpp-flask", passwd="DanforthLabor123!")
+dynamicDB = MySQLDatabase("urcpp_flask_v2", host="db", user="urcpp-flask", passwd="DanforthLabor123!")
 
 class DynamicModel (Model):
   class Meta:
@@ -22,7 +22,7 @@ class DynamicModel (Model):
 
 # To see the databases, do this:
 # sqlite_web -p $PORT -H $IP -x data/test.sqlite
-    
+
 ######################################################
 # STATIC MODELS
 ######################################################
@@ -35,22 +35,22 @@ class LDAPFaculty (DynamicModel):
   firstname         = TextField()
   isChair           = BooleanField(default=False)
   isCommitteeMember = BooleanField(default=False)
-  
+
   def is_active(self):
       """All user will be active"""
       return True
-  
-  
+
+
   def get_id(self):
       return str(self.fID)
-      
+
   def is_authenticated(self):
       """Return True if the user is authenticated"""
       return True
-      
+
   def is_anonymous(self):
       return False
-      
+
   def __repr__(self):
     return '{0} {1}'.format(self.firstname, self.lastname)
 class LDAPStudents (DynamicModel):
@@ -58,7 +58,7 @@ class LDAPStudents (DynamicModel):
   bnumber           = TextField()
   lastname          = TextField()
   firstname         = TextField()
-  
+
 class Programs (DynamicModel):
   pID               = PrimaryKeyField()
   name              = TextField()
@@ -82,13 +82,13 @@ class Budget (DynamicModel):
   materialsDesc       = TextField(default = "")
   other               = IntegerField(null = True)
   otherDesc           = TextField(default = "")
-  
+
 class PreSurvey (DynamicModel):
   psID                = PrimaryKeyField()
 
 class PostSurvey (DynamicModel):
   psID                = PrimaryKeyField()
-  
+
 
 class Parameters (DynamicModel):
   pID                 = PrimaryKeyField()
@@ -134,14 +134,14 @@ class URCPPFaculty (DynamicModel):
   fID               = PrimaryKeyField()
   pID               = ForeignKeyField(Projects, db_column="pid_id", related_name = "project")
   username          = ForeignKeyField(LDAPFaculty, to_field = "username")
-  # We will always name these ourselves, and 
+  # We will always name these ourselves, and
   # choose where they go. It is in our config[] YAML.
   # Something like...
   # /year/projid/username.pdf
   # vitae         = BlobField()
   yearsFunded       = TextField( default = "" )
   relatedFunding    = TextField( default = "" )
-  programID         = ForeignKeyField(Programs, default = 0) 
+  programID         = ForeignKeyField(Programs, default = 0)
 
 class Collaborators (DynamicModel):
   cID             = PrimaryKeyField()
@@ -168,7 +168,7 @@ class Voting (DynamicModel):
   budget                = FloatField(null = True)
   timeline              = FloatField(null = True)
   comments              = TextField(null = True)
-  
+
 class EmailTemplates (DynamicModel):
   eID                   = PrimaryKeyField()
   Body                  = TextField(null = True)

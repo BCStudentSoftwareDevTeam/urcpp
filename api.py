@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import os
 from api import app
 from api.config import load_config
@@ -26,4 +27,5 @@ print ("Running at http://{0}:{1}/".format(IP, PORT))
 #app.secret_key = skt['secret_key']
 app.tag = cfg['tag']
 
-app.run(host = IP, port = PORT, debug = True, threaded = True)
+if __name__ == "__main__":
+  app.run(host = IP, port = PORT, debug = True, threaded = True)

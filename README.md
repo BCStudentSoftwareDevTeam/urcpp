@@ -2,7 +2,7 @@
 
   - You will notice a bunch of sqlite related code, but we are no longer using sqlite
   - You will need to have mysql and python mysql-db
- 
+
 # c9 Installation Guide #
 
 1. Create a work space in c9 with the python template and the github ssh url.
@@ -21,3 +21,12 @@
 12. run `python api.py`
 13. if application does not load, comment out lines 80-83 in 'urcpp-flask/api/everything.py'
 14. to initialize mysql, run 'mysql-ctl install' and answer 'Y'
+
+# Running on containers
+Download `docker` and `docker-compose`
+
+run `docker-compose up`
+run `docker exec -it <container> python recreate_static.py`
+run `docker exec -it <container> python recreate_dynamic.py`
+
+visit site at localhost:8080
