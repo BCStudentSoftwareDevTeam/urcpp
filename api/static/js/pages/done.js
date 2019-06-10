@@ -22,28 +22,26 @@
   
   function withdraw(projectID) {
     swal({
-  title: "Are you sure?",
-  text: "All files will be deleted!",
-  type: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#DD6B55",
-  confirmButtonText: "Yes, delete it!",
-  cancelButtonText: "No, cancel please!",
-  closeOnConfirm: false,
-  closeOnCancel: false
-},
-function(isConfirm){
-  if (isConfirm) {
-    var postValue = {};
-    postValue[projectID] = 'Withdrawn';
-    $.post("/committee/allProjects/updateStatus", postValue, function(result){
-    window.location.replace("/");
+  	title: "Are you sure?",
+  	text: "All files will be deleted!",
+  	type: "warning",
+  	showCancelButton: true,
+  	confirmButtonColor: "#DD6B55",
+  	confirmButtonText: "Yes, delete it!",
+  	cancelButtonText: "No, cancel please!",
+  	closeOnConfirm: false,
+  	closeOnCancel: false
+    },
+    function(isConfirm){
+  	if (isConfirm) {
+    		var postValue = {};
+    		postValue[projectID] = 'Withdrawn';
+    		$.post("/committee/allProjects/updateStatus", postValue, function(result){
+    			window.location.replace("/");
+    		});
+    
+    	} else {
+    		swal("Cancelled", "Your imaginary file is safe :)", "error");
+    	}
     });
-    
-  } else {
-    swal("Cancelled", "Your imaginary file is safe :)", "error");
-  }
-});
-    
-
   };
