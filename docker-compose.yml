@@ -1,0 +1,22 @@
+version: "2.2"
+services:
+  app:
+    build: .
+    links:
+      - db
+    ports:
+      - "8080:8080"
+  db:
+      image: mysql:5.7
+      ports:
+        - "32000:3306"
+      environment:
+        MYSQL_DATABASE: 'urcpp_flask_v2'
+        # So you don't have to use root, but you can if you like
+        MYSQL_USER: 'urcpp-flask'
+        # You can use whatever password you like
+        MYSQL_PASSWORD: 'DanforthLabor123!'
+        # Password for root access
+        MYSQL_ROOT_PASSWORD: 'password'
+      volumes:
+        - ./docker/data/db:/var/lib/mysql
