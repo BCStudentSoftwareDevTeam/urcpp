@@ -27,12 +27,6 @@
     <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
     </button>
   </a>
-  <a href="/upload/finalReport?source=home">
-    <button class="btn btn-default">
-    <span>Upload Final Report</span>
-    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-    </button>
-  </a>
 </div> 
 
  <h3>Submissions are now closed.</h3><h4><p>Please contact </p><p>The Current IRB Chair: <a href = "mailto:{{email_IRBchair}}">{{currentCycle.IRBchair_id.firstname}} {{currentCycle.IRBchair_id.lastname}}</a></p> 
@@ -66,7 +60,7 @@
     {% if proj.status == "Incomplete" or proj.status == "Pending" or proj.status == "Accept" %}
   <a href="/upload/vitae?source=home">
     <button class="btn btn-default">
-    <span>Upload a CV</span>
+    <span>Upload a Curriculum vitae</span>
     <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>   
     </button>
   </a>
