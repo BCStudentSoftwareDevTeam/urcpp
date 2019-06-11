@@ -1,5 +1,7 @@
 from api.everything import *
 from faculty import get_faculty_by_bnumbers
+
+
 def getAllCollaborators():
   """ gets all of the collaborators from the collaborators table
   
@@ -13,7 +15,7 @@ def getAllCollaborators():
     return None
 
 def getCollaborators (username):
-  """ gets all of the collaborator for a user
+  """ gets all of the collaborators for a user
       
       Args:
         username (str): the user to whom the project belongs
@@ -81,7 +83,7 @@ def get_collaborator(project_id, username):
   """ gets a collaborator 
       
       Args:
-        username (str): the username of of the collaborators_get
+        username (str): the username of the collaborators_get
         project_id (int): the id of the project 
         
       Returns:
@@ -91,7 +93,7 @@ def get_collaborator(project_id, username):
                         .where(Collaborators.pID==project_id))
                         
   if collaborator.exists():
-    return collaborator.get()
+    return collaborator.get() # FIXME: expects only one collaborator, will break with 2+
   else:
     return None
   

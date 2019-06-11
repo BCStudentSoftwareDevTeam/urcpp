@@ -33,7 +33,8 @@
                     class = 'form-control'
                     placeholder = 'B012345678'
                     value = 
-                    "{% if collabs is not none and id < collabs|length %}{{collabs[id].username.bnumber}}{% endif %}"
+                    "{% if collabs is not none and id < collabs|length %}
+                      {{collabs[id].username.bnumber}}{% endif %}"
                     required
                     />
             

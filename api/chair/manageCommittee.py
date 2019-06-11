@@ -2,8 +2,10 @@ from ..everything import *
 from ..API.parameters import getCurrentParameters
 from forms import ManageCommitteeForm
 from ..API.committee import addCommitteeMembers, removeCommitteeMembers, getCommitteeMembers
-
 from ..pages import *
+
+
+
 
 @app.route("/chair/manageCommittee", methods = ["GET"])
 @login_required
