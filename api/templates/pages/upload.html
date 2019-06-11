@@ -86,8 +86,11 @@
 {% block footer_imports %}
 <script src = "/s/js/pages/upload.js" type = "text/javascript"> </script>
 <style type="text/css" media="screen">
-    .footer {
-  position: absolute;
+   body {
+   padding-bottom: 90px;
+}
+.footer {
+  position: fixed;
   left: 0;
   background-color:  #ecf0f1;
   color:#1e2433;
@@ -95,13 +98,13 @@
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  padding-top: 6px; 
+  padding-top: 12px; 
   height: 85px;
-  line-height:30px;
+  line-height:30px; /* Vertically center the text there */
 }
  a {
 color: #51638c;
-} /*Because of the way the page is currently set it can't read the css file unless 
+}  /*Because of the way the page is currently set it can't read the css file unless 
    the names are changed. that is why we have the footer style in html */
 </style>
  <footer class="footer">
