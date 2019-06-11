@@ -4,7 +4,7 @@ FROM python:2.7
 
 MAINTAINER Guillermo Ramos "guillermoramos330179@gmail.com"
 
-EXPOSE 80
+EXPOSE 8080
 
 COPY ./requirements.txt /requirements.txt
 
