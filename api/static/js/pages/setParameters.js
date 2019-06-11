@@ -88,30 +88,37 @@ $("#delete_parameters").click(function(e) {
   warnBeforeRedirect(linkURL);
 });
 
-function editParameters(year){
-  //populates inputs above table with info from set parameter
+function editParameters(year){ /*,irbchair,mileageRate, laborRate,  current_chair, staff_support, 
+openDate,closeDate*/  
+//populates inputs above table with info from set parameter
   // console.log("editParemeters called yo");
   
-  // var year = document.getElementById('parameterYear').innerHTML;
-  document.getElementById('newYear').value=(year);
-   var irbchair = document.getElementById('IRBchair_id'+year).innerHTML;
-  document.getElementById('IRBchair_id').value=(irbchair);
-  var current_chair = document.getElementById('currentchair'+year).innerHTML;
-  document.getElementById('currentchair').value=(current_chair);
-   var staff_support = document.getElementById('staffsupport'+year).innerHTML;
-  document.getElementById('staffsupport').value=(staff_support);
-  var unformattedOpenDate = document.getElementById('openDate'+year).innerHTML;
-  var openDate = unformattedOpenDate.replace(/\//g, "-")
-  document.getElementById('applicationOpenDate').value=(openDate);
-  var unformattedCloseDate = document.getElementById('closeDate'+year).innerHTML;
-  var closeDate = unformattedCloseDate.replace(/\//g, "-") //Replaces "/" with "-"
-  document.getElementById('applicationCloseDate').value=(closeDate);
+  //var year = document.getElementById('year').innerHTML;
+  $("#newYear")[0].value=$("#"+year+"_year")[0].innerText;
+  console.log($("#"+year+"_irb").attr("data-value"))
+  console.log($("#IRBchair_id").val())
+  $("#IRBchair_id").val($("#"+year+"_irb").attr("data-value"));
+  $('.selectpicker').selectpicker('refresh');  
   
-  var mileageRate = document.getElementById('mileageRates'+year).innerHTML.substr(1);
-  document.getElementById('mileageRate').value=(mileageRate);
+  //var irbchair = document.getElementById('IRBchair_id'+year).innerHTML;
+  // document.getElementById('IRBchair_id').value=(irbchair);
+
+  // // var current_chair = document.getElementById('currentchair'+year).innerHTML;
+  // document.getElementById('currentchair_id').value=(current_chair);
+  // // var staff_support = document.getElementById('staffsupport'+year).innerHTML;
+  // document.getElementById('staffsupport_id').value=(staff_support);
+  // // var unformattedOpenDate = document.getElementById('openDate'+year).innerHTML;
+  // var openDate = unformattedOpenDate.replace(/\//g, "-")
+  // document.getElementById('applicationOpenDate').value=(openDate);
+  // var unformattedCloseDate = document.getElementById('closeDate'+year).innerHTML;
+  // var closeDate = unformattedCloseDate.replace(/\//g, "-") //Replaces "/" with "-"
+  // document.getElementById('applicationCloseDate').value=(closeDate);
   
-  var laborRate = document.getElementById('laborRates'+year).innerHTML.substr(1);
-  document.getElementById('laborRate').value=(laborRate);
+  // var mileageRate = document.getElementById('mileageRates').innerHTML.substr(1);
+  // document.getElementById('mileageRate').value=(mileageRate);
+  
+  // var laborRate = document.getElementById('laborRates'+year).innerHTML.substr(1);
+  // document.getElementById('laborRate').value=(laborRate);
 }
 
 $("#laborRate").change(function() {
