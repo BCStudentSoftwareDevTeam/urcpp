@@ -11,7 +11,7 @@ from ..API.projects import getProject
 @app.route("/committee/allProjects/<int:year>", methods = ["GET"])
 @app.route("/committee/allProjects", methods = ["GET"])
 @login_required
-def allProjects_GET (year=None):
+def allProjects(year=None):
   if not g.user.isCommitteeMember:
     abort(403)
   # All of our queries
@@ -72,5 +72,5 @@ def updateStatus_POST ():
       
       
   
-  return redirect(url_for('allProjects_GET'))
+  return redirect(url_for('allProjects'))
 

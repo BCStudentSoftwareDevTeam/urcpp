@@ -15,19 +15,20 @@
     }
   
 </script>
-
-<h1> Voting Summary </h1>
+<div  style="text-align:center;">
+  <h1> Voting Summary! </h1>
+</div>
 <!--Menu-->
 {% include 'committee/nav_tabs.html' %}
 <p></p>
 <p style = "font-size: 150%; margin-bottom: 20px;">The table below shows the average of all committee members' votes.</p>
-<div class = "row">
+<div class ="row">
   <table class = "table table-striped table-hover table-sm">
     <tr>
-      <th>Faculty/Proj. Title</th>
+      <th style="text-align: center;">Faculty/Proj. Title</th>
       <!--<th>Project Status</th>-->
       {% for title in cfg["voting"]%}
-        <th style = "font-size: .6em;" 
+        <th style = "font-size: .6em; text-align: center;" 
         onmouseover = "changeSize('{{title['dbName']}}', '1.2em')"
         onmouseleave = "changeSize('{{title['dbName']}}', '.6em')"
         id = "{{title['dbName']}}">
@@ -35,15 +36,15 @@
         </th>
       
       {% endfor %}
-      <th>Total</th>
+      <th style="text-align: center;">Total</th>
     </tr>
     {% if fac is not none %}
       {% for person in fac %}
-        <tr id="row{{loop.index0}}" name = "leRow">
-          <td>
-            {{person.username.firstname}} {{person.username.lastname}} <span class = "small">({{person.programID.name}})</span>
+        <tr id="row{{loop.index0}}" name = "leRow" style="text-align: center;">
+          <td style="text-align: center;">
+            {{person.username.firstname}} {{person.username.lastname}} <span class = "small" >({{person.programID.name}})</span>
             <br />
-            <span class = "small">{{person.pID.title|truncate(50, True)}}</span>
+            <span class = "small" >{{person.pID.title|truncate(50, True)}}</span>
           </td>
           <!--Loop for each project-->
           {% for vote in votes %}
@@ -54,7 +55,7 @@
                 {% if result[0] == person.pID.pID %}
                   <!--Loop for each vote category-->
                   {% for field in cfg["voting"] %} 
-                    <td name = "rowValue" class = "{{field['dbName']}} rowValue text-center" id="col{{loop.index0}}">
+                    <td name = "rowValue" class = "{{field['dbName']}} rowValue text-center" id="col{{loop.index0}}" style="text-align: right;">
                       {{'%0.2f'| format(result[loop.index]|float)}}
                     </td>
                   {% endfor %}
