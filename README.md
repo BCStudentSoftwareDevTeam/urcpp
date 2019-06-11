@@ -23,6 +23,6 @@
 14. to initialize mysql, run 'mysql-ctl install' and answer 'Y'
 
 # Running on containers
-Full instructions are in [this document] (https://docs.google.com/document/d/1YWG9-D0WaCMS9x9uLrxHSjmvakaJZhHY5Dy9JwfzFBs/edit?usp=sharing)
+Full instructions are in [this document](https://docs.google.com/document/d/1YWG9-D0WaCMS9x9uLrxHSjmvakaJZhHY5Dy9JwfzFBs/edit?usp=sharing)
 
-Site will be running on your localhost port 8080: (http://localhost:8080)
+Site will be running on your localhost port 8080: http://localhost:8080
