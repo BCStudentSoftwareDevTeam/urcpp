@@ -23,10 +23,6 @@
 14. to initialize mysql, run 'mysql-ctl install' and answer 'Y'
 
 # Running on containers
-Download `docker` and `docker-compose`
+Full instructions are in [this document] (https://docs.google.com/document/d/1YWG9-D0WaCMS9x9uLrxHSjmvakaJZhHY5Dy9JwfzFBs/edit?usp=sharing)
 
-run `docker-compose up`
-run `docker exec -it <container> python recreate_static.py`
-run `docker exec -it <container> python recreate_dynamic.py`
-
-visit site at localhost:8080
+Site will be running on your localhost port 8080: (http://localhost:8080)
