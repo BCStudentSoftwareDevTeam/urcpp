@@ -1,10 +1,7 @@
 from api.everything import *
 from ..API.projects import getProject
 from ..API.collaborators import *
-from ..API.faculty import *
-
-
- 
+from ..API.faculty import getLDAPFaculty
 
 @app.route("/collaborations", methods = ["POST"])
 @login_required
@@ -63,7 +60,7 @@ def update_collaborators ():
    
   proj = getProject(g.user.username)
   
-  submitted_usernames = request.form.getlist("username[]") #Hailey I think we need this in order for ou
+  submitted_usernames = request.form.getlist("username[]") 
   
   add_collaborators(proj.pID, submitted_usernames)
           
@@ -73,33 +70,31 @@ def update_collaborators ():
 
   return redirect ( url_for( "irbyn_GET" ))
 
+
+
+
+
+
 @app.route("/check_username", methods = ["POST"])
 @login_required
 def check_username():
-  """This function checks to see if a bnumber exists.
+  """This function checks to see if a username  exists.
      It checks the LDAPFaculty table and if finds a User 
-     it marks the bnum as good.
+     it marks the u_num  as good.
       Args:
         username (str): the user who is currently accessing the application
-        bnum (str): POST the number that needs to be checked
+        u_num (str): POST the username that needs to be checked
        
       Returns:
         JSON: response that is either OK or NOTFOUND
   """
   username = request.json['u_name']
-  #if bnumber[0] == "b":
-   # bnumber = "B" + bnumber[1:]
-  #  print ("Replaced Bnum: " + bnumber)
-  # We are assuming BNumbers are less than 10 characters
-  if (len(bnumber) < 12) and (bnumber.find("B") == 0):
-    facQ = (LDAPFaculty.select()
-      .where (LDAPFaculty.bnumber == bnumber)
-      )
-    if facQ.exists():
-      if facQ[0].username == g.user.username:
-        return jsonify({"response" : "USER"})
-      return jsonify({ "response" : "OK" })
-    else:
-      return jsonify({ "response" : "NOTFOUND" })
+
+  facQ = (LDAPFaculty.select())
+  
+  if facQ.exists():
+    if facQ[0].username == g.user.username:
+      return jsonify({"response" : "USER"})
+    return jsonify({ "response" : "OK" })
   else:
     return jsonify({ "response" : "NOTFOUND" })

@@ -3,6 +3,7 @@
 {% set currentPage = "people" %}
 
 {% block body %}
+
 <ol class="breadcrumb">
   <li><a href="/">Home</a></li>
   <li><a href="/create">Create</a></li>
@@ -67,6 +68,10 @@
     <br/> <!--extra space at bottom-->
    </div>
    <br/>
+   
+   <form action="#" method="post" onsubmit="return deleteCollabs()"> <!--Need to find way to test this, it didn't error out soooo it works????? But also, it may very well be skipping right over it -->
+   
+   
    <div class="row">
     <div class = "form-group"  >
       <div class = "col-sm-1">
@@ -76,7 +81,8 @@
       <div class = "col-sm-offset-9 col-sm-2" 
            id = "submitButton"
            >
-        <button id = "submit" 
+        <button
+                id = "submit" 
                 type = "submit" 
                 class="btn btn-block btn-success form-control"
                 type="submit"

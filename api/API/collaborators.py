@@ -1,5 +1,5 @@
 from api.everything import *
-from faculty import get_faculty_by_bnumbers
+from faculty import *
 
 
 def getAllCollaborators():
@@ -53,6 +53,8 @@ def getCollaboratorsByProjectId (pID):
   else:
     return None
 
+
+# used in AwardLetters
 @app.route ("/urcpp/v1/collaborators/get/<username>", methods = ["POST"])
 def collaborators_get (username):
   """ gets the collaborators of a user
@@ -130,7 +132,7 @@ def delete_non_collaborators(project_id, *collaborators):
           ).execute()
         
         
-def add_collaborators(project_id, *collaborator_bnumbers):
+def add_collaborators(project_id, *collaborator_usernames):
   """ add the collaborators from collaborator bnumbers
   
       Args:
@@ -138,7 +140,7 @@ def add_collaborators(project_id, *collaborator_bnumbers):
         collaborator_bnumbers (splat): the collaborators that will be the current collaborators
   """
   
-  faculty = get_faculty_by_bnumbers(collaborator_bnumbers)
+  faculty = getLDAPFaculty(collaborator_usernames)
   
   for professor in faculty:
     if get_collaborator(project_id, professor.username) is None:

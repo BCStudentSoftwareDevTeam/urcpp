@@ -2,6 +2,13 @@ from api.everything import *
 from ..API.projects import getProject
 from ..API.collaborators import delete_all_collaborators, getCollaborators
 
+@app.route("/deleteCollabs", methods = ["POST", "GET"])
+@login_required
+def deleteCollabs():
+  #Function made solely to delete collaborators
+
+  delete_all_collaborators(proj.pID)
+  return redirect(url_for("collaborations_GET"))
 
 
 @app.route("/people", methods = ["GET"])
