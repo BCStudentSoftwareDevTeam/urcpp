@@ -35,7 +35,7 @@ import uuid
 
 def authUser(env):
   envK = "eppn"
-  
+
   #print("Huh?", app.config)
   #app.logger.info("Found remote user: " + env.get("HTTP_X_REMOTE_USER") + env.get("PHP_AUTH_USER"))
   if (envK in env):
@@ -78,15 +78,6 @@ from api.switch import switch
 def before_request():
     #g.dbDynamic = dynamicDB.connect()
     g.user = current_user
-
-@app.teardown_request
-def teardown_request(exception):
-    dbS = getattr(g, 'dbStatic', None)
-#    dbD = getattr(g, 'dbDynamic', None)
-    if (dbS is not None) and (not dbS.is_closed()):
-      dbS.close()
-#    if (dbD is not None) and (not dbD.is_closed()):
-#      dbD.close()
 
 @login_manager.user_loader
 def load_user(fID):
