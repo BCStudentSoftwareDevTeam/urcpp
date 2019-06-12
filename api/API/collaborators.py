@@ -1,19 +1,25 @@
 from api.everything import *
 from faculty import get_faculty_by_bnumbers
+
+
 def getAllCollaborators():
-  """ gets all of the collaborators from the collaborators table
+  """ This function gets all of the collaborators from the collaborators table in the database
+  
+      Args:
+        None
   
       Returns:
         Collaborator Select Query: all of the collaborators
   """
   collabQ = (Collaborators.select())
-  if collabQ.exists():
-    return collabQ.execute()
+  if collabQ.exists(): # if Collaborators in database exists
+    return collabQ.execute() # 
   else:
     return None
 
+
 def getCollaborators (username):
-  """ gets all of the collaborator for a user
+  """ This function gets all of the collaborators associated with a specific user
       
       Args:
         username (str): the user to whom the project belongs
@@ -34,7 +40,7 @@ def getCollaborators (username):
     return None
 
 def getCollaboratorsByProjectId (pID):
-  """ gets collaborator based on an project id 
+  """ This function gets collaborator based on an project id 
       
       Args: 
         pID (int): the project that the collaborators are contributing to
@@ -51,9 +57,10 @@ def getCollaboratorsByProjectId (pID):
   else:
     return None
 
+
 @app.route ("/urcpp/v1/collaborators/get/<username>", methods = ["POST"])
 def collaborators_get (username):
-  """ gets the collaborators of a user
+  """ This function gets the collaborators of a user
       
       Args:
         username (str): the username of whom the project belongs
@@ -77,8 +84,9 @@ def collaborators_get (username):
                  }
     return jsonify(response)  
     
+    
 def get_collaborator(project_id, username):
-  """ gets a collaborator 
+  """ This function gets a collaborator 
       
       Args:
         username (str): the username of of the collaborators_get
@@ -95,8 +103,9 @@ def get_collaborator(project_id, username):
   else:
     return None
   
+  
 def delete_all_collaborators(project_id):
-  """ deletes all of the currect collaborators 
+  """ This function deletes all of the currect collaborators 
       
       Args:
         project_id (int): the id of the project that the collaborators belong to
@@ -109,7 +118,7 @@ def delete_all_collaborators(project_id):
                     
         
 def delete_non_collaborators(project_id, *collaborators):
-  """ deletes the current collaborators that are not in the list provided
+  """ This function deletes the current collaborators that are not in the list provided
       
       Args:
         project_id (int): the id of the project that the collaborators belong to
@@ -129,7 +138,7 @@ def delete_non_collaborators(project_id, *collaborators):
         
         
 def add_collaborators(project_id, *collaborator_bnumbers):
-  """ add the collaborators from collaborator bnumbers
+  """ This function add the collaborators from collaborator bnumbers
   
       Args:
         project_id (int): the id of the project that the collabors belong to
