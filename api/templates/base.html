@@ -1,71 +1,62 @@
-<html>
-  <head>
-    <title>{% block title %} {% endblock %}</title>
-    
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-    
-    <!-- Optional theme -->
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">-->
-    
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css">
+ <html>
 
-    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/i18n/defaults-*.min.js"></script>
-    
-    
+  <link rel="stylesheet" href="/static/css/base.css" type="text/css" />
+   <head>
+     <title>{% block title %} {% endblock %}</title>
+     <!-- Latest compiled and minified CSS -->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+     <!-- Optional theme -->
+     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">-->
+     <!-- Latest compiled and minified CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css">
+     <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/i18n/defaults-*.min.js"></script>
+     <link rel="stylesheet" href="/static/css/" type="text/css" />
+     <link rel = "stylesheet" href="/s/css/bootstrap.min.css">
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+     <link rel = "stylesheet" href = "/s/css/jquery.bootstrap-touchspin.css" />
+     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700'>
+     <link rel = "stylesheet" href = "/s/css/sweetalert.css" />    
+     <link rel = "stylesheet" href = "/s/css/dropzone.css" />
+     <link rel="stylesheet" href="/s/css/verticalProgressBar.css" type="text/css" />
+     <link rel="stylesheet" href="/s/css/custom.css" type="text/css" />
+     <meta name="referrer" content="always">    
+   </head>
+   <body>
+     <script type = "text/javascript">
+       var username = "{{username}}";
+     </script>
+     <div class="container">
+       {% block body %} {% endblock %}  
+     </div>
+     <link rel="stylesheet" href="/static/css/{{currentPage}}.css" type="text/css" />
+     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+     <!-- Latest compiled and minified JavaScript -->
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+     <!-- Latest compiled and minified Bootrap Select -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js"></script>
+     <script src = "/s/js/ext/jquery.bootstrap-touchspin.js"> </script>
+     <script src = "/s/js/ext/form-to-obj.min.js"> </script>
+     <script src = "/s/js/ext/aja.min.js"> </script>
+     <script src = "/s/js/ext/sweetalert.min.js"> </script>
+     <script src = "/s/js/ext/dropzone.js"> </script>
+     <!--needed to make polyfill work in internet explorer-->
+      <script type="text/javascript" src="/static/js/ext/number_polyfill.js"></script>
+     <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js'></script>
+     <script src = "/s/js/urcpp.js"> </script>
+     <script type = "text/javascript"
+             src  = "/static/js/pages/{{currentPage}}.js"
+             > </script>
      
-   
-    <link rel="stylesheet" href="/static/css/" type="text/css" />
-
-    <link rel = "stylesheet" href="/s/css/bootstrap.min.css">
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <link rel = "stylesheet" href = "/s/css/jquery.bootstrap-touchspin.css" />
-    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700'>
-    
-    <link rel = "stylesheet" href = "/s/css/sweetalert.css" />    
-    <link rel = "stylesheet" href = "/s/css/dropzone.css" />
-    <link rel="stylesheet" href="/s/css/verticalProgressBar.css" type="text/css" />
-    <link rel="stylesheet" href="/s/css/custom.css" type="text/css" />
-    <meta name="referrer" content="always">    
-
-  </head>
-  <body>
-    <script type = "text/javascript">
-      var username = "{{username}}";
-    </script>
-      
-    <div class="container">
-      {% block body %} {% endblock %}  
-    </div>
-
-    <link rel="stylesheet" href="/static/css/{{currentPage}}.css" type="text/css" />
-    
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-    
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-    <!-- Latest compiled and minified Bootrap Select -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/js/bootstrap-select.min.js"></script>
-    <script src = "/s/js/ext/jquery.bootstrap-touchspin.js"> </script>
-    <script src = "/s/js/ext/form-to-obj.min.js"> </script>
-    <script src = "/s/js/ext/aja.min.js"> </script>
-    <script src = "/s/js/ext/sweetalert.min.js"> </script>
-    <script src = "/s/js/ext/dropzone.js"> </script>
-    <!--needed to make polyfill work in internet explorer-->
-     <script type="text/javascript" src="/static/js/ext/number_polyfill.js"></script>
-    
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js'></script>
-    
-    <script src = "/s/js/urcpp.js"> </script>
-    <script type = "text/javascript"
-            src  = "/static/js/pages/{{currentPage}}.js"
-            > </script>
     {% block footer_imports %} {% endblock %}
+    
+     <footer class="footer navbar-fixed-bottom">
+      
+       <span><b>Issues? Contact:</b><a href="mailto:support@bereacollege.onmicrosoft.com"> Systems Support</a>
+       <p><b>Created & Designed by the </b><a href="/contributor/" id = "contribLink">Student Software Developers Group.</a></p></span>
+    
+     </footer>
+    </body>
+ </html>
 
-  </body>
-
-</html>
