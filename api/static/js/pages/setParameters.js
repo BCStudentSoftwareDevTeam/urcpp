@@ -88,21 +88,39 @@ $("#delete_parameters").click(function(e) {
   warnBeforeRedirect(linkURL);
 });
 
-function editParameters(year){ /*,irbchair,mileageRate, laborRate,  current_chair, staff_support, 
-openDate,closeDate*/  
+function editParameters(year){
 //populates inputs above table with info from set parameter
-  // console.log("editParemeters called yo");
-  
-  //var year = document.getElementById('year').innerHTML;
+  // console.log($("#"+year+"_staff").attr("data-value"))
+  // console.log($("#IRBchair_id").val())
+  // console.log($("#staffsupport_id").val())
   $("#newYear")[0].value=$("#"+year+"_year")[0].innerText;
-  console.log($("#"+year+"_irb").attr("data-value"))
-  console.log($("#IRBchair_id").val())
   $("#IRBchair_id").val($("#"+year+"_irb").attr("data-value"));
   $('.selectpicker').selectpicker('refresh');  
+  $("#currentchair_id").val($("#"+year+"_chair").attr("data-value"));
+  $('.selectpicker').selectpicker('refresh');
+  $("#staffsupport_id").val($("#"+year+"_staff").attr("data-value"));
+  $('.selectpicker').selectpicker('refresh');
+  $("#mileageRate").val($("#"+year+"_mile").attr("data-value"));
+  $('.selectpicker').selectpicker('refresh');
+  $("#laborRate").val($("#"+year+"_labor").attr("data-value"));
+  $('.selectpicker').selectpicker('refresh');
+  $("#applicationOpenDate").val($("#"+year+"_appopen").attr("data-value"));
+  $('.selectpicker').selectpicker('refresh');
+  $("#applicationCloseDate").val($("#"+year+"_appclose").attr("data-value"));
+  $('.selectpicker').selectpicker('refresh');
+  $("#ProposalOpenDate").val($("#"+year+"_proposalopen").attr("data-value"));
+  $('.selectpicker').selectpicker('refresh');
+  $("#ProposalAcceptanceDate").val($("#"+year+"_proposalaccept").attr("data-value"));
+  $('.selectpicker').selectpicker('refresh');
+  $("#ProposalClosedDate").val($("#"+year+"_proposalclose").attr("data-value"));
+  $('.selectpicker').selectpicker('refresh');
+  $("#AbstractnarrativesAcceptanceDate").val($("#"+year+"_abstract").attr("data-value"));
+  $('.selectpicker').selectpicker('refresh');
+  $("#AllSubmissionsClosedDate").val($("#"+year+"_allsubmit").attr("data-value"));
+  $(".selectpicker").selectpicker('refressh');
   
   //var irbchair = document.getElementById('IRBchair_id'+year).innerHTML;
   // document.getElementById('IRBchair_id').value=(irbchair);
-
   // // var current_chair = document.getElementById('currentchair'+year).innerHTML;
   // document.getElementById('currentchair_id').value=(current_chair);
   // // var staff_support = document.getElementById('staffsupport'+year).innerHTML;
