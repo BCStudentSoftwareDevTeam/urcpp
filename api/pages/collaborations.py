@@ -3,6 +3,7 @@ from ..API.projects import getProject
 from ..API.collaborators import *
 from ..API.faculty import getLDAPFaculty
 
+
 @app.route("/collaborations", methods = ["POST"])
 @login_required
 def people_POST ():    
@@ -32,6 +33,7 @@ def people_POST ():
   allFaculty = LDAPFaculty.select().order_by(LDAPFaculty.username)
   
   if numCollab > 0:
+    delete_all_collaborators(proj.pID)
     collabs = getCollaborators(g.user.username)
     return render_template ("pages/collaborations.html",
                             username = g.user.username,
@@ -43,6 +45,7 @@ def people_POST ():
   else:
     delete_all_collaborators(proj.pID)
     return redirect(url_for('irbyn_GET'))
+
 
 @login_required
 def update_collaborators ():
@@ -64,16 +67,10 @@ def update_collaborators ():
   
   add_collaborators(proj.pID, submitted_usernames)
           
-          
   delete_non_collaborators(proj.pID, submitted_usernames)
   
-
   return redirect ( url_for( "irbyn_GET" ))
-
-
-
-
-
+  
 
 @app.route("/check_username", methods = ["POST"])
 @login_required
