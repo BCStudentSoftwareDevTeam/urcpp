@@ -4,6 +4,24 @@ from ..API.collaborators import *
 from ..API.faculty import getLDAPFaculty
 
 
+@app.route("/insertcollaborators", methods = ["POST"])
+@login_required
+def insert_collaborators ():
+  # endpoint for inserting collaborators from collaborations.html
+  
+  proj = getProject(g.user.username)
+  newCollab = request.form.getlist("getCollabUsernames") #get all users but list includes 
+  #(request.form["getCollabUsernames"]) # only gets one collab #1?
+  print(newCollab)
+  # request.data.getlist("getCollabUsernames") # gets the data from the form
+  # TODO: Insert the collaborators to the DB for this PID
+  add_collaborators(proj.pID, newCollab)
+  return redirect(url_for('irbyn_GET'))
+  
+  
+  
+  
+
 @app.route("/collaborations", methods = ["POST"])
 @login_required
 def people_POST ():    
@@ -34,12 +52,10 @@ def people_POST ():
   
   if numCollab > 0:
     delete_all_collaborators(proj.pID)
-    collabs = getCollaborators(g.user.username)
     return render_template ("pages/collaborations.html",
                             username = g.user.username,
                             cfg = cfg,
                             numCollab = numCollab,
-                            collabs = collabs,
                             allFaculty = allFaculty
                           )
   else:

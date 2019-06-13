@@ -2,20 +2,14 @@ from api.everything import *
 from ..API.projects import getProject
 from ..API.collaborators import delete_all_collaborators, getCollaborators
 
-@app.route("/deleteCollabs", methods = ["POST", "GET"])
-@login_required
-def deleteCollabs():
-  #Function made solely to delete collaborators
-
-  delete_all_collaborators(proj.pID)
-  return redirect(url_for("collaborations_GET"))
-
 
 @app.route("/people", methods = ["GET"])
+@login_required
 def people_GET ():
   # All of our queries
   proj = getProject(g.user.username)
-  
+  print(proj.pID)
+  delete_all_collaborators(proj.pID)
   if proj.status == cfg["projectStatus"]["Pending"]:
     flash("Application has already been submited.")
     return redirect(url_for("main_with_username", username = g.user.username))

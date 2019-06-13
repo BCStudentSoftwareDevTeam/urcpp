@@ -62,3 +62,11 @@ function checkValidUsername (id) {
     .go();
   
 };
+
+
+function submitData() {  
+  console.log($("#collabForm"));
+  /* Ajax the data to /budget */
+  $("#collabForm")[0].submit();  
+  //console.log("Submitted");
+};

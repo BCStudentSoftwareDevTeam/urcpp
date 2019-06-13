@@ -133,15 +133,17 @@ def delete_non_collaborators(project_id, *collaborators):
         
         
 def add_collaborators(project_id, *collaborator_usernames):
-  """ add the collaborators from collaborator bnumbers
+  """ add the collaborators from collaborator usernames
   
       Args:
         project_id (int): the id of the project that the collabors belong to
         collaborator_bnumbers (splat): the collaborators that will be the current collaborators
   """
+  # print(collaborator_usernames)
+  # print(type(collaborator_usernames))
+  # print(list(collaborator_usernames))
   
-  faculty = getLDAPFaculty(collaborator_usernames)
-  
-  for professor in faculty:
-    if get_collaborator(project_id, professor.username) is None:
-      Collaborators(pID = project_id, username = professor.username).save()
+  for collab in list(collaborator_usernames)[0]:
+    print(str(collab))
+    Collaborators(pID = project_id, username = getLDAPFaculty(str(collab))).save()
+    

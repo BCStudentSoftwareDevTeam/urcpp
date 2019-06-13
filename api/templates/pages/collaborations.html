@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %} Collaborations {% endblock %}
-{% set currentPage = "Collaborations" %}
+{% set currentPage = "collaborations" %}
 
 {% block body %}
 
@@ -18,7 +18,8 @@
     </div>
     
   <form class = "form-horizontal"
-      action = "/collaborations" 
+      id = "collabForm"
+      action = "/insertcollaborators" 
       method = "POST"
       >
       
@@ -37,7 +38,7 @@
              {% for faculty in allFaculty %}
                {% if faculty.lastname != "" %} <!-- needed to remove test users -->
                  {% if faculty.username != g.user.username %}
-                 <option title={{faculty.username}} value="{{faculty.fID}}">{{faculty.username}}; {{faculty.firstname}} {{faculty.lastname}}</option>
+                 <option title={{faculty.username}} value="{{faculty.username}}">{{faculty.username}}; {{faculty.firstname}} {{faculty.lastname}}</option>
                  {% endif %}
                {% endif %}
              {% endfor %}
@@ -54,11 +55,11 @@
     </div>
     
     
-    <div class = "col-sm-offset-9 col-sm-2" id = "submitButton">
-      <button id = "submit" 
-        type = "submit" 
-        class="btn btn-block btn-success form-control"
-        type="submit"
+    <div class = "col-sm-offset-9 col-sm-2" id = "submit_Button">
+      <button id = "submitbutton" 
+        type = "button" 
+        class="btn btn-block btn-success"
+        onclick= "submitData()"
         />
           Submit
       </button>
