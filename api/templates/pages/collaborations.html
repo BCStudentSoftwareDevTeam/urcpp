@@ -90,25 +90,4 @@
 </div>
 
 
-
-
-
-
-<script>
-  var numCollabs = parseInt("{{numCollab}}");
-  var username = "{{username}}";
-</script>
-{% endblock %}
-
-{% block footer_imports %}
-{% for id in range (0, numCollab) %}
-<script type = "text/javascript">
-              /* global delay, checkValidUsername, USERNAMECHECKDELAY */
-              $("#cusername {{id}}").keyup ( function() {
-                delay( function () { 
-                          checkValidUsername("{{id}}"); 
-                      }, USERNAMECHECKDELAY);
-              });
-            </script>
-{% endfor %}
 {% endblock %}

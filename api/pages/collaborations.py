@@ -16,8 +16,6 @@ def insert_collaborators ():
   return redirect(url_for('irbyn_GET'))
   
   
-  
-  
 
 @app.route("/collaborations", methods = ["POST"])
 @login_required
@@ -58,53 +56,3 @@ def people_POST ():
   else:
     delete_all_collaborators(proj.pID)
     return redirect(url_for('irbyn_GET'))
-
-
-@login_required
-def update_collaborators ():
-  """This function updates the collaborators table
-
-    Args:
-      username (str): The username of the person accessing the app
-      numCollab (str): POST number of collaborators project hasattr
-      cnumber<index> (str): POST the collaborators c number; there maybe one or more of these
-    
-    Returns:
-      Redirect: redirects to irbyn_GET
-
-    """ 
-   
-  proj = getProject(g.user.username)
-  
-  submitted_usernames = request.form.getlist("username[]") 
-  
-  add_collaborators(proj.pID, submitted_usernames)
-          
-  delete_non_collaborators(proj.pID, submitted_usernames)
-  
-  return redirect ( url_for( "irbyn_GET" ))
-  
-
-@app.route("/check_username", methods = ["POST"])
-@login_required
-def check_username():
-  """This function checks to see if a username  exists.
-     It checks the LDAPFaculty table and if finds a User 
-     it marks the u_num  as good.
-      Args:
-        username (str): the user who is currently accessing the application
-        u_num (str): POST the username that needs to be checked
-       
-      Returns:
-        JSON: response that is either OK or NOTFOUND
-  """
-  username = request.json['u_name']
-
-  facQ = (LDAPFaculty.select())
-  
-  if facQ.exists():
-    if facQ[0].username == g.user.username:
-      return jsonify({"response" : "USER"})
-    return jsonify({ "response" : "OK" })
-  else:
-    return jsonify({ "response" : "NOTFOUND" })
