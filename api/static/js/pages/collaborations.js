@@ -67,23 +67,38 @@ function checkValidUsername (id) {
 
 function checkSameUsername() {
 
-  dropdown = $(".getCollabUsernames");
-  console.log('JSON.stringify',JSON.stringify(getCollabUsernames));
-  console.log("All the usernames: " + (dropdown));
+  dropdown = $(".selectpicker");
   
-  var sortDrop = dropdown.slice().sort(); 
-    for (var i=0; i < sortDrop.length - 1; i++) {
-    console.log("Specific username: " + value);
-      if (sortDrop[i + 1] == sortDrop[i]) {
-        console.log("You have inputed the same username at least twice. Failure.");
-        $("#failed").hide();
+  console.log(dropdown.length);
+  console.log((jQuery('.selectpicker').val()))
+  
+  
+  checkNames = []
+
+  for (var i=0; i < dropdown.length; i++) {
+    
+    console.log("Specific username: " + dropdown[i].value);
+      if (checkNames.includes(dropdown[i].value)){  //Checks to see if the value on dropdown is the same as one already in checkNames
+        console.log("You have inputed the same username more than once. Failure.");
+        $("#failedSameUsername").show();
+        return;
       }
       else { 
-       $("#successmessage").text("Your shit has been removed.")
-        console.log("You used unique usernames for each input! You win at life!");
-        submitData(); 
-       }
+        checkNames.push(dropdown[i].value);
+        console.log(checkNames);
+        
+        for (var b=0; b < checkNames.length; b++) {
+          if (checkNames.includes("")) {
+            $("#failedNoEntry").show();
+            return;
+             }
+          
+        }
+      }
     }
+    
+  console.log("You used unique usernames for each input! You win at life!");
+submitData(); 
 
 };
 
