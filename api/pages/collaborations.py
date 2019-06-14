@@ -11,10 +11,7 @@ def insert_collaborators ():
   
   proj = getProject(g.user.username)
   newCollab = request.form.getlist("getCollabUsernames") #get all users but list includes 
-  #(request.form["getCollabUsernames"]) # only gets one collab #1?
-  print(newCollab)
-  # request.data.getlist("getCollabUsernames") # gets the data from the form
-  # TODO: Insert the collaborators to the DB for this PID
+  # print(newCollab)
   add_collaborators(proj.pID, newCollab)
   return redirect(url_for('irbyn_GET'))
   

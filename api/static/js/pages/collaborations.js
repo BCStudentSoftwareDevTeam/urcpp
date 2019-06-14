@@ -64,6 +64,55 @@ function checkValidUsername (id) {
 };
 
 
+function checkSameUsername() {
+
+  dropdown = $(".collabUsers");
+  console.log("All the usernames: " + (dropdown[0]));
+  
+  var sortDrop = dropdown.slice().sort(); 
+    for (var i=0; i < sortDrop.length - 1; i++) {
+    console.log("Specific username: " + value);
+      if (sortDrop[i + 1] == sortDrop[i]) {
+        $("#failed").hide();
+      }
+      else { 
+       $("#successmessage").text("Your shit has been removed.")
+        submitData(); 
+       }
+    }
+
+};
+
+//  for (var i=0; i < getCollabUsernames.length; ++i) {
+  //  var value = dropdown[i];
+      // if (value in dropdown) {
+      
+ //   }
+     //  dropdown[value]= true; 
+    
+ //   else {
+     
+ //   }
+      
+  //}  
+    
+
+  // console.log("All the usernames: " + dropdown);
+
+  // for (dropdownUser in dropdown) {
+   // if (0 != 0) {
+      // flash error message;
+//    }
+//    else {
+//      submitData();
+ //   }
+  // }
+
+
+
+
+
+
 function submitData() {  
   console.log($("#collabForm"));
   /* Ajax the data to /budget */

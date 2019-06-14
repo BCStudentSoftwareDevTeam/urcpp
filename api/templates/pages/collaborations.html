@@ -32,13 +32,13 @@
             <label for='username{{id}}' class = 'col-sm-2 control-label'>
            Username:
           </label>
-          <div class = 'col-sm-7'>
+          <div class = 'col-sm-7' id = "DropdownClass">
            <select required class = "selectpicker form-control" data-live-search="true" id = "getCollabUsernames" name = "getCollabUsernames" data-style="btn-primary">
              <option disabled selected value=""> doej; Jane Doe </option>
              {% for faculty in allFaculty %}
                {% if faculty.lastname != "" %} <!-- needed to remove test users -->
                  {% if faculty.username != g.user.username %}
-                 <option title={{faculty.username}} value="{{faculty.username}}">{{faculty.username}}; {{faculty.firstname}} {{faculty.lastname}}</option>
+                 <option title={{faculty.username}} id= "collabUsers" value="{{faculty.username}}">{{faculty.username}}; {{faculty.firstname}} {{faculty.lastname}}</option>
                  {% endif %}
                {% endif %}
              {% endfor %}
@@ -54,12 +54,16 @@
       </input>
     </div>
     
+    <div hidden id = "failed" class="alert alert-danger">
+      <strong>Error!</strong> <span id = "errormessage"> </span>
+    </div>
+    
     
     <div class = "col-sm-offset-9 col-sm-2" id = "submit_Button">
       <button id = "submitbutton" 
         type = "button" 
         class="btn btn-block btn-success"
-        onclick= "submitData()"
+        onclick= "checkSameUsername()"
         />
           Submit
       </button>
