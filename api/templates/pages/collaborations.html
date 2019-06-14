@@ -51,12 +51,12 @@
            Username:
           </label>
           <div class = 'col-sm-7' id = "DropdownClass">
-           <select required class = "selectpicker form-control" data-live-search="true" data-none-results-text="Username not found, please email support@bereacollege.onmicrosoft.com" id = "getCollabUsernames" 
-             name = "getCollabUsernames" data-style="btn-primary"  title="doej; Jane Doe">
+           <select required class = "selectpicker form-control" data-live-search="true" data-none-results-text="Username not found, please email <a href=mailto:support@bereacollege.onmicrosoft.com>Software Support Team</a>"
+            id =  "getCollabUsernames"   data-style="btn-grey"  name = "getCollabUsernames" title="Select a collaborator">
              {% for faculty in allFaculty %}
                {% if faculty.lastname != "" %} <!-- needed to remove test users -->
                  {% if faculty.username != g.user.username %}
-                 <option title={{faculty.username}} value="{{faculty.username}}">{{faculty.username}}; {{faculty.firstname}} {{faculty.lastname}}</option>
+                 <option title="{{faculty.firstname}} {{faculty.lastname}} ({{faculty.username}})" value="{{faculty.username}}">{{faculty.firstname}} {{faculty.lastname}} ({{faculty.username}})</option>
                  {% endif %}
                {% endif %}
              {% endfor %}
