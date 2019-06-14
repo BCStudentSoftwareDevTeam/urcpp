@@ -111,7 +111,7 @@
           </div>
         </div>
   {% else %} <!--IF PROPOSAL DATE HAS CLOSED-->
-  {% if (proj.status != "Pending" and proj.status != "Accept") or proj.status == "Incomplete"  %} <!--or has not started -->
+  {% if (proj.status != "Pending" and proj.status != "Accept" and proj.status != "Reject") or proj.status == "Incomplete"  %} <!--or has not started -->
     <div class = "col-lg-6">
       <h1>URCPP @ Berea College</h1>
     </div>
@@ -127,7 +127,7 @@
      <p>The Current Chair: <a href = "mailto:{{email_currentchair}}">{{currentCycle.currentchair_id.firstname}} {{currentCycle.currentchair_id.lastname}} </a></p>
      <p>The Current Staff Support: <a href = "mailto:{{email_staffsupport}}">{{currentCycle.staffsupport_id.firstname}} {{currentCycle.staffsupport_id.lastname}} </a></p>
      <p>If you need additional support for your application. </p></h4>
-    {% elif proj.status == "Pending" or proj.status == "Accept" %}<!--- if proposal date HAS CLOSED and project is not incomplete(aka pending, accept) render progress bar-->
+    {% elif proj.status == "Pending" or proj.status == "Accept" or proj.status == "Reject"%}<!--- if proposal date HAS CLOSED and project is not incomplete(aka pending, accept) render progress bar-->
          <div class = "col-lg-6">
             <h1>URCPP @ Berea College</h1>
             </div>
@@ -139,7 +139,7 @@
             <div class="jumbotron">
               <h1>Hello, {{ldap.firstname}} {{ldap.lastname}}!</h1>
               <p></p>
-              {% if proj.status == "Pending" or proj.status == "Accept" or proj.status == "Incomplete" %}<!---review/complete button-->
+              {% if proj.status == "Pending" or proj.status == "Accept" or proj.status == "Incomplete" or proj.status == "Reject"%}<!---review/complete button-->
                 <a href="{% if proj %} {{ cfg['projectStatusAction'][proj.status]['url']}}{% else %}{{cfg['projectStatusAction']['Start']['url']}}{% endif %}">
                   <button class="btn btn-default">
                   <span>{% if proj %} {{ cfg['projectStatusAction'][proj.status]['msg']}}{% else %}{{cfg['projectStatusAction']['Start']['msg']}}{% endif %}</span>
