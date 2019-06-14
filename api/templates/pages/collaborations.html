@@ -33,8 +33,8 @@
            Username:
           </label>
           <div class = 'col-sm-7' id = "DropdownClass">
-           <select required class = "selectpicker form-control" data-live-search="true" id = "getCollabUsernames" name = "getCollabUsernames" data-style="btn-primary">
-             <option disabled selected value=""> doej; Jane Doe </option>
+           <select required class = "selectpicker form-control" data-live-search="true" data-none-results-text="Username not found, please email support@bereacollege.onmicrosoft.com" id = "getCollabUsernames" 
+             name = "getCollabUsernames" data-style="btn-primary" multiple title="doej; Jane Doe">
              {% for faculty in allFaculty %}
                {% if faculty.lastname != "" %} <!-- needed to remove test users -->
                  {% if faculty.username != g.user.username %}
@@ -63,7 +63,7 @@
       <button id = "submitbutton" 
         type = "button" 
         class="btn btn-block btn-success"
-        onclick= "checkSameUsername()"
+        onclick= "submitData()"
         />
           Submit
       </button>

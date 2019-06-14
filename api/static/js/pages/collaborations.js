@@ -13,6 +13,7 @@ var delay = (function(){
   };
 })();
 
+
 function setUsernameStatus (id) {
   return function (data) {
     // console.log("Response: " + data["response"]);
@@ -66,17 +67,20 @@ function checkValidUsername (id) {
 
 function checkSameUsername() {
 
-  dropdown = $(".collabUsers");
-  console.log("All the usernames: " + (dropdown[0]));
+  dropdown = $(".getCollabUsernames");
+  console.log('JSON.stringify',JSON.stringify(getCollabUsernames));
+  console.log("All the usernames: " + (dropdown));
   
   var sortDrop = dropdown.slice().sort(); 
     for (var i=0; i < sortDrop.length - 1; i++) {
     console.log("Specific username: " + value);
       if (sortDrop[i + 1] == sortDrop[i]) {
+        console.log("You have inputed the same username at least twice. Failure.");
         $("#failed").hide();
       }
       else { 
        $("#successmessage").text("Your shit has been removed.")
+        console.log("You used unique usernames for each input! You win at life!");
         submitData(); 
        }
     }
