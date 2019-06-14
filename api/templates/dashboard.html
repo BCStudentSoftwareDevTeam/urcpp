@@ -139,7 +139,7 @@
             <div class="jumbotron">
               <h1>Hello, {{ldap.firstname}} {{ldap.lastname}}!</h1>
               <p></p>
-              {% if proj.status == "Pending" or proj.status == "Accept" or proj.status == "Incomplete" or proj.status == "Reject"%}<!---review/complete button-->
+              {% if proj.status == "Pending" or proj.status == "Accept" or proj.status == "Incomplete" or proj.status == "Reject" %}<!---review/complete button-->
                 <a href="{% if proj %} {{ cfg['projectStatusAction'][proj.status]['url']}}{% else %}{{cfg['projectStatusAction']['Start']['url']}}{% endif %}">
                   <button class="btn btn-default">
                   <span>{% if proj %} {{ cfg['projectStatusAction'][proj.status]['msg']}}{% else %}{{cfg['projectStatusAction']['Start']['msg']}}{% endif %}</span>
