@@ -1,12 +1,17 @@
 import datetime
-from api.everything import *
+from api.flask_imports import *
+
+from ..everything import cfg
+from api.models import *
 from ..API.faculty import getFaculty, getFacultyByYear
 from ..API.projects import getProject
 from ..API.programs import getAllPrograms
 from ..API.budget import getBudget
 from ..API.parameters import getCurrentParameters
 
-@app.route("/create", methods = ["GET"])
+from api.pages import pages
+
+@pages.route("/create", methods = ["GET"])
 @login_required
 def create_GET ():
 
@@ -19,7 +24,7 @@ def create_GET ():
     if proj.status == cfg["projectStatus"]["Pending"]:
       flash("Application has already been submited.")
       return redirect(url_for("main_with_username", username = g.user.username))
-  
+
   return render_template (  "pages/create.html",
                             fac = faculty,
                             ldap = g.user,
@@ -31,42 +36,42 @@ def create_GET ():
                           )
 
 
-@app.route("/create", methods = ["POST"])
+@pages.route("/create", methods = ["POST"])
 @login_required
 def create_POST ():
-  
+
   # Grab the .body() from the aja() POST
   # data is an immutable dictionary
   data = request.form
-  
+
   # First, update the project title
   proj = getProject(g.user.username)
   budg = getBudget(g.user.username)
   year = getCurrentParameters().year
   if proj is None:
     proj = Projects()
-  
+
   if budg is None:
     budg = Budget()
     budg.save()
-  
+
   proj.title      = data["title"]
   proj.startDate  = datetime.datetime.strptime(data["startDate"], '%m-%d-%Y')
   proj.endDate    = datetime.datetime.strptime(data["endDate"], '%m-%d-%Y')
   dur = request.form.getlist('duration')
   if(dur):
     print "FIRST"
-    proj.duration = int(data["duration"])  
+    proj.duration = int(data["duration"])
   else:
     print "SECOND"
     proj.duration   = 0
-  
+
   proj.budgetID   = budg.bID
   proj.year       = year
-  proj.isServiceToCommunity = data["isServiceToCommunity"] if "isServiceToCommunity" in data is not None else False 
+  proj.isServiceToCommunity = data["isServiceToCommunity"] if "isServiceToCommunity" in data is not None else False
   proj.hasCommunityPartner = data["hasCommunityPartner"] if "hasCommunityPartner" in data is not None else False
-  proj.save()  
-  
+  proj.save()
+
   # Next, update the faculty's program
   fac = getFacultyByYear(g.user.username, year)
   # If they don't exist yet, create one.
@@ -74,9 +79,9 @@ def create_POST ():
     fac               = URCPPFaculty()
     fac.username      = g.user.username
     fac.corresponding = True
-  
+
   fac.pID       = proj.pID
   fac.programID = int(data["program"])
   fac.save()
 
-  return redirect(url_for("people_GET"))
+  return redirect(url_for("pages.people_GET"))

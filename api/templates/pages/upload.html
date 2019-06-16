@@ -12,7 +12,7 @@
     {% endif %} Submission </h1>
 </div>
 
-{# 
+{#
    The following snip comes through as its own row.
    It is probably good practice to assume snips always come through
    in a div. Or, it is only exceptional circumstances that they don't.
@@ -41,13 +41,13 @@
 <div class="row">
 <div class = "form-group" >
      <div class = "col-sm-1">
-      <input type="button" value="Back" onclick="window.history.back()" class="btn btn-primary"/> 
+      <input type="button" value="Back" onclick="window.history.back()" class="btn btn-primary"/>
       </input>
     </div>
- <div class = "col-sm-offset-9 col-sm-2" 
+ <div class = "col-sm-offset-9 col-sm-2"
       id = "moveForwardButton"
       >
-   <button id = "moveForward"  
+   <button id = "moveForward"
            class="btn btn-block btn-success"
            class = "form-control"
            type = "button"
@@ -69,10 +69,10 @@
   var getValue = "{{ request.args.get('source') }}";
   var prevFilepath = "{{prevFilepath}}";
   var username = "{{username}}"
-  var removefileAPI = "{{url_for('remove_file', username=username, uploadType=uploadType)}}"
-  
+  var removefileAPI = "{{url_for('pages.remove_file', username=username, uploadType=uploadType)}}"
+
   // var referrer =  document.referrer.split("/").pop();
-  
+
   // console.log("Coming from " + referrer);
 
 

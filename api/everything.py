@@ -5,30 +5,18 @@
 from __future__ import print_function
 import os, pprint
 # We need a bunch of Flask stuff
-from flask import Flask
-from flask import render_template
-from flask import redirect
-from flask import request
-from flask import json
-from flask import url_for
-from flask import g
-from flask import session
-from flask import jsonify
-from flask import send_from_directory
-from flask import flash
-from flask import abort
+
+from flask_imports import *
+
 from werkzeug import secure_filename
 
 # need to import g from flask_login
-from flask_login import login_user, logout_user, current_user, LoginManager, login_required
 # We need peewee's playhouse to help us serialize results
 from playhouse.shortcuts import model_to_dict as m2d
 
 # Import the models
 from models import *
 from flask_mail import Mail
-
-
 
 # For unique values
 import uuid
@@ -61,8 +49,8 @@ cfg = load_config(os.path.join(base_path, 'config.yaml'))
 app.config['SECRET_KEY'] = open(os.path.join(base_path, 'secret_key'), 'rb').read()
 app.config['TEMPLATE_AUTO_RELOAD'] = True
 
-
-
+from api.pages import pages as pages_bp
+app.register_blueprint(pages_bp)
 
 login_manager = LoginManager()
 login_manager.init_app(app)

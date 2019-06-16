@@ -14,18 +14,6 @@ import API.makeExcel
 import API.programs
 import API.projects
 
-
-
-# Form pages
-import pages.create
-import pages.people
-import pages.history
-import pages.irbyn
-import pages.upload
-import pages.done
-import pages.budget
-import pages.download
-
 #Committee pages
 import committee.committee
 import committee.allBudgets

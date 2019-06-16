@@ -1,4 +1,7 @@
-from api.everything import *
+from api.flask_imports import *
+
+from ..everything import cfg
+from api.models import *
 from ..API.projects import getProject, getProjectByID
 from budget import getBudget
 from ..API.parameters import getCurrentParameters
@@ -6,8 +9,9 @@ from ..API.collaborators import getCollaborators, getCollaboratorsByProjectId
 from ..API.faculty import getFacultyForProject
 from upload import checkForFile
 
+from api.pages import pages
 
-@app.route("/done", methods = ["GET"])
+@pages.route("/done", methods = ["GET"])
 @login_required
 def done_GET ():
    # All of our queries
@@ -15,15 +19,15 @@ def done_GET ():
   parameters = getCurrentParameters()
   collaborators = getCollaborators(g.user.username)
   uploadedFiles = [];
-  
+
   if proj.status == cfg["projectStatus"]["Pending"]:
     flash("Application has already been submitted.")
     return redirect(url_for("main_with_username", username = g.user.username))
-  
+
   for files in cfg["filepaths"]["allowedFileNames"]:
     if checkForFile != "":
       uploadedFiles.append(checkForFile(g.user.username, files, parameters.year))
-   
+
   return render_template (  "pages/done.html",
                             proj = proj,
                             cfg = cfg,
@@ -35,10 +39,10 @@ def done_GET ():
                           )
 
 
-@app.route("/finalize", methods = ["POST"])
+@pages.route("/finalize", methods = ["POST"])
 @login_required
 def finalize_POST ():
-  
+
   proj = getProject(g.user.username)
   proj.status = cfg["projectStatus"]["Pending"]
   proj.save()
@@ -46,7 +50,7 @@ def finalize_POST ():
   return redirect('/')
 
 
-@app.route("/review", methods = ["GET"])
+@pages.route("/review", methods = ["GET"])
 @login_required
 def review_GET ():
   proj = getProject(g.user.username)
@@ -62,11 +66,11 @@ def review_GET ():
     previous_url = request.referrer
   else:
     previous_url = "/"
-  
+
   for files in cfg["filepaths"]["allowedFileNames"]:
     if checkForFile != "":
       uploadedFiles.append(checkForFile(g.user.username, files, parameters.year))
-    
+
   return render_template (  "pages/projectView.html",
                             proj = proj,
                             cfg = cfg,
@@ -80,7 +84,7 @@ def review_GET ():
 			    primary_faculty = primary_faculty
                           )
 
-@app.route("/urcpp/v1/project/<pID>/<username>/<year>", methods = ["GET"])
+@pages.route("/urcpp/v1/project/<pID>/<username>/<year>", methods = ["GET"])
 @login_required
 def project_GET (pID, username, year):
   if not current_user.isCommitteeMember:
@@ -96,11 +100,11 @@ def project_GET (pID, username, year):
     previous_url = request.referrer
   else:
     previous_url = "/"
-  
+
   for files in cfg["filepaths"]["allowedFileNames"]:
     if checkForFile != "":
       uploadedFiles.append(checkForFile(username, files, year))
-    
+
   return render_template (  "pages/projectView.html",
                             proj = proj,
                             cfg = cfg,
@@ -109,6 +113,6 @@ def project_GET (pID, username, year):
                             collabs = collaborators,
                             previous_url = previous_url,
                             username = username,
-			    primary_faculty = primary_faculty, 
+			    primary_faculty = primary_faculty,
 			    currentUser = g.user.username
                           )

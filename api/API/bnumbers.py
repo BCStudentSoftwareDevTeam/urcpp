@@ -12,21 +12,21 @@ def update_collaborators ():
       username (str): The username of the person accessing the app
       numCollab (str): POST number of collaborators project hasattr
       cnumber<index> (str): POST the collaborators c number; there maybe one or more of these
-    
+
     Returns:
       Redirect: redirects to history_GET
 
-    """ 
-   
+    """
+
   proj = getProject(g.user.username)
-  
+
   submitted_bnumbers = request.form.getlist("cbnumbers[]")
-  
+
   add_collaborators(proj.pID, submitted_bnumbers)
-          
-          
+
+
   delete_non_collaborators(proj.pID, submitted_bnumbers)
-  
+
 
   return redirect ( url_for( "history_GET" ))
 
@@ -34,12 +34,12 @@ def update_collaborators ():
 @login_required
 def checkBNumber():
   """This function checks to see if a bnumber exists.
-     It checks the LDAPFaculty table and if finds a User 
+     It checks the LDAPFaculty table and if finds a User
      it marks the bnum as good.
       Args:
         username (str): the user who is currently accessing the application
         bnum (str): POST the number that needs to be checked
-       
+
       Returns:
         JSON: response that is either OK or NOTFOUND
   """
@@ -60,5 +60,3 @@ def checkBNumber():
       return jsonify({ "response" : "NOTFOUND" })
   else:
     return jsonify({ "response" : "NOTFOUND" })
-   
-   

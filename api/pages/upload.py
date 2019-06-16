@@ -1,7 +1,12 @@
-from api.everything import *
+from api.flask_imports import *
+
+from ..everything import cfg, base_path
+from api.models import *
 import os, re, errno
 from ..API.projects import getProject
 from ..API.parameters import getCurrentParameters
+
+from api.pages import pages
 
 def checkForFile(username, uploadType, year):
   #we need to know where we are at for file lookup issues
@@ -16,9 +21,9 @@ def checkForFile(username, uploadType, year):
     if not (os.path.exists(prevFilepathAbs)):
       prevFilepath =''
     else:
-        app.logger.error(prevFilepath)
+        current_app.logger.error(prevFilepath)
         pathComponents = prevFilepath.split('/')
-        prevFilepath = pathComponents[-1] 
+        prevFilepath = pathComponents[-1]
         break
   return prevFilepath
 
@@ -28,14 +33,14 @@ def checkForFile(username, uploadType, year):
 # is one of three types. The page configures itself based
 # on the type of upload being requested.
 
-@app.route("/upload/<uploadType>", methods = ["GET"])
+@pages.route("/upload/<uploadType>", methods = ["GET"])
 @login_required
 def generic_file_upload (uploadType):
   # we need the current cycle to upload only the current file
   applicationCycle = getCurrentParameters()
   if uploadType in cfg["filepaths"]["allowedFileNames"]:
     # All of our queries
-    
+
     proj = getProject(g.user.username)
     cycle = getCurrentParameters().year
     prevFilepath = checkForFile(g.user.username, uploadType, applicationCycle.year)
@@ -60,9 +65,10 @@ def removeLeadingDot (line):
   line = re.sub('[.]', '', line)
   return line
 
-@app.route('/upload/removefile/<uploadType>/<username>', methods=['POST'])
+@pages.route('/upload/removefile/<uploadType>/<username>', methods=['POST'])
+@login_required
 def remove_file(username, uploadType):
-  if username != authUser(request.environ):
+  if username != current_user.username:
     return { "response": cfg["response"]["badUsername"] }
   else:
     rawpath = cfg["filepaths"]["directory"]
@@ -73,57 +79,58 @@ def remove_file(username, uploadType):
     previous_file = checkForFile(username, uploadType, cycle.year)
 
     if previous_file:
-      app.logger.info("{0} removing {1}.".format(username, path))
+      current_app.logger.info("{0} removing {1}.".format(username, path))
       os.remove(os.path.join(path, previous_file))
       return "File Deleted"
   return "Error, File Not Deleted"
 # Captures file upload from the dropzone and saves to server
-@app.route('/v1/upload/<whichfile>/<username>', methods=['POST'])
+@pages.route('/v1/upload/<whichfile>/<username>', methods=['POST'])
+@login_required
 def upload_file(whichfile, username):
-  if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
+  if username != current_user.username:
+    return jsonify({ "response": cfg["response"]["badUsername"] })
 
-  app.logger.info("{0} attempting to upload file.".format(username))
+  current_app.logger.info("{0} attempting to upload file.".format(username))
   # NOTE: This is very fragile. Seems to work with docx, failed on two pdf's.
   # Size isn't cause.
   file = request.files['file']
   allowedExtensions = cfg["filepaths"]["allowedFileExtensions"].keys()
 
-  app.logger.info("File name: {0}".format(file.filename))
+  current_app.logger.info("File name: {0}".format(file.filename))
 
   if file and (whichfile in cfg["filepaths"]["allowedFileNames"]):
     basename, file_extension = os.path.splitext(file.filename)
     ext = removeLeadingDot(file_extension)
 
-    app.logger.info("File extension: {0}".format(file_extension))
+    current_app.logger.info("File extension: {0}".format(file_extension))
 
     if ext in allowedExtensions:
       filename = "{0}-{1}.{2}".format(username, whichfile, ext)
     else:
-      app.logger.info("Not an allowed extention!")
+      current_app.logger.info("Not an allowed extention!")
       return jsonify( { "response" : "BADEXTENSION" } )
 
-    app.logger.info("Filename appears to be: " + filename)
+    current_app.logger.info("Filename appears to be: " + filename)
     # Need to replace the cycle and username
     rawpath = cfg["filepaths"]["directory"]
     cycle   = getCurrentParameters()
     rawpath = rawpath.replace("%%applicationCycle%%", str(cycle.year))
     path    = rawpath.replace("%%username%%", username)
     path    = os.path.join(base_path, path)
-    app.logger.info("{0} saving {1} to {2}.".format(username, filename, path))
+    current_app.logger.info("{0} saving {1} to {2}.".format(username, filename, path))
     try:
       os.makedirs(path)
     except OSError as exc: # Python >2.5
       if exc.errno == errno.EEXIST and os.path.isdir(path):
           pass
       else: raise
-    
-    # delete the previous file 
+
+    # delete the previous file
     # needed in case of extension change
     previous_file = checkForFile(username, whichfile, cycle.year)
     if previous_file:
       os.remove(os.path.join(path, previous_file))
-    
+
     file.save(os.path.join(path, filename))
 
     return jsonify( { "response" : "OK" } )
