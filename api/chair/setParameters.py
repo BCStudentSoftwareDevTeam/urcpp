@@ -35,6 +35,7 @@ def setParameters_GET ():
                             laborRate = data['laborRate'])
     
     
+    
     parameters.save()
     
     flash("Successfully saved" , "success")
