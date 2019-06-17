@@ -5,7 +5,7 @@ from api.config import load_config
 
 here = os.path.dirname(__file__)
 cfg       = load_config(os.path.join(here, 'api/config.yaml'))
-db	  = os.path.join(here,cfg['databases']['dynamic']) 
+# db	  = os.path.join(here,cfg['databases']['dynamic']) 
 
 # print("db", db)
 # mainDB    = SqliteDatabase(cfg['databases']['dev'])
@@ -16,7 +16,7 @@ db	  = os.path.join(here,cfg['databases']['dynamic'])
 #                           threadlocals = True
 #                           )
 
-mainDB     = MySQLDatabase ("urcpp_flask_v2", host = "localhost", user = "adamska", passwd = "")
+mainDB     = MySQLDatabase ("urcpp_flask_v2", host = "localhost", user = "urcpp-flask", passwd = "DanforthLabor123!")
 
 
 # Creates the class that will be used by Peewee to store the database
@@ -30,17 +30,63 @@ migrator = MySQLMigrator(mainDB)
 #########################################################################################################################################
 try:  
     migrate(
-      # migrator.add_column('parameters', 'ProposalOpenDate', DateTimeField(null=True))
-      #migrator.add_column('parameters', 'ProposalAcceptanceDate', DateTimeField(null=True))
-      #migrator.add_column('parameters', 'ProposalClosedDate', DateTimeField(null=True))
-      # migrator.add_column('parameters', 'AbstractnarrativesAcceptanceDate', DateTimeField(null=True))
-      #migrator.add_column('parameters', 'AllSubmissionsClosedDate', DateTimeField(null=True))
-      # migrator.add_column('parameters', 'IRBchair_id', ForeignKeyField(LDAPFaculty, to_field = LDAPFaculty.username, null=True))
-      # migrator.add_column('parameters', 'currentchair_id', ForeignKeyField(LDAPFaculty, to_field = LDAPFaculty.username, null=True))
-      #migrator.add_column('parameters', 'staffsupport_id', ForeignKeyField(LDAPFaculty, to_field = LDAPFaculty.username, null=True))
+      migrator.add_column('parameters', 'ProposalOpenDate', DateTimeField(null=True))
+       )
+except Exception as e:
+  print(e)
+  print("Column ProposalOpenDate in table parameters already exists")
+
+try:  
+    migrate(
+      migrator.add_column('parameters', 'ProposalAcceptanceDate', DateTimeField(null=True))
+       )
+except:
+  print("Column ProposalAcceptanceDate in table parameters already exists")
+
+try:  
+    migrate(
+      migrator.add_column('parameters', 'ProposalClosedDate', DateTimeField(null=True))
+       )
+except:
+  print("Column ProposalCloseddate in table parameters already exists")
+
+try:  
+    migrate(
+      migrator.add_column('parameters', 'AbstractnarrativesAcceptanceDate', DateTimeField(null=True))
+       )
+except:
+  print("Column AbstractnarrativesAcceptanceDate in table parameters already exists")
+
+try:  
+    migrate(
+      migrator.add_column('parameters', 'AllSubmissionsClosedDate', DateTimeField(null=True))
+       )
+except:
+  print("Column AllSubmissionsClosedDate in table parameters already exists")
+
+try:  
+    migrate(
+      migrator.add_column('parameters', 'IRBchair_id', ForeignKeyField(LDAPFaculty, to_field = LDAPFaculty.username, null=True))
+       )
+except:
+  print("Column IRBchair_id in table parameters already exists")
+
+try:  
+    migrate(
+      migrator.add_column('parameters', 'currentchair_id', ForeignKeyField(LDAPFaculty, to_field = LDAPFaculty.username, null=True))
+       )
+except:
+  print("Column currentchair_id in table parameters already exists")
+
+try:  
+    migrate(
+      migrator.add_column('parameters', 'staffsupport_id', ForeignKeyField(LDAPFaculty, to_field = LDAPFaculty.username, null=True))
        )
 except:
   print("Column staffsupport_id in table parameters already exists")
+
+
+
 ##########################################################################################################################################        
 # my_db.drop_tables([RoomPreferences])
 

@@ -80,5 +80,5 @@ def before_request():
     g.user = current_user
 
 @login_manager.user_loader
-def load_user(fID):
-  return LDAPFaculty.get(LDAPFaculty.fID == fID)
+def load_user(FID):
+  return LDAPFaculty.get(LDAPFaculty.fID == FID)
