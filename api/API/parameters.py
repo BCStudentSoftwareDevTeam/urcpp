@@ -5,7 +5,7 @@ def getCurrentParameters():
    
   paramsQ = (Parameters.select().where(Parameters.isCurrentParameter))
    
-  app.logger.info("Looking for parameters with query:\n\n" + paramsQ + "\n\n")
+  #app.logger.info("Looking for parameters with query:\n\n" + paramsQ + "\n\n")
    
   if paramsQ.exists():
     return paramsQ.get()
