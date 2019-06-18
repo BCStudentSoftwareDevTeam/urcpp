@@ -21,7 +21,7 @@
                 <div class="bullet"></div>
                 <label class="bar-label">Pending</label>
             </div>
-            {%if proj.status == "Reject"%} {# start 8 #}
+            {%if proj.status == cfg["projectStatus"]["Reject"] %} {# start 8 #}
             <div class="point" id="reject">
                 <div class="bullet"></div>
                 <label class="bar-label" style="text-align: center">Decision Reached <br><small style="font-size:12px;" "text-align: center;">(Proposal Acceptance Date: {{currentCycle.ProposalAcceptanceDate.strftime("%Y/%m/%d")}})</small></label>
@@ -32,7 +32,7 @@
                 <label class="bar-label" style="text-align: center">Decision Reached <br><small style="font-size:12px;" "text-align: center;">(Proposal Acceptance Date: {{currentCycle.ProposalAcceptanceDate.strftime("%Y/%m/%d")}})</small></label>
             </div>
             {% endif %} {# end 8 #}
-            {% if proj.status != "Reject" %} {# start 9 #}
+            {% if proj.status != cfg["projectStatus"]["Reject"] %} {# start 9 #}
             <div class="point" id="abstractsubmission">
                 <div class="bullet"></div>
                 <label class="bar-label" style="text-align: center">Abstract Submissions <br><small style="font-size:12px;" "text-align: center;">(Due Date: {{currentCycle.AbstractnarrativesAcceptanceDate.strftime("%Y/%m/%d")}})</small></label>

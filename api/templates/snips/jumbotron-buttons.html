@@ -15,8 +15,8 @@
             <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
         </button>
     </a>
-{% if proj.status != "Reject" %}<!--UPLOAD BUTTONS--> {# start 5 #}
-    {% if proj.status == "Incomplete" or proj.status == "Pending" or proj.status == "Accept" %} {# start 6 #}
+{% if proj.status != cfg["projectStatus"]["Reject"] %}<!--UPLOAD BUTTONS--> {# start 5 #}
+    {% if proj.status == cfg["projectStatus"]["Incomplete"] or proj.status == cfg["projectStatus"]["Pending"] or proj.status == cfg["projectStatus"]["Accept"] %} {# start 6 #}
         <a href="/upload/vitae?source=home">
             <button class="btn btn-default">
                 <span>Upload a Curriculum vitae</span>

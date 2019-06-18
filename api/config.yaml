@@ -222,7 +222,7 @@ timeout: 10
 
 projectStatus:
   Accept: Accept
-  Reject: Deny
+  Reject: Reject
   Withdrawn: Withdrawn
   # This means they have not yet hit "Submit"
   Incomplete: Incomplete

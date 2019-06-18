@@ -31,7 +31,7 @@
     {% endwith %}
     
   {% else %} <!--IF PROPOSAL DATE HAS CLOSED-->
-    {% if (proj.status != "Pending" and proj.status != "Accept" and proj.status != "Reject") or proj.status == "Incomplete"  %} <!--or has not started --> {# start 10 #}
+    {% if (proj.status != cfg["projectStatus"]["Pending"] and proj.status != cfg["projectStatus"]["Accept"] and proj.status != cfg["projectStatus"]["Reject"]) or proj.status == cfg["projectStatus"]["Incomplete"]  %} <!--or has not started --> {# start 10 #}
     {# Loads the correct jumbotron #}
     {% with ldap = ldap %} 
       {% include "snips/jumbotron.html" %}  
@@ -42,7 +42,7 @@
       {% include "snips/panelClosed.html" %}  
     {% endwith %}
     
-    {% elif proj.status == "Pending" or proj.status == "Accept" or proj.status == "Reject"%}<!--- if proposal date HAS CLOSED and project is not incomplete(aka pending, accept) render progress bar-->
+    {% elif proj.status == cfg["projectStatus"]["Pending"] or proj.status == cfg["projectStatus"]["Accept"] or cfg["projectStatus"]["Reject"]%}<!--- if proposal date HAS CLOSED and project is not incomplete(aka pending, accept) render progress bar-->
       {# Load jumbotron with buttons template #}
       {% with ldap = ldap, proj=proj, cfg=cfg %} 
         {% include 'snips/jumbotron-buttons.html' %}
