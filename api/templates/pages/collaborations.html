@@ -50,9 +50,9 @@
             <label for='username{{id}}' class = 'col-sm-2 control-label'>
            Username:
           </label>
-          <div class = 'col-sm-7' id = "DropdownClass">
-           <select required class = "selectpicker form-control" data-live-search="true" data-none-results-text="Username not found, please email <a href=mailto:support@bereacollege.onmicrosoft.com>Software Support Team</a>"
-            id =  "getCollabUsernames"   data-style="btn-grey"  name = "getCollabUsernames" title="Select a collaborator">
+          <div class = 'col-sm-7' id = "DropdownClass">         
+           <select required class = "selectpicker form-control" data-live-search="true"  data-none-results-text="Username not found, please email: <a onclick = 'clickEmail()'> Software Support Team</a>"
+            id =  "getCollabUsernames" data-style="btn-grey"  name = "getCollabUsernames" title="Select a collaborator">
              {% for faculty in allFaculty %}
                {% if faculty.lastname != "" %} <!-- needed to remove test users -->
                  {% if faculty.username != g.user.username %}
@@ -60,7 +60,7 @@
                  {% endif %}
                {% endif %}
              {% endfor %}
-            </select>
+            </select>         
           </div>
         </div>
       {% endfor %}        
