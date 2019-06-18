@@ -45,10 +45,6 @@ function submitData() {
   //console.log("Submitted");
 };
 
-
-
-
-
 function clickEmail(){
 window.open("mailto:support@bereacollege.onmicrosoft.com");
 }
