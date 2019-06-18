@@ -16,7 +16,7 @@ def getBudget (username):
      budgQ = (Budget.select()
           .where (Budget.bID == proj.budgetID)
           )
-     app.logger.info("Looking for budget with query:\n\n" + budgQ + "\n\n")
+    # app.logger.info("Looking for budget with query:\n\n" + budgQ + "\n\n")
    
      if budgQ.exists():
         return budgQ.get()

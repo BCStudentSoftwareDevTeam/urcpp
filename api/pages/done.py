@@ -4,7 +4,9 @@ from budget import getBudget
 from ..API.parameters import getCurrentParameters
 from ..API.collaborators import getCollaborators, getCollaboratorsByProjectId
 from ..API.faculty import getFacultyForProject
+
 from api.models import *
+
 from upload import checkForFile
 
 
@@ -59,7 +61,8 @@ def review_GET ():
   faculty = URCPPFaculty.get(URCPPFaculty.pID == proj.pID)
   
   uploadedFiles = [];
-  
+  primary_faculty = getFacultyForProject(proj.pID)
+
   # TODO: I don't think this is being used, keeping it for now, but need to check
   # if it is removed
   if request.referrer:
@@ -80,7 +83,12 @@ def review_GET ():
                             previous_url = previous_url,
                             ldap = g.user,
                             username = g.user.username,
+<<<<<<< HEAD
                             faculty = faculty
+=======
+			    currentUser = g.user.username,		# Need both because of next route, which has to have it as well (and it won't be the same as username)
+			    primary_faculty = primary_faculty
+>>>>>>> 0ce54c12144db9a8205f173189bc998368e2dcc2
                           )
 
 @app.route("/urcpp/v1/project/<pID>/<username>/<year>", methods = ["GET"])
@@ -93,6 +101,7 @@ def project_GET (pID, username, year):
   parameters = getCurrentParameters()
   collaborators = getCollaboratorsByProjectId(pID)
   uploadedFiles = [];
+  primary_faculty = getFacultyForProject(pID)
 
   if request.referrer:
     previous_url = request.referrer
@@ -110,5 +119,7 @@ def project_GET (pID, username, year):
                             params = parameters,
                             collabs = collaborators,
                             previous_url = previous_url,
-                            username=username
+                            username = username,
+			    primary_faculty = primary_faculty, 
+			    currentUser = g.user.username
                           )
