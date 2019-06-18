@@ -3,8 +3,7 @@ from ..API.projects import getProject, getProjectByID
 from budget import getBudget
 from ..API.parameters import getCurrentParameters
 from ..API.collaborators import getCollaborators, getCollaboratorsByProjectId
-from ..API.faculty import getFacultyForProject
-from api.models import *
+
 from upload import checkForFile
 
 
@@ -14,8 +13,7 @@ def done_GET ():
    # All of our queries
   proj = getProject(g.user.username)
   parameters = getCurrentParameters()
-  collaborators = getCollaboratorsByProjectId(proj.pID)
-  faculty = URCPPFaculty.get(URCPPFaculty.pID == proj.pID)
+  collaborators = getCollaborators(g.user.username)
   uploadedFiles = [];
   
   if proj.status == cfg["projectStatus"]["Pending"]:
@@ -33,8 +31,7 @@ def done_GET ():
                             uploadedFiles = uploadedFiles,
                             params = parameters,
                             collabs = collaborators,
-                            username = g.user.username,
-                            faculty = faculty
+                            username = g.user.username
                           )
 
 
@@ -55,9 +52,7 @@ def review_GET ():
   proj = getProject(g.user.username)
   budget = getBudget(g.user.username)
   parameters = getCurrentParameters()
-  collaborators = getCollaboratorsByProjectId(proj.pID)
-  faculty = URCPPFaculty.get(URCPPFaculty.pID == proj.pID)
-  
+  collaborators = getCollaborators(g.user.username)
   uploadedFiles = [];
   
   # TODO: I don't think this is being used, keeping it for now, but need to check
@@ -79,8 +74,7 @@ def review_GET ():
                             collabs = collaborators,
                             previous_url = previous_url,
                             ldap = g.user,
-                            username = g.user.username,
-                            faculty = faculty
+                            username = g.user.username
                           )
 
 @app.route("/urcpp/v1/project/<pID>/<username>/<year>", methods = ["GET"])
