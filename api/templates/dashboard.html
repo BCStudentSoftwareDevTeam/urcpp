@@ -7,19 +7,55 @@
 <br/>
 {% include "snips/messages.html" %}
 
+{% if currentCycle and currentCycle.AllSubmissionsClosedDate < today %} {# start 1 #} <!-- ALLSUBMISSIONS ARE CLOSED -->
+
 {# Loads the correct jumbotron #}
-{% with ldap = ldap, proj=proj, cfg = cfg, currentCycle = currentCycle %} 
+{% with ldap = ldap %} 
   {% include "snips/jumbotron.html" %}  
 {% endwith %}
 
-{% if currentCycle and currentCycle.AllSubmissionsClosedDate < today %}
-  {% with currentCycle = currentCycle, email_currentchair=email_currentchair,email_staffsupport=email_staffsupport,email_IRBchair=email_IRBchair %}
-    {# Load All submissions closed template #}
-    {% include 'snips/allSubmissionsClosed.html' %} 
-  {% endwith %}
-{% endif %}  
+{# Load All submissions closed template #}
+{% with currentCycle = currentCycle, email_currentchair=email_currentchair,email_staffsupport=email_staffsupport,email_IRBchair=email_IRBchair %}
+  {% include 'snips/allSubmissionsClosed.html' %}
+{% endwith %}
+{% else %} <!---ALLSUBMISSIONS ARE NOT CLOSED-->
+  {% if currentCycle and currentCycle.ProposalClosedDate > today %}<!--IF THE PROPOSAL DATE HAS NOT CLOSED--> {# start 2 #}
+    {# Load jumbotron with buttons template #}
+    {% with ldap = ldap, proj=proj, cfg=cfg %} 
+      {% include 'snips/jumbotron-buttons.html' %}
+    {% endwith %}
+    
+    {# Load horizontal Progress Bar template #}
+    {% with proj=proj, currentCycle=currentCycle %}
+      {% include 'snips/horizontalProgressBar.html' %}
+    {% endwith %}
+    
+  {% else %} <!--IF PROPOSAL DATE HAS CLOSED-->
+    {% if (proj.status != "Pending" and proj.status != "Accept" and proj.status != "Reject") or proj.status == "Incomplete"  %} <!--or has not started --> {# start 10 #}
+    {# Loads the correct jumbotron #}
+    {% with ldap = ldap %} 
+      {% include "snips/jumbotron.html" %}  
+    {% endwith %}
+    
+    {# Loads the Panel Closed template #}
+    {% with currentCycle=currentCycle, email_IRBchair=email_IRBchair, email_currentchair=email_currentchair, email_staffsupport=email_staffsupport %} 
+      {% include "snips/panelClosed.html" %}  
+    {% endwith %}
+    
+    {% elif proj.status == "Pending" or proj.status == "Accept" or proj.status == "Reject"%}<!--- if proposal date HAS CLOSED and project is not incomplete(aka pending, accept) render progress bar-->
+      {# Load jumbotron with buttons template #}
+      {% with ldap = ldap, proj=proj, cfg=cfg %} 
+        {% include 'snips/jumbotron-buttons.html' %}
+      {% endwith %}
+      
+      {# Load horizontal Progress Bar template #}
+      {% with proj=proj, currentCycle=currentCycle %}
+        {% include 'snips/horizontalProgressBar.html' %}
+      {% endwith %}
 
-
+    {% endif %} {# end 10 #}
+  {% endif %} {# end2 #}
+{% endif %} {# end1 #}
 <footer class="footer">
     <span><b>Issues? Contact: </b><a href="mailto:heggens@berea.edu" target = "_blank">Scott Heggen</a> </span>
 </footer>

@@ -10,11 +10,3 @@
   <h1>Hello, {{ldap.firstname}} {{ldap.lastname}}!</h1>
 </div> 
 
-{% if currentCycle and currentCycle.ProposalClosedDate > today %}<!--IF THE PROPOSAL DATE HAS NOT CLOSED-->
-  <a href="{% if proj %} {{cfg['projectStatusAction'][proj.status]['url']}}{% else %}{{cfg['projectStatusAction']['Start']['url']}}{% endif %}">
-    <button class="btn btn-default">
-      <span>{% if proj %} {{cfg['projectStatusAction'][proj.status]['msg']}}{% else %}{{cfg['projectStatusAction']['Start']['msg']}}{% endif %}</span>
-      <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-    </button>
-  </a>
-{% endif %}

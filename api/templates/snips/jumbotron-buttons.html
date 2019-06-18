@@ -1,0 +1,34 @@
+<div class = "col-lg-6">
+    <h1>URCPP @ Berea College</h1>
+</div>
+<div class="col-lg-6">
+<br/>
+{% include 'snips/menu.html'%}
+</div>
+<br/>
+<div class="jumbotron">
+    <h1>Hello, {{ldap.firstname}} {{ldap.lastname}}!</h1>
+    <p></p>
+    <a href="{% if proj %} {# start 3 #} {{ cfg['projectStatusAction'][proj.status]['url']}}{% else %}{{cfg['projectStatusAction']['Start']['url']}}{% endif %} {# end 3 #}">
+        <button class="btn btn-default">
+            <span>{% if proj %} {# start 4 #} {{ cfg['projectStatusAction'][proj.status]['msg']}}{% else %}{{cfg['projectStatusAction']['Start']['msg']}}{% endif %} {# end 4 #}</span>
+            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+        </button>
+    </a>
+{% if proj.status != "Reject" %}<!--UPLOAD BUTTONS--> {# start 5 #}
+    {% if proj.status == "Incomplete" or proj.status == "Pending" or proj.status == "Accept" %} {# start 6 #}
+        <a href="/upload/vitae?source=home">
+            <button class="btn btn-default">
+                <span>Upload a Curriculum vitae</span>
+                <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>   
+            </button>
+        </a>
+        <a href="/upload/abstract?source=home">
+            <button class="btn btn-default">
+                <span>Upload an Abstract</span>
+                <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+            </button>
+        </a>
+    {% endif %} {# end6 #}
+{% endif %}<!---If user has not started appplication, do not show upload buttons--> {# end 5 #}
+</div>
