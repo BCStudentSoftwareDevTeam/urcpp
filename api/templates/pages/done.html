@@ -49,6 +49,9 @@
                <dd><strong>Date Submitted:</strong> {{proj.createdDate.strftime('%Y-%m-%d @ %I:%m %p')}}</dd>
                <dd><strong>Status:</strong> {{proj.status}}</dd>
              <br />
+              <dt>Faculty</dt>
+             <dd>{{faculty.username.firstname}} {{faculty.username.lastname}}</dd>
+             <br />
              {% if collabs is not none %}
              <dt>Collaborators</dt>
                {% for collaborator in collabs %}

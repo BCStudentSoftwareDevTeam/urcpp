@@ -15,7 +15,7 @@ function checkSameUsername() {
     // console.log("Specific username: " + dropdown[i].value);
       if (checkNames.includes(dropdown[i].value)){  //Checks to see if the value on dropdown is the same as one already in checkNames
         // console.log("You have inputed the same username more than once. Failure.");
-        $("#failedSameUsername").show(0).delay(4000).hide(0);
+        $("#failedSameUsername").show();
         return;
       }
       else { 
@@ -24,7 +24,7 @@ function checkSameUsername() {
         
         for (var b=0; b < checkNames.length; b++) {
           if (checkNames.includes("")) {
-            $("#failedNoEntry").show(0).delay(4000).hide(0);
+            $("#failedNoEntry").show();
             return;
           }
         }
