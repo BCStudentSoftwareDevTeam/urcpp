@@ -83,12 +83,8 @@ def review_GET ():
                             previous_url = previous_url,
                             ldap = g.user,
                             username = g.user.username,
-<<<<<<< HEAD
-                            faculty = faculty
-=======
-			    currentUser = g.user.username,		# Need both because of next route, which has to have it as well (and it won't be the same as username)
-			    primary_faculty = primary_faculty
->>>>>>> 0ce54c12144db9a8205f173189bc998368e2dcc2
+			                      currentUser = g.user.username,		# Need both because of next route, which has to have it as well (and it won't be the same as username)
+			                      primary_faculty = primary_faculty
                           )
 
 @app.route("/urcpp/v1/project/<pID>/<username>/<year>", methods = ["GET"])
