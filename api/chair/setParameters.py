@@ -21,6 +21,7 @@ def setParameters_GET ():
     parameters.mileageRate = data['mileageRate']
     parameters.laborRate = data['laborRate']
     
+    
     parameters.save()
     
     flash("Successfully saved" , "success")
