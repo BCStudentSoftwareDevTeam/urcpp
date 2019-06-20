@@ -71,7 +71,8 @@ function getAcceptLetter(pid) {
 $('#emailPreviewModal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget) // Button that triggered the modal
   var pid = button.data('pid') // Extract info from data-* attributes
-  var faculty = button.data('name')
+  var faculty = button.data('facultyname')
+  console.log("Faculty: "+ faculty)
   var project_title = button.data('project-title')
   // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
   // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
@@ -90,18 +91,18 @@ $(document).ready(function(){
 
 function getProjects (username) {
   $.getJSON("/urcpp/v1/history/"+username, function( data ){
-      //remove any table that might have been left behinf
+      //remove any table that might have been left behind
       $("#pastProjects").remove();
       $("#collaboratedProjects").remove();
-      var tableheading = '<tr><th>Year</th><th>Project Name</th></tr>'
+      var tableheading = '<tr><th style = "padding-right: 25px;">Year</th><th>Project Name</th></tr>'
       var projectCaption = "Projects";
-      var collaboratedCaption = "collaborated Projects"
+      var collaboratedCaption = "Collaborative Projects"
       if (data["primaryFaculty"].length){
-        $('#projectModalBody').append('<table id="pastProjects" class="table"></table>');
+        $('#projectModalBody').append('<table id="pastProjects" class="table table-striped"></table>');
         $("#pastProjects").prepend("<caption>"+projectCaption+"</caption>");
         $('#pastProjects').append(tableheading);
         $.each(data['primaryFaculty'], function(index, project) {
-            $('#pastProjects').append("<tr><td>"+project.year.year+"</td><td><a href='/urcpp/v1/project/"+project.pID+"/"+username+"/"+project.year.year+"'>"+project.title+"</a></td></tr>")
+            $('#pastProjects').append("<tr><td style='padding-bottom: 10px;' >"+project.year.year+"</td><td style='padding-bottom: 10px;' ><a href='/urcpp/v1/project/"+project.pID+"/"+username+"/"+project.year.year+"'>"+project.title+"</a></td></tr>")
         });
       }
       if (data["collaborated"].length){

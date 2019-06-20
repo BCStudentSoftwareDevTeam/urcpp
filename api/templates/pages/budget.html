@@ -5,7 +5,7 @@
   <li><a href="/">Home</a></li>
   <li><a href="/create">Create</a></li>
   <li><a href="/people">People</a></li>
-  <li><a href="/history">History</a></li>
+  <li><a href="/people">Collaborations</a></li>
   <li><a href="/upload/irb">IRB upload</a></li>
   <li><a href="/upload/vitae">Vitae upload</a></li>
   <li><a href="/upload/narrative">Narrative upload</a></li>
@@ -16,7 +16,7 @@
 </div>
 <div style="text-align:center;">
   <p>
-  URCPP can provide stipends for you (a maximum of $5300 per faculty member) and your students, plus up to $3000 for equipment, supplies, and related travel.
+  URCPP can provide stipends for you and your students (a maximum of $5300 per faculty member), plus up to $3000 for equipment, supplies, and related travel.
   </p>
 </div>
 <!-- This is the only actual HTML on the page.
@@ -96,26 +96,29 @@
           <p >WARNING: Excludes mileage costs.</p>
         </div>
       </div>
-    </div>
-    </br>
+     </br>
+    <div class = "row">
     <div class = "form-group" >
-    <div class = "col-sm-offset-10 col-sm-2" 
+     <div class = "col-sm-1">
+      <input type="button" value="Back" onclick="window.history.back()" class="btn btn-primary"/> 
+      </input>
+    </div>
+    <div class = "col-sm-offset-9 col-sm-2" 
          id = "submitButton"
          style="padding-bottom:20px"
          >
-      <button id = "submit" 
+      <button id = "first_submit_button" 
               type = "button" 
-              class="btn btn-block btn-primary"
-              
-              
-              data-toggle="modal"
+              class="btn btn-block btn-success"
               data-target="#exceeding"
+              onclick="limit();"
               />
         Submit
       </button>
     </div>
     </div>
-    </br>
+    </div>
+    </div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="exceeding" tabindex="-1" role="dialog" aria-labelledby="exceeding" aria-hidden="true">
@@ -129,7 +132,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">No, Go Back</button>
-        <button type="submit" class="btn btn-success " onclick = "submitData();">Yes, Submit</button>
+        <button type="button" class="btn btn-success " onclick = "submitData();">Yes, Submit</button>
       </div>
     </div>
   </div>

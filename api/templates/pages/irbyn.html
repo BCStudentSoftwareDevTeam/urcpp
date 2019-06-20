@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% block title %} IRB Approval {% endblock %}
 {% set currentPage = "IRB" %}
 {% block body %}
 <ol class="breadcrumb">
   <li><a href="/">Home</a></li>
   <li><a href="/create">Create</a></li>
   <li><a href="/people">People</a></li>
-  <li><a href="/history">History</a></li>
+  <li><a href="/people">Collaborations</a></li>
   <li class="active">IRB</li>
 </ol>
 <div class = "row">
@@ -25,8 +26,8 @@
       review those guidelines now.</a>
     </p>
     <p>
-      All URCPP proposals involving human subjects requre (at least) a draft IRB application at this time. 
-      If you have any questions or uncertainty in this regard, it is highly recommended that you discuss your 
+      All URCPP proposals involving human subjects require (at least) a draft of IRB application. 
+      If you have any questions in this regard, it is highly recommended that you discuss your 
       work with <a href = 'mailto:{{cfg["contacts"]["irbChairEmail"]}}'>the current IRB chair</a>.
     </p>
   </div>
@@ -62,15 +63,18 @@
             </label>
           </div>
       </div>
-    </div>
-  </div>
-  </br>
+      <br>
+      <div class="row"> 
     <div class = "form-group"  >
+       <div class = "col-sm-1">
+      <input type="button" value="Back" onclick=window.location.replace("/people") class="btn btn-primary"/> 
+      </input>
+    </div>
         <div class = "col-sm-offset-9 col-sm-2" 
              id = "submitButton"
              >
           <button id = "submit"  
-                  class="btn btn-block btn-primary"
+                  class="btn btn-block btn-success"
                   class = "form-control"
                   type = "submit"
                   />
@@ -78,6 +82,10 @@
           </button>
         </div>
     </div>
+  </div>
+    </div>
+  </div>
+  </br>
+  
   </form>
-
 {% endblock %}

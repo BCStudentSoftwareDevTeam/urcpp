@@ -5,6 +5,7 @@
 
 <!--Menu-->
 <ul class="nav nav-tabs">
+  <li><a href="/">Home</a></li>
   {% for menuItem in cfg["chair"] %}
     <li role="presentation"><a href="{{menuItem['link']}}">{{menuItem['title']}}</a></li>
   {% endfor %}
@@ -32,11 +33,11 @@
 </div>
 
 <div class = "row">
-    <table class = "table table-striped table-hover table-sm" style="border: solid #2c3e50; text-align: center;">
+    <table class = "table table-striped table-hover table-sm" style="text-align: center;">
       <tr>
-        <th style="border: solid #2c3e50; text-align: center;">Faculty/Proj. Title</th>
+        <th style="text-align: center;">Faculty/Proj. Title</th>
         {% for column in cfg["awardLetterTable"] %}
-        <th style="border: solid #2c3e50; text-align: center;">
+        <th style="text-align: center;">
           {{column["title"]}}
         </th>
         {% endfor %}
@@ -44,7 +45,7 @@
       {% if fac is not none %}
       {% for person in fac %} <!-- See allBudgets for a better way of doing this -->
         <tr id="row{{loop.index0}}">
-          <td style="border: solid #2c3e50; text-align: center;">
+          <td style="text-align: center;">
             <a onclick="getProjects('{{person.username.username}}')">{{person.username.firstname}} {{person.username.lastname}}</a>
             {% if collab is not none %}
               {% for c in collab %}
@@ -59,7 +60,7 @@
       
           </td>
           {% for column in cfg["awardLetterTable"] %}
-            <td name = "rowValue" class = "{{column['fieldName']}}" id="col{{loop.index0}}" style="border: solid #2c3e50; text-align: center;">
+            <td name = "rowValue" class = "{{column['fieldName']}}" id="col{{loop.index0}}" style="text-align: center;">
               <!--Handle dates-->
               {% if column['fieldName'] == "startDate" or column['fieldName'] == "createdDate" or column['fieldName'] == "endDate"%}  
                 {% if person.pID[column['fieldName']] %}
@@ -72,7 +73,7 @@
                 {{funding[person.pID.budgetID]}}
               <!--Handle Everything else-->
               {% elif column['fieldName'] == "email" %}
-              <button type='button' data-toggle="modal" data-target="#emailPreviewModal" data-name="{{person.username.username}}" data-project-title = "{{person.pID.title}}" data-pid="{{person.pID.pID}}" class="btn btn-default btn-md">
+              <button type='button' data-toggle="modal" data-target="#emailPreviewModal" data-facultyname="{{person.username.firstname}} {{person.username.lastname}}" data-project-title = "{{person.pID.title}}" data-pid="{{person.pID.pID}}" class="btn btn-default btn-md">
                 <i class="glyphicon glyphicon-envelope"></i>
               </button>
 

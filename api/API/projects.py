@@ -58,8 +58,8 @@ def getProjectsByUsername(username):
   #TODO: factor the project lists out to their own functions
   projects = (Projects.select()
               .join(URCPPFaculty, on = (URCPPFaculty.pID == Projects.pID))
-              .where(URCPPFaculty.username == username))
-              
+              .where(URCPPFaculty.username == username)
+              .order_by(-Projects.year))
   if projects.exists():
     project_list = []
     for project in projects:

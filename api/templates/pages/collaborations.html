@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %} Collaborations {% endblock %}
+{% set currentPage = "collaborations" %}
+
+{% block body %}
+
+<ol class="breadcrumb">
+ <li><a href="/">Home</a></li>
+  <li><a href="/create">Create</a></li>
+  <li><a href="/people">People</a></li>
+  <li class="active">Collaborations</li>
+</ol>
+
+<div class = "row">
+  <div hidden id = "failedSameUsername" class="alert alert-danger" style="text-align: center;">
+        <strong>Error! You have submitted the same username more than once!</strong> <span id = "errormessage"> </span>
+      </div>
+</div>    
+    
+<div class = "row">
+  <div hidden id = "failedNoEntry" class="alert alert-danger" style="text-align: center;">
+        <strong>Error! All fields must have a username selected!</strong> <span id = "errormessage"> </span>
+      </div>
+</div>      
+    
+<div class = "row">
+  <div hidden id = "success" class="alert alert-success">
+    <strong>Success!</strong> <span id = "successmessage"> </span>
+  </div>
+</div>        
+    
+<div class = "row">
+  <div class = "col-sm-8 col-sm-offset-2">
+    <div style="margin-left:35px;">
+      <h1>Faculty Collaborator(s) </h1>
+    </div>
+    
+  <form class = "form-horizontal"
+      id = "collabForm"
+      action = "/insertcollaborators" 
+      method = "POST"
+      >
+      
+    {% for id in range (0, numCollab) %}
+      <div class = 'form-group' id = "cgroup{{id}}" style="margin-left:100px;">
+        <h4> <b> Collaborator #{{id + 1}} </b> </h4>
+      </div>
+                  
+        <div class = 'form-group' id = "cgroup{{id}}" style = "margin-left:100px;">  
+            <label for='username{{id}}' class = 'col-sm-2 control-label'>
+           Username:
+          </label>
+          <div class = 'col-sm-7' id = "DropdownClass">         
+           <select required class = "selectpicker form-control" data-live-search="true"  data-none-results-text="Username not found, please email: <a onclick = 'clickEmail()'> Software Support Team</a>"
+            id =  "getCollabUsernames" data-style="btn-grey"  name = "getCollabUsernames" title="Select a collaborator">
+             {% for faculty in allFaculty %}
+               {% if faculty.lastname != "" %} <!-- needed to remove test users -->
+                 {% if faculty.username != g.user.username %}
+                 <option title="{{faculty.firstname}} {{faculty.lastname}} ({{faculty.username}})" value="{{faculty.username}}">{{faculty.firstname}} {{faculty.lastname}} ({{faculty.username}})</option>
+                 {% endif %}
+               {% endif %}
+             {% endfor %}
+            </select>         
+          </div>
+        </div>
+      {% endfor %}        
+    
+   <div class="row">
+    <div class = "form-group"  >
+      <div class = "col-sm-1">
+      <input type="button" value="Back" onclick="window.history.back()" class="btn btn-primary"/> 
+      </input>
+    </div>
+    
+    
+    
+    <div class = "col-sm-offset-9 col-sm-2" id = "submit_Button">
+      <button id = "submitbutton" 
+        type = "button" 
+        class="btn btn-block btn-success"
+        onclick= "checkSameUsername()"
+        />
+          Submit
+      </button>
+    </div>
+   </div>
+ 
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}

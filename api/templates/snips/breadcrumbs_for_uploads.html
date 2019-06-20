@@ -2,13 +2,13 @@
   <li><a href="/">Home</a></li>
   <li><a href="/create">Create</a></li>
   <li><a href="/people">People</a></li>
-  <li><a href="/history">History</a></li>
+  <li><a href="/people">Collaborations</a></li>
   <li><a href="/irbyn">IRB</a></li>
   {% if cfg["flow"][uploadType] == 'upload/vitae' %}
      <li class="active">IRB upload</li>
   {% elif cfg["flow"][uploadType] == 'upload/narrative' %}
     <li><a href="/upload/irb">IRB upload</a></li>
-    <li class="active">IRB upload</li>
+    <li class="active">Vitae upload</li>
   {% elif cfg["flow"][uploadType] == 'budget' %}
     <li><a href="/upload/irb">IRB upload</a></li>
     <li><a href="/upload/vitae">Vitae upload</a></li>

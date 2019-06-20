@@ -11,13 +11,13 @@
 <p></p>
 
 <div class = "row"style = "padding-top: 20px;">
-    <table class = "table table-hover table-sm" style="border: solid #2c3e50;text-align: center;">
+    <table class = "table table-hover table-sm" style="text-align: center;">
       <tr>
-        <th style="border: solid #2c3e50; padding-top: 15px; text-align: center;">Vote</th>
+        <th style="padding-top: 15px; text-align: center;">Vote</th>
        
-        <th style="border: solid #2c3e50; padding-top: 15px; text-align: center;">Faculty/Proj. Title</th>
+        <th style="padding-top: 15px; text-align: center;">Faculty/Proj. Title</th>
         {% for column in cfg["allProjectsTable"] %}
-        <th style="border: solid #2c3e50; padding-top: 15px; text-align: center;">
+        <th style="padding-top: 15px; text-align: center;">
           {{column["title"]}}
         </th>
         {% endfor %}
@@ -25,14 +25,14 @@
       {% if fac is not none %}
       {% for person in fac %} <!-- See allBudgets for a better way of doing this -->
         <tr id="row{{loop.index0}}">
-          <td style="border: solid #2c3e50; padding-top: 15px; text-align: center;">
+          <td style="padding-top: 15px; text-align: center;">
             <a href="/committee/castVote/{{person.pID.pID}}">
               <button type="button" class="btn btn-default btn-md {% if prev[person.pID.pID] %} btn-success {% endif %}" >
                   <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Vote
               </button>
             </a>
           </td>
-          <td style="border: solid #2c3e50; padding-top: 15px; text-align: center;">
+          <td style="padding-top: 15px; text-align: center;">
             <a onclick="getProjects('{{person.username.username}}')">{{person.username.firstname}} {{person.username.lastname}}</a>
             {% if collab is not none %}
               {% for c in collab %}
@@ -46,7 +46,7 @@
             <span class = "small" >{{person.pID.title|truncate(50, True)}}</span>
           </td>
           {% for column in cfg["allProjectsTable"] %}
-            <td name = "rowValue" class = "{{column['fieldName']}}" id="col{{loop.index0}}" style="border: solid #2c3e50; padding-top: 17px; text-align: center;">
+            <td name = "rowValue" class = "{{column['fieldName']}}" id="col{{loop.index0}}" style="padding-top: 17px; text-align: center;">
               <!--Handle dates-->
               {% if column['fieldName'] == "startDate" or column['fieldName'] == "createdDate" or column['fieldName'] == "endDate"%}  
                 {% if person.pID[column['fieldName']] %}{{person.pID[column['fieldName']].strftime('%m-%d-%Y')}}{% endif %}

@@ -16,12 +16,20 @@
 </div>
 
 <div style="background-color:ECF0F1;text-align:center;">
-  
   <h1>Add a committee member</h1>
   </br>
-  <form action="/editCommitteeMember" method="post">
-      <p>{{ facultySelect.committeeMember(class_="selectpicker form-control", **{'data-live-search':"true"}) }}</p>
-   </br> 
+  <form action="/addCommitteeMember" method="post">
+    <select class="selectpicker form-control" data-role="chosen" id="addCommitteeMember" multiple="" name="addCommitteeMember">
+      {% for committeeMember in notCommittee %}
+        <option value="{{committeeMember.fID}}">{{committeeMember.firstname}} {{committeeMember.lastname}}</option>
+      {% endfor %}
+    </select>
+    
+    
+    
+    
+      {#<p>{{facultySelect.committeeMember(class_="selectpicker form-control", **{'data-live-search':"true"})}}</p>#}
+    </br> 
    <div style="padding-bottom:10px">
       <button type="submit"  class="btn btn-primary" value="submit">Submit</button>
    </div>
@@ -31,9 +39,23 @@
 <div style="background-color:ECF0F1;text-align:center;">
   <h2>Remove committee member</h2>
   </br>
-  <div style="padding-bottom:10px">
-    <button type="submit" class="btn btn-primary">Placeholder</button>
-  </div>
+  <form action="/removeCommitteeMember" method="post">
+    <select class="selectpicker form-control" data-role="chosen" id="removeCommitteeMember" multiple="" name="removeCommitteeMember">
+      {% for committeeMember in committee %}
+        <option value="{{committeeMember.fID}}">{{committeeMember.firstname}} {{committeeMember.lastname}}</option>
+      {% endfor %}
+    </select>
+    
+    
+    
+    
+      {#<p>{{facultySelect.committeeMember(class_="selectpicker form-control", **{'data-live-search':"true"})}}</p>#}
+    </br> 
+   <div style="padding-bottom:10px">
+      <button type="submit"  class="btn btn-primary" value="submit">Submit</button>
+   </div>
+  </form>
+  
 </div>
 
 
