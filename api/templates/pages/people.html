@@ -1,7 +1,9 @@
 {% extends "base.html" %}
+{% block title %} Students and Collaborators {% endblock %}
 {% set currentPage = "people" %}
 
 {% block body %}
+
 <ol class="breadcrumb">
   <li><a href="/">Home</a></li>
   <li><a href="/create">Create</a></li>
@@ -18,7 +20,7 @@
 <div style="background-color:ECF0F1">
   <div class="container">
     <form class = "form-horizontal"
-          action = "/people"
+          action = "/collaborations" 
           method = "POST"
           >
       <div id = "numStudents">
@@ -37,6 +39,8 @@
                     value = "{{proj.numberStudents}}"
                     name = "numStu"
                     style = "text-align: right;"
+		    min = 1
+		    max = 100
                     > </input>
           </div>
         </div>
@@ -60,6 +64,8 @@
                              {% endif %}
                             "
                     name = "numCollab"
+		    max = 4
+		    min = 0
                     style = "text-align: right;"
                     > </input>
            </div>
@@ -85,14 +91,6 @@
          </div>
        </div>
      </div>
-
-
-
-
-    </div>
-   </div>
-   <br/>
-
 </form>
 
 {% endblock %}

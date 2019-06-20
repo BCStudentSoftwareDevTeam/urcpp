@@ -21,7 +21,7 @@ import API.projects
 # Form pages
 import pages.create
 import pages.people
-import pages.history
+import pages.collaborations
 import pages.irbyn
 import pages.upload
 import pages.done

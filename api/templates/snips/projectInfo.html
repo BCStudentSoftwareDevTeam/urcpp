@@ -18,14 +18,15 @@
 	   <dd>Date Submitted: {{proj.createdDate.strftime('%m-%d-%Y')}}</dd>
            <dd>Status: {{proj.status}}</dd>
          <br />
-         {% if collabs is not none %}
+         
          <dt>Faculty</dt>
 	   <dd>{{primary_faculty.username.firstname}} {{primary_faculty.username.lastname}}</dd>
-           {% for collaborator in collabs %}
-             <dd>{{collaborator.username.firstname}} {{collaborator.username.lastname}}</dd>
-           {% endfor %}
+	   {% if collabs %}
+             {% for collaborator in collabs %}
+               <dd>{{collaborator.username.firstname}} {{collaborator.username.lastname}}</dd>
+             {% endfor %}
+	   {% endif %}
            <br />
-         {% endif %}
          
          <dt>Budget</dt>
          <dd><strong>Faculty Stipend:</strong>  ${{proj.budgetID.facultyStipend}}</dd>

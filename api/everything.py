@@ -76,7 +76,7 @@ from api.switch import switch
 # cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
 @app.before_request
 def before_request():
-    #g.dbDynamic = dynamicDB.connect()
+#    g.dbDynamic = dynamicDB.connect()
     g.user = current_user
 
 @login_manager.user_loader

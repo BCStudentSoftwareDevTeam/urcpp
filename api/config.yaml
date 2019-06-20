@@ -28,16 +28,16 @@ history:
 # Makes the upload sequence less painful as all three are together, which is important 
 # for technical reasons, not usability.  
 flow:
-  start:        "create"
-  create:       "people"
-  people:       "history"
-  history:      "irbyn"
-  irbyn:        "upload/irb"
-  irb:          "upload/vitae"
-  vitae:        "upload/narrative"
-  narrative:    "budget"
-  budget:       "done"
-  done:         "start"
+  start:            "create"
+  create:           "people"
+  people:           "collaborations"
+  collaborations:   "irbyn"
+  irbyn:            "upload/irb"
+  irb:              "upload/vitae"
+  vitae:            "upload/narrative"
+  narrative:        "budget"
+  budget:           "done"
+  done:             "start"
 # END NO MAS
 
 # Controls the table columns in the allProjects.html table
@@ -251,67 +251,6 @@ projectStatusAction:
     msg: "Review your application"
     url: "/review"
     
-contributors:
-  - name: "Austin Farmer"
-    username: "farmera"
-    year: 2015
-  - name: "Leslie Mateveke"
-    username: "matevekel"
-    year: 2016
-  - name: "Bria Williams"
-    username: "williamsbri"
-    year: 2017
-  - name: "Cody Myers"
-    username: "myersco"
-    year: 2017
-  - name: "Guillermo Ramos"
-    username: "ramosmaciasg"
-    year: 2018
-  - name: "Jose Zindia"
-    username: "zindiaj"
-    year: 2018
-  - name: "Aleksandra Cvetanovska"
-    username: "cvetanovskaa"
-    year: 2018
-  - name: "Jesson Soto Ventura"
-    username: "sotoventuraj"
-    year: 2018
-  - name: "Ishwar Agarwal"
-    username: "agarwali"
-    year: 2018
-  - name: "Sarah Watts"
-    username: "wattss"
-    year: 2019
-  - name: "Jonathan Chauwa"
-    username: "chauwaj"
-    year: 2019
-  - name: "Kenny Nelson"
-    username: "nelsonk"
-    year: 2019
-  - name: "Sher Sanginov"
-    username: "sanginovs"
-    year: 2019
-  - name: "Evan Johnson"
-    username: "johnsone"
-    year: 2019
-  - name: "Katelyn Adams"
-    username: "adamska"
-    year: 2019
-  - name: "Jamal Mohamed Aw Yonis"
-    username: "awyonis"
-    year: 2020
-  - name: "Anne Otieno"
-    username: "otienoa"
-    year: 2020
-  - name: "Basanta Phuyal"
-    username: "phuyalb"
-    year: 2020
-  - name: "Hailey Barnett"
-    username: "barnetth"
-    year: 2020
-  - name: "Elaheh Jamali"
-    username: "jamalie"
-    year: 2021
 
 response:
   badUsername: "Bad Username"
