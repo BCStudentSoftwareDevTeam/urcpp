@@ -1,5 +1,5 @@
 {#
-  Variables needed for this page: 
+  Variables needed for this page:
     - proj (a complete Projects object)
     - ldap (a complete LDAPFaculty object)
     - fac (a complete URCPPFaculty object)
@@ -31,13 +31,13 @@
       <li> A Project Budget</li>
     </ol>
     <p>
-      After you are finished, any project collaborators will need to login and submit their CVs as well. At that point, your submission will be complete.  
+      After you are finished, any project collaborators will need to login and submit their CVs as well. At that point, your submission will be complete.
     </p>
   </div>
   <div style="background-color:ECF0F1; padding-top:10px">
   <div></div>
     <form class = "form-horizontal"
-          action = "/create" 
+          action = "/create"
           method = "POST"
           >
       <fieldset>
@@ -47,11 +47,11 @@
           <input name = "title" id = "title" type = "text" class="form-control" value = "{{proj.title}}" required></input>
         </div>
       </div>
-      
+
       <div class = "form-group">
         <label for = "program" class = "col-sm-2 control-label">Program </label>
         <div class = "col-sm-9">
-          <select name = "program" id = "program" class="form-control" required> 
+          <select name = "program" id = "program" class="form-control" required>
             <option value = "---" disabled {% if fac.programID is not defined %} selected {% endif %}>---</option>
             {% for prog in progs %}
               <option value = "{{prog.pID}}" {% if fac.programID is defined and fac.programID.pID == prog.pID %} selected {% endif %}>{{prog.abbreviation}}: {{prog.name}} </option>
@@ -59,28 +59,28 @@
           </select>
         </div>
       </div>
-      
-      <div class = "form-group"> 
+
+      <div class = "form-group">
         <label for = "duration" class = "col-sm-2 control-label">Duration </label>
         <div class = "col-sm-9">
-          <select name = "duration" id = "duration" class="form-control" required> 
-            <option value = "totalweeks" disabled {% if proj.duration is not defined %} selected {% endif %}>Total number of weeks</option>
+          <select name = "duration" id = "duration" class="form-control" required>
+            <option value = "---" disabled {% if proj.duration is not defined %} selected {% endif %}>---</option>
             {% for dur in cfg["urcpp"]["possibleDurations"] | sort %}
               <option value = "{{dur}}" {% if proj.duration == dur %} selected {% endif %}>{{dur}}</option>
             {% endfor %}
-          </select>  
+          </select>
         </div>
       </div>
-      
+
       <div class="form-group">
         <label for = "startDate" class = "col-sm-2 control-label">Start Date </label>
         <div class = "input-group date">
         <div class = "col-sm-9">
           <input  id    = "startDate"
-    	            name  = "startDate"  
-    	            type  = "text" 
-     	            class = "form-control" 
-     	            value = "{% if proj.startDate is defined %}{{proj.startDate.strftime('%m-%d-%Y')}}{% endif %}" 
+    	            name  = "startDate"
+    	            type  = "text"
+     	            class = "form-control"
+     	            value = "{% if proj.startDate is defined %}{{proj.startDate.strftime('%m-%d-%Y')}}{% endif %}"
                   placeholder = "mm-dd-yyyy"
     	            onkeydown="return false"
     	            required>
@@ -92,10 +92,10 @@
         <div class = "input-group date">
           <div class = "col-sm-9">
             <input  id    = "endDate"
-      	            name  = "endDate"  
+      	            name  = "endDate"
       	            type = "text"
       	            class = "form-control"
-       	            value = "{% if proj.endDate is defined %}{{proj.endDate.strftime('%m-%d-%Y')}}{% endif %}" 
+       	            value = "{% if proj.endDate is defined %}{{proj.endDate.strftime('%m-%d-%Y')}}{% endif %}"
                     placeholder = "mm-dd-yyyy"
       	            required>
             <!--<div id="endDateDisplay">{% if proj.endDate is defined %}{{proj.endDate.strftime('%m-%d-%Y')}}{% endif %}</div>-->
@@ -105,14 +105,14 @@
     <div class="container">
       <div class = "row col-md-offset-1" style="font-size:1.4em;">
         <div class = "checkbox">
-          <label><input name = "isServiceToCommunity" 
-                        {% if proj.isServiceToCommunity %} checked {% endif %} 
-                        id = "isServiceToCommunity" 
-                        type = "checkbox"  
-                        class="checkbox" 
+          <label><input name = "isServiceToCommunity"
+                        {% if proj.isServiceToCommunity %} checked {% endif %}
+                        id = "isServiceToCommunity"
+                        type = "checkbox"
+                        class="checkbox"
                         value = "{{proj.isServiceToCommunity}}">
             Does your project provide a service to the community?
-          </label><span 
+          </label><span
                 class="glyphicon glyphicon-info-sign"
                 data-toggle="popover"
                 data-trigger="hover"
@@ -125,41 +125,39 @@
       </div>
       <div class = "row col-md-offset-1" style="font-size:1.4em;">
         <div class = "checkbox">
-          <label><input name = "hasCommunityPartner" 
-                        {% if proj.hasCommunityPartner %} checked {% endif %} 
-                        id = "hasCommunityPartner" 
-                        type = "checkbox"  
-                        class="checkbox" 
+          <label><input name = "hasCommunityPartner"
+                        {% if proj.hasCommunityPartner %} checked {% endif %}
+                        id = "hasCommunityPartner"
+                        type = "checkbox"
+                        class="checkbox"
                         value = "{{proj.hasCommunityPartner}}">
-            Does your project involve working with community partners? 
+            Does your project involve working with community partners?
           </label>
         </div>
       </div>
+      <br>
+      <div class = "row">
+      <div class = "col-sm-1">
+        <input type="button" value="Back" onclick="window.history.back()" class="btn btn-primary"/>
+        </input>
+      </div>
+      <div class = "col-sm-1 col-sm-offset-9"
+           id = "submitButton"
+           >
+        <button id = "submit"
+                class="btn btn-success"
+                class = "form-control"
+                type = "submit"
+                onclick = "checkForRequired()"
+                />
+          Submit
+        </button>
+        </div>
+    </div>
     </div>
     <br/>
   </div>
-  <br /> 
-    <div class = "row">
-    <div class = "col-sm-1">
-      <input type="button" value="Back" onclick="window.history.back()" class="btn btn-primary"/> 
-      </input>
-    </div>
-    <div class = "col-sm-1 col-sm-offset-10" 
-         id = "submitButton"
-         >
-      <button id = "submit"  
-              class="btn btn-success"
-              class = "form-control"
-              type = "submit"
-              onclick = "checkForRequired()"
-              />
-        Submit
-      </button>
-      
-      </div>
-    
-  </div>
+  <br />
 </fieldset>
 </form>
-
 {% endblock %}

@@ -20,21 +20,13 @@
          <br />
          
          <dt>Faculty</dt>
-             
-            <dd>{{faculty.username.firstname}} {{faculty.username.lastname}}</dd>
-       
-         {% if collabs is not none %}
-
-         <dt>Collaborator</dt>
-
-         <dt>Faculty</dt>
 	   <dd>{{primary_faculty.username.firstname}} {{primary_faculty.username.lastname}}</dd>
-
-           {% for collaborator in collabs %}
-             <dd>{{collaborator.username.firstname}} {{collaborator.username.lastname}}</dd>
-           {% endfor %}
+	   {% if collabs %}
+             {% for collaborator in collabs %}
+               <dd>{{collaborator.username.firstname}} {{collaborator.username.lastname}}</dd>
+             {% endfor %}
+	   {% endif %}
            <br />
-         {% endif %}
          
          <dt>Budget</dt>
          <dd><strong>Faculty Stipend:</strong>  ${{proj.budgetID.facultyStipend}}</dd>

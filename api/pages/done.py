@@ -83,8 +83,9 @@ def review_GET ():
                             previous_url = previous_url,
                             ldap = g.user,
                             username = g.user.username,
-			                      currentUser = g.user.username,		# Need both because of next route, which has to have it as well (and it won't be the same as username)
-			                      primary_faculty = primary_faculty
+			    currentUser = g.user.username,		# Need both because of next route, which has to have it as well (and it won't be the same as username)
+			    primary_faculty = primary_faculty, 
+			    faculty = faculty
                           )
 
 @app.route("/urcpp/v1/project/<pID>/<username>/<year>", methods = ["GET"])
@@ -98,7 +99,8 @@ def project_GET (pID, username, year):
   collaborators = getCollaboratorsByProjectId(pID)
   uploadedFiles = [];
   primary_faculty = getFacultyForProject(pID)
-
+  faculty = URCPPFaculty.get(URCPPFaculty.pID == proj.pID)
+ 
   if request.referrer:
     previous_url = request.referrer
   else:
@@ -117,5 +119,6 @@ def project_GET (pID, username, year):
                             previous_url = previous_url,
                             username = username,
 			    primary_faculty = primary_faculty, 
-			    currentUser = g.user.username
+			    currentUser = g.user.username,
+			    faculty = faculty
                           )
