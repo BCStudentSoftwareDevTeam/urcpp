@@ -28,11 +28,12 @@ def safe (d, k):
   result = ""
   try:
     if k in d:
+      print("Result: ", d[k])
       result = d[k]
   # If we can't find a key, skip it.
   except:
+    print("Skipping: ", d, k)
     pass
-  
   return result
     
 # Recreate the table.
@@ -40,14 +41,24 @@ theStaticDB.create_table(LDAPFaculty)
 
 faculty = conn.entries
 for fac in faculty:
-  print ("Faculty: {0}".format(fac.samaccountname))
-  o = LDAPFaculty (
-    lastname  = safe (fac, 'sn'),
-    firstname = safe (fac, 'givenname'),
-    username  = fac.samaccountname,
-    bnumber   = safe (fac, 'employeeid'),
-    )
-  o.save()
+  try:
+    if str(fac.samaccountname) != 'ptfaculty':
+      print ("Faculty: {0}".format(fac.samaccountname))
+      o, c = LDAPFaculty.get_or_create(
+		lastname = safe (fac, 'sn'),
+     		firstname = safe (fac, 'givenname'),
+    		username  = fac.samaccountname,
+    		bnumber   = safe (fac, 'employeeid')
+    		)
+  except:
+    print("Error")
+  #o = LDAPFaculty (
+  #  lastname  = safe (fac, 'sn'),
+  #  firstname = safe (fac, 'givenname'),
+  #  username  = fac.samaccountname,
+  #  bnumber   = safe (fac, 'employeeid'),
+  #  )
+  #o.save()
   
   
 # Now do Staff
@@ -61,11 +72,21 @@ print ("Found {0} staff.".format(len(conn.entries)))
 
 faculty = conn.entries        #actually staff, but who cares?
 for fac in faculty:
-  print ("Staff: {0}".format(fac.samaccountname))
-  o = LDAPFaculty (
-    lastname  = safe (fac, 'sn'),
-    firstname = safe (fac, 'givenname'),
-    username  = fac.samaccountname,
-    bnumber   = safe (fac, 'employeeid'),
-    )
-  o.save()
+  try: 
+    if str(fac.samaccountname) != 'ptfaculty':
+      print ("Staff: {0}".format(fac.samaccountname))
+      o, c = LDAPFaculty.get_or_create(
+		lastname = safe (fac, 'sn'),
+     		firstname = safe (fac, 'givenname'),
+    		username  = fac.samaccountname,
+    		bnumber   = safe (fac, 'employeeid')
+    		) 
+  except: 
+    print("Error")
+#o = LDAPFaculty (
+#    lastname  = safe (fac, 'sn'),
+#    firstname = safe (fac, 'givenname'),
+#    username  = fac.samaccountname,
+#    bnumber   = safe (fac, 'employeeid'),
+#    )
+#  o.save()
