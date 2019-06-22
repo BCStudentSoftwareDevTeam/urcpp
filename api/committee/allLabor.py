@@ -1,17 +1,22 @@
-from ..everything import *
+from api.flask_imports import *
+
+from ..everything import cfg
+from api.models import *
+
+from api.committee import committee
 from ..API.faculty import getFacultyWithProjects
 from ..API.parameters import getCurrentParameters
 from ..API.parameters import getParametersByYear
 from ..API.makeExcel import getFilename
 from ..pages import *
 
-@app.route("/committee/allLabor/<int:year>", methods = ["GET"])
-@app.route("/committee/allLabor", methods = ["GET"])
+@committee.route("/committee/allLabor/<int:year>", methods = ["GET"])
+@committee.route("/committee/allLabor", methods = ["GET"])
 @login_required
 def allLabor(year=None):
   if not g.user.isCommitteeMember:
     abort(403)
-    
+
   if year is None:
     parameters = getCurrentParameters()
   else:
@@ -20,7 +25,7 @@ def allLabor(year=None):
   # All of our queries
   faculty = getFacultyWithProjects(parameters.year)
   downloadFileName = getFilename("allLabor")
-  
+
   return render_template (  "committee/allLabor.html",
                             username = g.user.username,
                             cfg = cfg,

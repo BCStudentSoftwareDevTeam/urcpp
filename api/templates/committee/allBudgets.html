@@ -10,23 +10,23 @@
 <ul class="nav nav-tabs">
   <li><a href="/">Home</a></li>
   {% for menuItem in cfg["committee"] %}
-    <li role="presentation"><a href="{{url_for(menuItem['link'])}}">{{menuItem['title']}}</a></li>
+    <li role="presentation"><a href="{{url_for("committee.{0}".format(menuItem['link']))}}">{{menuItem['title']}}</a></li>
   {% endfor %}
   {% if fac is not none %}
   <li style="float: right;"><a href="/{{username}}/download/{{downloadFileName}}"><span class="glyphicon glyphicon-download-alt"></span> Download Budgets</a></li>
   {% endif %}
 </ul>
 <p></p>
-<div class = "row" style = "padding-top: 20px;"><strong style = "font-size: 125%;">Filter by Status: </strong> 
+<div class = "row" style = "padding-top: 20px;"><strong style = "font-size: 125%;">Filter by Status: </strong>
   {% for status in cfg["projectStatus"] %}
-    <input  style = "margin-left: 10px; font-size: 125%;" 
-            type="checkbox" 
-            name="status" 
+    <input  style = "margin-left: 10px; font-size: 125%;"
+            type="checkbox"
+            name="status"
             id = "{{status}}"
             value="{{status}}"
             checked
             onchange = "updateFilters();">
-    <label  for='{{status}}' 
+    <label  for='{{status}}'
             class = 'control-label'>
       {{cfg["projectStatus"][status]}}
     </label>
@@ -56,10 +56,10 @@
           <td id = "{{person.pID.pID}}-status" name = "projectStatus" style=" padding-top: 15px; text-align: center;">
             {{person.pID.status}}
           </td>
-          {% for field in cfg["budget"] %} 
-            <td name = "rowValue" 
-                class = "{{field['amountFieldName']}}" 
-                id = "col{{loop.index0}}" 
+          {% for field in cfg["budget"] %}
+            <td name = "rowValue"
+                class = "{{field['amountFieldName']}}"
+                id = "col{{loop.index0}}"
                 style="text-align: center; padding-top: 15px;"
                 >
               <a data-toggle="popover"
@@ -72,28 +72,28 @@
   	    {# FIXME: does not calculate correctly for miles traveled (convert to dollars). Needs an if id = mileage... multiply by mileage rate from parameters #}
               {% if field['amountFieldName'] == "miles" %}
               {{"%.2f"|format((person.pID.budgetID[field['amountFieldName']]|float  * params.mileageRate|float)|round(2))}}
-               
-              {% else %} 
+
+              {% else %}
                 {{ "%.2f"|format(person.pID.budgetID[field['amountFieldName']]|float) }}
-               
+
               {% endif %}
               </a>
             </td>
           {% endfor %}
-          
+
           <th id = "rowTotal{{loop.index0}}"
               style="padding-top: 15px; text-align: right;"
               >
           </th>
         </tr>
-      
+
       {% endfor %}
     {% endif %}
-    
+
   </table>
     <p style = "text-align: right">
       <span><strong>Total = </span>
-      {% for field in cfg["budget"] %} 
+      {% for field in cfg["budget"] %}
       <span id = "columnTotal{{loop.index0}}" >
       </span>
       {% endfor %}

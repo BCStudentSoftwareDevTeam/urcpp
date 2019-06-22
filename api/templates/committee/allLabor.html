@@ -10,7 +10,7 @@
 <ul class="nav nav-tabs">
   <li><a href="/">Home</a></li>
   {% for menuItem in cfg["committee"] %}
-    <li role="presentation"><a href="{{url_for(menuItem['link'])}}">{{menuItem['title']}}</a></li>
+    <li role="presentation"><a href="{{url_for("committee.{0}".format(menuItem['link']))}}">{{menuItem['title']}}</a></li>
   {% endfor %}
   {# if fac is empty we don't want to show the button. we perform two other tests like this #}
   {% if fac is not none %}
@@ -35,21 +35,21 @@
             <br />
             <span class = "small" >{{person.pID.title|truncate(50, True)}}</span>
           </td>
-          
+
           <td name = "numStudents" style="padding-top: 15px; text-align: center;">
             {{person.pID.numberStudents}}
           </td>
-          
+
           <td name = "duration" style="padding-top: 15px; text-align: center;">
             {{person.pID.duration}}
           </td>
           <th id = "rowTotal{{loop.index0}}" name = "rowTotal" style="padding-top: 15px; text-align: right;">
           </th>
         </tr>
-      
+
       {% endfor %}
     {% endif %}
-    
+
   </table>
   <p style = "padding-right: 10px; text-align: right;"><strong>
     Labor Total = <span id = "grandTotal"></strong></span>

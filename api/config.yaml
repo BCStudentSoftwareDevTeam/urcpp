@@ -8,7 +8,7 @@ urcpp:
     - 9
     - 10
 
-# Controls the history.html page options for previous years funded by URCPP 
+# Controls the history.html page options for previous years funded by URCPP
 history:
   - db: "never"
     desc: "Never"
@@ -25,8 +25,8 @@ history:
 
 # NO MAS, sorta; Still need this to get through the upload sequence
 # Scott: Changed the order to history, irbyn, irb(if yes), vitae, narrative, done.
-# Makes the upload sequence less painful as all three are together, which is important 
-# for technical reasons, not usability.  
+# Makes the upload sequence less painful as all three are together, which is important
+# for technical reasons, not usability.
 flow:
   start:        "create"
   create:       "people"
@@ -75,7 +75,7 @@ awardLetterTable:
     fieldName: "numberStudents"
   - title: "Email"
     fieldName: "email"
-    
+
 # Controls the fields that are added up to get a total budget
 totalBudget:
   - "facultyStipend"
@@ -102,7 +102,7 @@ committee:
   - title: "Review Votes"
     link: "allVotes"
     longtitle: "Review Votes"
-    
+
 # Controls the menu for the chair interface
 chair:
   - title: "Set Parameters"
@@ -155,14 +155,14 @@ voting:
   - title: "Timeline"
     dbName: "timeline"
     longDescription: "There is a high probability that the proposed project will be completed within the time frame specified."
-    
+
 
 # I think this should move to the Parameters table, so it can be more easily configured in the UI by the committee.
-contacts:         
+contacts:
   irbChairName: "Wendy Williams"
   irbChairEmail: "williamsw@berea.edu"
 
-# Controls the budget.html form 
+# Controls the budget.html form
 budget:
   - title: "Faculty Stipend(s) "
     placeholder: "Indicate the amount each faculty member will receive as a stipend, up to $5,300 per faculty member"
@@ -188,7 +188,7 @@ budget:
     placeholder: "Describe any funding needed for things that do not fit into the categories above"
     amountFieldName: "other"
     descFieldName: "otherDesc"
-    
+
 databases:
   dynamic: "data/urcpp.sqlite"
   static: "data/static.sqlite"
@@ -209,7 +209,7 @@ models:
     - URCPPFaculty
     - URCPPStudents
     - Voting
-    
+
 log:
   filename: "urcpp.log"
 
@@ -232,7 +232,7 @@ projectStatusAction:
   Start:
     msg: "Start your application"
     url: "/create"
-  Accept: 
+  Accept:
     msg: "Your application has been accepted"
     url: "/review"
   Reject:
@@ -250,7 +250,7 @@ projectStatusAction:
   Pending:
     msg: "Review your application"
     url: "/review"
-    
+
 
 response:
   badUsername: "Bad Username"
@@ -262,7 +262,7 @@ filepaths:
   directory: "static/files/%%applicationCycle%%/%%username%%"
   projectFiles: "static/files/"
   downloadFiles: "static/files/"
-  
+
   allowedFileExtensions:
     rtf: "Rich Text Format"
     pdf: "Portable Document Format"
@@ -276,7 +276,7 @@ filepaths:
     - abstract
     - finalReport
   pageTemplates: "/var/www/html/urcpp-flask/api/templates"
-  
+
 downloads:
   downloadFileTypes:
     allProjects: "project"
@@ -284,8 +284,8 @@ downloads:
     allLabor: "labor"
   downloadFileNameFormat: "urcpp-%%applicationCycle%%-%%downloadFileType%%"
   downloadFileExtension: ".xlsx"
-  
-# We don't know if these are needed, but they do document the 
+
+# We don't know if these are needed, but they do document the
 # directory paths/layout that we intend...
 #  filesInDirectory:
 #    vitae: "%%username%%-vitae.%%thing%%"

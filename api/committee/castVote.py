@@ -1,21 +1,26 @@
-from ..everything import *
+from api.flask_imports import *
+
+from ..everything import cfg
+from api.models import *
+
+from api.committee import committee
 from ..API.faculty import getFacultyForProject
 from ..API.projects import getProjectByID
 from ..API.voting import getCommitteeVotes, getVote
 from ..API.collaborators import getCollaborators
 
-@app.route("/committee/castVote/<pid>", methods = ["GET"])
+@committee.route("/committee/castVote/<pid>", methods = ["GET"])
 @login_required
-def vote_GET ( pid):
+def cast_vote_GET ( pid):
   if not g.user.isCommitteeMember:
     abort(403)
   project = getProjectByID(pid)
   if project is None:
-    return render_template ("committee/noProject.html", 
+    return render_template ("committee/noProject.html",
                             cfg = cfg)
   faculty =  getFacultyForProject(pid)
   collaborators = getCollaborators(faculty)
-  
+
   # Get votes for pid and username
   # Prepopulate
   if (  Voting.select()
@@ -27,7 +32,7 @@ def vote_GET ( pid):
     votes = getVote(g.user.username, pid)
   else:
   #   app.logger.info("Creating new row for {0} and {1}\n".format(username, pid))
-  #   votes = (Voting.create (committeeID = username, 
+  #   votes = (Voting.create (committeeID = username,
   #                         projectID = pid
   #                         )
   #           )
@@ -41,30 +46,30 @@ def vote_GET ( pid):
                             collab = collaborators,
                           )
 
-@app.route("/committee/castVote/<pid>", methods = ["POST"])
+@committee.route("/committee/castVote/<pid>", methods = ["POST"])
 @login_required
-def vote_POST (pid):
+def cast_vote_POST (pid):
   if not g.user.isCommitteeMember:
     abort(403)
   # NOTE: username is the committee member, NOT the project creator
   faculty =  getFacultyForProject(pid)
-  
+
   data = request.form
 
   print "Data is: " + str(data)
-  
+
   votingTable = getVote(g.user.username, pid)
   if votingTable is None:
-    votingTable = (Voting.create (committeeID = g.user.username, 
+    votingTable = (Voting.create (committeeID = g.user.username,
                            projectID = pid
                            )
                   )
-  
-  votingTable.committeeID             = g.user.username 
+
+  votingTable.committeeID             = g.user.username
   votingTable.projectID               = pid
   votingTable.studentLearning         = data["studentLearning"]
   votingTable.studentAccessibility    = data["studentAccessibility"]
-  votingTable.qualityOfResearch       = data["qualityOfResearch"] 
+  votingTable.qualityOfResearch       = data["qualityOfResearch"]
   votingTable.studentDevelopment      = data["studentDevelopment"]
   votingTable.facultyDevelopment      = data["facultyDevelopment"]
   votingTable.collaborative           = data["collaborative"]
@@ -86,4 +91,3 @@ def vote_POST (pid):
                             proj = project,
                             success = True
                           )
-  

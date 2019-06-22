@@ -1,4 +1,9 @@
-from ..everything import *
+from api.flask_imports import *
+
+from ..everything import cfg
+from api.models import *
+
+from api.committee import committee
 from ..API.faculty import  getFacultyWithProjects, getFacultyForProject
 from ..API.projects import getProjectByID
 from ..API.collaborators import getAllCollaborators
@@ -8,8 +13,8 @@ from ..API.parameters import getParametersByYear
 from ..API.files import removeFiles
 from ..API.projects import getProject
 
-@app.route("/committee/allProjects/<int:year>", methods = ["GET"])
-@app.route("/committee/allProjects", methods = ["GET"])
+@committee.route("/committee/allProjects/<int:year>", methods = ["GET"])
+@committee.route("/committee/allProjects", methods = ["GET"])
 @login_required
 def allProjects(year=None):
   if not g.user.isCommitteeMember:
@@ -21,8 +26,8 @@ def allProjects(year=None):
   else:
     flash("You are viewing projects from applicationCycle: {}".format(year), category='warning')
     currentCycle = getParametersByYear(year)
-    
-  
+
+
   faculty =  getFacultyWithProjects(currentCycle.year)
   collaborators = getAllCollaborators()
   previousVote = {}
@@ -32,7 +37,7 @@ def allProjects(year=None):
         previousVote[fac.pID.pID] = True
       else:
         previousVote[fac.pID.pID] = False
-  
+
   return render_template (  "committee/allProjects.html",
                             username = g.user.username,
                             cfg = cfg,
@@ -41,11 +46,10 @@ def allProjects(year=None):
                             collab = collaborators
                           )
 
-@app.route("/committee/allProjects/updateStatus", methods = ["POST"])
+@committee.route("/committee/allProjects/updateStatus", methods = ["POST"])
 @login_required
-
 def updateStatus_POST ():
-  
+
   data = request.form
   if not g.user.isCommitteeMember:
     try:
@@ -55,22 +59,21 @@ def updateStatus_POST ():
       proj.save()
       if proj.status == "Withdrawn":
         print "project status: ", proj.status
-        removeFiles(g.user.username)  
+        removeFiles(g.user.username)
     except:
       abort(403)
-      
+
   else:
     for key, value in data.iteritems():
       projectToSetStatus = getProjectByID(key)
       projectToSetStatus.status = value
       projectToSetStatus.save()
-      
+
       professor = getFacultyForProject(key)
       if projectToSetStatus.status == "Withdrawn":
         print "project status: ", projectToSetStatus.status
         removeFiles(professor.username.username)
-      
-      
-  
-  return redirect(url_for('allProjects'))
 
+
+
+  return redirect(url_for('allProjects'))

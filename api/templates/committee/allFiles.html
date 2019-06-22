@@ -10,19 +10,19 @@
 <ul class="nav nav-tabs">
   <li><a href="/">Home</a></li>
   {% for menuItem in cfg["committee"] %}
-    <li role="presentation"><a href="{{url_for(menuItem['link'])}}">{{menuItem['title']}}</a></li>
+    <li role="presentation"><a href="{{url_for("committee.{0}".format(menuItem['link']))}}">{{menuItem['title']}}</a></li>
   {% endfor %}
   {% if fac is not none %}
 <div style="text-align:right;">
-  <form 
+  <form
         class = "form-inline"
         action = "/committee/allFiles"
         method = "POST">
-   <button id = "submit" 
-              type = "submit" 
+   <button id = "submit"
+              type = "submit"
               value = "Download all project files"
               class="btn btn-success"
-              data-toggle="tooltip" 
+              data-toggle="tooltip"
               title = "Download all project files"
               style = "background-color: white; color: #18bc9c; border-color: white; font-family: 'Lato','Helvetica Neue',Helvetica,Arial,sans-serif;"
               /> <span class="glyphicon glyphicon-download-alt"></span>
@@ -56,7 +56,7 @@
           {% if files[person.username.username][uploadType] %}<a href = "/document/{{person.username.username}}/{{files[person.username.username][uploadType]}}"
              target = "_blank">
             <button type="button" class="btn btn-default btn-md btn-success">  Download  <span class="glyphicon glyphicon-download-alt"></button>
-            
+
           </a>
           {% else %}
           No file
@@ -64,10 +64,10 @@
         </td>
         {% endfor %}
       </tr>
-    
+
     {% endfor %}
     {% endif %}
-    
+
   </table>
 </div>
 

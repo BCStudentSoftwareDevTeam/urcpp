@@ -51,6 +51,8 @@ app.config['TEMPLATE_AUTO_RELOAD'] = True
 
 from api.pages import pages as pages_bp
 app.register_blueprint(pages_bp)
+from api.committee import committee as committee_bp
+app.register_blueprint(committee_bp)
 
 login_manager = LoginManager()
 login_manager.init_app(app)

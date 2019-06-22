@@ -1,14 +1,19 @@
-from everything import *
-from faculty import  getFacultyWithProjects, getLDAPFaculty
-from projects import getAllCurrentProjects
-from programs import getAllPrograms
-from pages.budget import getAllBudgets
-from voting import getVotes, getCommitteeVotes, getVote
+from api.flask_imports import *
 
-from pages import *
+from ..everything import cfg
+from api.models import *
+
+from api.committee import committee
+from api.API.faculty import  getFacultyWithProjects, getLDAPFaculty
+from api.API.projects import getAllCurrentProjects
+from api.API.programs import getAllPrograms
+from api.API.budget import getAllBudgets
+from api.API.voting import getVotes, getCommitteeVotes, getVote
+
+# from pages import *
 import pprint
 
-@app.route("/<username>/committee/vote", methods = ["GET"])
+@committee.route("/<username>/committee/vote", methods = ["GET"])
 def vote_GET (username):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
@@ -18,7 +23,7 @@ def vote_GET (username):
   programs = getAllPrograms()
   budget = getAllBudgets()
   # votes = getVotes()
-  
+
   for p in project:
     if (Voting.select()
               .where(Voting.projectID == p.pID)
@@ -27,13 +32,13 @@ def vote_GET (username):
       votes = getVote(username, p)
     else:
       votes = Voting.create(committeeID = username, projectID = p.pID)
-  
+
   theirVotes = getCommitteeVotes(username)
   outVotes = []
   if theirVotes is not None:
     for vote in theirVotes:
       outVotes.append(vote)
-    
+
   return render_template (  "committee/vote.html",
                             proj = project,
                             username = username,
@@ -44,30 +49,30 @@ def vote_GET (username):
                             votes = outVotes
                           )
 
-@app.route("/<username>/committee/vote", methods = ["POST"])
+@committee.route("/<username>/committee/vote", methods = ["POST"])
 def vote_POST (username):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
-  
+
   data = request.form
 
   print "Data is: " + str(data)
-  
-  # TODO: Need to test if row exists to update votes OR create a new row; 
+
+  # TODO: Need to test if row exists to update votes OR create a new row;
   # currently always writes to the first row, and in random order (based on dictionary order)
   for key, value in data.iteritems():
     projectAndColumn = key.split("-")
     votes = getCommitteeVotes(username)
-    
-    print projectAndColumn  
-    
+
+    print projectAndColumn
+
     if (Voting.select()
               .where(Voting.projectID == projectAndColumn[0]).exists()
        ):
       votes = getVote(username, projectAndColumn[0])
     else:
       votes = Voting.create(committeeID = username, projectID = projectAndColumn[0])
-      
+
     # print "Key " + key
     # print "Value " + value
     print votes.projectID
@@ -77,7 +82,7 @@ def vote_POST (username):
     votes.studentRoleVote     = (value if projectAndColumn[1] == "studentRoleVote" else votes.studentRoleVote)
     votes.feasibilityVote     = (value if projectAndColumn[1] == "feasibilityVote" else votes.feasibilityVote)
     votes.save()
-  
+
   theirVotes = getCommitteeVotes(username)
   outVotes = []
   for vote in theirVotes:
@@ -91,4 +96,3 @@ def vote_POST (username):
                             fac = faculty,
                             votes = outVotes
                           )
-  
