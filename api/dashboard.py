@@ -16,5 +16,14 @@ def dashboard():
   email_address_IRBchair = "%s@berea.edu" % (str(currentCycle.IRBchair_id.username))
   email_address_currentchair = "%s@berea.edu" % (str(currentCycle.currentchair_id.username))
   email_address_staffsupport = "%s@berea.edu" % (str(currentCycle.staffsupport_id.username))
-  return render_template ("dashboard.html",  cfg=cfg, ldap=ldap, proj=project, currentCycle=currentCycle, today=today, email_IRBchair=email_address_IRBchair, email_currentchair=email_address_currentchair,email_staffsupport=email_address_staffsupport)
+  return render_template ("dashboard.html",  
+				cfg=cfg, 
+				ldap=ldap, 
+				proj=project, 
+				currentCycle=currentCycle, 	
+				today=today, 
+				email_IRBchair=email_address_IRBchair, 
+				email_currentchair=email_address_currentchair,
+				email_staffsupport=email_address_staffsupport
+			)
   

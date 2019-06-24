@@ -17,25 +17,41 @@ def setParameters_GET ():
                          .replace(hour=11, minute=55) )
     ProposalOpenDate = datetime.datetime.strptime(data['ProposalOpenDate'], '%Y-%m-%d')
     ProposalAcceptanceDate = datetime.datetime.strptime(data['ProposalAcceptanceDate'], '%Y-%m-%d')
-    ProposalClosedDate = datetime.datetime.strptime(data['ProposalClosedDate'], '%Y-%m-%d')
-    AbstractnarrativesAcceptanceDate = datetime.datetime.strptime(data['AbstractnarrativesAcceptanceDate'], '%Y-%m-%d')
-    AllSubmissionsClosedDate = datetime.datetime.strptime(data['AllSubmissionsClosedDate'], '%Y-%m-%d')
-    parameters = Parameters(year = int(data['newYear']),
-                            IRBchair_id = data['IRBchair_id'],
-                            currentchair_id = data['currentchair_id'],
-                            staffsupport_id = data['staffsupport_id'],
-                            appOpenDate = openDate,
-                            appCloseDate =closeDate,
-                            ProposalOpenDate =ProposalOpenDate,
-                            ProposalAcceptanceDate =ProposalAcceptanceDate,
-                            ProposalClosedDate =ProposalClosedDate,
-                            AbstractnarrativesAcceptanceDate =AbstractnarrativesAcceptanceDate,
-                            AllSubmissionsClosedDate =AllSubmissionsClosedDate,
-                            mileageRate = data['mileageRate'],
-                            laborRate = data['laborRate'])
+    ProposalClosedDate = ( datetime.datetime.strptime(data['ProposalClosedDate'], '%Y-%m-%d')
+					  .replace(hour=11, minute=55) )
+
+    AbstractnarrativesAcceptanceDate = ( datetime.datetime.strptime(data['AbstractnarrativesAcceptanceDate'], '%Y-%m-%d')							       .replace(hour=11, minute=55) )
+
+    AllSubmissionsClosedDate = ( datetime.datetime.strptime(data['AllSubmissionsClosedDate'], '%Y-%m-%d')
+						  .replace(hour=11, minute=55) )
+
+ 
     
-    
-    
+    try:
+	    parameters = Parameters.get(year = int(data['newYear']))
+    except: 
+	    parameters = Parameters.create(year = int(data['newYear']), 
+					   appOpenDate = openDate, 
+					   appCloseDate = closeDate, 
+					   mileageRate = data['mileageRate'],
+					   laborRate = data['laborRate'], 
+					   isCurrentParameter = False, 
+			 )
+   
+    print("Date: ", data['applicationOpenDate'])
+    parameters.IRBchair_id = data['IRBchair_id']
+    parameters.currentchair_id = data['currentchair_id']
+    parameters.staffsupport_id = data['staffsupport_id']
+    parameters.appOpenDate = openDate
+    parameters.appCloseDate = closeDate
+    parameters.ProposalOpenDate = ProposalOpenDate
+    parameters.ProposalAcceptanceDate = ProposalAcceptanceDate
+    parameters.ProposalClosedDate = ProposalClosedDate
+    parameters.AbstractnarrativesAcceptanceDate = AbstractnarrativesAcceptanceDate
+    parameters.AllSubmissionsClosedDate = AllSubmissionsClosedDate
+    parameters.mileageRate = data['mileageRate']
+    parameters.laborRate = data['laborRate']
+        
     parameters.save()
     
     flash("Successfully saved" , "success")

@@ -55,13 +55,13 @@ def authUser(env):
 
 base_path = os.path.dirname(__file__)
 app = Flask(__name__)
-# app.config.from_pyfile("settings.py")
+app.config.from_pyfile("settings.py")
 from api.config import load_config
+
+# cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
 cfg = load_config(os.path.join(base_path, 'config.yaml'))
 app.config['SECRET_KEY'] = open(os.path.join(base_path, 'secret_key'), 'rb').read()
 app.config['TEMPLATE_AUTO_RELOAD'] = True
-
-
 
 
 login_manager = LoginManager()
@@ -71,14 +71,23 @@ login_manager.login_message = None
 
 mail = Mail(app)  #mail using configuration values of the application
 
+
 from api.switch import switch
 
-# cfg = load_config('/var/www/html/urcpp-flask/api/config.yaml')
 @app.before_request
 def before_request():
-    #g.dbDynamic = dynamicDB.connect()
+    # g.dbDynamic = dynamicDB.connect()
     g.user = current_user
 
+@app.teardown_request
+def teardown_request(exception):
+    dbS = getattr(g, 'dbStatic', None)
+    # dbD = getattr(g, 'dbDynamic', None)
+    if (dbS is not None) and (not dbS.is_closed()):
+      dbS.close()
+#    if (dbD is not None) and (not dbD.is_closed()):
+#      dbD.close()
+
 @login_manager.user_loader
-def load_user(FID):
-  return LDAPFaculty.get(LDAPFaculty.fID == FID)
+def load_user(fID):
+    return LDAPFaculty.get(LDAPFaculty.fID == fID)

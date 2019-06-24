@@ -1,5 +1,7 @@
 from api.everything import *
-from faculty import get_faculty_by_bnumbers
+from faculty import *
+
+
 def getAllCollaborators():
   """ gets all of the collaborators from the collaborators table
   
@@ -13,7 +15,7 @@ def getAllCollaborators():
     return None
 
 def getCollaborators (username):
-  """ gets all of the collaborator for a user
+  """ gets all of the collaborators for a user
       
       Args:
         username (str): the user to whom the project belongs
@@ -51,6 +53,8 @@ def getCollaboratorsByProjectId (pID):
   else:
     return None
 
+
+# used in AwardLetters
 @app.route ("/urcpp/v1/collaborators/get/<username>", methods = ["POST"])
 def collaborators_get (username):
   """ gets the collaborators of a user
@@ -81,7 +85,7 @@ def get_collaborator(project_id, username):
   """ gets a collaborator 
       
       Args:
-        username (str): the username of of the collaborators_get
+        username (str): the username of the collaborators_get
         project_id (int): the id of the project 
         
       Returns:
@@ -91,7 +95,7 @@ def get_collaborator(project_id, username):
                         .where(Collaborators.pID==project_id))
                         
   if collaborator.exists():
-    return collaborator.get()
+    return collaborator.get() # FIXME: expects only one collaborator, will break with 2+
   else:
     return None
   
@@ -128,16 +132,18 @@ def delete_non_collaborators(project_id, *collaborators):
           ).execute()
         
         
-def add_collaborators(project_id, *collaborator_bnumbers):
-  """ add the collaborators from collaborator bnumbers
+def add_collaborators(project_id, *collaborator_usernames):
+  """ add the collaborators from collaborator usernames
   
       Args:
         project_id (int): the id of the project that the collabors belong to
         collaborator_bnumbers (splat): the collaborators that will be the current collaborators
   """
+  # print(collaborator_usernames)
+  # print(type(collaborator_usernames))
+  # print(list(collaborator_usernames))
   
-  faculty = get_faculty_by_bnumbers(collaborator_bnumbers)
-  
-  for professor in faculty:
-    if get_collaborator(project_id, professor.username) is None:
-      Collaborators(pID = project_id, username = professor.username).save()
+  for collab in list(collaborator_usernames)[0]:
+    print(str(collab))
+    Collaborators(pID = project_id, username = getLDAPFaculty(str(collab))).save()
+    

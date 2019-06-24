@@ -1,62 +1,58 @@
 {% extends "base.html" %}
 {% set currentPage = "dashboard" %}
 
-{% block title %} URCPP Project Basics {% endblock %}
+{% block title %} URCPP Applications {% endblock %}
 
 {% block body %}
 <br/>
 {% include "snips/messages.html" %}
+{% if today > currentCycle.AllSubmissionsClosedDate or today < currentCycle.appOpenDate %}
+  {# Submissions closed, load no buttons #}
+  {% with ldap = ldap %}
+    {% include "snips/jumbotron.html" %} {# Jumbotron with no buttons #}
+  {% endwith %}
 
-{% if currentCycle and currentCycle.AllSubmissionsClosedDate < today %} {# start 1 #} <!-- ALLSUBMISSIONS ARE CLOSED -->
+  {% with currentCycle = currentCycle, email_currentchair=email_currentchair,email_staffsupport=email_staffsupport,email_IRBchair=email_IRBchair %}
+    {% include "snips/allSubmissionsClosed.html" %}
+  {% endwith %}
+{% else %}
 
-{# Loads the correct jumbotron #}
-{% with ldap = ldap %} 
-  {% include "snips/jumbotron.html" %}  
-{% endwith %}
-
-{# Load All submissions closed template #}
-{% with currentCycle = currentCycle, email_currentchair=email_currentchair,email_staffsupport=email_staffsupport,email_IRBchair=email_IRBchair %}
-  {% include 'snips/allSubmissionsClosed.html' %}
-{% endwith %}
-{% else %} <!---ALLSUBMISSIONS ARE NOT CLOSED-->
-  {% if currentCycle and currentCycle.ProposalClosedDate > today %}<!--IF THE PROPOSAL DATE HAS NOT CLOSED--> {# start 2 #}
-    {# Load jumbotron with buttons template #}
-    {% with ldap = ldap, proj=proj, cfg=cfg %} 
-      {% include 'snips/jumbotron-buttons.html' %}
+  {# Submissions are not closed #}
+  {% if today > currentCycle.appOpenDate and today < currentCycle.appCloseDate %}
+    {# Load jumbotron with buttons #}
+    {% with ldap = ldap, proj=proj, cfg=cfg %}
+      {% include "snips/jumbotron-buttons.html" %}
     {% endwith %}
-    
     {# Load horizontal Progress Bar template #}
     {% with proj=proj, currentCycle=currentCycle %}
-      {% include 'snips/horizontalProgressBar.html' %}
+      {% include "snips/horizontalProgressBar.html" %}
     {% endwith %}
-    
-  {% else %} <!--IF PROPOSAL DATE HAS CLOSED-->
-    {% if (proj.status != cfg["projectStatus"]["Pending"] and proj.status != cfg["projectStatus"]["Accept"] and proj.status != cfg["projectStatus"]["Reject"]) or proj.status == cfg["projectStatus"]["Incomplete"]  %} <!--or has not started --> {# start 10 #}
-    {# Loads the correct jumbotron #}
-    {% with ldap = ldap %} 
-      {% include "snips/jumbotron.html" %}  
-    {% endwith %}
-    
-    {# Loads the Panel Closed template #}
-    {% with currentCycle=currentCycle, email_IRBchair=email_IRBchair, email_currentchair=email_currentchair, email_staffsupport=email_staffsupport %} 
-      {% include "snips/panelClosed.html" %}  
-    {% endwith %}
-    
-    {% elif proj.status == cfg["projectStatus"]["Pending"] or proj.status == cfg["projectStatus"]["Accept"] or cfg["projectStatus"]["Reject"]%}<!--- if proposal date HAS CLOSED and project is not incomplete(aka pending, accept) render progress bar-->
-      {# Load jumbotron with buttons template #}
-      {% with ldap = ldap, proj=proj, cfg=cfg %} 
-        {% include 'snips/jumbotron-buttons.html' %}
-      {% endwith %}
-      
-      {# Load horizontal Progress Bar template #}
-      {% with proj=proj, currentCycle=currentCycle %}
-        {% include 'snips/horizontalProgressBar.html' %}
-      {% endwith %}
+  {% endif %}
 
-    {% endif %} {# end 10 #}
-  {% endif %} {# end2 #}
-{% endif %} {# end1 #}
-<footer class="footer">
-    <span><b>Issues? Contact: </b><a href="mailto:heggens@berea.edu" target = "_blank">Scott Heggen</a> </span>
-</footer>
+  {% if today > currentCycle.appCloseDate and today < currentCycle.ProposalAcceptanceDate %}
+    {# Applications are pending approval; no buttons #}
+    {% with ldap = ldap, proj=proj, cfg=cfg %}
+      {% include "snips/jumbotron-buttons.html" %} {# Jumbotron with no buttons #}
+    {% endwith %}
+    {# Load horizontal Progress Bar template #}
+    {% with proj=proj, currentCycle=currentCycle %}
+      {% include "snips/horizontalProgressBar.html" %}
+    {% endwith %}
+  {% endif %}
+
+  {% if today > currentCycle.ProposalAcceptanceDate and today < currentCycle.AllSubmissionsClosedDate%}
+    {# Abstracts can now be submitted #}
+    {% with ldap = ldap, proj=proj, cfg=cfg %}
+      {% include "snips/jumbotron-buttons.html" %}
+    {% endwith %}
+    {# Load horizontal Progress Bar template #}
+    {% with proj=proj, currentCycle=currentCycle %}
+      {% include "snips/horizontalProgressBar.html" %}
+    {% endwith %}
+  {% endif %}
+
+{% endif %}
+
+
+
 {% endblock %}

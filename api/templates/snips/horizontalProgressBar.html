@@ -1,46 +1,46 @@
  <div class="panel panel-default">
     <div class="panel-body">
-        <div class="project-progress-bar"
-        data-status="{% if proj %}{# start 7 #}{{proj.status}}{% else %}start{% endif %}{# end 7 #}">
+        <div 	class="project-progress-bar"
+		data-status="{% if proj %}{# start 7 #}{{proj.status}}{% else %}start{% endif %}{# end 7 #}">  {# Grabs project status from DB or start if None #}
             <div class="bar">
                 <div style="width: 33%;" id="bar_fill" class="bar__fill"></div>
             </div>
             <div class="point" id="start">
                 <div class="bullet"></div>
-                <label class="bar-label" style="text-align: center">Start <br><small style="font-size:12px;" "text-align: center;">(Proposal Open Date: {{currentCycle.ProposalOpenDate.strftime("%Y/%m/%d")}})</small></label>
+                <label class="bar-label" style="text-align: center">Proposals Open: <br><small style="font-size:12px;" "text-align: center;">{{currentCycle.appOpenDate.strftime("%m/%d/%Y")}}</small></label>
             </div>
             <div class="point" id="incomplete">
                 <div class="bullet"></div>
-                <label class="bar-label">Incomplete</label>
+                <label class="bar-label">Application Incomplete</label>
             </div>
             <div class="point" id="proposal_close_date">
                 <div class="bullet"></div>
-                <label class="bar-label" style="text-align: center">Proposal Panel Closes <br><small style="font-size:12px;" "text-align: center;">({{currentCycle.ProposalClosedDate.strftime("%Y/%m/%d")}})</small></label>
+                <label class="bar-label" style="text-align: center">Proposals Due: <br><small style="font-size:12px;" "text-align: center;">({{currentCycle.appCloseDate.strftime("%m/%d/%Y")}})</small></label>
             </div>
-            <div class="point" id="pending">
+{#            <div class="point" id="pending">
                 <div class="bullet"></div>
                 <label class="bar-label">Pending</label>
-            </div>
-            {%if proj.status == cfg["projectStatus"]["Reject"] %} {# start 8 #}
-            <div class="point" id="reject">
+            </div> #}
+            {% if proj.status == cfg["projectStatus"]["Reject"] %} {# start 8 #}
+            <div class="point" id="review_date">
                 <div class="bullet"></div>
-                <label class="bar-label" style="text-align: center">Decision Reached <br><small style="font-size:12px;" "text-align: center;">(Proposal Acceptance Date: {{currentCycle.ProposalAcceptanceDate.strftime("%Y/%m/%d")}})</small></label>
+                <label class="bar-label" style="text-align: center">Applications Reviewed: <br><small style="font-size:12px;" "text-align: center;">{{currentCycle.ProposalAcceptanceDate.strftime("%m/%d/%Y")}}</small></label>
             </div>
             {% else %}
-            <div class="point" id="accept">
+{#            <div class="point" id="accept">
                 <div class="bullet"></div>
                 <label class="bar-label" style="text-align: center">Decision Reached <br><small style="font-size:12px;" "text-align: center;">(Proposal Acceptance Date: {{currentCycle.ProposalAcceptanceDate.strftime("%Y/%m/%d")}})</small></label>
-            </div>
+            </div> #}
             {% endif %} {# end 8 #}
             {% if proj.status != cfg["projectStatus"]["Reject"] %} {# start 9 #}
-            <div class="point" id="abstractsubmission">
+            <div class="point" id="abstract_submission">
                 <div class="bullet"></div>
-                <label class="bar-label" style="text-align: center">Abstract Submissions <br><small style="font-size:12px;" "text-align: center;">(Due Date: {{currentCycle.AbstractnarrativesAcceptanceDate.strftime("%Y/%m/%d")}})</small></label>
+                <label class="bar-label" style="text-align: center">Abstracts Due:<br><small style="font-size:12px;" "text-align: center;">{{currentCycle.AbstractnarrativesAcceptanceDate.strftime("%m/%d/%Y")}}</small></label>
             </div>
-            <div class="point" id="allsubmissionscloses">
+{#            <div class="point" id="allsubmissionscloses">
                 <div class="bullet"></div>
                 <label class="bar-label" style="text-align: center">All Submissions Close <br><small style="font-size:12px;" "text-align: center;">({{currentCycle.AllSubmissionsClosedDate.strftime("%Y/%m/%d")}})</small></label>
-            </div>
+            </div> #}
             {% endif %} {# end 9 #}
         </div>
     </div>

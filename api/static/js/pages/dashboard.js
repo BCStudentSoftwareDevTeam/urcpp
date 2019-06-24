@@ -19,7 +19,8 @@ function animate(){
 }
 
 function fillProgressBar(projStatus) {
-  var fillPercent = 16.6;
+  console.log(projStatus);
+  var fillPercent = 25;
   var step = 0;
   switch (projStatus) {
     case "AllClosed":

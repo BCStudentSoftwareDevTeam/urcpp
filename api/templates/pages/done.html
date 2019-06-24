@@ -7,7 +7,7 @@
   <li><a href="/">Home</a></li>
   <li><a href="/create">Create</a></li>
   <li><a href="/people">People</a></li>
-  <li><a href="/history">History</a></li>
+  <li><a href="/people">Collaborations</a></li>
   <li><a href="/upload/irb">IRB upload</a></li>
   <li><a href="/upload/vitae">Curriculum vitae upload</a></li>
   <li><a href="/upload/narrative">Narrative upload</a></li>
@@ -49,6 +49,9 @@
                <dd><strong>Date Submitted:</strong> {{proj.createdDate.strftime('%Y-%m-%d @ %I:%m %p')}}</dd>
                <dd><strong>Status:</strong> {{proj.status}}</dd>
              <br />
+              <dt>Faculty</dt>
+             <dd>{{faculty.username.firstname}} {{faculty.username.lastname}}</dd>
+             <br />
              {% if collabs is not none %}
              <dt>Collaborators</dt>
                {% for collaborator in collabs %}
@@ -81,13 +84,12 @@
                {% endfor %}
            </dl>
           </div>
-      </div>
-    <div style="padding-top:20px">
+       <div style="padding-top:20px">
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col-xs-4 col-xs-offset-1">
             <button class="btn btn-danger" onclick="window.history.back()" type="button" value="Back">Edit</button></a>
             </div>
-            <div class="col-xs-4 col-xs-offset-4">
+            <div class="col-xs-4 col-xs-offset-2">
               <form id = "doneForm"
                 class = "form-horizontal col-sm-10 col-sm-offset-1"
                 action = "/finalize"
@@ -101,7 +103,8 @@
               </button>
               </div>
           </div>
-    </div>
+    </div>   
+      </div>
 </div>
 
 

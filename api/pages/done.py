@@ -4,6 +4,9 @@ from budget import getBudget
 from ..API.parameters import getCurrentParameters
 from ..API.collaborators import getCollaborators, getCollaboratorsByProjectId
 from ..API.faculty import getFacultyForProject
+
+from api.models import *
+
 from upload import checkForFile
 
 
@@ -13,7 +16,8 @@ def done_GET ():
    # All of our queries
   proj = getProject(g.user.username)
   parameters = getCurrentParameters()
-  collaborators = getCollaborators(g.user.username)
+  collaborators = getCollaboratorsByProjectId(proj.pID)
+  faculty = URCPPFaculty.get(URCPPFaculty.pID == proj.pID)
   uploadedFiles = [];
   
   if proj.status == cfg["projectStatus"]["Pending"]:
@@ -31,7 +35,8 @@ def done_GET ():
                             uploadedFiles = uploadedFiles,
                             params = parameters,
                             collabs = collaborators,
-                            username = g.user.username
+                            username = g.user.username,
+                            faculty = faculty
                           )
 
 
@@ -52,7 +57,9 @@ def review_GET ():
   proj = getProject(g.user.username)
   budget = getBudget(g.user.username)
   parameters = getCurrentParameters()
-  collaborators = getCollaborators(g.user.username)
+  collaborators = getCollaboratorsByProjectId(proj.pID)
+  faculty = URCPPFaculty.get(URCPPFaculty.pID == proj.pID)
+  
   uploadedFiles = [];
   primary_faculty = getFacultyForProject(proj.pID)
 
@@ -77,7 +84,8 @@ def review_GET ():
                             ldap = g.user,
                             username = g.user.username,
 			    currentUser = g.user.username,		# Need both because of next route, which has to have it as well (and it won't be the same as username)
-			    primary_faculty = primary_faculty
+			    primary_faculty = primary_faculty, 
+			    faculty = faculty
                           )
 
 @app.route("/urcpp/v1/project/<pID>/<username>/<year>", methods = ["GET"])
@@ -91,7 +99,8 @@ def project_GET (pID, username, year):
   collaborators = getCollaboratorsByProjectId(pID)
   uploadedFiles = [];
   primary_faculty = getFacultyForProject(pID)
-
+  faculty = URCPPFaculty.get(URCPPFaculty.pID == proj.pID)
+ 
   if request.referrer:
     previous_url = request.referrer
   else:
@@ -110,5 +119,6 @@ def project_GET (pID, username, year):
                             previous_url = previous_url,
                             username = username,
 			    primary_faculty = primary_faculty, 
-			    currentUser = g.user.username
+			    currentUser = g.user.username,
+			    faculty = faculty
                           )

@@ -8,7 +8,7 @@
 {% include "chair/nav_tabs.html" %}
 
 <div style="text-align:center;">
-    <h1>URCPP Parameters</h1>
+    <h1 id = "top">URCPP Parameters</h1>
 </div>
 <div style="text-align:center;">
     <p>
@@ -19,7 +19,7 @@
  <!--Set the application end date-->
  <!--Set the mileage rate-->
  <!--Set the labor rate-->
-
+<div class="row">
  <form id = "parametersForm"
        class = "form-horizontal col-sm-10 col-sm-offset-1"
        action = "/chair/setParameters"
@@ -113,7 +113,8 @@
               class = 'col-sm-4 control-label'>
          Mileage Rate
       </label>
-      <div class = 'col-sm-8'>
+      <div class = 'col-sm-8 input-group' style="padding-left:15px; padding-right: 15px;">
+	<span class="input-group-addon">$</span>
         <input  name  = 'mileageRate' 
                   id    = 'mileageRate' 
                   type  = 'number' 
@@ -132,7 +133,9 @@
               class = 'col-sm-4 control-label'>
          Labor Rate
       </label>
-      <div class = 'col-sm-8'>
+     <div class = 'col-sm-8 input-group' style="padding-left:15px; padding-right: 15px;">
+
+	<span class="input-group-addon">$</span>
         <input  name  = 'laborRate' 
                   id    = 'laborRate' 
                   type  = 'number' 
@@ -272,7 +275,7 @@
       </div>
     </div>
   </form>
-  
+</div>  
   {% include "snips/parametersTable.html" %}
  
 

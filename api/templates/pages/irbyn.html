@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% block title %} IRB Approval {% endblock %}
 {% set currentPage = "IRB" %}
 {% block body %}
 <ol class="breadcrumb">
   <li><a href="/">Home</a></li>
   <li><a href="/create">Create</a></li>
   <li><a href="/people">People</a></li>
-  <li><a href="/history">History</a></li>
+  <li><a href="/people">Collaborations</a></li>
   <li class="active">IRB</li>
 </ol>
 <div class = "row">
@@ -62,13 +63,11 @@
             </label>
           </div>
       </div>
-    </div>
-  </div>
-  </br>
-  <div class="row"> 
+      <br>
+      <div class="row"> 
     <div class = "form-group"  >
        <div class = "col-sm-1">
-      <input type="button" value="Back" onclick="window.history.back()" class="btn btn-primary"/> 
+      <input type="button" value="Back" onclick=window.location.replace("/people") class="btn btn-primary"/> 
       </input>
     </div>
         <div class = "col-sm-offset-9 col-sm-2" 
@@ -84,6 +83,9 @@
         </div>
     </div>
   </div>
+    </div>
+  </div>
+  </br>
+  
   </form>
-
 {% endblock %}

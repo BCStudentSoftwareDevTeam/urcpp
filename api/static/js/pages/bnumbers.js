@@ -1,5 +1,5 @@
 api = urcpp("v1")
-
+0
 // In milliseconds
 var BNUMBERCHECKDELAY = 250;
 
@@ -37,7 +37,7 @@ function setBNumberStatus (id) {
         $("#submit").prop('disabled', false);
       }
     } else if (data["response"] == "USER") {
-      $(selector).removeClass( "has-success");
+      $(selector).removeClass("has-success");
       $(selector).addClass("has-error");
       $(selector).append(user_alert);
       

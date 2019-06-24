@@ -1,3 +1,7 @@
 .modal .awardLetterClose {
     margin-top: -16px;
 }
+
+#emailPreviewModal .modal-dialog {
+  width: 75%;
+}

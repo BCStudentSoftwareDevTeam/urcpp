@@ -5,9 +5,6 @@ import os
 # Create a database
 from api.config import load_config
 
-# The path is relative to the top of the project.
-print("GETCWD MODELS: " + os.getcwd())
-
 
 here = os.path.dirname(__file__)
 

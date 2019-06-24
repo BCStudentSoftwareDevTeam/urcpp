@@ -1,60 +1,63 @@
-<table class="table table-bordered">
-    <caption style="padding-bottom: 20px"><strong>Past Parameters</strong></caption>
+<div class="row col-12">
+  <h2> Past URCPP Years</h2>
+  <table class="table table-bordered">
     <tr>
-        <th style="border: solid #2c3e50; text-align:center;">Year</th>
-        <th style="border: solid #2c3e50; text-align:center;">IRB Chair</th>
-        <th style="border: solid #2c3e50; text-align:center;">Current Chair</th>
-        <th style="border: solid #2c3e50; text-align:center;">Staff Support</th>
-        <th style="border: solid #2c3e50; text-align:center;">Mileage Rate</th>
-        <th style="border: solid #2c3e50; text-align:center;">Labor Rate</th>
-        <th style="border: solid #2c3e50; text-align:center;">Application Open Date</th>
-        <th style="border: solid #2c3e50; text-align:center;">Application Close Date</th>
-        <th style="border: solid #2c3e50; text-align:center;">Proposal Open Date</th>
-        <th style="border: solid #2c3e50; text-align:center;">Proposal Acceptance Date</th>
-        <th style="border: solid #2c3e50; text-align:center;">Proposal Closed Date</th>
-        <th style="border: solid #2c3e50; text-align:center;">Abstract/narratives Acceptance Date</th>
-        <th style="border: solid #2c3e50; text-align:center;">All Submissions Closed Date</th>
-        <th style="border: solid #2c3e50; text-align:center;">Actions</th>
+        <th>Year</th>
+        <th>IRB Chair</th>
+        <th>Current Chair</th>
+        <th>Staff Support</th>
+        <th>Mileage Rate</th>
+        <th>Labor Rate</th>
+        <th>Applications Open</th>
+        <th>Applications Close</th>
+        <th>Proposals Open</th>
+        <th>Proposals Reviewed</th>
+        <th>Proposal Closed</th>
+        <th>Abstract/Narratives Due</th>
+        <th>Submissions Close</th>
+        <th>Actions</th>
         
         
     </tr>
     {% for parameter in parameters_list %}
-    <tr>
-        <td id = "{{parameter.year}}_year" style="border: solid #2c3e50; text-align:center;">{{parameter.year}}</td>
-        <td id = "{{parameter.year}}_irb" style="border: solid #2c3e50; text-align:center;" data-value = {{parameter.IRBchair_id.username}}>{{parameter.IRBchair_id.firstname}} {{parameter.IRBchair_id.lastname}}</td>
-        <td id = "{{parameter.year}}_chair" style="border: solid #2c3e50; text-align:center;" data-value = {{parameter.currentchair_id.username}}>{{parameter.currentchair_id.firstname}} {{parameter.currentchair_id.lastname}}</td>
-        <td id = "{{parameter.year}}_staff" style="border: solid #2c3e50; text-align:center;" data-value = {{parameter.staffsupport_id.username}}>{{parameter.staffsupport_id.firstname}} {{parameter.staffsupport_id.lastname}}</td>
-        <td id = "{{parameter.year}}_mile" style="border: solid #2c3e50; text-align:center;" data-value = {{parameter.mileageRate}}>${{parameter.mileageRate}}</td>
-        <td id = "{{parameter.year}}_labor" style="border: solid #2c3e50; text-align:center;" data-value = {{parameter.laborRate}}>${{'%0.2f'| format(parameter.laborRate|float)}}</td>
-        <td id = "{{parameter.year}}_appopen" style="border: solid #2c3e50; text-align:center;" data-value = {{parameter.appOpenDate}}>{{parameter.appOpenDate.strftime('%Y/%m/%d')}}</td>
-        <td id = "{{parameter.year}}_appclose" style="border: solid #2c3e50; text-align:center;" data-value = {{parameter.appCloseDate}}>{{parameter.appCloseDate.strftime('%Y/%m/%d')}}</td>
-        <td id = "{{parameter.year}}_proposalopen" style="border: solid #2c3e50; text-align:center;" data-value = {{parameter.ProposalOpenDate}}>{{parameter.ProposalOpenDate.strftime('%Y/%m/%d')}}</td>
-        <td id = "{{parameter.year}}_proposalaccept" style="border: solid #2c3e50; text-align:center;" data-value = {{parameter.ProposalAcceptanceDate}}>{{parameter.ProposalAcceptanceDate.strftime('%Y/%m/%d')}}</td>
-        <td id = "{{parameter.year}}_proposalclose" style="border: solid #2c3e50; text-align:center;" data-value = {{parameter.ProposalClosedDate}}>{{parameter.ProposalClosedDate.strftime('%Y/%m/%d')}}</td>
-        <td id = "{{parameter.year}}_abstract" style="border: solid #2c3e50; text-align:center;" data-value = {{parameter.AbstractnarrativesAcceptanceDate}}>{{parameter.AbstractnarrativesAcceptanceDate.strftime('%Y/%m/%d')}}</td>
-        <td id = "{{parameter.year}}_allsubmit" style="border: solid #2c3e50; text-align:center;" data-value = {{parameter.AllSubmissionsClosedDate}}>{{parameter.AllSubmissionsClosedDate.strftime('%Y/%m/%d')}}</td>
-        <td  style="border: solid #2c3e50; text-align:center;">
+    <tr id = "paramsRow">
+        <td id = "{{parameter.year}}_year">{{parameter.year}}</td>
+        <td id = "{{parameter.year}}_irb" data-value = {{parameter.IRBchair_id.username}}>{{parameter.IRBchair_id.firstname}} {{parameter.IRBchair_id.lastname}}</td>
+        <td id = "{{parameter.year}}_chair" data-value = {{parameter.currentchair_id.username}}>{{parameter.currentchair_id.firstname}} {{parameter.currentchair_id.lastname}}</td>
+        <td id = "{{parameter.year}}_staff" data-value = {{parameter.staffsupport_id.username}}>{{parameter.staffsupport_id.firstname}} {{parameter.staffsupport_id.lastname}}</td>
+        <td id = "{{parameter.year}}_mile" data-value = {{parameter.mileageRate}}>${{'%0.2f'| format(parameter.mileageRate|float)}}</td>
+        <td id = "{{parameter.year}}_labor" data-value = {{parameter.laborRate}}>${{'%0.2f'| format(parameter.laborRate|float)}}</td>
+        <td id = "{{parameter.year}}_appopen" data-value = {{parameter.appOpenDate}}>{{parameter.appOpenDate.strftime('%Y/%m/%d')}}</td>
+        <td id = "{{parameter.year}}_appclose" data-value = {{parameter.appCloseDate}}>{{parameter.appCloseDate.strftime('%Y/%m/%d')}}</td>
+        <td id = "{{parameter.year}}_proposalopen" data-value = {{parameter.ProposalOpenDate}}>{{parameter.ProposalOpenDate.strftime('%Y/%m/%d')}}</td>
+        <td id = "{{parameter.year}}_proposalaccept" data-value = {{parameter.ProposalAcceptanceDate}}>{{parameter.ProposalAcceptanceDate.strftime('%Y/%m/%d')}}</td>
+        <td id = "{{parameter.year}}_proposalclose" data-value = {{parameter.ProposalClosedDate}}>{{parameter.ProposalClosedDate.strftime('%Y/%m/%d')}}</td>
+        <td id = "{{parameter.year}}_abstract" data-value = {{parameter.AbstractnarrativesAcceptanceDate}}>{{parameter.AbstractnarrativesAcceptanceDate.strftime('%Y/%m/%d')}}</td>
+        <td id = "{{parameter.year}}_allsubmit" data-value = {{parameter.AllSubmissionsClosedDate}}>{{parameter.AllSubmissionsClosedDate.strftime('%Y/%m/%d')}}</td>
+        <td>
             <div class= "row justify-content-md-center">
-                    <a id="delete_parameters" href={{url_for('deleteParameters', pID = parameter.pID)}}>
-                    <span class="glyphicon glyphicon-trash" 
-                        aria-hidden="true" 
-                        style= "color:#dc3545; padding-right: 5px; text-align:center;"
-                        title="Click to delete these parameters"
-                        > </span>
-                </a>
-                    <span class="glyphicon glyphicon-pencil" 
-                          style="cursor:help; padding-right: 3px; text-align:center;"
-                          title="Click to edit parameters"
-                          id="editParameters-{{parameter.pID}}"
-                          onclick="editParameters({{parameter.year}})" 
-                          > </span> 
-                    <span class="glyphicon glyphicon-ok isCurrentParameter {% if not parameter.isCurrentParameter %} disabled {% endif %}" 
-                          style="cursor:help; color:#28a745; text-align:center;"
-                          title="Click to make this the current cycle parameters"
+                <span class="glyphicon glyphicon-ok {% if parameter.isCurrentParameter %} isCurrentYear {% endif %}" 
+                          style="padding: 2px;"
+			  aria-hidden="true"
+                          title="Click here make this year the current application year."
                           id="set_current_parameters-{{parameter.pID}}"
                           onclick="set_current_parameters({{parameter.pID}})"
-                          > </span>
+                ></span>
+                <span class="glyphicon glyphicon-pencil" 
+                          style="padding: 2px;"
+                          title="Click to edit the parameters for this year"
+			  aria-hidden="true"
+                          id="editParameters-{{parameter.pID}}"
+                          onclick="editParameters({{parameter.year}})" 
+                ></span>
+ 		<a id="delete_parameters" href={{url_for('deleteParameters', pID = parameter.pID)}}>
+                        <span class="glyphicon glyphicon-trash" 
+                              aria-hidden="true" 
+                              style= "color:#dc3545; padding: 2px;"
+                              title="Click to delete this year. "
+                        ></span></a>
             </div>
 
        {% endfor %}
 </table>
+</div>
