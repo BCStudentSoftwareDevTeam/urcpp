@@ -1,30 +1,30 @@
 /* global $, swal */ 
 $(function() {
       $("#applicationOpenDate").datepicker({
-        dateFormat: "yy-mm-dd"
+        dateFormat: "mm/dd/yy"
       });
       
       $("#applicationCloseDate").datepicker({
-        dateFormat: "yy-mm-dd"
+        dateFormat: "mm/dd/yy"
       });
       
       $("#ProposalOpenDate").datepicker({
-        dateFormat: "yy-mm-dd"
+        dateFormat: "mm/dd/yy"
       });
       $("#ProposalAcceptanceDate").datepicker({
-        dateFormat: "yy-mm-dd"
+        dateFormat: "mm/dd/yy"
       });
       
        $("#ProposalClosedDate").datepicker({
-        dateFormat: "yy-mm-dd"
+        dateFormat: "mm/dd/yy"
       });
       
        $("#AbstractnarrativesAcceptanceDate").datepicker({
-        dateFormat: "yy-mm-dd"
+        dateFormat: "mm/dd/yy"
       });
       
        $("#AllSubmissionsClosedDate").datepicker({
-        dateFormat: "yy-mm-dd"
+        dateFormat: "mm/dd/yy"
       });
     });
     

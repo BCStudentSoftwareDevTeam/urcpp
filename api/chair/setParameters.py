@@ -3,7 +3,7 @@ from ..redirectback import redirect_url
 import datetime
 from ..API.parameters import getCurrentParameters
 
-
+dateFormat = '%m/%d/%Y'
 @app.route("/chair/setParameters", methods = ["GET", "POST"])
 @login_required
 def setParameters_GET ():
@@ -11,18 +11,17 @@ def setParameters_GET ():
     abort(403)
   if request.method == 'POST':
     data = request.form
-    openDate = datetime.datetime.strptime(data['applicationOpenDate'], '%Y-%m-%d')
+    openDate = datetime.datetime.strptime(data['applicationOpenDate'], dateFormat)
     closeDate = (datetime.datetime
-                         .strptime(data['applicationCloseDate'], '%Y-%m-%d')
+                         .strptime(data['applicationCloseDate'], dateFormat)
                          .replace(hour=11, minute=55) )
-    ProposalOpenDate = datetime.datetime.strptime(data['ProposalOpenDate'], '%Y-%m-%d')
-    ProposalAcceptanceDate = datetime.datetime.strptime(data['ProposalAcceptanceDate'], '%Y-%m-%d')
-    ProposalClosedDate = ( datetime.datetime.strptime(data['ProposalClosedDate'], '%Y-%m-%d')
-					  .replace(hour=11, minute=55) )
+#    ProposalOpenDate = datetime.datetime.strptime(data['ProposalOpenDate'], dateFormat)
+    ProposalAcceptanceDate = datetime.datetime.strptime(data['ProposalAcceptanceDate'], dateFormat)
+#    ProposalClosedDate = ( datetime.datetime.strptime(data['ProposalClosedDate'], dateFormat).replace(hour=11, minute=55) )
 
-    AbstractnarrativesAcceptanceDate = ( datetime.datetime.strptime(data['AbstractnarrativesAcceptanceDate'], '%Y-%m-%d')							       .replace(hour=11, minute=55) )
+ #   AbstractnarrativesAcceptanceDate = ( datetime.datetime.strptime(data['AbstractnarrativesAcceptanceDate'], dateFormat).replace(hour=11, minute=55) )
 
-    AllSubmissionsClosedDate = ( datetime.datetime.strptime(data['AllSubmissionsClosedDate'], '%Y-%m-%d')
+    AllSubmissionsClosedDate = ( datetime.datetime.strptime(data['AllSubmissionsClosedDate'], dateFormat)
 						  .replace(hour=11, minute=55) )
 
  
@@ -44,10 +43,10 @@ def setParameters_GET ():
     parameters.staffsupport_id = data['staffsupport_id']
     parameters.appOpenDate = openDate
     parameters.appCloseDate = closeDate
-    parameters.ProposalOpenDate = ProposalOpenDate
+  #  parameters.ProposalOpenDate = ProposalOpenDate
     parameters.ProposalAcceptanceDate = ProposalAcceptanceDate
-    parameters.ProposalClosedDate = ProposalClosedDate
-    parameters.AbstractnarrativesAcceptanceDate = AbstractnarrativesAcceptanceDate
+  #  parameters.ProposalClosedDate = ProposalClosedDate
+  #  parameters.AbstractnarrativesAcceptanceDate = AbstractnarrativesAcceptanceDate
     parameters.AllSubmissionsClosedDate = AllSubmissionsClosedDate
     parameters.mileageRate = data['mileageRate']
     parameters.laborRate = data['laborRate']

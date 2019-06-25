@@ -3,6 +3,7 @@ $(document).ready(animate);
 function animate(){
   var progressBar = $(".project-progress-bar");
   var projStatus = progressBar.data('status');
+  console.log("projStatus: " + projStatus);
   // if (projStatus == "Reject"){
   //   var accept = $("#accept");
   //   accept.attr("id", "reject");
@@ -10,7 +11,9 @@ function animate(){
     
   //   accept.find("label").text("Denied");
   // }
+  //TODO if applications are still open:
   var point = progressBar.find("#" + projStatus);
+  //TODO if applications are closed: point = "#abstract_submission"
   point.addClass('point--active');
   point.prevAll().addClass('point--complete');
   point.nextAll().removeClass('point--complete');
@@ -20,33 +23,39 @@ function animate(){
 
 function fillProgressBar(projStatus) {
   console.log(projStatus);
-  var fillPercent = 25;
+  var fillPercent = 33.3;
   var step = 0;
   switch (projStatus) {
     case "AllClosed":
-      step = 6;
-      break;
-    case "Abstract":
-      step = 5;
-      break;
-    case "Reject":
-      step = 6;
-      break;
-    case "Accept":
-      step = 4;
-      break;
-    case "Pending":
       step = 3;
       break;
-    case "PanelClosed":
+    case "Abstract":
       step = 2;
+      break;
+    case "Reject":
+      step = 3;
+      break;
+    case "Accept":
+      //TODO if applications are close, abstracts are open, step = 2
+      //TODO if abstracts are past due, step = 3
+      step = 2;
+      break;
+    case "Pending":
+      //TODO if applications are close, step = 3
+      step = 2;
+      break;
     case "Incomplete":
+      //TODO if applications are closed, step = 3 
       step = 1;
       break;
-    default:
+    case "start":
+      //TODO if applications are closed, step = 3
       step = 0;
+      break;
+    default:
+      step = 4;
   }
-  console.log(step*fillPercent);
+  console.log(step * fillPercent);
   document.getElementById("bar_fill").style.width = (step*fillPercent) + "%";
 }
 
