@@ -64,12 +64,14 @@ function fillProgressBar(projStatus, dateState) {
       //TODO if applications are closed, step = 3
       if (dateState == "reviewopen") {
 	step = 2
+      } else if (dateState == "absopen"){
+        step = 3;
       } else {
-        step = 0;
+	step = 0;
       }
       break;
     default:
-      step = 4;
+      step = 0;
   }
   console.log(step * fillPercent);
   document.getElementById("bar_fill").style.width = (step*fillPercent) + "%";
