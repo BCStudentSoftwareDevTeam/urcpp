@@ -1,6 +1,6 @@
 <h3 class = "text-center">
   {% if dateState == "preapp" %}URCPP Proposals will open on {{currentCycle.appOpenDate.strftime('%m/%d/%Y')}} 
-  {% elif dateState == "allclosed" %}Submissions are now closed for {{currentCycle.year}}. Apply again next year! 
+  {% else %}Submissions are now closed for {{currentCycle.year}}. Apply again next year! 
   {% endif %}
 </h3>
 <p class = "text-center">If you need additional support for your application, please contact the appropriate chair: </p>
