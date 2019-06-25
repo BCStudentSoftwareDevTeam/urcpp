@@ -10,11 +10,12 @@
     <h1>Hello, {{ldap.firstname}} {{ldap.lastname}}!</h1>
     <p></p>
     {# Project application/proposal button #}
-    <a href="   {% if proj %} {# start 3 #} 
+    {% if dateState == "appopen" or proj.status == "Pending" or proj.status == "Accept" or proj.status == "Reject" %} {# cfg handles these three states URL and messaging #}
+    <a href="   {% if proj %} 
                         {{cfg['projectStatusAction'][proj.status]['url']}}  {# Loads the URL for the project's current state #}
                 {% else %}
                         {{cfg['projectStatusAction']['Start']['url']}}      {# Loads the URL to start the proposal #}
-                {% endif %} {# end 3 #}">
+                {% endif %}">
         <button class="btn btn-default">
             <span>
                 {% if proj %} {# start 4 #} 
@@ -26,8 +27,8 @@
             <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
         </button>
     </a>
-{% if proj.status != cfg["projectStatus"]["Reject"] %}<!--UPLOAD BUTTONS--> {# Project wasn't rejected by the committee #}
-    {% if proj.status == cfg["projectStatus"]["Incomplete"] or proj.status == cfg["projectStatus"]["Pending"] or proj.status == cfg["projectStatus"]["Accept"] %} {# project is in Incomplete, Pending, or Accepted states #}
+    {% endif %}
+    {% if proj.status != cfg["projectStatus"]["Reject"] and dateState == "appopen" %}<!--UPLOAD BUTTONS--> {# Project wasn't rejected by the committee #}
         <a href="/upload/vitae?source=home">
             <button class="btn btn-default">
                 <span>Upload a Curriculum vitae</span>
@@ -35,7 +36,7 @@
             </button>
         </a>
     {% endif %}
-    {% if today > currentCycle.ProposalAcceptanceDate and today < currentCycle.AllSubmissionsClosedDate %}
+    {% if dateState == "absopen" and proj.status == cfg["projectStatus"]["Accept"] %}
 	{# Only show when before All submissions closed, after Proposals accepted #}
         <a href="/upload/abstract?source=home">
             <button class="btn btn-default">
@@ -43,7 +44,6 @@
                 <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
             </button>
         </a>
-    {% endif %} {# end6 #}
-{% endif %}<!---If user has not started appplication, do not show upload buttons--> {# end 5 #}
+    {% endif %}<!---If user has not started appplication, do not show upload buttons--> {# end 5 #}
 </div>
 

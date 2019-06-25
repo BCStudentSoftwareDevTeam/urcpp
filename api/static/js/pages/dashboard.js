@@ -4,6 +4,8 @@ function animate(){
   var progressBar = $(".project-progress-bar");
   var projStatus = progressBar.data('status');
   console.log("projStatus: " + projStatus);
+  var dateState = $("#dateStateDiv").data('datestate');
+  console.log("Date State: " + dateState);
   // if (projStatus == "Reject"){
   //   var accept = $("#accept");
   //   accept.attr("id", "reject");
@@ -14,31 +16,37 @@ function animate(){
   //TODO if applications are still open:
   var point = progressBar.find("#" + projStatus);
   //TODO if applications are closed: point = "#abstract_submission"
+  if (dateState == "reviewopen") {
+    point = progressBar.find("#pending")
+  }
+  if (dateState == "absopen") {
+    point = progressBar.find("#Accept")
+  }
   point.addClass('point--active');
   point.prevAll().addClass('point--complete');
   point.nextAll().removeClass('point--complete');
   
-  fillProgressBar(projStatus);
+  fillProgressBar(projStatus, dateState);
 }
 
-function fillProgressBar(projStatus) {
+function fillProgressBar(projStatus, dateState) {
   console.log(projStatus);
-  var fillPercent = 33.3;
+  var fillPercent = 25;
   var step = 0;
   switch (projStatus) {
     case "AllClosed":
-      step = 3;
+      step = 4;
       break;
     case "Abstract":
-      step = 2;
+      step = 3;
       break;
     case "Reject":
       step = 3;
       break;
     case "Accept":
-      //TODO if applications are close, abstracts are open, step = 2
-      //TODO if abstracts are past due, step = 3
-      step = 2;
+      //TODO if applications are close, abstracts are open, step = 3
+      //TODO if abstracts are past due, step = 4
+      step = 3;
       break;
     case "Pending":
       //TODO if applications are close, step = 3
@@ -46,11 +54,19 @@ function fillProgressBar(projStatus) {
       break;
     case "Incomplete":
       //TODO if applications are closed, step = 3 
-      step = 1;
+       if (dateState != "appopen") {
+	 step = 2;
+       } else {
+   	 step = 1;
+       }
       break;
-    case "start":
+    case "Start":
       //TODO if applications are closed, step = 3
-      step = 0;
+      if (dateState == "reviewopen") {
+	step = 2
+      } else {
+        step = 0;
+      }
       break;
     default:
       step = 4;

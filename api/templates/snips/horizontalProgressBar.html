@@ -11,28 +11,32 @@
             </div>
             <div class="point" id="incomplete">
                 <div class="bullet"></div>
-                <label class="bar-label">{% if proj.status == "Incomplete"%}Application Incomplete{% elif proj.status == "Pending" %}Application Complete{% else %}<a href="{{url_for('create_GET')}}">Start Application</a>{% endif %}</label>
+                <label class="bar-label"  style="text-align: center">
+			{% if proj.status == "Incomplete"%}Application Incomplete
+			{% elif proj.status == "Pending" %}Application Complete
+			{% else %}
+			   {% if dateState == "appopen" %}<a href="{{url_for('create_GET')}}">Start Your Application</a>
+			    {% else %} Applications Closed for {{currentCycle.year}}
+			   {% endif %}
+			{% endif %}
+	         </label>
             </div>
-            <div class="point" id="proposal_close_date">
+            <div class="point" id="pending">
                 <div class="bullet"></div>
-                <label class="bar-label" style="text-align: center">Proposals Due: <br><small style="font-size:12px;" "text-align: center;">({{currentCycle.appCloseDate.strftime("%m/%d/%Y")}})</small></label>
+                <label class="bar-label" style="text-align: center">Proposals Due: <br><small style="font-size:12px;" "text-align: center;">{{currentCycle.appCloseDate.strftime("%m/%d/%Y")}}</small></label>
             </div>
 {#            <div class="point" id="pending">
                 <div class="bullet"></div>
                 <label class="bar-label">Pending</label>
             </div> #}
-            {% if proj.status == cfg["projectStatus"]["Reject"] %} {# start 8 #}
-            <div class="point" id="review_date">
+            <div class="point" id="Accept">
                 <div class="bullet"></div>
                 <label class="bar-label" style="text-align: center">Application Reviews Complete: <br><small style="font-size:12px;" "text-align: center;">{{currentCycle.ProposalAcceptanceDate.strftime("%m/%d/%Y")}}</small></label>
             </div>
-            {% else %}
 {#            <div class="point" id="accept">
                 <div class="bullet"></div>
                 <label class="bar-label" style="text-align: center">Decision Reached <br><small style="font-size:12px;" "text-align: center;">(Proposal Acceptance Date: {{currentCycle.ProposalAcceptanceDate.strftime("%Y/%m/%d")}})</small></label>
             </div> #}
-            {% endif %} {# end 8 #}
-            {% if proj.status != cfg["projectStatus"]["Reject"] %} {# start 9 #}
             <div class="point" id="abstract_submission">
                 <div class="bullet"></div>
                 <label class="bar-label" style="text-align: center">Abstracts Due:<br><small style="font-size:12px;" "text-align: center;">{{currentCycle.AbstractnarrativesAcceptanceDate.strftime("%m/%d/%Y")}}</small></label>
@@ -41,7 +45,6 @@
                 <div class="bullet"></div>
                 <label class="bar-label" style="text-align: center">All Submissions Close <br><small style="font-size:12px;" "text-align: center;">({{currentCycle.AllSubmissionsClosedDate.strftime("%Y/%m/%d")}})</small></label>
             </div> #}
-            {% endif %} {# end 9 #}
         </div>
     </div>
 </div>

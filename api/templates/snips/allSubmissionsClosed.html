@@ -1,4 +1,8 @@
-<h3 class = "text-center">Submissions are now closed for {{currentCycle.year}}.</h3>
+<h3 class = "text-center">
+  {% if dateState == "preapp" %}URCPP Proposals will open on {{currentCycle.appOpenDate.strftime('%m/%d/%Y')}} 
+  {% elif dateState == "allclosed" %}Submissions are now closed for {{currentCycle.year}}. Apply again next year! 
+  {% endif %}
+</h3>
 <p class = "text-center">If you need additional support for your application, please contact the appropriate chair: </p>
 <p class = "text-center">{{currentCycle.year}} URCPP Chair: <a href = "mailto:{{email_currentchair}}" target="_blank">{{currentCycle.currentchair_id.firstname}} {{currentCycle.currentchair_id.lastname}} </a>
 </p>

@@ -6,53 +6,52 @@
 {% block body %}
 <br/>
 {% include "snips/messages.html" %}
-{% if today > currentCycle.AllSubmissionsClosedDate or today < currentCycle.appOpenDate %}
-  {# Submissions closed, load no buttons #}
+<div id="dateStateDiv" data-datestate = "{{dateState}}" hidden></div>
+{% if dateState == "preapp"  %}
+  {# Before the applications have opened #}
   {% with ldap = ldap %}
     {% include "snips/jumbotron.html" %} {# Jumbotron with no buttons #}
   {% endwith %}
 
-  {% with currentCycle = currentCycle, email_currentchair=email_currentchair,email_staffsupport=email_staffsupport,email_IRBchair=email_IRBchair %}
+  {% with dateState = dateState, currentCycle = currentCycle, email_currentchair=email_currentchair,email_staffsupport=email_staffsupport,email_IRBchair=email_IRBchair %}
     {% include "snips/allSubmissionsClosed.html" %}
   {% endwith %}
-{% else %}
-
+{% elif dateState == "appopen" %}
   {# Submissions are not closed #}
-  {% if today > currentCycle.appOpenDate and today < currentCycle.appCloseDate %}
     {# Load jumbotron with buttons #}
-    {% with ldap = ldap, proj=proj, cfg=cfg %}
-      {% include "snips/jumbotron-buttons.html" %}
-    {% endwith %}
-    {# Load horizontal Progress Bar template #}
-    {% with proj=proj, currentCycle=currentCycle %}
-      {% include "snips/horizontalProgressBar.html" %}
-    {% endwith %}
-  {% endif %}
+  {% with ldap = ldap, proj=proj, cfg=cfg %}
+    {% include "snips/jumbotron-buttons.html" %}
+  {% endwith %}
+  {# Load horizontal Progress Bar template #}
+  {% with proj=proj, currentCycle=currentCycle, dateState = dateState %}
+    {% include "snips/horizontalProgressBar.html" %}
+  {% endwith %}
+{% elif dateState == "reviewopen" %}
+  {# Applications are pending approval; no buttons #}
+  {% with ldap = ldap, proj=proj, cfg=cfg %}
+    {% include "snips/jumbotron-buttons.html" %} {# Jumbotron with no buttons #}
+  {% endwith %}
+  {# Load horizontal Progress Bar template #}
+  {% with proj=proj, currentCycle=currentCycle, dateState = dateState %}
+    {% include "snips/horizontalProgressBar.html" %}
+  {% endwith %}
+{% elif dateState == "absopen" %}
+  {# Abstracts can now be submitted #}
+  {% with ldap = ldap, proj=proj, cfg=cfg %}
+    {% include "snips/jumbotron-buttons.html" %}
+  {% endwith %}
+  {# Load horizontal Progress Bar template #}
+  {% with proj=proj, currentCycle=currentCycle, dateState = dateState %}
+    {% include "snips/horizontalProgressBar.html" %}
+  {% endwith %}
+{% elif dateState == "allclosed" %}
+  {% with ldap = ldap, proj=proj, cfg=cfg %}
+    {% include "snips/jumbotron-buttons.html" %} {# Jumbotron with no buttons #}
+  {% endwith %}
 
-  {% if today > currentCycle.appCloseDate and today < currentCycle.ProposalAcceptanceDate %}
-    {# Applications are pending approval; no buttons #}
-    {% with ldap = ldap, proj=proj, cfg=cfg %}
-      {% include "snips/jumbotron-buttons.html" %} {# Jumbotron with no buttons #}
-    {% endwith %}
-    {# Load horizontal Progress Bar template #}
-    {% with proj=proj, currentCycle=currentCycle %}
-      {% include "snips/horizontalProgressBar.html" %}
-    {% endwith %}
-  {% endif %}
-
-  {% if today > currentCycle.ProposalAcceptanceDate and today < currentCycle.AllSubmissionsClosedDate%}
-    {# Abstracts can now be submitted #}
-    {% with ldap = ldap, proj=proj, cfg=cfg %}
-      {% include "snips/jumbotron-buttons.html" %}
-    {% endwith %}
-    {# Load horizontal Progress Bar template #}
-    {% with proj=proj, currentCycle=currentCycle %}
-      {% include "snips/horizontalProgressBar.html" %}
-    {% endwith %}
-  {% endif %}
-
+  {% with dateState = dateState, currentCycle = currentCycle, email_currentchair=email_currentchair,email_staffsupport=email_staffsupport,email_IRBchair=email_IRBchair %}
+    {% include "snips/allSubmissionsClosed.html" %}
+  {% endwith %}
 {% endif %}
-
-
 
 {% endblock %}
