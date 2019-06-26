@@ -1,11 +1,30 @@
 /* global $, swal */ 
 $(function() {
       $("#applicationOpenDate").datepicker({
-        dateFormat: "yy-mm-dd"
+        dateFormat: "mm/dd/yy"
       });
       
       $("#applicationCloseDate").datepicker({
-        dateFormat: "yy-mm-dd"
+        dateFormat: "mm/dd/yy"
+      });
+      
+      $("#ProposalOpenDate").datepicker({
+        dateFormat: "mm/dd/yy"
+      });
+      $("#ProposalAcceptanceDate").datepicker({
+        dateFormat: "mm/dd/yy"
+      });
+      
+       $("#ProposalClosedDate").datepicker({
+        dateFormat: "mm/dd/yy"
+      });
+      
+       $("#AbstractnarrativesAcceptanceDate").datepicker({
+        dateFormat: "mm/dd/yy"
+      });
+      
+       $("#AllSubmissionsClosedDate").datepicker({
+        dateFormat: "mm/dd/yy"
       });
     });
     
@@ -13,54 +32,53 @@ $('.selectpicker').selectpicker({
 });
 
 function change_check_color(parameters_id){
-  $(".isCurrentParameter").addClass("disabled");
+  $(".isCurrentYear").removeClass("isCurrentYear");
   
-  $("#set_current_parameters-"+parameters_id).removeClass("disabled")
+  $("#set_current_parameters-"+parameters_id).addClass("isCurrentYear")
 }
 
- function set_current_parameters(parameters_id) {
+function set_current_parameters(parameters_id) {
     swal({
-  title: "Are you sure?",
-  text: "This will change the current cycle to be under these parameters",
-  type: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#DD6B55",
-  confirmButtonText: "Confirm",
-  cancelButtonText: "Cancel",
-  closeOnConfirm: true,
-  closeOnCancel: false
-},
-function(isConfirm){
-  if (isConfirm) {
-    $.get('/set/current_parameters/'+ parameters_id, function( data ){
-    change_check_color(parameters_id);
+  	title: "Are you sure?",
+  	text: "This will change the current cycle to be under these parameters",
+  	type: "warning",
+  	showCancelButton: true,
+  	confirmButtonColor: "#DD6B55",
+  	confirmButtonText: "Confirm",
+  	cancelButtonText: "Cancel",
+  	closeOnConfirm: true,
+  	closeOnCancel: false
+    },
+    function(isConfirm){
+  	if (isConfirm) {
+    		$.get('/set/current_parameters/'+ parameters_id, function(data){
+    			change_check_color(parameters_id);
+    		});
+  	} else {
+    		swal("Cancelled", "No changes made.");
+  	}
     });
-  } else {
-    swal("Cancelled", "Everything is normal");
-  }
-});
-
-  };
+};
   
 function warnBeforeRedirect(url) {
   swal({
-  title: "Are you sure?",
-  text: "This will delete these parameters and may cause unexpected behavior",
-  type: "warning",
-  showCancelButton: true,
-  confirmButtonColor: "#DD6B55",
-  confirmButtonText: "Confirm",
-  cancelButtonText: "Cancel",
-  closeOnConfirm: false,
-  closeOnCancel: false
-},
-function(isConfirm){
-  if (isConfirm) {
-    location.replace(url);
-  } else {
-    swal("Cancelled", "Nothing has changed");
-  }
-});
+  	title: "Are you sure?",
+  	text: "This will delete the URCPP application for this year, including all projects!",
+  	type: "warning",
+  	showCancelButton: true,
+  	confirmButtonColor: "#DD6B55",
+  	confirmButtonText: "Confirm",
+  	cancelButtonText: "Cancel",
+  	closeOnConfirm: false,
+  	closeOnCancel: false
+   },
+   function(isConfirm){
+  	if (isConfirm) {
+    		location.replace(url);
+  	} else {
+    		swal("Cancelled", "Nothing has changed");
+  	}
+   });
 }
   
 $("#delete_parameters").click(function(e) {
@@ -70,25 +88,25 @@ $("#delete_parameters").click(function(e) {
 });
 
 function editParameters(year){
-  //populates inputs above table with info from set parameter
-  // console.log("editParemeters called yo");
-  
-  // var year = document.getElementById('parameterYear').innerHTML;
-  document.getElementById('newYear').value=(year);
-
-  var unformattedOpenDate = document.getElementById('openDate'+year).innerHTML;
-  var openDate = unformattedOpenDate.replace(/\//g, "-")
-  document.getElementById('applicationOpenDate').value=(openDate);
-  
-  var unformattedCloseDate = document.getElementById('closeDate'+year).innerHTML;
-  var closeDate = unformattedCloseDate.replace(/\//g, "-") //Replaces "/" with "-"
-  document.getElementById('applicationCloseDate').value=(closeDate);
-  
-  var mileageRate = document.getElementById('mileageRates'+year).innerHTML.substr(1);
-  document.getElementById('mileageRate').value=(mileageRate);
-  
-  var laborRate = document.getElementById('laborRates'+year).innerHTML.substr(1);
-  document.getElementById('laborRate').value=(laborRate);
+  //populates inputs in above table with info from lower table
+  // console.log($("#"+year+"_staff").attr("data-value"))
+  // console.log($("#IRBchair_id").val())
+  // console.log($("#staffsupport_id").val())
+  $("#newYear")[0].value=$("#"+year+"_year")[0].innerText;
+  $("#IRBchair_id").val($("#"+year+"_irb").attr("data-value"));
+  $("#currentchair_id").val($("#"+year+"_chair").attr("data-value"));
+  $("#staffsupport_id").val($("#"+year+"_staff").attr("data-value"));
+  $("#mileageRate").val(parseFloat($("#"+year+"_mile").attr("data-value")).toFixed(2));
+  $("#laborRate").val(parseFloat($("#"+year+"_labor").attr("data-value")).toFixed(2));
+  $("#applicationOpenDate").val($("#"+year+"_appopen").attr("data-value"));
+  $("#applicationCloseDate").val($("#"+year+"_appclose").attr("data-value"));
+  $("#ProposalOpenDate").val($("#"+year+"_proposalopen").attr("data-value"));
+  $("#ProposalAcceptanceDate").val($("#"+year+"_proposalaccept").attr("data-value"));
+  $("#ProposalClosedDate").val($("#"+year+"_proposalclose").attr("data-value"));
+  $("#AbstractnarrativesAcceptanceDate").val($("#"+year+"_abstract").attr("data-value"));
+  $("#AllSubmissionsClosedDate").val($("#"+year+"_allsubmit").attr("data-value"));
+  $(".selectpicker").selectpicker('refresh');
+  window.scrollTo(0, 0);  // Send user to the top of the page
 }
 
 $("#laborRate").change(function() {

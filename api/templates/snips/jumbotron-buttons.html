@@ -1,0 +1,49 @@
+<div class = "col-lg-6">
+    <h1>URCPP @ Berea College</h1>
+</div>
+<div class="col-lg-6">
+<br/>
+{% include 'snips/menu.html'%}
+</div>
+<br/>
+<div class="jumbotron">
+    <h1>Hello, {{ldap.firstname}} {{ldap.lastname}}!</h1>
+    <p></p>
+    {# Project application/proposal button #}
+    {% if dateState == "appopen" or proj.status == "Pending" or proj.status == "Accept" or proj.status == "Reject" %} {# cfg handles these three states URL and messaging #}
+    <a href="   {% if proj %} 
+                        {{cfg['projectStatusAction'][proj.status]['url']}}  {# Loads the URL for the project's current state #}
+                {% else %}
+                        {{cfg['projectStatusAction']['Start']['url']}}      {# Loads the URL to start the proposal #}
+                {% endif %}">
+        <button class="btn btn-default">
+            <span>
+                {% if proj %} {# start 4 #} 
+                        {{ cfg['projectStatusAction'][proj.status]['msg']}}
+                {% else %}
+                        {{cfg['projectStatusAction']['Start']['msg']}}
+                {% endif %} {# end 4 #}
+            </span>
+            <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+        </button>
+    </a>
+    {% endif %}
+    {% if proj.status != cfg["projectStatus"]["Reject"] and dateState == "appopen" %}<!--UPLOAD BUTTONS--> {# Project wasn't rejected by the committee #}
+        <a href="/upload/vitae?source=home">
+            <button class="btn btn-default">
+                <span>Upload a Curriculum vitae</span>
+                <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+            </button>
+        </a>
+    {% endif %}
+    {% if dateState == "absopen" and proj.status == cfg["projectStatus"]["Accept"] %}
+	{# Only show when before All submissions closed, after Proposals accepted #}
+        <a href="/upload/abstract?source=home">
+            <button class="btn btn-default">
+                <span>Upload an Abstract</span>
+                <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+            </button>
+        </a>
+    {% endif %}<!---If user has not started appplication, do not show upload buttons--> {# end 5 #}
+</div>
+

@@ -1,3 +1,19 @@
-.disabled {
-    color: #999;
+tr#paramsRow td {
+    text-align: center;
+}
+
+.table th {
+    text-align: center;
+}
+
+.glyphicon {
+    cursor: pointer;
+}
+.glyphicon-ok {
+    color: #939495;
+}
+
+.isCurrentYear {
+    text-align:center;
+    color: #28a745;
 }

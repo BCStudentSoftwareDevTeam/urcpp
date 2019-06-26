@@ -1,65 +1,64 @@
 {% extends "base.html" %}
 {% set currentPage = "dashboard" %}
 
-{% block title %} URCPP Project Basics {% endblock %}
+{% block title %} URCPP Applications {% endblock %}
 
 {% block body %}
 <br/>
 {% include "snips/messages.html" %}
-<div class = "col-lg-6">
-<h1>URCPP @ Berea College</h1>
-</div>
-<div class="col-lg-6">
-  <br/>
-  {% include 'snips/menu.html'%}
-</div>
-<br/>
-<div class="jumbotron">
-  <h1>Hello, {{ldap.firstname}} {{ldap.lastname}}!</h1>
-  <p></p>
-  <a href="{% if proj %} {{ cfg['projectStatusAction'][proj.status]['url']}}{% else %}{{cfg['projectStatusAction']['Start']['url']}}{% endif %}">
-    <button class="btn btn-default">
-    <span>{% if proj %} {{ cfg['projectStatusAction'][proj.status]['msg']}}{% else %}{{cfg['projectStatusAction']['Start']['msg']}}{% endif %}</span>
-    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-    </button>
-  </a> 
-  {% if proj.status == "Incomplete" or proj.status == "Pending" or proj.status == "Accept" %}
-  <a href="/upload/vitae?source=home">
-    <button class="btn btn-default">
-    <span>Upload a CV</span>
-    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-    </button>
-  </a>
-  {% endif %}
-</div>
-<div class="panel panel-default">
-  <div class="panel-body">
-    <div class="project-progress-bar"
-      data-status="{% if proj %}{{proj.status}}{% else %}start{% endif %}">
-      <div class="bar">
-        <div style="width: 33%;" id="bar_fill" class="bar__fill"></div>
-      </div>
-      <div class="point" id="start">
-        <div class="bullet"></div>
-        <label class="bar-label">Start</label>
-      </div>
-      <div class="point" id="incomplete">
-        <div class="bullet"></div>
-        <label class="bar-label">Incomplete</label>
-      </div>
-      <div class="point" id="pending">
-        <div class="bullet"></div>
-        <label class="bar-label">Pending</label>
-      </div>
-      <div class="point" id="accept">
-        <div class="bullet"></div>
-        <label class="bar-label">Decision Reached</label>
-      </div>
-    </div>
-  </div>
-</div>
+<div id="dateStateDiv" data-datestate = "{{dateState}}" hidden></div>
+{% if dateState == "preapp"  %}
+  {# Before the applications have opened #}
+  {% with ldap = ldap %}
+    {% include "snips/jumbotron-buttons.html" %} {# Jumbotron with no buttons #}
+  {% endwith %}
 
+  {% with dateState = dateState, currentCycle = currentCycle, email_currentchair=email_currentchair,email_staffsupport=email_staffsupport,email_IRBchair=email_IRBchair %}
+    {% include "snips/allSubmissionsClosed.html" %}
+  {% endwith %}
+{% elif dateState == "appopen" %}
+  {# Submissions are not closed #}
+    {# Load jumbotron with buttons #}
+  {% with ldap = ldap, proj=proj, cfg=cfg %}
+    {% include "snips/jumbotron-buttons.html" %}
+  {% endwith %}
+  {# Load horizontal Progress Bar template #}
+  {% with proj=proj, currentCycle=currentCycle, dateState = dateState %}
+    {% include "snips/horizontalProgressBar.html" %}
+  {% endwith %}
+{% elif proj.status == cfg['projectStatus']['Incomplete'] %} {# If project is Incomplete after close date, they shouldn't be able to see progress bar. #}
+  {% with ldap = ldap, proj=proj, cfg=cfg %}
+    {% include "snips/jumbotron-buttons.html" %} {# Jumbotron with no buttons #}
+  {% endwith %}	
+  {% with dateState = dateState, currentCycle = currentCycle, email_currentchair=email_currentchair,email_staffsupport=email_staffsupport,email_IRBchair=email_IRBchair %}
+    {% include "snips/allSubmissionsClosed.html" %}
+  {% endwith %}
+{% elif dateState == "reviewopen" %}
+  {# Applications are pending approval; no buttons #}
+  {% with ldap = ldap, proj=proj, cfg=cfg %}
+    {% include "snips/jumbotron-buttons.html" %} {# Jumbotron with no buttons #}
+  {% endwith %}	
+  {# Load horizontal Progress Bar template #}
+  {% with proj=proj, currentCycle=currentCycle, dateState = dateState %}
+    {% include "snips/horizontalProgressBar.html" %}
+  {% endwith %}
+{% elif dateState == "absopen" %}
+  {# Abstracts can now be submitted #}
+  {% with ldap = ldap, proj=proj, cfg=cfg %}
+    {% include "snips/jumbotron-buttons.html" %}
+  {% endwith %}
+  {# Load horizontal Progress Bar template #}
+  {% with proj=proj, currentCycle=currentCycle, dateState = dateState %}
+    {% include "snips/horizontalProgressBar.html" %}
+  {% endwith %}
+{% elif dateState == "allclosed" %}
+  {% with ldap = ldap, proj=proj, cfg=cfg %}
+    {% include "snips/jumbotron-buttons.html" %} {# Jumbotron with no buttons #}
+  {% endwith %}
 
+  {% with dateState = dateState, currentCycle = currentCycle, email_currentchair=email_currentchair,email_staffsupport=email_staffsupport,email_IRBchair=email_IRBchair %}
+    {% include "snips/allSubmissionsClosed.html" %}
+  {% endwith %}
+{% endif %}
 
-    
 {% endblock %}

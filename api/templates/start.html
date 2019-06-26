@@ -15,7 +15,7 @@
    
    <ul style = "font-size: 150%;">
 
-      {% if currentCycle is not none and currentCycle.appOpenDate < today < currentCycle.appCloseDate %}
+      {% if currentCycle is not none and currentCycle.ProposalOpenDate < today < currentCycle.ProposalClosedDate %}
            {% if proj and proj.status == cfg["projectStatus"]["incomplete"] %}
                   <!--<a href = "/create">Continue a Previous URCPP Project Submission</a>-->
                   <div id="dashboard"></div>
@@ -27,9 +27,8 @@
       {% else %}
          <li>Submissions are now closed. <br />Please contact <a href = "mailto:heggens@berea.edu">Scott Heggen </a> if you need additional support for your application. </li>
          <li><a href = "/upload/abstract?source=home">Upload Abstract</a></li>
-         <li><a href = "upload/finalReport?source=home">Upload Final Report</a></li>
       {% endif %}
-      <li><a href = "/upload/vitae?source=home">Upload a CV</a></li>
+      <li><a href = "/upload/vitae?source=home">Upload a Curriculum vitae</a></li>
       
       
    </ul>

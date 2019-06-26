@@ -3,40 +3,77 @@ $(document).ready(animate);
 function animate(){
   var progressBar = $(".project-progress-bar");
   var projStatus = progressBar.data('status');
-  if (projStatus == "reject"){
-    var accept = $("#accept");
-    accept.attr("id", "reject");
-    accept.find("label").text("Denied");
-  }
+  console.log("projStatus: " + projStatus);
+  var dateState = $("#dateStateDiv").data('datestate');
+  console.log("Date State: " + dateState);
+  // if (projStatus == "Reject"){
+  //   var accept = $("#accept");
+  //   accept.attr("id", "reject");
+  //   document.getElementById("accept").setAttribute("id", "reject");
+    
+  //   accept.find("label").text("Denied");
+  // }
+  //TODO if applications are still open:
   var point = progressBar.find("#" + projStatus);
+  //TODO if applications are closed: point = "#abstract_submission"
+  if (dateState == "reviewopen") {
+    point = progressBar.find("#pending")
+  }
+  if (dateState == "absopen") {
+    point = progressBar.find("#Accept")
+  }
   point.addClass('point--active');
   point.prevAll().addClass('point--complete');
   point.nextAll().removeClass('point--complete');
   
-  fillProgressBar(projStatus);
+  fillProgressBar(projStatus, dateState);
 }
 
-function fillProgressBar(projStatus) {
-  var fillPercent = 33;
+function fillProgressBar(projStatus, dateState) {
+  console.log(projStatus);
+  var fillPercent = 25;
   var step = 0;
   switch (projStatus) {
+    case "AllClosed":
+      step = 4;
+      break;
+    case "Abstract":
+      step = 3;
+      break;
     case "Reject":
-      console.log("hello");
       step = 3;
       break;
     case "Accept":
+      //TODO if applications are close, abstracts are open, step = 3
+      //TODO if abstracts are past due, step = 4
       step = 3;
       break;
     case "Pending":
+      //TODO if applications are close, step = 3
       step = 2;
       break;
     case "Incomplete":
-      step = 1;
+      //TODO if applications are closed, step = 3 
+       if (dateState != "appopen") {
+	 step = 2;
+       } else {
+   	 step = 1;
+       }
+      break;
+    case "Start":
+      //TODO if applications are closed, step = 3
+      if (dateState == "reviewopen") {
+	step = 2
+      } else if (dateState == "absopen"){
+        step = 3;
+      } else {
+	step = 0;
+      }
       break;
     default:
       step = 0;
   }
-  console.log(step*fillPercent);
+  console.log(step * fillPercent);
   document.getElementById("bar_fill").style.width = (step*fillPercent) + "%";
 }
 
