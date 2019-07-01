@@ -9,3 +9,7 @@ secret_config.yaml
 api/static/files/
 secret*
 settings.py
+api/models.py
+api/config.yaml
+update-schema.py
+
