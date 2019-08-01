@@ -14,15 +14,15 @@
   {% endfor %}
   {% if fac is not none %}
 <div style="text-align:right;">
-  <form 
+  <form
         class = "form-inline"
         action = "/committee/allFiles"
         method = "POST">
-   <button id = "submit" 
-              type = "submit" 
+   <button id = "submit"
+              type = "submit"
               value = "Download all project files"
               class="btn btn-success"
-              data-toggle="tooltip" 
+              data-toggle="tooltip"
               title = "Download all project files"
               style = "background-color: white; color: #18bc9c; border-color: white; font-family: 'Lato','Helvetica Neue',Helvetica,Arial,sans-serif;"
               /> <span class="glyphicon glyphicon-download-alt"></span>
@@ -37,7 +37,7 @@
   <table class = "table table-striped table-hover table-sm" style="text-align: center;">
     <tr>
       <th style="padding-top: 12px; text-align: center;">Faculty/Proj. Title</th>
-      {% for header in ["Narrative", "Vitae", "IRB"]%}
+      {% for header in ["Narrative", "Vitae", "IRB", "Abstract"]%}
       <th style="padding-top: 12px; text-align: center;">
         {{header}}
       </th>
@@ -51,12 +51,12 @@
           <br />
           <span class = "small">{{person.pID.title|truncate(50, True)}}</span>
         </td>
-        {% for uploadType in ['narrative', 'vitae', 'irb'] %}
+        {% for uploadType in ['narrative', 'vitae', 'irb', 'abstract'] %}
         <td style="padding-top: 12px; text-align: center;">
           {% if files[person.username.username][uploadType] %}<a href = "/document/{{person.username.username}}/{{files[person.username.username][uploadType]}}"
              target = "_blank">
             <button type="button" class="btn btn-default btn-md btn-success">  Download  <span class="glyphicon glyphicon-download-alt"></button>
-            
+
           </a>
           {% else %}
           No file
@@ -64,10 +64,10 @@
         </td>
         {% endfor %}
       </tr>
-    
+
     {% endfor %}
     {% endif %}
-    
+
   </table>
 </div>
 
