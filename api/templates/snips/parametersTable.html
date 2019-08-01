@@ -3,9 +3,9 @@
   <table class="table table-bordered">
     <tr>
         <th>Year</th>
-        <th>IRB Chair</th>
         <th>Current Chair</th>
         <th>Staff Support</th>
+        <th>IRB Chair</th>
         <th>Mileage Rate</th>
         <th>Labor Rate</th>
         <th>Applications Open</th>
@@ -16,15 +16,15 @@
         <th>Abstract/Narratives Due</th>
         {#<th>Submissions Close</th>#}
         <th>Actions</th>
-        
-        
+
+
     </tr>
     {% for parameter in parameters_list %}
     <tr id = "paramsRow">
-        <td id = "{{parameter.year}}_year">{{parameter.year}}</td>
-        <td id = "{{parameter.year}}_irb" data-value = {{parameter.IRBchair_id.username}}>{{parameter.IRBchair_id.firstname}} {{parameter.IRBchair_id.lastname}}</td>
+        <td id = "{{parameter.year}}_year">{{parameter.year}}</td>        
         <td id = "{{parameter.year}}_chair" data-value = {{parameter.currentchair_id.username}}>{{parameter.currentchair_id.firstname}} {{parameter.currentchair_id.lastname}}</td>
         <td id = "{{parameter.year}}_staff" data-value = {{parameter.staffsupport_id.username}}>{{parameter.staffsupport_id.firstname}} {{parameter.staffsupport_id.lastname}}</td>
+        <td id = "{{parameter.year}}_irb" data-value = {{parameter.IRBchair_id.username}}>{{parameter.IRBchair_id.firstname}} {{parameter.IRBchair_id.lastname}}</td>
         <td id = "{{parameter.year}}_mile" data-value = {{parameter.mileageRate}}>${{'%0.2f'| format(parameter.mileageRate|float)}}</td>
         <td id = "{{parameter.year}}_labor" data-value = {{parameter.laborRate}}>${{'%0.2f'| format(parameter.laborRate|float)}}</td>
         <td id = "{{parameter.year}}_appopen" data-value = {{parameter.appOpenDate.strftime('%m/%d/%Y')}}>{{parameter.appOpenDate.strftime('%m/%d/%Y')}}</td>
@@ -36,23 +36,23 @@
         <td id = "{{parameter.year}}_allsubmit" data-value = {{parameter.AllSubmissionsClosedDate.strftime('%m/%d/%Y')}}>{{parameter.AllSubmissionsClosedDate.strftime('%m/%d/%Y')}}</td>
         <td>
             <div class= "row justify-content-md-center">
-                <span class="glyphicon glyphicon-ok {% if parameter.isCurrentParameter %} isCurrentYear {% endif %}" 
+                <span class="glyphicon glyphicon-ok {% if parameter.isCurrentParameter %} isCurrentYear {% endif %}"
                           style="padding: 2px;"
 			  aria-hidden="true"
                           title="Click here make this year the current application year."
                           id="set_current_parameters-{{parameter.pID}}"
                           onclick="set_current_parameters({{parameter.pID}})"
                 ></span>
-                <span class="glyphicon glyphicon-pencil" 
+                <span class="glyphicon glyphicon-pencil"
                           style="padding: 2px;"
                           title="Click to edit the parameters for this year"
 			  aria-hidden="true"
                           id="editParameters-{{parameter.pID}}"
-                          onclick="editParameters({{parameter.year}})" 
+                          onclick="editParameters({{parameter.year}})"
                 ></span>
  		<a id="delete_parameters" href={{url_for('deleteParameters', pID = parameter.pID)}}>
-                        <span class="glyphicon glyphicon-trash" 
-                              aria-hidden="true" 
+                        <span class="glyphicon glyphicon-trash"
+                              aria-hidden="true"
                               style= "color:#dc3545; padding: 2px;"
                               title="Click to delete this year. "
                         ></span></a>

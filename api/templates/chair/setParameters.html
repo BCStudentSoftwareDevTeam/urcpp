@@ -45,6 +45,48 @@
       </div>
     </div>
     <div  class = "row "
+        style = "padding-bottom: 10px; padding-right: 10px;">
+    <label  for='currentchair_id'
+            class = 'col-sm-4 control-label'>
+       Current Chair
+    </label>
+    <div class = 'col-sm-8'>
+      <select  name  = 'currentchair_id'
+                id    = 'currentchair_id'
+                class = 'form-control selectpicker' title="Specify the current chair for this year"
+                data-live-search="true"
+                />
+      {% for faculty in allfaculty | sort(attribute='lastname') %}
+
+         <option value={{faculty.username}}>
+           {{faculty.firstname}} {{faculty.lastname}}
+         </option>
+
+      {% endfor %}
+      </select>
+     </div>
+    </div>
+    <div  class = "row "
+        style = "padding-bottom: 10px; padding-right: 10px;">
+    <label  for='staffsupport_id'
+            class = 'col-sm-4 control-label'>
+       Staff Support
+    </label>
+    <div class = 'col-sm-8'>
+      <select  name  = 'staffsupport_id'
+                id    = 'staffsupport_id'
+                class = 'form-control selectpicker' title="Specify the current staff support for this year"
+                data-live-search="true"
+                />
+      {% for faculty in allfaculty | sort(attribute='lastname')%}
+         <option value={{faculty.username}}>
+           {{faculty.firstname}} {{faculty.lastname}}
+         </option>
+      {% endfor %}
+      </select>
+     </div>
+    </div>
+    <div  class = "row "
           style = "padding-bottom: 10px; padding-right: 10px;">
       <label  for='IRBchair_id'
               class = 'col-sm-4 control-label'>
@@ -66,48 +108,8 @@
         </select>
        </div>
       </div>
-      <div  class = "row "
-          style = "padding-bottom: 10px; padding-right: 10px;">
-      <label  for='currentchair_id'
-              class = 'col-sm-4 control-label'>
-         Current Chair
-      </label>
-      <div class = 'col-sm-8'>
-        <select  name  = 'currentchair_id'
-                  id    = 'currentchair_id'
-                  class = 'form-control selectpicker' title="Specify the current chair for this year"
-                  data-live-search="true"
-                  />
-        {% for faculty in allfaculty | sort(attribute='lastname') %}
 
-           <option value={{faculty.username}}>
-             {{faculty.firstname}} {{faculty.lastname}}
-           </option>
 
-        {% endfor %}
-        </select>
-       </div>
-      </div>
-      <div  class = "row "
-          style = "padding-bottom: 10px; padding-right: 10px;">
-      <label  for='staffsupport_id'
-              class = 'col-sm-4 control-label'>
-         Staff Support
-      </label>
-      <div class = 'col-sm-8'>
-        <select  name  = 'staffsupport_id'
-                  id    = 'staffsupport_id'
-                  class = 'form-control selectpicker' title="Specify the current staff support for this year"
-                  data-live-search="true"
-                  />
-        {% for faculty in allfaculty | sort(attribute='lastname')%}
-           <option value={{faculty.username}}>
-             {{faculty.firstname}} {{faculty.lastname}}
-           </option>
-        {% endfor %}
-        </select>
-       </div>
-      </div>
        <div  class = "row"
           style = "padding-bottom: 10px; padding-right: 10px;">
       <label  for='mileageRate'
