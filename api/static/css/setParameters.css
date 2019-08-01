@@ -23,5 +23,5 @@ tr#paramsRow td {
   
 }
 tr:nth-child(even) {
-  background-color: rgba(24, 188, 156, .09)
+  background-color: rgba(24, 188, 156, .12)
 }
