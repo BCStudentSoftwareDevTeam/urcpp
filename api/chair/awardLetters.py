@@ -68,7 +68,7 @@ def awardLetters_generate(username,pID):
   # All of our queries
 
   project = Projects.get(Projects.pID == pID)
-  currentCycle = getCurrentParameters()
+  currentCycle = getCurrentParameters() #This is for the parameter values needed in email
 
   # we need the current year to get current faculty with projects
   template = EmailTemplates.get(EmailTemplates.eID == 1)
@@ -86,10 +86,7 @@ def awardLetters_generate(username,pID):
   staff_support = str(currentCycle.staffsupport_id.firstname)+" "+str(currentCycle.staffsupport_id.lastname)
   irb_chair = str(currentCycle.IRBchair_id.firstname)+" "+str(currentCycle.IRBchair_id.lastname)
   current_chair =  str(currentCycle.currentchair_id.firstname)+" "+str(currentCycle.currentchair_id.lastname)
-  abstract_date = str(currentCycle.AbstractnarrativesAcceptanceDate)+" "+str(currentCycle.AbstractnarrativesAcceptanceDate)
-
-  print("!!!!!!!!!!!!!!!!!!!!!!!!", abstract_date)
-  #FIXME abstract date
+  abstract_date = str(currentCycle.AbstractnarrativesAcceptanceDate)
   print("Still getting email ready")
   # print("Staaaaaaaaaaaaaaa",staff_support)
   # Replace all placeholder text
@@ -103,6 +100,9 @@ def awardLetters_generate(username,pID):
   body = body.replace("@@End Date@@",end)
   body = body.replace("@@Stipend@@",stipend)
   body = body.replace("@@Staff Support@@",staff_support)
+  body = body.replace("@@IRB Chair@@",irb_chair)
+  body = body.replace("@@Current Chair@@",current_chair)
+  body = body.replace("@@Abstract Due Date@@",abstract_date)
   email_address = "%s@berea.edu" % (str(faculty.username.username))
   try:
 
@@ -124,6 +124,7 @@ def accept_letters_get(pID):
   # All of our queries
 
   project = Projects.get(Projects.pID == pID)
+  currentCycle = getCurrentParameters() #This is for the parameter values needed in email
   # we need the current year to get current faculty with projects
   template = EmailTemplates.get(EmailTemplates.eID == 1)
   body = template.Body
@@ -137,6 +138,10 @@ def accept_letters_get(pID):
   faculty = URCPPFaculty.get(project.pID == URCPPFaculty.pID)
   year = str(project.startDate.strftime("%Y"))
   student = str(project.numberStudents)
+  staff_support = str(currentCycle.staffsupport_id.firstname)+" "+str(currentCycle.staffsupport_id.lastname)
+  irb_chair = str(currentCycle.IRBchair_id.firstname)+" "+str(currentCycle.IRBchair_id.lastname)
+  current_chair =  str(currentCycle.currentchair_id.firstname)+" "+str(currentCycle.currentchair_id.lastname)
+  abstract_date = str(currentCycle.AbstractnarrativesAcceptanceDate)
 
   # Replace all placeholder text
   body = body.replace("@@Students@@", student)
@@ -148,5 +153,9 @@ def accept_letters_get(pID):
   body = body.replace("@@Start Date@@",start)
   body = body.replace("@@End Date@@",end)
   body = body.replace("@@Stipend@@",stipend)
+  body = body.replace("@@Staff Support@@",staff_support)
+  body = body.replace("@@IRB Chair@@",irb_chair)
+  body = body.replace("@@Current Chair@@",current_chair)
+  body = body.replace("@@Abstract Due Date@@",abstract_date)
 
   return jsonify({"body": body, "subject":subject})
