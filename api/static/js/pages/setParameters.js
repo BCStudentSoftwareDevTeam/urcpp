@@ -106,6 +106,7 @@ function editParameters(year){
   $("#AbstractnarrativesAcceptanceDate").val($("#"+year+"_abstract").attr("data-value"));
   $("#AllSubmissionsClosedDate").val($("#"+year+"_allsubmit").attr("data-value"));
   $(".selectpicker").selectpicker('refresh');
+  $("#collapseOne").collapse('show');
   window.scrollTo(0, 0);  // Send user to the top of the page
 }
 

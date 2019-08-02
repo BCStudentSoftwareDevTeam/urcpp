@@ -25,3 +25,7 @@ tr#paramsRow td {
 tr:nth-child(even) {
   background-color: rgba(24, 188, 156, .12)
 }
+
+#accordion .panel-body {
+    margin: 0px;
+}
