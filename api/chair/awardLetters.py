@@ -7,6 +7,7 @@ from ..API.budget import getTotalBudget
 from ..API.files import create_message
 
 
+
 from ..pages import *
 
 @app.route("/chair/awardLetters", methods = ["GET"])
@@ -19,7 +20,8 @@ def awardLetters ():
   currentCycle = getCurrentParameters()
   faculty =  getFacultyWithAcceptedProjects(currentCycle.year)
   funding = {}
-  
+
+
   if faculty is not None:
     for entry in faculty:
       bID = entry.pID.budgetID
@@ -38,9 +40,10 @@ def awardLetters_save ():
     abort(403)
   # All of our queries
   # we need the current year to get current faculty with projects
+
   template, created = EmailTemplates.get_or_create(eID = 1)
   template.Body = request.form['body']
-  template.Subject = request.form['subject']  
+  template.Subject = request.form['subject']
   template.save()
   return jsonify({"success": True})
 
@@ -55,7 +58,7 @@ def awardLetters_get ():
   body = template.Body
   subject = template.Subject
   return jsonify({"body": body, "subject":subject})
-  
+
 @app.route("/chair/awardLetters/send/<username>/<pID>", methods = ["GET"])
 @login_required
 def awardLetters_generate(username,pID):
@@ -63,9 +66,10 @@ def awardLetters_generate(username,pID):
   if not g.user.isCommitteeMember:
     abort(403)
   # All of our queries
-  
+
   project = Projects.get(Projects.pID == pID)
-  
+  currentCycle = getCurrentParameters()
+
   # we need the current year to get current faculty with projects
   template = EmailTemplates.get(EmailTemplates.eID == 1)
   body = template.Body
@@ -79,20 +83,29 @@ def awardLetters_generate(username,pID):
   year = str(project.startDate.strftime("%Y"))
   student = str(project.numberStudents)
   funding = str(getTotalBudget(project.budgetID)-project.budgetID.facultyStipend)
+  staff_support = str(currentCycle.staffsupport_id.firstname)+" "+str(currentCycle.staffsupport_id.lastname)
+  irb_chair = str(currentCycle.IRBchair_id.firstname)+" "+str(currentCycle.IRBchair_id.lastname)
+  current_chair =  str(currentCycle.currentchair_id.firstname)+" "+str(currentCycle.currentchair_id.lastname)
+  abstract_date = str(currentCycle.AbstractnarrativesAcceptanceDate)+" "+str(currentCycle.AbstractnarrativesAcceptanceDate)
+
+  print("!!!!!!!!!!!!!!!!!!!!!!!!", abstract_date)
+  #FIXME abstract date
   print("Still getting email ready")
+  # print("Staaaaaaaaaaaaaaa",staff_support)
   # Replace all placeholder text
   body = body.replace("@@Students@@", student)
   body = body.replace("@@Year@@", year)
-  body = body.replace("@@Date@@", str(datetime.datetime.now().strftime("%m/%d/%y")))
+  body = body.replace("@@Today's Date@@", str(datetime.datetime.now().strftime("%m/%d/%y")))
   body = body.replace("@@Faculty@@",faculty.username.firstname+ " " +faculty.username.lastname)
   body = body.replace("@@Funding@@",funding)
   body = body.replace("@@ProjectTitle@@",project_title)
   body = body.replace("@@Start Date@@",start)
   body = body.replace("@@End Date@@",end)
   body = body.replace("@@Stipend@@",stipend)
+  body = body.replace("@@Staff Support@@",staff_support)
   email_address = "%s@berea.edu" % (str(faculty.username.username))
   try:
-    
+
     acceptance_email = create_message(subject, email_address, body)
     print('Acc email: ', acceptance_email.html)
     mail.send(acceptance_email)
@@ -100,7 +113,7 @@ def awardLetters_generate(username,pID):
   except Exception as e:
       print("Emailer failed", e)
       return jsonify({"mail_to": "Failed to send email with error: %s" % (e)})
- 
+
   return jsonify({"mail_to":"Email sent to: %s"  % (email_address) })
 
 @app.route("/chair/awardLetters/get/<pID>", methods = ["GET"])
@@ -109,7 +122,7 @@ def accept_letters_get(pID):
   if not g.user.isCommitteeMember:
     abort(403)
   # All of our queries
-  
+
   project = Projects.get(Projects.pID == pID)
   # we need the current year to get current faculty with projects
   template = EmailTemplates.get(EmailTemplates.eID == 1)
@@ -124,7 +137,7 @@ def accept_letters_get(pID):
   faculty = URCPPFaculty.get(project.pID == URCPPFaculty.pID)
   year = str(project.startDate.strftime("%Y"))
   student = str(project.numberStudents)
-  
+
   # Replace all placeholder text
   body = body.replace("@@Students@@", student)
   body = body.replace("@@Year@@", year)
@@ -135,5 +148,5 @@ def accept_letters_get(pID):
   body = body.replace("@@Start Date@@",start)
   body = body.replace("@@End Date@@",end)
   body = body.replace("@@Stipend@@",stipend)
-  
+
   return jsonify({"body": body, "subject":subject})
