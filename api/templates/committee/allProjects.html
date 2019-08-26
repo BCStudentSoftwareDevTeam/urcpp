@@ -1,8 +1,18 @@
 {% extends "base.html" %}
+
+{% block scripts %}
+{{super()}}
+<script type=text/javascript src="{{url_for('static', filename='js/allProjects.js') }}"></script>
+{% endblock %}
+
 {% set currentPage = "allProjects" %}
+{% block styles %}
+{{super()}}
 <link rel = "stylesheet"
    type = "text/css"
    href = "api/static/css/allProjects.css" />
+{% endblock %}
+
 {% block body %}
 {% include 'snips/messages.html' %}
 <div style="text-align:center;">
