@@ -28,4 +28,4 @@ print ("Running at http://{0}:{1}/".format(IP, PORT))
 app.tag = cfg['tag']
 
 if __name__ == "__main__":
-  app.run(host = IP, port = PORT, debug = True, threaded = True)
+  app.run(host = IP, port = PORT,  threaded = True)

@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% set currentPage = "allProjects" %}
-
+<link rel = "stylesheet"
+   type = "text/css"
+   href = "api/static/css/allProjects.css" />
 {% block body %}
 {% include 'snips/messages.html' %}
 <div style="text-align:center;">
@@ -10,11 +12,11 @@
 {% include 'committee/nav_tabs.html' %}
 <p></p>
 
-<div class = "row"style = "padding-top: 20px;">
+<div style = "padding-top: 20px;">
     <table class = "table table-hover table-sm" style="text-align: center;">
       <tr>
         <th style="padding-top: 15px; text-align: center;">Vote</th>
-       
+
         <th style="padding-top: 15px; text-align: center;">Faculty/Proj. Title</th>
         {% for column in cfg["allProjectsTable"] %}
         <th style="padding-top: 15px; text-align: center;">
@@ -32,7 +34,7 @@
               </button>
             </a>
           </td>
-          <td style="padding-top: 15px; text-align: center;">
+          <td style="padding-top: 15px; text-align: center; ">
             <a onclick="getProjects('{{person.username.username}}')">{{person.username.firstname}} {{person.username.lastname}}</a>
             {% if collab is not none %}
               {% for c in collab %}
@@ -46,25 +48,25 @@
             <span class = "small" >{{person.pID.title|truncate(50, True)}}</span>
           </td>
           {% for column in cfg["allProjectsTable"] %}
-            <td name = "rowValue" class = "{{column['fieldName']}}" id="col{{loop.index0}}" style="padding-top: 17px; text-align: center;">
+            <td name = "rowValue" class = "{{column['fieldName']}}" id="col{{loop.index0}}" style="padding-top: 17px; text-align: center;" >
               <!--Handle dates-->
-              {% if column['fieldName'] == "startDate" or column['fieldName'] == "createdDate" or column['fieldName'] == "endDate"%}  
+              {% if column['fieldName'] == "startDate" or column['fieldName'] == "createdDate" or column['fieldName'] == "endDate"%}
                 {% if person.pID[column['fieldName']] %}{{person.pID[column['fieldName']].strftime('%m-%d-%Y')}}{% endif %}
               <!--Handle Booleans-->
-              {% elif column['fieldName'] == "isServiceToCommunity" or column['fieldName'] == "hasCommunityPartner"%}   
+              {% elif column['fieldName'] == "isServiceToCommunity" or column['fieldName'] == "hasCommunityPartner"%}
                 {% if person.pID[column['fieldName']] %} Yes {% else %} No {% endif %}
               <!--Everything else-->
               {% elif column['fieldName'] == "status" %}
                 {% if person.pID[column['fieldName']] != cfg["projectStatus"]["incomplete"] %}
                   <select class="form-control" id = "{{person.pID.pID}}-status" onchange = "updateStatus({{person.pID.pID}});"><font size="6">
-                    <option value = "Pending" {% if person.pID.status == "Pending" %}selected{% endif%}>{{cfg["projectStatus"]["Pending"]}}</option>
+                    <option value = "Pending" {% if person.pID.status == "Pending" %}selected{% endif%} >{{cfg["projectStatus"]["Pending"]}}</option>
                     <option value = "Withdrawn"{% if person.pID.status == "Withdrawn" %}selected{% endif%}>{{cfg["projectStatus"]["Withdrawn"]}}</option>
                     <option value = "Reject"{% if person.pID.status == "Reject" %}selected{% endif%}>{{cfg["projectStatus"]["Reject"]}}</option>
                     <option value = "Accept"{% if person.pID.status == "Accept" %}selected{% endif%}>{{cfg["projectStatus"]["Accept"]}}</option>
                   </select>
                   </div>
                 {% else %}{{person.pID[column['fieldName']]}}{% endif %}
-              {% else %}  
+              {% else %}
                 {{person.pID[column['fieldName']]}}
               {% endif %}
             </td>
