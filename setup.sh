@@ -43,6 +43,12 @@ pip install Flask-Mail
 
 # Set up config files
 
+FILE=$PWD/api/secret_key
+if [ ! -f "$FILE" ]; then
+	echo "Generating secret key"
+	head /dev/urandom | tr -dc A-Za-z0-9 | head -c 14 > $FILE
+fi
+
 # TODO Need to check if api/settings.py file exists
 # TODO If it does, don't do anything
 # TODO If not exists, create it
