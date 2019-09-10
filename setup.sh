@@ -48,14 +48,14 @@ pip install Flask-Mail
 # TODO If not exists, create it
 FILE=$PWD/api/settings.py
 if test -f "$FILE"; then
-    echo "$FILE exist"
-echo "Please Fill out the information"
-read  -p 'MAIL_SERVER= ' mail_server_var
-read  -p 'MAIL_PORT= ' mail_port_var
-read  -p 'MAIL_DEFAULT_SENDER= ' mail_default_sender_var
-sed -i 's/MAIL_SERVER=/MAIL_SERVER="'$mail_server_var'"/g' api/settings.py
-sed -i 's/MAIL_PORT=/MAIL_PORT="'$mail_port_var'"/g' api/settings.py
-sed -i 's/MAIL_DEFAULT_SENDER=/MAIL_DEFAULT_SENDER="'$mail_default_sender_var'"/g' api/settings.py
+	echo "$FILE exist"
+	echo "Please Fill out the information"
+	read  -p 'MAIL_SERVER= ' mail_server_var
+	read  -p 'MAIL_PORT= ' mail_port_var
+	read  -p 'MAIL_DEFAULT_SENDER= ' mail_default_sender_var
+	sed -i 's/MAIL_SERVER=/MAIL_SERVER="'$mail_server_var'"/g' api/settings.py
+	sed -i 's/MAIL_PORT=/MAIL_PORT="'$mail_port_var'"/g' api/settings.py
+	sed -i 's/MAIL_DEFAULT_SENDER=/MAIL_DEFAULT_SENDER="'$mail_default_sender_var'"/g' api/settings.py
 else 
    touch $FILE
    echo "$FILE created"
