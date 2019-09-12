@@ -1,4 +1,5 @@
-# ignore everything except for this file
-##########################################
+# ignore everything except for this file.
+# this is needed so that git keeps this directory
+##################################################
 *
 !.gitignore
