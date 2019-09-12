@@ -2,7 +2,7 @@
 # We Use an official Python runtime as a parent image
 FROM python:2.7
 
-MAINTAINER Guillermo Ramos "guillermoramos330179@gmail.com"
+MAINTAINER Brian Ramsay "ramsayb2@berea.edu"
 
 EXPOSE 8080
 
@@ -13,6 +13,7 @@ WORKDIR /
 RUN pip install -r requirements.txt
 
 COPY . /
-ENTRYPOINT [ "python" ]
 
-CMD [ "api.py" ]
+RUN ["/bin/bash","-c","./setup.sh"]
+
+ENTRYPOINT [ "python", "api.py" ]

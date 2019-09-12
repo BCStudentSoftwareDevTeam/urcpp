@@ -43,39 +43,21 @@ pip install Flask-Mail
 
 # Set up config files
 
-FILE=$PWD/api/secret_key
+FILE=${PWD}api/secret_key
 if [ ! -f "$FILE" ]; then
 	echo "Generating secret key"
 	head /dev/urandom | tr -dc A-Za-z0-9 | head -c 14 > $FILE
 fi
 
-# TODO Need to check if api/settings.py file exists
-# TODO If it does, don't do anything
-# TODO If not exists, create it
-FILE=$PWD/api/settings.py
+# Make sure api/settings.py is present
+FILE=${PWD}api/settings.py
 if test -f "$FILE"; then
-	echo "$FILE exist"
-	echo "Please Fill out the information"
-	read  -p 'MAIL_SERVER= ' mail_server_var
-	read  -p 'MAIL_PORT= ' mail_port_var
-	read  -p 'MAIL_DEFAULT_SENDER= ' mail_default_sender_var
-	sed -i 's/MAIL_SERVER=/MAIL_SERVER="'$mail_server_var'"/g' api/settings.py
-	sed -i 's/MAIL_PORT=/MAIL_PORT="'$mail_port_var'"/g' api/settings.py
-	sed -i 's/MAIL_DEFAULT_SENDER=/MAIL_DEFAULT_SENDER="'$mail_default_sender_var'"/g' api/settings.py
+	echo "$FILE exists"
 else 
    touch $FILE
    echo "$FILE created"
-   echo "Please Fill out the information"
-   read  -p 'MAIL_SERVER= ' mail_server_var
-   read  -p 'MAIL_PORT= ' mail_port_var
-   read  -p 'MAIL_DEFAULT_SENDER= ' mail_default_sender_var
-   sed -i 's/MAIL_SERVER=/MAIL_SERVER="'$mail_server_var'"/g' api/settings.py
-   sed -i 's/MAIL_PORT=/MAIL_PORT="'$mail_port_var'"/g' api/settings.py
-   sed -i 's/MAIL_DEFAULT_SENDER=/MAIL_DEFAULT_SENDER="'$mail_default_sender_var'"/g' api/settings.py
 fi
-
-# TODO Enter information to fill in the file in interactive mode in shell
-
+echo "Remember to edit your mail settings in $FILE"
 
 # To deactivate the venv, use
 #

@@ -1,6 +1,5 @@
 venv/
 *.pyc
-data/
 otp/static/qr
 .DS_Store
 *.sqlite
