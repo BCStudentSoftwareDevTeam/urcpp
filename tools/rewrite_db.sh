@@ -2,6 +2,11 @@
 # start from a given backup
 ####################################
 
+if [ ${0##*/} == "rewrite_db.sh" ]; then
+	echo "Don't call this file directly, please. Use one of the other scripts.";
+	exit 1
+fi
+
 if [ -z "$DATA_FILE" ]; then
 	echo "You must provide a db dump .sql in \$DATA_FILE.";
 	exit 1
