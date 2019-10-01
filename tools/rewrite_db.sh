@@ -21,6 +21,7 @@ echo "Done"
 printf "Switching to database/$DATA_FILE..."
 cd ../database/docker_init
 rm $DATA_LINK
-ln -s ../$DATA_FILE $DATA_LINK
+cp ../$DATA_FILE $DATA_LINK
+#ln -s ../$DATA_FILE $DATA_LINK
 
 printf "Done.\n\nStop your docker containers. The next 'docker-compose up' will load the new database.\n"
