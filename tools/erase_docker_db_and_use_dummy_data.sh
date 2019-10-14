@@ -5,4 +5,5 @@
 ####################################
 
 DATA_FILE=dummy-data.sql
+TARGET=docker
 source rewrite_db.sh

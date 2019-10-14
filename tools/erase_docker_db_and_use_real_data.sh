@@ -5,4 +5,5 @@
 ####################################
 
 DATA_FILE=prod-data.sql
+TARGET=docker
 source rewrite_db.sh

@@ -14,14 +14,26 @@ fi
 
 DATA_LINK=2_db-data.sql
 
-printf "Removing existing database volume..."
-sudo rm -r ../docker/data/db/*
-echo "Done"
-
 printf "Switching to database/$DATA_FILE..."
-cd ../database/docker_init
+pushd ../database/docker_init > /dev/null
 rm $DATA_LINK
 cp ../$DATA_FILE $DATA_LINK
-#ln -s ../$DATA_FILE $DATA_LINK
+popd > /dev/null
+echo "Done"
 
-printf "Done.\n\nStop your docker containers. The next 'docker-compose up' will load the new database.\n"
+# If we want to mess with the docker db
+if [ "$TARGET" == "docker" ] ; then
+	printf "Removing existing database volume..."
+	sudo rm -r ../docker/data/db/*
+
+	printf "Done.\n\nStop your docker containers. The next 'docker-compose up' will load the new database.\n"
+
+# if we are using mysql locally, run the sql files directly
+else
+	MYSQL_CONN="--defaults-extra-file=mysql.conf"
+
+	echo "Creating backup in tools/backup.sql. Remove if not needed."
+	mysqldump $MYSQL_CONN urcpp_flask > backup.sql
+	echo "DROP USER urcpp_flask; DROP DATABASE urcpp_flask;" | mysql $MYSQL_CONN
+	cat ../database/docker_init/*.sql | mysql $MYSQL_CONN
+fi
