@@ -14,6 +14,7 @@ fi
 pip install -r requirements.txt
 
 # TODO create a db script that can use the docker init builder
+# Check out tools/erase_mysql_db_and_use_real_data.sh
 
 # Set up config files
 FILE=${PWD}/api/secret_key

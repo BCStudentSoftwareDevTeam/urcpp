@@ -32,8 +32,8 @@ if [ "$TARGET" == "docker" ] ; then
 else
 	MYSQL_CONN="--defaults-extra-file=mysql.conf"
 
-	printf "Creating backup in tools/backup.sql..."
-	mysqldump $MYSQL_CONN urcpp_flask > backup.sql
+	printf "Creating backup in tools/tmp_backup.sql..."
+	mysqldump $MYSQL_CONN urcpp_flask > tmp_backup.sql
 	echo "done. Remove if not needed."
 
 	printf "Dropping existing user and database..."
