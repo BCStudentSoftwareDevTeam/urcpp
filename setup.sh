@@ -1,3 +1,5 @@
+#! /bin/bash
+
 # Source this.
 # Setup virtualenv
 #mkdir -p data
@@ -14,14 +16,14 @@ pip install -r requirements.txt
 # TODO create a db script that can use the docker init builder
 
 # Set up config files
-FILE=${PWD}api/secret_key
+FILE=${PWD}/api/secret_key
 if [ ! -f "$FILE" ]; then
 	echo "Generating secret key"
 	head /dev/urandom | tr -dc A-Za-z0-9 | head -c 14 > $FILE
 fi
 
 # Make sure api/settings.py is present
-FILE=${PWD}api/settings.py
+FILE=${PWD}/api/settings.py
 if test -f "$FILE"; then
 	echo "$FILE exists"
 else 
