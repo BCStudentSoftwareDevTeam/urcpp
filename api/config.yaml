@@ -2,6 +2,12 @@
 DEBUG:
   user: "jadudm"
 
+db:
+  host: "localhost"
+  name: "urcpp_flask"
+  user: "urcpp_flask"
+  password: "DanforthLabor123!"
+
 urcpp:
   possibleDurations:
     - 8
