@@ -9,16 +9,16 @@
 
 1. Ensure that you have the proper binaries installed by running `which docker docker-compose` and verifying the output (there should be a path for both). New student VMs should already be ready. If you do not have them, install them.
 	* `sudo apt-get install docker.io`
-	* https://docs.docker.com/compose/install/
+	* Use the Linux instructions from https://docs.docker.com/compose/install/
 	* Your user should be in the docker group or you will need sudo privileges.
 2. Clone this repository.
 3. In your new repo directory, use docker-compose to start your application.
 	* `docker-compose up`
 4. If this is successful, access your application at your server + the port
 	* If on your computer: http://localhost:8080
-	* If on your student VM, use that IP: http://172.31.3.69:8080
-5. The application data will persist in your REPO/docker/data/db/ directory. To re-initialize it, use the appropriate script in REPO/tools/.
-6. To understand more about using Docker and docker-compose, go here: http://172.31.2.178/en/docker
+	* If on your student VM, use that IP: e.g., http://172.31.3.69:8080
+5. The application data will persist in your docker/data/db/ directory. To re-initialize it, use the appropriate script in tools/.
+6. To understand more about using Docker and docker-compose, read http://172.31.2.178/en/docker.
 
 ## Manual Installation Guide
 
@@ -52,7 +52,7 @@
 3. Run the application: `python api.py`
 4. If this is successful, access your application at your server + the port
 	* If on your computer: http://localhost:8080
-	* If on your student VM, use that IP: http://172.31.3.69:8080
+	* If on your student VM, use that IP: e.g., http://172.31.3.69:8080
 5. The application data will persist in mysql database. To re-initialize it, use the appropriate script in tools/.
 
 ## Customization and Troubleshooting
