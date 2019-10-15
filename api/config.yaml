@@ -3,7 +3,7 @@ DEBUG:
   user: "jadudm"
 
 db:
-  host: "localhost"
+  host: "db"
   name: "urcpp_flask"
   user: "urcpp_flask"
   password: "DanforthLabor123!"
