@@ -1,5 +1,6 @@
 # The first instruction is what image we want to base our container on
 # We Use an official Python runtime as a parent image
+# TODO  https://perchrunway.com/blog/2017-01-19-getting-started-with-docker-for-local-development
 FROM python:2.7
 
 MAINTAINER Brian Ramsay "ramsayb2@berea.edu"
