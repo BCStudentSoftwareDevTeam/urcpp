@@ -67,17 +67,17 @@ class Programs (DynamicModel):
 
 class Budget (DynamicModel):
   bID                 = PrimaryKeyField()
-  facultyStipend      = IntegerField(null = True)
+  facultyStipend      = IntegerField(default=0)
   facultyStipendDesc  = TextField(default = "")
-  miles               = IntegerField(null = True)
+  miles               = IntegerField(default=0)
   milesDesc           = TextField(default = "")
-  otherTravel         = IntegerField(null = True)
+  otherTravel         = IntegerField(default=0)
   otherTravelDesc     = TextField(default = "")
-  equipment           = IntegerField(null = True)
+  equipment           = IntegerField(default=0)
   equipmentDesc       = TextField(default = "")
-  materials           = IntegerField(null = True)
+  materials           = IntegerField(default=0)
   materialsDesc       = TextField(default = "")
-  other               = IntegerField(null = True)
+  other               = IntegerField(default=0)
   otherDesc           = TextField(default = "")
 
 class PreSurvey (DynamicModel):
