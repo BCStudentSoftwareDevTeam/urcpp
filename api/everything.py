@@ -40,7 +40,8 @@ def authUser(env):
   #app.logger.info("Found remote user: " + env.get("HTTP_X_REMOTE_USER") + env.get("PHP_AUTH_USER"))
   if (envK in env):
     app.logger.info("We're live"+  env[envK].split("@")[0]+ ";")
-    return env[envK].split("@")[0]
+    print("We're live")
+    return env[envK].split("@")[0].lower()
   elif ("DEBUG" in cfg) and cfg["DEBUG"]:
     app.logger.info("We're in debug: " + cfg["DEBUG"]["user"])
     print("Debugger!")
