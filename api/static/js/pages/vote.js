@@ -6,7 +6,7 @@ function recalculate () {
     var rows = $("#row" + idx).find("select.rowValue");
     rows.each(function (value, i) {
         sum += (this.options.selectedIndex);
-        $("#average" + idx).html(sum/5);    //Five 
+        $("#average" + idx).html(sum/3);    //Five
     });
   };
 };
