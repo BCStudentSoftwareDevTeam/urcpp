@@ -14,6 +14,7 @@
 2. Clone this repository.
 3. In your new repo directory, use docker-compose to start your application.
 	* `docker-compose up`
+	
 4. If this is successful, access your application at your server + the port
 	* If on your computer: http://localhost:8080
 	* If on your student VM, use that IP: e.g., http://172.31.3.69:8080
@@ -60,6 +61,9 @@
 ### Database Config
 
 ### Common Errors
+  * If you run into this error `bind: address already in use`, run the following command:
+   `sudo systemctl stop mysql`
+
 
 
 ### OLD BITS 
