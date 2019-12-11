@@ -2,7 +2,7 @@
 
 ## Important things to know before developing
 
-  - Use Python 2.7
+  - Uses Python 2.7
   - There is still sqlite code in here, but we are using mysql
 
 ## Quick Installation Guide with Docker
