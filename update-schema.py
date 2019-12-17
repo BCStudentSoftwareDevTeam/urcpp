@@ -16,7 +16,7 @@ cfg       = load_config(os.path.join(here, 'api/config.yaml'))
 #                           threadlocals = True
 #                           )
 
-mainDB     = MySQLDatabase ("urcpp_flask_v2", host = "localhost", user = "urcpp-flask", passwd = "DanforthLabor123!")
+mainDB     = MySQLDatabase ("urcpp_flask_v2", host = "db", user = "urcpp-flask", passwd = "DanforthLabor123!")
 
 
 # Creates the class that will be used by Peewee to store the database

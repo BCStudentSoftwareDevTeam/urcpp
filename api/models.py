@@ -9,9 +9,8 @@ from api.config import load_config
 here = os.path.dirname(__file__)
 
 cfg = load_config(os.path.join(here, 'config.yaml'))
-#TODO: move information out and change password to keep secret
 
-dynamicDB = MySQLDatabase("urcpp_flask_v2", host="localhost", user="urcpp-flask", passwd="DanforthLabor123!")
+dynamicDB = MySQLDatabase(cfg['db']['name'], host=cfg['db']['host'], user=cfg['db']['user'], passwd=cfg['db']['password'])
 
 class DynamicModel (Model):
   class Meta:
