@@ -41,7 +41,11 @@ def authUser(env):
   if (envK in env):
     app.logger.info("We're live"+  env[envK].split("@")[0]+ ";")
     print("We're live")
-    return env[envK].split("@")[0].lower()
+    # print("TYpe ", env)
+    if env["description"] == "Staff" or env["description"] == "Faculty":
+    	return env[envK].split("@")[0].lower()
+    else:
+	abort(403)
   elif ("DEBUG" in cfg) and cfg["DEBUG"]:
     app.logger.info("We're in debug: " + cfg["DEBUG"]["user"])
     print("Debugger!")

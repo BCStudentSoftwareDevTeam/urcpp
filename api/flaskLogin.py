@@ -8,11 +8,14 @@ def login():
         # get the user from shibboleth
         system_user = authUser(request.environ)
         print "Logging in as", system_user
+	
 
-        if ("DEBUG" in cfg) and cfg["DEBUG"]:
+	envK = "eppn"  # AD data from Shibboleth
+
+  	if (envK not in request.environ):        
             request.environ['sn'] = "Testuser"
             request.environ['givenName'] = "Test"
-
+	
         # look for user in our database
         user, created = LDAPFaculty.get_or_create(
                             username = system_user,
