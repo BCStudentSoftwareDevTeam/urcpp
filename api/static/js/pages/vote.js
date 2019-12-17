@@ -6,7 +6,7 @@ function recalculate () {
     var rows = $("#row" + idx).find("select.rowValue");
     rows.each(function (value, i) {
         sum += (this.options.selectedIndex);
-        $("#average" + idx).html(sum/3);    //Five
+        $("#average" + idx).html(sum/3);   //3 is the number of ratings that each criteria has (Exceptional, Good, Needs Improvement)
     });
   };
 };
