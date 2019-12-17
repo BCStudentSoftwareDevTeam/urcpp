@@ -221,8 +221,8 @@ voting:
 
 # I think this should move to the Parameters table, so it can be more easily configured in the UI by the committee.
 contacts:         
-  irbChairName: "Wendy Williams"
-  irbChairEmail: "williamsw@berea.edu"
+  irbChairName: "Rob Smith"
+  irbChairEmail: "smithro@berea.edu"
 
 # Controls the budget.html form 
 budget:
