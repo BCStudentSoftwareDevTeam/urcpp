@@ -1,15 +1,14 @@
 venv/
 *.pyc
-data/
 otp/static/qr
 .DS_Store
 *.sqlite
 *.log
 secret_config.yaml
+api/config.yaml
 api/static/files/
 secret*
 settings.py
 api/models.py
-api/config.yaml
 update-schema.py
-
+tools/*backup.sql

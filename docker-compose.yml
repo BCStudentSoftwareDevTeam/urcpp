@@ -1,7 +1,9 @@
+# TODO change mysql port so that it doesn't cause problems with another mysql running on the vm
 version: "3.7"
 services:
   app:
-    build: .
+    build: 
+        context: .
     links:
       - db
     ports:
@@ -11,7 +13,7 @@ services:
       ports:
         - "3306:3306"
       environment:
-        MYSQL_DATABASE: 'urcpp_flask_v2'
+        MYSQL_DATABASE: 'urcpp_flask'
         # So you don't have to use root, but you can if you like
         MYSQL_USER: 'urcpp-flask'
         # You can use whatever password you like
@@ -20,3 +22,4 @@ services:
         MYSQL_ROOT_PASSWORD: 'password'
       volumes:
         - ./docker/data/db:/var/lib/mysql
+        - ./database/docker_init:/docker-entrypoint-initdb.d
