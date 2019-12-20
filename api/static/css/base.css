@@ -4,7 +4,7 @@ body {
    flex-direction: column;
 }
 .footer {
-  position: absolute;
+  position: static;
   left: 0;
   background-color:  #304766;
   color:#FFFFFF;
