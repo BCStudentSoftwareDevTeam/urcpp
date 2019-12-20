@@ -4,11 +4,13 @@ body {
 .footer {
   position: absolute;
   left: 0;
-  background-color:  #ecf0f1;
-  color:#1e2433;
+  background-color:  #304766;
+  color:#304766;
   text-align: center;
   bottom: 0;
+  right: 0;
   width: 100%;
+  padding: 1rem;
   /* Set the fixed height of the footer here */
   padding-top: 12px;
   height: 85px;
