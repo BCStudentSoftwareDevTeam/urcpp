@@ -1,16 +1,17 @@
 body {
    padding-bottom: 90px;
+   display: flex;
+   flex-direction: column;
 }
 .footer {
   position: absolute;
   left: 0;
   background-color:  #304766;
-  color:#304766;
+  color:#FFFFFF;
   text-align: center;
   bottom: 0;
-  right: 0;
   width: 100%;
-  padding: 1rem;
+  flex-shrink: 0;
   /* Set the fixed height of the footer here */
   padding-top: 12px;
   height: 85px;
