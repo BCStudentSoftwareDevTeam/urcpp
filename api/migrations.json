@@ -1,0 +1,20 @@
+{
+  "prerun": "# some code here",
+  "directory": "migrations",
+  "history": "migratehistory",
+  "models": [
+    "models.LDAPFaculty",
+    "models.LDAPStudents",
+    "models.Programs",
+    "models.Budget",
+    "models.PreSurvey",
+    "models.PostSurvey",
+    "models.Parameters",
+    "models.Projects",
+    "models.URCPPStudents",
+    "models.URCPPFaculty",
+    "models.Collaborators",
+    "models.Voting",
+    "models.EmailTemplates"
+  ]
+}
