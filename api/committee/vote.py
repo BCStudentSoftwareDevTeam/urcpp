@@ -49,9 +49,10 @@ def vote_POST (username):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
 
-  data = request.form
+  data = request.form.to_dict()
+  print data + "here's the data u asked fors"
 
-  print "Data is: " + str(data)
+  print "1Data is: " + str(data)
 
   # TODO: Need to test if row exists to update votes OR create a new row;
   # currently always writes to the first row, and in random order (based on dictionary order)
