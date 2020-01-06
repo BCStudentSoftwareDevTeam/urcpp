@@ -66,7 +66,8 @@ def vote_POST (pid):
   votingTable.studentAccessibility    = data["studentAccessibility"]
   votingTable.qualityOfResearch       = data["qualityOfResearch"]
 #  The fields that are commented out are like so because they no longer show in the UI so
-#   there is no way to gather data for them
+#   there is no way to gather data for them, else the page will get a bad request when the user
+# submits a vote.
   #votingTable.studentDevelopment      = data["studentDevelopment"]
   #votingTable.facultyDevelopment      = data["facultyDevelopment"]
   votingTable.development             = data["development"]
