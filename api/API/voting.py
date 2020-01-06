@@ -10,7 +10,7 @@ def getVotesByProject(proj):
                 #   .over(partition_by=[Voting.projectID]),
                 fn.Avg(Voting.studentAccessibility),
                 #   .over(partition_by=[Voting.projectID]),
-                fn.Avg(Voting.qualityOfResearch),
+                #fn.Avg(Voting.qualityOfResearch),
                 #   .over(partition_by=[Voting.projectID]),
                 fn.Avg(Voting.development),
                 #   .over(partition_by=[Voting.projectID]),
