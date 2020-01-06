@@ -51,7 +51,7 @@ def vote_POST (pid):
 
   data = request.form
 
-  print "12Data is: " + str(data)
+  print "Data is: " + str(data)
 
   votingTable = getVote(g.user.username, pid)
   if votingTable is None:
@@ -65,13 +65,15 @@ def vote_POST (pid):
   votingTable.studentLearning         = data["studentLearning"]
   votingTable.studentAccessibility    = data["studentAccessibility"]
   votingTable.qualityOfResearch       = data["qualityOfResearch"]
-  votingTable.studentDevelopment      = data["studentDevelopment"]
-  votingTable.facultyDevelopment      = data["facultyDevelopment"]
- # votingTable.development             = data["development"]
+#  The fields that are commented out are like so because they no longer show in the UI so
+#   there is no way to gather data for them
+  #votingTable.studentDevelopment      = data["studentDevelopment"]
+  #votingTable.facultyDevelopment      = data["facultyDevelopment"]
+  votingTable.development             = data["development"]
   votingTable.collaborative           = data["collaborative"]
-  votingTable.interaction             = data["interaction"]
-  votingTable.communication           = data["communication"]
-  votingTable.scholarlySignificance   = data["scholarlySignificance"]
+  #votingTable.interaction             = data["interaction"]
+  #votingTable.communication           = data["communication"]
+  #votingTable.scholarlySignificance   = data["scholarlySignificance"]
   votingTable.proposalQuality         = data["proposalQuality"]
   votingTable.budget                  = data["budget"]
   votingTable.timeline                = data["timeline"]
