@@ -49,7 +49,7 @@ def vote_POST (pid):
   # NOTE: username is the committee member, NOT the project creator
   faculty =  getFacultyForProject(pid)
 
-  data = request.form
+  data = request.form.todict()
 
   print "Data is here: " + str(data)
 
