@@ -13,7 +13,6 @@ body {
   padding-top: 12px;
   height: 85px;
   line-height:30px; /* Vertically center the text there */
-  z-index: -999 !important;
 }
  a {
 color: #18bc9c;
