@@ -20,18 +20,16 @@
   {% endif%}
 </p>
 <div class = "row">
-  <form 
+  <form
         class = "form-horizontal"
         action = "/committee/castVote/{{proj.pID}}"
-        method = "POST">  
+        method = "POST">
     <table class = "table table-striped table-hover table-sm">
       <tr>
         <th class="col-xs-6 text-left">Criteria</th>
         <th class="col-xs-1">Exceptional</th>
-        <th class="col-xs-1">Very Good</th>
-        <th class="col-xs-1">Average</th>
+        <th class="col-xs-1"> Good</th>
         <th class="col-xs-1">Needs Improvement</th>
-        <th class="col-xs-1">Poor</th>
       </tr>
       {% for column in cfg["voting"] %}
       <tr class = "text-center">
@@ -48,56 +46,37 @@
         </td>
         <td>
           <label class="radio-inline">
-            <input  type="radio" 
-                    name="{{column['dbName']}}" 
-                    id="{{column['dbName']}}-5" 
-                    value = "5" 
+            <input  type="radio"
+                    name="{{column['dbName']}}"
+                    id="{{column['dbName']}}-3"
+                    value = "3"
                     required
-                    {% if votes and votes[column['dbName']] | int == 5 %} checked {% endif %}>
+                    {% if votes and votes[column['dbName']] | int == 3 %} checked {% endif %}>
                   E
           </label>
         </td>
         <td>
           <label class="radio-inline">
-            <input  type="radio" 
-                    name="{{column['dbName']}}" 
-                    id="{{column['dbName']}}-4" 
-                    value = "4"
-                    {% if votes and votes[column['dbName']] | int == 4 %} checked {% endif %}>
-                    VG
-  
-          </label>  
-        </td>
-        <td>
-          <label class="radio-inline">
-            <input  type="radio" 
-                    name="{{column['dbName']}}" 
-                    id="{{column['dbName']}}-3" 
-                    value = "3" 
-                    {% if votes and votes[column['dbName']] | int == 3 %} checked {% endif %}>
-                  A
+            <input  type="radio"
+                    name="{{column['dbName']}}"
+                    id="{{column['dbName']}}-2"
+                    value = "2"
+                    {% if votes and votes[column['dbName']] | int == 2 %} checked {% endif %}>
+                  G
+
           </label>
         </td>
         <td>
           <label class="radio-inline">
-            <input  type="radio" 
-                    name="{{column['dbName']}}" 
-                    id="{{column['dbName']}}-2" 
-                    value = "2" 
-                    {% if votes and votes[column['dbName']] | int == 2 %} checked {% endif %}>
+            <input  type="radio"
+                    name="{{column['dbName']}}"
+                    id="{{column['dbName']}}-1"
+                    value = "1"
+                    {% if votes and votes[column['dbName']] | int == 1 %} checked {% endif %}>
                   NI
           </label>
         </td>
-        <td>
-          <label class="radio-inline">
-            <input  type="radio" 
-                    name="{{column['dbName']}}" 
-                    id="{{column['dbName']}}-1" 
-                    value = "1" 
-                    {% if votes and votes[column['dbName']] | int == 1 %} checked {% endif %}>
-                  P
-          </label>
-        </td>
+
       </tr>
       {% endfor %}
     </table>
@@ -107,15 +86,14 @@
                 class = "form-control"
                 placeholder = "Enter notes for later.">{% if votes["comments"] %}{{votes["comments"]}}{% endif %}</textarea>
     <p></p>
-      <input id = "submit" 
-              type = "submit" 
+      <input id = "submit"
+              type = "submit"
               value = "Submit your Votes"
               class="form-control btn btn-block btn-success"
-              data-toggle="tooltip" 
+              data-toggle="tooltip"
               title = "You can save as often as you like"
               />
-      </input>
-
+  
   </div>
   </form>
 </div>

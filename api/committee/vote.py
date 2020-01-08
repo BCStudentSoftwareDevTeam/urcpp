@@ -18,7 +18,7 @@ def vote_GET (username):
   programs = getAllPrograms()
   budget = getAllBudgets()
   # votes = getVotes()
-  
+
   for p in project:
     if (Voting.select()
               .where(Voting.projectID == p.pID)
@@ -27,13 +27,13 @@ def vote_GET (username):
       votes = getVote(username, p)
     else:
       votes = Voting.create(committeeID = username, projectID = p.pID)
-  
+
   theirVotes = getCommitteeVotes(username)
   outVotes = []
   if theirVotes is not None:
     for vote in theirVotes:
       outVotes.append(vote)
-    
+
   return render_template (  "committee/vote.html",
                             proj = project,
                             username = username,
@@ -48,26 +48,27 @@ def vote_GET (username):
 def vote_POST (username):
   if username != authUser(request.environ):
     return { "response": cfg["response"]["badUsername"] }
-  
-  data = request.form
+
+  data = request.form.to_dict()
+  print data + "here's the data u asked fors"
 
   print "Data is: " + str(data)
-  
-  # TODO: Need to test if row exists to update votes OR create a new row; 
+
+  # TODO: Need to test if row exists to update votes OR create a new row;
   # currently always writes to the first row, and in random order (based on dictionary order)
   for key, value in data.iteritems():
     projectAndColumn = key.split("-")
     votes = getCommitteeVotes(username)
-    
-    print projectAndColumn  
-    
+
+    print projectAndColumn
+
     if (Voting.select()
               .where(Voting.projectID == projectAndColumn[0]).exists()
        ):
       votes = getVote(username, projectAndColumn[0])
     else:
       votes = Voting.create(committeeID = username, projectID = projectAndColumn[0])
-      
+
     # print "Key " + key
     # print "Value " + value
     print votes.projectID
@@ -77,7 +78,7 @@ def vote_POST (username):
     votes.studentRoleVote     = (value if projectAndColumn[1] == "studentRoleVote" else votes.studentRoleVote)
     votes.feasibilityVote     = (value if projectAndColumn[1] == "feasibilityVote" else votes.feasibilityVote)
     votes.save()
-  
+
   theirVotes = getCommitteeVotes(username)
   outVotes = []
   for vote in theirVotes:
@@ -91,4 +92,3 @@ def vote_POST (username):
                             fac = faculty,
                             votes = outVotes
                           )
-  

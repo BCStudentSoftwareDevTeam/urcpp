@@ -8,12 +8,15 @@ function recalculate () {
       // console.log(parseFloat(this.innerHTML));
       sum += (parseFloat(this.innerHTML));
       console.log("Sum " + sum);
-      $("#average" + idx).html(parseFloat(sum/12).toFixed(2)); //Five 
+      console.log(idx);
+      var test = $("#average" + idx).html(parseFloat(sum/7).toFixed(2)); //7 is the number of criteria in the rubric
+      console.log(test);
+      $("#average" + idx).html(parseFloat(sum/7).toFixed(2));
     });
   };
 };
 
 $(document).ready(function(){
-  // $('[data-toggle="tooltip"]').tooltip(); 
+  // $('[data-toggle="tooltip"]').tooltip();
   recalculate();
 });

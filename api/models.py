@@ -164,6 +164,7 @@ class Voting (DynamicModel):
   qualityOfResearch     = FloatField(null = True)
   studentDevelopment    = FloatField(null = True)
   facultyDevelopment    = FloatField(null = True)
+  development           = FloatField(null = True)
   collaborative         = FloatField(null = True)
   interaction           = FloatField(null = True)
   communication         = FloatField(null = True)
