@@ -50,7 +50,6 @@ def vote_POST (username):
     return { "response": cfg["response"]["badUsername"] }
 
   data = request.form.to_dict()
-  print data + "here's the data u asked fors"
 
   print "Data is: " + str(data)
 
