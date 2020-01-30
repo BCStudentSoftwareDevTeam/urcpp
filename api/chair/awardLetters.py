@@ -141,7 +141,7 @@ def accept_letters_get(pID):
   staff_support = str(currentCycle.staffsupport_id.firstname)+" "+str(currentCycle.staffsupport_id.lastname)
   irb_chair = str(currentCycle.IRBchair_id.firstname)+" "+str(currentCycle.IRBchair_id.lastname)
   current_chair =  str(currentCycle.currentchair_id.firstname)+" "+str(currentCycle.currentchair_id.lastname)
-  abstract_date = str(currentCycle.AbstractnarrativesAcceptanceDate.strftime("%B %d, %Y"))
+  abstract_date = str(currentCycle.AllSubmissionsClosedDate.strftime("%B %d, %Y"))
 
   # Replace all placeholder text
   body = body.replace("@@Students@@", student)
