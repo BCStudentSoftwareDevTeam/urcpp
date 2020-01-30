@@ -91,10 +91,7 @@ class Parameters (DynamicModel):
   year                = IntegerField(unique=True)
   appOpenDate         = DateTimeField()
   appCloseDate        = DateTimeField()
-  ProposalOpenDate    = DateTimeField()
   ProposalAcceptanceDate = DateTimeField()
-  ProposalClosedDate = DateTimeField()
-  AbstractnarrativesAcceptanceDate = DateTimeField()
   AllSubmissionsClosedDate = DateTimeField()
   mileageRate         = FloatField() # Or Double?
   laborRate           = FloatField() # Or Double?
