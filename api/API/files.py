@@ -30,9 +30,11 @@ def create_message(subject, recipients, body):
     username_email(s) - Emails of the recipients
     body - The body of the email
   '''
-
+  parameters = getCurrentParameters()
+  adminEmail = parameters.staffsupport_id + "@berea.edu"
   msg = Message(subject,
                   sender=app.config['MAIL_DEFAULT_SENDER'],
-                  recipients=[recipients])  #create a message instance
+                  recipients=[recipients],
+                  cc=[adminEmail])  #create a message instance
   msg.html = body
   return msg
