@@ -83,7 +83,10 @@ def remove_file(username, uploadType):
 @app.route('/v1/upload/<whichfile>/<username>', methods=['POST'])
 def upload_file(whichfile, username):
   if username != authUser(request.environ):
-    return { "response": cfg["response"]["badUsername"] }
+    #print("Is the user good for uploading?")
+    #print(username)
+    #print(authUser(request.environ))
+    return jsonify({ "response": cfg["response"]["badUsername"] })
 
   app.logger.info("{0} attempting to upload file.".format(username))
   # NOTE: This is very fragile. Seems to work with docx, failed on two pdf's.

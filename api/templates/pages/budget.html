@@ -27,47 +27,48 @@
         class = "form-horizontal col-sm-10 col-sm-offset-1"
         action = "/budget"
         method = "POST">
-    
+
     <!-- Loop starts here for each box -->
     {% for budget in cfg["budget"] %}
-    <div  class = 'form-group' 
+    <div  class = 'form-group'
           id = "inputGroup{{loop.index0}}" >
-      <div  class = "row" 
+      <div  class = "row"
             style = "padding-bottom: 10px; padding-top: 30px;">
-          <label  for='{{budget["title"]}}{{loop.index0}}' 
+          <label  for='{{budget["title"]}}{{loop.index0}}'
                   class = 'col-sm-4 control-label'>
             {{budget["title"]}} 
           </label>
           <div class = 'col-sm-8'>
-          <input  name  = '{{budget["amountFieldName"]}}' 
-                    id    = '{{budget["title"]|lower}}' 
-                    type  = 'number' 
+          <input  name  = '{{budget["amountFieldName"]}}'
+                    id    = '{{budget["title"]|lower}}'
+                    type  = 'number'
                     class = 'form-control quantity'
                     {% if budg[budget["amountFieldName"]] is not none %}value = '{{budg[budget["amountFieldName"]]|int}}'{%endif%}
                     onchange = "findTotal()"
                     required
 		                step  = "1"
 		                min = "0"
-		                
+
 		                oninput = "this.value = Math.abs(this.value)"
                     placeholder = {% if budget.title != "Miles " %}
-                    
+
                     "($) Please enter a whole number"
                     {% if budget.title != "Faculty Stipend(s) " or "Miles " %} "($)" {% endif %}{% else %} "# of miles" {% endif %}
                     />
           </div>
-      </div>    
+      </div>
       <div class = "row">
         <label for='{{budget["title"]}}{{loop.index0}}' class = 'col-sm-4 control-label'>
           {{budget.title}} Description
         </label>
         <div class = "col-sm-8">
-          <textarea class="form-control" 
+          <textarea class="form-control"
+                    required
                     name  = '{{budget["amountFieldName"]}}Desc'
                     style="min-width: 100%"
                     rows = "3"
                     placeholder = "{{budget['placeholder']}}"
-                    id = '{{budget["title"]}}Description'>{{budg[budget["descFieldName"]]}}</textarea> 
+                    id = '{{budget["title"]}}Description'> {{budg[budget["descFieldName"]]}} </textarea>
         </div>
       </div>
     </div>
@@ -79,15 +80,16 @@
           Total ($)
         </label>
         <div class = 'col-sm-8'>
-          <input  name  = 'total' 
-                  id    = 'total' 
-                  type  = 'text' 
+          <input  name  = 'total'
+                  required
+                  id    = 'total'
+                  type  = 'text'
                   class = 'form-control'
                   value = "0"
 		  step = "0.01"
                   readonly
                   />
-            
+
         </div>
       </div>
     </div>
@@ -100,15 +102,15 @@
     <div class = "row">
     <div class = "form-group" >
      <div class = "col-sm-1">
-      <input type="button" value="Back" onclick="window.history.back()" class="btn btn-primary"/> 
+      <input type="button" value="Back" onclick="window.history.back()" class="btn btn-primary"/>
       </input>
     </div>
-    <div class = "col-sm-offset-9 col-sm-2" 
+    <div class = "col-sm-offset-9 col-sm-2"
          id = "submitButton"
          style="padding-bottom:20px"
          >
-      <button id = "first_submit_button" 
-              type = "button" 
+      <button id = "first_submit_button"
+              type = "button"
               class="btn btn-block btn-success"
               data-target="#exceeding"
               onclick="limit();"

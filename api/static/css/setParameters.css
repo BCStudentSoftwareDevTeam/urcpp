@@ -17,3 +17,15 @@ tr#paramsRow td {
     text-align:center;
     color: #28a745;
 }
+.year{
+  font-weight: 900; 
+  background-color: rgba(24, 188, 156, .05)
+  
+}
+tr:nth-child(even) {
+  background-color: rgba(24, 188, 156, .12)
+}
+
+#accordion .panel-body {
+    margin: 0px;
+}

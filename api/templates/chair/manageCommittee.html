@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% set currentPage = "setParameters" %}
+{% set currentPage = "manageCommittee" %}
 
 {% block title %} Manage URCPP Committee {% endblock %}
-
+<!-- <link rel="stylesheet" href="static/css/manageCommittee.css"> -->
 {% block body %}
 {% include "chair/nav_tabs.html" %}
 <div style="text-align:center;">
@@ -15,47 +15,54 @@
   </p>
 </div>
 
-<div style="background-color:ECF0F1;text-align:center;">
-  <h1>Add a committee member</h1>
+<div class="background" >
+  <h2>Add a Committee Member</h2>
   </br>
   <form action="/addCommitteeMember" method="post">
-    <select class="selectpicker form-control" data-role="chosen" id="addCommitteeMember" multiple="" name="addCommitteeMember">
-      {% for committeeMember in notCommittee %}
-        <option value="{{committeeMember.fID}}">{{committeeMember.firstname}} {{committeeMember.lastname}}</option>
-      {% endfor %}
-    </select>
-    
-    
-    
-    
+    <div class="row">
+      <div class = "col-sm-4"></div>
+      <div class = "col-sm-4">
+        <select class="selectpicker form-control" data-role="chosen" id="addCommitteeMember" multiple="" name="addCommitteeMember" data-live-search="true">
+          {% for committeeMember in notCommittee %}
+            <option value="{{committeeMember.fID}}">{{committeeMember.firstname}} {{committeeMember.lastname}}</option>
+          {% endfor %}
+        </select>
+        </div>
+      <div class = "col-sm-4"></div>
       {#<p>{{facultySelect.committeeMember(class_="selectpicker form-control", **{'data-live-search':"true"})}}</p>#}
-    </br> 
-   <div style="padding-bottom:10px">
+      <!-- Idk what that is ^^^^^^^^^^^ -Kat & Scott 8/1/19 -->
+    </br>
+   <div class="col-sm-12 button">
       <button type="submit"  class="btn btn-primary" value="submit">Submit</button>
+   </div>
    </div>
   </form>
 </div>
 
-<div style="background-color:ECF0F1;text-align:center;">
-  <h2>Remove committee member</h2>
+<div class="background">
+  <h2>Remove Committee Member</h2>
   </br>
   <form action="/removeCommitteeMember" method="post">
-    <select class="selectpicker form-control" data-role="chosen" id="removeCommitteeMember" multiple="" name="removeCommitteeMember">
-      {% for committeeMember in committee %}
-        <option value="{{committeeMember.fID}}">{{committeeMember.firstname}} {{committeeMember.lastname}}</option>
-      {% endfor %}
-    </select>
-    
-    
-    
+    <div class="row">
+      <div class = "col-sm-4"></div>
+      <div class = "col-sm-4">
+        <select class="selectpicker form-control" data-role="chosen" id="removeCommitteeMember" multiple="" name="removeCommitteeMember" data-live-search="true">
+          {% for committeeMember in committee %}
+            <option value="{{committeeMember.fID}}">{{committeeMember.firstname}} {{committeeMember.lastname}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class = "col-sm-4"></div>
     
       {#<p>{{facultySelect.committeeMember(class_="selectpicker form-control", **{'data-live-search':"true"})}}</p>#}
-    </br> 
-   <div style="padding-bottom:10px">
+      <!-- Idk what that is ^^^^^^^^^^^ -Kat & Scott 8/1/19 -->
+    </br>
+   <div  class="col-sm-12 button">
       <button type="submit"  class="btn btn-primary" value="submit">Submit</button>
    </div>
+   </div>
   </form>
-  
+
 </div>
 
 

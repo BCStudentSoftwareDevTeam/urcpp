@@ -10,16 +10,11 @@ def getVotesByProject(proj):
                 #   .over(partition_by=[Voting.projectID]),
                 fn.Avg(Voting.studentAccessibility),
                 #   .over(partition_by=[Voting.projectID]),
-                fn.Avg(Voting.qualityOfResearch),
+                #fn.Avg(Voting.qualityOfResearch),
                 #   .over(partition_by=[Voting.projectID]),
-                fn.Avg(Voting.studentDevelopment),
-                #   .over(partition_by=[Voting.projectID]),
-                fn.Avg(Voting.facultyDevelopment),
+                fn.Avg(Voting.development),
                 #   .over(partition_by=[Voting.projectID]),
                 fn.Avg(Voting.collaborative),
-                fn.Avg(Voting.interaction),
-                fn.Avg(Voting.communication),
-                fn.Avg(Voting.scholarlySignificance),
                 fn.Avg(Voting.proposalQuality),
                 fn.Avg(Voting.budget),
                 fn.Avg(Voting.timeline)
@@ -36,24 +31,24 @@ def getVotesByProject(proj):
 
 
 def getVotes():
-   
+
    paramsQ = (Voting.select())
-   
+
    app.logger.info("Looking for votes with query:\n\n" + paramsQ + "\n\n")
-   
+
    if paramsQ.exists():
       return paramsQ.get()
    else:
       return None
 
 def getCommitteeVotes(committee):
-   
+
    paramsQ = (Voting.select()
                     .where(Voting.committeeID == committee)
               )
-   
+
    app.logger.info("Looking for votes with query:\n\n" + paramsQ + "\n\n")
-   
+
    if paramsQ.exists():
       return paramsQ.execute()
    else:
@@ -66,23 +61,22 @@ def getVote(username, pid):
                     .where(Voting.projectID == pid)
             )
   app.logger.info("Looking for {0}'s votes for project {1}\n".format(username, pid))
-  
+
   if paramsQ.exists():
     return paramsQ.get()
   else:
     return None
-    
+
 # def getVote(committee, project):
-   
+
 #   paramsQ = (Voting.select()
 #                     .where(Voting.committeeID == committee and
 #                           Voting.projectID == project)
 #               )
-   
+
 #   app.logger.info("Looking for votes with query:\n\n" + paramsQ + "\n\n")
-   
+
 #   if paramsQ.exists():
 #       return paramsQ.get()
 #   else:
 #       return None
-

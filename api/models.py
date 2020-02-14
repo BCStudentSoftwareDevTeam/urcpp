@@ -9,9 +9,8 @@ from api.config import load_config
 here = os.path.dirname(__file__)
 
 cfg = load_config(os.path.join(here, 'config.yaml'))
-#TODO: move information out and change password to keep secret
 
-dynamicDB = MySQLDatabase("urcpp_flask_v2", host="localhost", user="urcpp-flask", passwd="DanforthLabor123!")
+dynamicDB = MySQLDatabase(cfg['db']['name'], host=cfg['db']['host'], user=cfg['db']['user'], passwd=cfg['db']['password'])
 
 class DynamicModel (Model):
   class Meta:
@@ -67,17 +66,17 @@ class Programs (DynamicModel):
 
 class Budget (DynamicModel):
   bID                 = PrimaryKeyField()
-  facultyStipend      = IntegerField(null = True)
+  facultyStipend      = IntegerField(default=0)
   facultyStipendDesc  = TextField(default = "")
-  miles               = IntegerField(null = True)
+  miles               = IntegerField(default=0)
   milesDesc           = TextField(default = "")
-  otherTravel         = IntegerField(null = True)
+  otherTravel         = IntegerField(default=0)
   otherTravelDesc     = TextField(default = "")
-  equipment           = IntegerField(null = True)
+  equipment           = IntegerField(default=0)
   equipmentDesc       = TextField(default = "")
-  materials           = IntegerField(null = True)
+  materials           = IntegerField(default=0)
   materialsDesc       = TextField(default = "")
-  other               = IntegerField(null = True)
+  other               = IntegerField(default=0)
   otherDesc           = TextField(default = "")
 
 class PreSurvey (DynamicModel):
@@ -92,10 +91,7 @@ class Parameters (DynamicModel):
   year                = IntegerField(unique=True)
   appOpenDate         = DateTimeField()
   appCloseDate        = DateTimeField()
-  ProposalOpenDate    = DateTimeField()
   ProposalAcceptanceDate = DateTimeField()
-  ProposalClosedDate = DateTimeField()
-  AbstractnarrativesAcceptanceDate = DateTimeField()
   AllSubmissionsClosedDate = DateTimeField()
   mileageRate         = FloatField() # Or Double?
   laborRate           = FloatField() # Or Double?
@@ -165,6 +161,7 @@ class Voting (DynamicModel):
   qualityOfResearch     = FloatField(null = True)
   studentDevelopment    = FloatField(null = True)
   facultyDevelopment    = FloatField(null = True)
+  development           = FloatField(null = True)
   collaborative         = FloatField(null = True)
   interaction           = FloatField(null = True)
   communication         = FloatField(null = True)
