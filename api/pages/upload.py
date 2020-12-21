@@ -16,7 +16,7 @@ def checkForFile(username, uploadType, year):
     if not (os.path.exists(prevFilepathAbs)):
       prevFilepath =''
     else:
-        app.logger.error(prevFilepath)
+        # app.logger.error(prevFilepath)
         pathComponents = prevFilepath.split('/')
         prevFilepath = pathComponents[-1] 
         break
@@ -76,7 +76,7 @@ def remove_file(username, uploadType):
     previous_file = checkForFile(username, uploadType, cycle.year)
 
     if previous_file:
-      app.logger.info("{0} removing {1}.".format(username, path))
+      # app.logger.info("{0} removing {1}.".format(username, path))
       os.remove(os.path.join(path, previous_file))
       return "File Deleted"
   return "Error, File Not Deleted"
@@ -89,34 +89,35 @@ def upload_file(whichfile, username):
     #print(authUser(request.environ))
     return jsonify({ "response": cfg["response"]["badUsername"] })
 
-  app.logger.info("{0} attempting to upload file.".format(username))
+  # app.logger.info("{0} attempting to upload file.".format(username))
+
   # NOTE: This is very fragile. Seems to work with docx, failed on two pdf's.
   # Size isn't cause.
   file = request.files['file']
   allowedExtensions = cfg["filepaths"]["allowedFileExtensions"].keys()
 
-  app.logger.info("File name: {0}".format(file.filename))
+  # app.logger.info("File name: {0}".format(file.filename))
 
   if file and (whichfile in cfg["filepaths"]["allowedFileNames"]):
     basename, file_extension = os.path.splitext(file.filename)
     ext = removeLeadingDot(file_extension)
 
-    app.logger.info("File extension: {0}".format(file_extension))
+    # app.logger.info("File extension: {0}".format(file_extension))
 
     if ext in allowedExtensions:
       filename = "{0}-{1}.{2}".format(username, whichfile, ext)
     else:
-      app.logger.info("Not an allowed extention!")
+      # app.logger.info("Not an allowed extention!")
       return jsonify( { "response" : "BADEXTENSION" } )
 
-    app.logger.info("Filename appears to be: " + filename)
+    # app.logger.info("Filename appears to be: " + filename)
     # Need to replace the cycle and username
     rawpath = cfg["filepaths"]["directory"]
     cycle   = getCurrentParameters()
     rawpath = rawpath.replace("%%applicationCycle%%", str(cycle.year))
     path    = rawpath.replace("%%username%%", username)
     path    = os.path.join(base_path, path)
-    app.logger.info("{0} saving {1} to {2}.".format(username, filename, path))
+    # app.logger.info("{0} saving {1} to {2}.".format(username, filename, path))
     try:
       os.makedirs(path)
     except OSError as exc: # Python >2.5
