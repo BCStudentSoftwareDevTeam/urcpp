@@ -36,16 +36,14 @@ import uuid
 def authUser(env):
   envK = "eppn"
 
-  #print("Huh?", app.config)
   #app.logger.info("Found remote user: " + env.get("HTTP_X_REMOTE_USER") + env.get("PHP_AUTH_USER"))
   if (envK in env):
-    app.logger.info("We're live"+  env[envK].split("@")[0]+ ";")
-    print("We're live")
-    # print("TYpe ", env)
-    if env["description"] == "Staff" or env["description"] == "Faculty":
+    print("authUser: Shibboleth login")
+    if "Staff" in env["description"] or "Faculty" in env["description"]:
     	return env[envK].split("@")[0].lower()
     else:
-	    abort(403)
+        print("Unauthorized description for {}: {}".format(env[envK], env["description"]))
+	abort(403)
   elif ("DEBUG" in cfg) and cfg["DEBUG"]:
     app.logger.info("We're in debug: " + cfg["DEBUG"]["user"])
     print("Debugger!")

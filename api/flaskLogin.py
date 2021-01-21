@@ -6,6 +6,7 @@ from redirectback import redirect_url
 @app.route('/login', methods=['GET'])
 def login():
         # get the user from shibboleth
+        print "Started the login process"
         system_user = authUser(request.environ)
         print "Logging in as", system_user
 	
