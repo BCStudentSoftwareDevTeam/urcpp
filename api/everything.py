@@ -40,10 +40,10 @@ def authUser(env):
   if (envK in env):
     print("authUser: Shibboleth login")
     if "Staff" in env["description"] or "Faculty" in env["description"]:
-    	return env[envK].split("@")[0].lower()
+        return env[envK].split("@")[0].lower()
     else:
         print("Unauthorized description for {}: {}".format(env[envK], env["description"]))
-	abort(403)
+        abort(403)
   elif ("DEBUG" in cfg) and cfg["DEBUG"]:
     app.logger.info("We're in debug: " + cfg["DEBUG"]["user"])
     print("Debugger!")
