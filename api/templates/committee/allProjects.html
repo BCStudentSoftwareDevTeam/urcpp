@@ -23,6 +23,14 @@
 <p></p>
 <div style = "padding-top: 20px;">
     <p style='text-align:right'><a href="{{url_for('static', filename='files/rubric.docx') }}">Downloadable Rubric</a></p>
+    <div class="col-md-12" align="center" id="year">
+      <select class="selectpicker" id="yearDropdown" onchange="filterProjectsByYear()" title="Seach by year">
+        {% for project in allProjects %}
+        <option value="{{project.year_id}}">{{project.year_id}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <br></br><br>
     <table class = "table table-hover table-sm" style="text-align: center;">
       <tr>
         <th style="padding-top: 15px; text-align: center;">Vote</th>
