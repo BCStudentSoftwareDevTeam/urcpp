@@ -5,7 +5,7 @@ import importlib
 
 # Don't forget to import your own models!
 from api.config import load_config
-from api.models import *
+# from api.models import *
 
 # The path is relative to the top of the project.
 conf = load_config('api/config.yaml')

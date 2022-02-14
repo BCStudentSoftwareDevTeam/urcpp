@@ -17,7 +17,7 @@ from flask import jsonify
 from flask import send_from_directory
 from flask import flash
 from flask import abort
-from werkzeug import secure_filename
+from werkzeug.utils import secure_filename
 
 # need to import g from flask_login
 from flask_login import login_user, logout_user, current_user, LoginManager, login_required
@@ -79,7 +79,7 @@ def teardown_request(exception):
     dbD = getattr(g, 'dbDynamic', None)
     if (dbS is not None) and (not dbS.is_closed()):
       dbS.close()
-    if (dbD is not None) and (not dbD.is_closed()):
+    if (dbD is not None) and (not dbD):
       dbD.close()
 
 @login_manager.user_loader
