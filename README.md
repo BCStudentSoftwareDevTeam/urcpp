@@ -9,6 +9,7 @@
 `https://github.com/BCStudentSoftwareDevTeam/urcpp` as of 02/10/2022
 3. Pull the most recent changes
 4. In the file `setup.sh` add lineRun `source setup.sh`
+
 ### Create database with Phpmyadmin
 (Skip to step 9 if you want to setup using MYSQL Workbench and Terminal)
 5. Go to your Phpmyadmin interface and log in with your credentials
@@ -19,6 +20,7 @@ If a database of that name already exists, drop it and create it again
 7. Create a user named `urcpp-flask` with password `DanforthLabor123!`
 8. Grant all permissions on the database `urcpp_flask_v2` to `urcpp-flask`
 Continue to step 13.
+
 ### Create database with MySQL Workbench and Terminal
 (Skip this if you have set up with Phpmyadmin)
 9. In your terminal use the command `mysql -u root -p`. You will be prompted to enter your password
