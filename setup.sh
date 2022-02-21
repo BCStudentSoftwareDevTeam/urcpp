@@ -6,7 +6,7 @@ if [ ! -d venv ]
 then
   virtualenv venv
 fi
-
+virtualenv --python=python2.7 venv
 . venv/bin/activate
 
 pip install Flask
