@@ -19,7 +19,7 @@ Make sure to replace 0.0.0.0 with your server's IP address
 - If a database of that name already exists, drop it and create it again
 7. Create a user named `urcpp-flask` with password `DanforthLabor123!`
 8. Grant all permissions on the database `urcpp_flask_v2` to `urcpp-flask`
-Continue to step 13.
+Continue to step 14.
 
 ## Create database with MySQL Workbench and Terminal
 
