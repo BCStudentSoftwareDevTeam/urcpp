@@ -8,7 +8,7 @@
 1. In your working environment, clone the URCPP Repo:
 - `https://github.com/BCStudentSoftwareDevTeam/urcpp` as of 02/10/2022
 3. Pull the most recent changes
-4. In the file `setup.sh` add lineRun `source setup.sh`
+4. Run `source setup.sh`
 
 ## Create database with Phpmyadmin
 
