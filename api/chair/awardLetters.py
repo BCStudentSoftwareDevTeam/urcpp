@@ -19,7 +19,7 @@ def awardLetters ():
   currentCycle = getCurrentParameters()
   faculty =  getFacultyWithAcceptedProjects(currentCycle.year)
   funding = {}
-  
+
   if faculty is not None:
     for entry in faculty:
       bID = entry.pID.budgetID
@@ -40,7 +40,7 @@ def awardLetters_save ():
   # we need the current year to get current faculty with projects
   template, created = EmailTemplates.get_or_create(eID = 1)
   template.Body = request.form['body']
-  template.Subject = request.form['subject']  
+  template.Subject = request.form['subject']
   template.save()
   return jsonify({"success": True})
 
@@ -55,7 +55,7 @@ def awardLetters_get ():
   body = template.Body
   subject = template.Subject
   return jsonify({"body": body, "subject":subject})
-  
+
 @app.route("/chair/awardLetters/send/<username>/<pID>", methods = ["GET"])
 @login_required
 def awardLetters_generate(username,pID):
@@ -73,7 +73,7 @@ def awardLetters_generate(username,pID):
   start = str(project.startDate.strftime("%B %d, %Y"))
   end = str(project.endDate.strftime("%B %d, %Y"))
   stipend = str(project.budgetID.facultyStipend)
-  
+
   # Replace all placeholder text
   body = body.replace("@@Funding@@",funding)
   body = body.replace("@@ProjectTitle@@",project_title)
@@ -96,7 +96,7 @@ def accept_letters_get(pID):
   if not g.user.isCommitteeMember:
     abort(403)
   # All of our queries
-  
+
   project = Projects.get(Projects.pID == pID)
   # we need the current year to get current faculty with projects
   template = EmailTemplates.get(EmailTemplates.eID == 1)
@@ -108,7 +108,7 @@ def accept_letters_get(pID):
   start = str(project.startDate.strftime("%B %d, %Y"))
   end = str(project.endDate.strftime("%B %d, %Y"))
   stipend = str(project.budgetID.facultyStipend)
-  
+
   # Replace all placeholder text
   body = body.replace("@@Funding@@",funding)
   body = body.replace("@@ProjectTitle@@",project_title)
@@ -116,5 +116,5 @@ def accept_letters_get(pID):
   body = body.replace("@@Start Date@@",start)
   body = body.replace("@@End Date@@",end)
   body = body.replace("@@Stipend@@",stipend)
-  
+
   return jsonify({"body": body, "subject":subject})
