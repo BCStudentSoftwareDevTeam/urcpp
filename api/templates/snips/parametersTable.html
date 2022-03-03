@@ -6,6 +6,7 @@
         <th style="border: solid #2c3e50">Application Close Date</th>
         <th style="border: solid #2c3e50">Mileage Rate</th>
         <th style="border: solid #2c3e50">Labor Rate</th>
+        <th style="border: solid #2c3e50">Stipend</th>
     </tr>
     {% for parameter in parameters_list %}
     <tr>
@@ -14,11 +15,12 @@
         <td style="border: solid #2c3e50">{{parameter.appCloseDate.strftime('%Y/%m/%d')}}</td>
         <td style="border: solid #2c3e50">${{parameter.mileageRate}}</td>
         <td style="border: solid #2c3e50">${{parameter.laborRate}}</td>
+        <td style="border: solid #2c3e50">${{parameter.stipend}}</td>
         <td  style="border: solid #2c3e50">
             <a id="delete_parameters" href={{url_for('deleteParameters', pID = parameter.pID)}}>
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
             </a>
-            <span class="glyphicon glyphicon-ok isCurrentParameter {% if not parameter.isCurrentParameter %} disabled {% endif %}" 
+            <span class="glyphicon glyphicon-ok isCurrentParameter {% if not parameter.isCurrentParameter %} disabled {% endif %}"
                   style="cursor:help;"
                   title="Click this to make it the current cycle parameters"
                   id="set_current_parameters-{{parameter.pID}}"
