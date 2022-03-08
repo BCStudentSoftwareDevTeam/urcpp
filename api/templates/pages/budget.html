@@ -63,7 +63,12 @@
                     style="min-width: 100%"
                     rows = "3"
                     placeholder = "{{budget['placeholder']}}"
-                    id = '{{budget["title"]}}Description'>{{budg[budget["descFieldName"]]}}</textarea>
+                    id = '{{budget["title"]}}Description'>
+                    if {{budget.title}} not "Faculty Stipend(s) "
+                      {{budg[budget["descFieldName"]]}}
+                    else
+                      <p>Indicate the amount each faculty member will receive as a stipend, up to ${{params.stipend}} per faculty member <p>
+          </textarea>
         </div>
       </div>
     </div>
