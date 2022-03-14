@@ -52,26 +52,32 @@
                     {% if budget.title != "Faculty Stipend(s) " or "Miles " %} "($)" {% endif %}{% else %} "# of miles" {% endif %}
                     />
           </div>
-      </div>
-      <div class = "row">
-        <label for='{{budget["title"]}}{{loop.index0}}' class = 'col-sm-4 control-label'>
-          {{budget.title}} Description
-        </label>
-        <div class = "col-sm-8">
-          <textarea class="form-control"
-                    name  = '{{budget["amountFieldName"]}}Desc'
-                    style="min-width: 100%"
-                    rows = "3"
-                    placeholder = "{{budget['placeholder']}}"
-                    id = '{{budget["title"]}}Description'>
-                    if {{budget.title}} not "Faculty Stipend(s) "
-                      {{budg[budget["descFieldName"]]}}
-                    else
-                      <p>Indicate the amount each faculty member will receive as a stipend, up to ${{params.stipend}} per faculty member <p>
-          </textarea>
         </div>
-      </div>
-    </div>
+              <div class = "row">
+                <label for='{{budget["title"]}}{{loop.index0}}' class = 'col-sm-4 control-label'>
+                  {{budget.title}} Description
+                </label>
+                {% if budget.title != "Faculty Stipend(s) " %}
+                <div class = "col-sm-8">
+                  <textarea class="form-control"
+                            name  = '{{budget["amountFieldName"]}}Desc'
+                            style="min-width: 100%"
+                            rows = "3"
+                            placeholder = "{{budget['placeholder']}}"
+                            id = '{{budget["title"]}}Description'>{{budg[budget["descFieldName"]]}}</textarea>
+                </div>
+                {%else%}
+                <div class = "col-sm-8">
+                  <textarea class="form-control"
+                            name  = '{{budget["amountFieldName"]}}Desc'
+                            style="min-width: 100%"
+                            rows = "3"
+                            placeholder = "Indicate the amount each faculty member will receive as a stipend, up to ${{params.stipend}} per faculty member"
+                            id = '{{budget["title"]}}Description'> {{budg[budget["descFieldName"]]}}</textarea>
+                </div>
+              {%endif%}
+              </div>
+            </div>
     {% endfor %}
     <!-- Loop ends here for each box -->
     <div class = 'form-group has-success' id = "totalGroup" >
