@@ -14,7 +14,7 @@ def setParameters_GET ():
     openDate = datetime.datetime.strptime(data['applicationOpenDate'], '%Y-%m-%d')
     closeDate = (datetime.datetime
                          .strptime(data['applicationCloseDate'], '%Y-%m-%d')
-                         .replace(hour=11, minute=55) )
+                         .replace(hour=23, minute=59) )
     parameters = Parameters(year = int(data['newYear']),
                             appOpenDate = openDate,
                             appCloseDate =closeDate,
