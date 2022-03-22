@@ -16,7 +16,7 @@ import API.projects
 
 
 
-# Form pages
+#Form pages
 import pages.create
 import pages.people
 import pages.history

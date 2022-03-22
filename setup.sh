@@ -2,13 +2,26 @@
 # Setup virtualenv
 mkdir -p data
 
-if [ ! -d venv ]
+if [ -d venv ]
 then
-  virtualenv venv
+  echo "Deactivating and removing old virtualenv"
+  deactivate 2>&1 /dev/null
+  rm -rf venv
 fi
 
+# Check for correct python version
+# VERSION=`python2 -V | awk '{print $2}'`
+# if [ "${VERSION:0:1}" -ne "2" ] || [ "${VERSION:2:1}" -ne "7" ]; then
+# 	     echo "You must use Python 2.7. You are using $VERSION"
+# 	     return 1
+# else
+# 	echo -e "You are using Python $VERSION"
+# fi
+
+virtualenv --python=python2.7 venv
 . venv/bin/activate
 
+pip install -U Werkzeug==0.16.0
 pip install Flask
 pip install peewee
 pip install pyyaml

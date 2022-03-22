@@ -79,7 +79,7 @@ def teardown_request(exception):
     dbD = getattr(g, 'dbDynamic', None)
     if (dbS is not None) and (not dbS.is_closed()):
       dbS.close()
-    if (dbD is not None) and (not dbD.is_closed()):
+    if (dbD is not None) and (not dbD):
       dbD.close()
 
 @login_manager.user_loader

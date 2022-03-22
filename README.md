@@ -1,23 +1,39 @@
-## Important things to know before developing locally or in C9
+## Requirements
+- Python2.7
+- linux, unix, mac, windows(with attachments), Ubuntu
+- virtualenv
+- mysql and python mysql-db
 
-  - You will notice a bunch of sqlite related code, but we are no longer using sqlite
-  - You will need to have mysql and python mysql-db
- 
-# c9 Installation Guide #
+## Setup
+1. In your working environment, clone the URCPP Repo:
+- `https://github.com/BCStudentSoftwareDevTeam/urcpp` as of 02/10/2022
+3. Pull the most recent changes
+4. Run `source setup.sh`
 
-1. Create a work space in c9 with the python template and the github ssh url.
-2. run `git pull` to ensure latest changes are pulled.
-3. run `source setup.sh` to execute setup script.
-4. run `phpmyadmin-ctl install` to run the phpmyadmin client.
-5. navigate to the phpmyadmin interface
-6. create a database named `urcpp_flask_v2`
-7. add a user named `urcpp-flask` with password `DanforthLabor123!` and check `grant all permissions on database urcpp_flask_v2`
-   - See instructions [here](https://docs.google.com/document/d/1K2Ex8xsa65SwvCG3UdZ9bL-hLey9rTguOA9kfbENtwY/edit?usp=sharing) for more aid
-8. comment out lines 20-27 in `api/__init__.py`
-9. create a file `api/secret_key` with alphanumeric characters in the file
-9. run `python recreate_static`
-10. run `python recreate_dynamic`
-11. comment lines 20-27 back in
-12. run `python api.py`
-13. if application does not load, comment out lines 80-83 in 'urcpp-flask/api/everything.py'
-14. to initialize mysql, run 'mysql-ctl install' and answer 'Y'
+## Create database with Phpmyadmin
+
+5. Go to your Phpmyadmin interface and log in with your credentials
+- Located here: `http://0.0.0.0/phpmyadmin/`
+Make sure to replace 0.0.0.0 with your server's IP address
+6. Create a new database named `urcpp_flask_v2`
+- If a database of that name already exists, drop it and create it again
+7. Create a user named `urcpp-flask` with password `DanforthLabor123!`
+8. Grant all permissions on the database `urcpp_flask_v2` to `urcpp-flask`
+Continue to step 14.
+
+## Create database with MySQL Workbench and Terminal
+
+9. In your terminal use the command `mysql -u root -p`. You will be prompted to enter your password
+10. To create the database: `CREATE DATABASE urcpp_flask_v2;` (Make sure you include the ;)
+11. To create a user named `urcpp-flask` with password `DanforthLabor123!`: `CREATE USER 'urcpp-flask'@localhost IDENTIFIED BY 'DanforthLabor123!'; `
+12. To Grant all permissions on the database `urcpp_flask_v2` to `urcpp-flask`: ` GRANT ALL PRIVILEGES ON `urcpp_flask_v2` . * TO 'urcpp-flask'@localhost; `
+13. To make sure permissions take effect: ` flush privileges; `
+
+## Continue from here again
+14. Create a file named `secret_key` in the `api` folder
+- `secret_key` MUST contain some alphanumeric characters. Anything will work including `AnythignWillWork`
+15. Comment out lines 20-27 in `api/__init__.py`
+16. Run `python recreate_static.py`
+17. Run `python recreate_dynamic.py`
+18. Comment lines 20-27 in `api/__init__.py` back in
+19. Run `python api.py`
