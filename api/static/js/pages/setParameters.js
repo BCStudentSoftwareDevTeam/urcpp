@@ -1,20 +1,20 @@
-/* global $, swal */ 
+/* global $, swal */
 $(function() {
       $("#applicationOpenDate").datepicker({
         dateFormat: "yy-mm-dd"
       });
-      
+
       $("#applicationCloseDate").datepicker({
         dateFormat: "yy-mm-dd"
       });
     });
-    
+
 $('.selectpicker').selectpicker({
 });
 
 function change_check_color(parameters_id){
   $(".isCurrentParameter").addClass("disabled");
-  
+
   $("#set_current_parameters-"+parameters_id).removeClass("disabled")
 }
 
@@ -41,7 +41,7 @@ function(isConfirm){
 });
 
   };
-  
+
 function warnBeforeRedirect(url) {
   swal({
   title: "Are you sure?",
@@ -62,7 +62,7 @@ function(isConfirm){
   }
 });
 }
-  
+
 $("#delete_parameters").click(function(e) {
   e.preventDefault();
   var linkURL = $(this).attr("href");

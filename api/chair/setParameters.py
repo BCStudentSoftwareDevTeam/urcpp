@@ -19,7 +19,8 @@ def setParameters_GET ():
                             appOpenDate = openDate,
                             appCloseDate =closeDate,
                             mileageRate = data['mileageRate'],
-                            laborRate = data['laborRate'])
+                            laborRate = data['laborRate'],
+                            stipend = data['stipend'])
 
     parameters.save()
 
