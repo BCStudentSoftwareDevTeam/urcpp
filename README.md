@@ -15,25 +15,19 @@
 5. Go to your Phpmyadmin interface and log in with your credentials
 - Located here: `http://0.0.0.0/phpmyadmin/`
 Make sure to replace 0.0.0.0 with your server's IP address
-6. Create a new database named `urcpp_flask_v2`
+6. Create a new database named `urcpp_flask`
 - If a database of that name already exists, drop it and create it again
-7. Create a user named `urcpp-flask` with password `DanforthLabor123!`
-8. Grant all permissions on the database `urcpp_flask_v2` to `urcpp-flask`
+7. Create a user named `urcpp_flask` with password `DanforthLabor123!`
+8. Grant all permissions on the database `urcpp_flask` to `urcpp_flask`
 Continue to step 14.
 
-## Create database with MySQL Workbench and Terminal
+## Create database using MYSQL commands
 
 9. In your terminal use the command `mysql -u root -p`. You will be prompted to enter your password
-10. To create the database: `CREATE DATABASE urcpp_flask_v2;` (Make sure you include the ;)
-11. To create a user named `urcpp-flask` with password `DanforthLabor123!`: `CREATE USER 'urcpp-flask'@localhost IDENTIFIED BY 'DanforthLabor123!'; `
-12. To Grant all permissions on the database `urcpp_flask_v2` to `urcpp-flask`: ` GRANT ALL PRIVILEGES ON `urcpp_flask_v2` . * TO 'urcpp-flask'@localhost; `
-13. To make sure permissions take effect: ` flush privileges; `
+10. Create the database: ` CREATE DATABASE urcpp_flask; `
+11. Create a user with given password:  ` CREATE USER 'urcpp_flask'@localhost IDENTIFIED BY 'DanforthLabor123!'; `
+12. Grant all permissions: ` GRANT ALL PRIVILEGES ON 'urcpp_flask' . * TO 'urcpp_flask'@localhost; `
+13. Make sure permissions take effect: ` flush privileges; `
 
 ## Continue from here again
-14. Create a file named `secret_key` in the `api` folder
-- `secret_key` MUST contain some alphanumeric characters. Anything will work including `AnythignWillWork`
-15. Comment out lines 20-27 in `api/__init__.py`
-16. Run `python recreate_static.py`
-17. Run `python recreate_dynamic.py`
-18. Comment lines 20-27 in `api/__init__.py` back in
-19. Run `python api.py`
+14. Run `python api.py`
