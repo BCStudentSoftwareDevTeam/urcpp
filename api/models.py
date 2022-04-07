@@ -99,6 +99,7 @@ class Parameters (DynamicModel):
   IRBchair_id            = ForeignKeyField(LDAPFaculty, to_field = "username")
   currentchair_id        = ForeignKeyField(LDAPFaculty, to_field = "username")
   staffsupport_id        = ForeignKeyField(LDAPFaculty, to_field = "username")
+  stipend             = FloatField()
 class Projects (DynamicModel):
   pID                   = PrimaryKeyField()
   title                 = TextField()

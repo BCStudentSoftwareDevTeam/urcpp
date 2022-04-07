@@ -14,7 +14,7 @@ def setParameters_GET ():
     openDate = datetime.datetime.strptime(data['applicationOpenDate'], dateFormat)
     closeDate = (datetime.datetime
                          .strptime(data['applicationCloseDate'], dateFormat)
-                         .replace(hour=11, minute=55) )
+                         .replace(hour=23, minute=59) )
 #    ProposalOpenDate = datetime.datetime.strptime(data['ProposalOpenDate'], dateFormat)
     ProposalAcceptanceDate = datetime.datetime.strptime(data['ProposalAcceptanceDate'], dateFormat)
 #    ProposalClosedDate = ( datetime.datetime.strptime(data['ProposalClosedDate'], dateFormat).replace(hour=11, minute=55) )
@@ -24,19 +24,19 @@ def setParameters_GET ():
     AllSubmissionsClosedDate = ( datetime.datetime.strptime(data['AllSubmissionsClosedDate'], dateFormat)
 						  .replace(hour=11, minute=55) )
 
- 
-    
+
+
     try:
 	    parameters = Parameters.get(year = int(data['newYear']))
-    except: 
-	    parameters = Parameters.create(year = int(data['newYear']), 
-					   appOpenDate = openDate, 
-					   appCloseDate = closeDate, 
+    except:
+	    parameters = Parameters.create(year = int(data['newYear']),
+					   appOpenDate = openDate,
+					   appCloseDate = closeDate,
 					   mileageRate = data['mileageRate'],
-					   laborRate = data['laborRate'], 
-					   isCurrentParameter = False, 
+					   laborRate = data['laborRate'],
+					   isCurrentParameter = False,
 			 )
-   
+
     print("Date: ", data['applicationOpenDate'])
     parameters.IRBchair_id = data['IRBchair_id']
     parameters.currentchair_id = data['currentchair_id']
@@ -50,16 +50,16 @@ def setParameters_GET ():
     parameters.AllSubmissionsClosedDate = AllSubmissionsClosedDate
     parameters.mileageRate = data['mileageRate']
     parameters.laborRate = data['laborRate']
-        
+
     parameters.save()
-    
+
     flash("Successfully saved" , "success")
     return redirect(url_for('setParameters_GET', username = g.user.username))
-    
+
   parameters = getCurrentParameters()
   parameters_list = Parameters.select().order_by(-Parameters.year)
   faculty = LDAPFaculty.select() # retrieves all the faculty from the data base
-  return render_template ("chair/setParameters.html", 
+  return render_template ("chair/setParameters.html",
                            username = g.user.username,
                            ldap = g.user,
                            params = parameters,
@@ -67,7 +67,7 @@ def setParameters_GET ():
                            cfg = cfg,
                            allfaculty = faculty,
                            )
-                           
+
 @app.route("/delete/parameters/<pID>", methods=['GET'])
 @login_required
 def deleteParameters(pID):
@@ -76,9 +76,7 @@ def deleteParameters(pID):
   try:
     parameters = Parameters.get(Parameters.pID == pID)
     parameters.delete_instance()
-  
+
   except Parameters.DoesNotExist:
     flash("Parameters not found" , "danger")
   return redirect(redirect_url())
-  
-  

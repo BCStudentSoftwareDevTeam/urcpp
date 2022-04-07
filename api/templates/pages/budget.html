@@ -16,7 +16,7 @@
 </div>
 <div style="text-align:center;">
   <p>
-  URCPP can provide stipends for you and your students (a maximum of $5300 per faculty member), plus up to $3000 for equipment, supplies, and related travel.
+  URCPP can provide stipends for you and your students (a maximum of ${{params.stipend}} per faculty member), plus up to $3000 for equipment, supplies, and related travel.
   </p>
 </div>
 <!-- This is the only actual HTML on the page.
@@ -36,7 +36,7 @@
             style = "padding-bottom: 10px; padding-top: 30px;">
           <label  for='{{budget["title"]}}{{loop.index0}}'
                   class = 'col-sm-4 control-label'>
-            {{budget["title"]}} 
+            {{budget["title"]}}
           </label>
           <div class = 'col-sm-8'>
           <input  name  = '{{budget["amountFieldName"]}}'
