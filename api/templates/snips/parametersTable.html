@@ -15,13 +15,14 @@
         {#<th>Proposal Closed</th>#}
         <th>Abstracts Due</th>
         {#<th>Submissions Close</th>#}
+        <th>Stipend</th>
         <th>Actions</th>
 
 
     </tr>
     {% for parameter in parameters_list %}
     <tr id = "paramsRow">
-        <td id = "{{parameter.year}}_year" class="year">{{parameter.year}}</td>        
+        <td id = "{{parameter.year}}_year" class="year">{{parameter.year}}</td>
         <td id = "{{parameter.year}}_chair" data-value = {{parameter.currentchair_id.username}}>{{parameter.currentchair_id.firstname}} {{parameter.currentchair_id.lastname}}</td>
         <td id = "{{parameter.year}}_staff" data-value = {{parameter.staffsupport_id.username}}>{{parameter.staffsupport_id.firstname}} {{parameter.staffsupport_id.lastname}}</td>
         <td id = "{{parameter.year}}_irb" data-value = {{parameter.IRBchair_id.username}}>{{parameter.IRBchair_id.firstname}} {{parameter.IRBchair_id.lastname}}</td>
@@ -34,6 +35,7 @@
 {#        <td id = "{{parameter.year}}_proposalclose" data-value = {{parameter.ProposalClosedDate.strftime('%m/%d/%Y')}}>{{parameter.ProposalClosedDate.strftime('%m/%d/%Y')}}</td>#}
 {#        <td id = "{{parameter.year}}_abstract" data-value = {{parameter.AbstractnarrativesAcceptanceDate.strftime('%m/%d/%Y')}}>{{parameter.AbstractnarrativesAcceptanceDate.strftime('%m/%d/%Y')}}</td>#}
         <td id = "{{parameter.year}}_allsubmit" data-value = {{parameter.AllSubmissionsClosedDate.strftime('%m/%d/%Y')}}>{{parameter.AllSubmissionsClosedDate.strftime('%m/%d/%Y')}}</td>
+        <td id = "{{parameter.year}}_stipend" data-value = {{parameter.stipend}}>${{'%0.2f'| format(parameter.stipend|float)}}</td>
         <td>
             <div class= "row justify-content-md-center">
                 <span class="glyphicon glyphicon-ok {% if parameter.isCurrentParameter %} isCurrentYear {% endif %}"
