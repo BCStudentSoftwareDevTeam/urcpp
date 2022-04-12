@@ -30,4 +30,7 @@ Continue to step 14.
 13. Make sure permissions take effect: ` flush privileges; `
 
 ## Continue from here again
-14. Run `python api.py`
+14. Go into the `urcpp/database` directory
+15. Run `mysql -u urcpp-flask -p urcpp_flask < prod-data.sql`
+- When it prompts you for the password, enter `DanforthLabor123!`
+16. Run `python api.py`
