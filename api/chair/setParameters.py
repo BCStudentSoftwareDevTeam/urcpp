@@ -22,7 +22,7 @@ def setParameters_GET ():
  #   AbstractnarrativesAcceptanceDate = ( datetime.datetime.strptime(data['AbstractnarrativesAcceptanceDate'], dateFormat).replace(hour=11, minute=55) )
 
     AllSubmissionsClosedDate = ( datetime.datetime.strptime(data['AllSubmissionsClosedDate'], dateFormat)
-						  .replace(hour=11, minute=55) )
+						  .replace(hour=23, minute=59) )
 
 
 
@@ -35,6 +35,7 @@ def setParameters_GET ():
 					   mileageRate = data['mileageRate'],
 					   laborRate = data['laborRate'],
 					   isCurrentParameter = False,
+                       stipend = data['stipend']
 			 )
 
     print("Date: ", data['applicationOpenDate'])
@@ -50,6 +51,7 @@ def setParameters_GET ():
     parameters.AllSubmissionsClosedDate = AllSubmissionsClosedDate
     parameters.mileageRate = data['mileageRate']
     parameters.laborRate = data['laborRate']
+    parameters.stipend = data['stipend']
 
     parameters.save()
 

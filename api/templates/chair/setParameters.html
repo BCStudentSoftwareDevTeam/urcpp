@@ -282,7 +282,10 @@
                                          type  = 'number'
                                          class = 'form-control quantity'
                                          required
+                                         step  = "0.01"
                                          placeholder = "Enter Faculty Stipend"
+                                         min = "0.00"
+                                         oninput = "this.value = Math.abs(this.value)"
                                          />
                               </div>
                              </div>

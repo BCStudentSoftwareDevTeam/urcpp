@@ -1,39 +1,39 @@
-/* global $, swal */ 
+/* global $, swal */
 $(function() {
       $("#applicationOpenDate").datepicker({
         dateFormat: "mm/dd/yy"
       });
-      
+
       $("#applicationCloseDate").datepicker({
         dateFormat: "mm/dd/yy"
       });
-      
+
       $("#ProposalOpenDate").datepicker({
         dateFormat: "mm/dd/yy"
       });
       $("#ProposalAcceptanceDate").datepicker({
         dateFormat: "mm/dd/yy"
       });
-      
+
        $("#ProposalClosedDate").datepicker({
         dateFormat: "mm/dd/yy"
       });
-      
+
        $("#AbstractnarrativesAcceptanceDate").datepicker({
         dateFormat: "mm/dd/yy"
       });
-      
+
        $("#AllSubmissionsClosedDate").datepicker({
         dateFormat: "mm/dd/yy"
       });
     });
-    
+
 $('.selectpicker').selectpicker({
 });
 
 function change_check_color(parameters_id){
   $(".isCurrentYear").removeClass("isCurrentYear");
-  
+
   $("#set_current_parameters-"+parameters_id).addClass("isCurrentYear")
 }
 
@@ -59,7 +59,7 @@ function set_current_parameters(parameters_id) {
   	}
     });
 };
-  
+
 function warnBeforeRedirect(url) {
   swal({
   	title: "Are you sure?",
@@ -80,7 +80,7 @@ function warnBeforeRedirect(url) {
   	}
    });
 }
-  
+
 $("#delete_parameters").click(function(e) {
   e.preventDefault();
   var linkURL = $(this).attr("href");
@@ -105,9 +105,11 @@ function editParameters(year){
   $("#ProposalClosedDate").val($("#"+year+"_proposalclose").attr("data-value"));
   $("#AbstractnarrativesAcceptanceDate").val($("#"+year+"_abstract").attr("data-value"));
   $("#AllSubmissionsClosedDate").val($("#"+year+"_allsubmit").attr("data-value"));
+  $("#stipend").val(parseFloat($("#"+year+"_stipend").attr("data-value")).toFixed(2));
   $(".selectpicker").selectpicker('refresh');
   $("#collapseOne").collapse('show');
   window.scrollTo(0, 0);  // Send user to the top of the page
+
 }
 
 $("#laborRate").change(function() {

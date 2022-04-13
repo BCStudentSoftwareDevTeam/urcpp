@@ -31,6 +31,6 @@ Continue to step 14.
 
 ## Continue from here again
 14. Go into the `urcpp/database` directory
-15. Run `mysql -u urcpp-flask -p urcpp_flask < prod-data.sql`
+15. Run `mysql -u urcpp_flask -p urcpp_flask < prod-data.sql`
 - When it prompts you for the password, enter `DanforthLabor123!`
 16. Run `python api.py`
