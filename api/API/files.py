@@ -1,5 +1,5 @@
 import shutil
-from parameters import getCurrentParameters
+from api.API.parameters import getCurrentParameters
 from ..everything import *
 #Flask mail imports
 from flask_mail import Message

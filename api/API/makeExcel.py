@@ -1,8 +1,8 @@
 import xlsxwriter
 from ..everything import *
 from string import ascii_uppercase as AtoZ
-from faculty import getFacultyWithProjects
-from parameters import getCurrentParameters
+from api.API.faculty import getFacultyWithProjects
+from api.API.parameters import getCurrentParameters
 
 
 def getFilename(fileType):

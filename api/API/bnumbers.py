@@ -1,7 +1,7 @@
 from api.everything import *
-from projects import getProject
-from collaborators import delete_non_collaborators, add_collaborators
-from faculty import get_faculty_by_bnumbers
+from api.API.projects import getProject
+from api.API.collaborators import delete_non_collaborators, add_collaborators
+from api.API.faculty import get_faculty_by_bnumbers
 
 @app.route("/bnumbers", methods = ["POST"])
 @login_required

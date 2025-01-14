@@ -1,6 +1,6 @@
 from ..everything import *
 import json
-import projects
+import api.API.projects
 
 def getLDAPFaculty (username):
   """ gets the LDAPFaculty by username

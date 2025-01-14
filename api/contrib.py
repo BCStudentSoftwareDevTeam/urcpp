@@ -1,4 +1,4 @@
-from everything import *
+from api.everything import *
 
 
 @app.route("/contributor", methods = ["GET"])

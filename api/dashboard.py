@@ -1,7 +1,7 @@
-from everything import *
-from API.faculty import getLDAPFaculty
-from API.projects import getProject
-from API.parameters import getCurrentParameters
+from api.everything import *
+from api.API.faculty import getLDAPFaculty
+from api.API.projects import getProject
+from api.API.parameters import getCurrentParameters
 from datetime import datetime
 
 @app.route("/dashboard", methods = ["GET"])

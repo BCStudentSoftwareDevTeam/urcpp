@@ -1,5 +1,5 @@
 from ..everything import *
-from projects import getProject
+from api.API.projects import getProject
 from .parameters import getCurrentParameters
 
 def getBudget (username):

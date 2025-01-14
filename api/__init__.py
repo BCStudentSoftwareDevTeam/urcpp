@@ -1,4 +1,4 @@
-from everything import *
+from api.everything import *
 
 # Routes used everywhere, like static and templates
 import api.globalroutes
@@ -8,42 +8,42 @@ import api.dashboard
 import api.contrib
 
 # Our API
-import API.bnumbers
-import API.collaborators
-import API.faculty
-import API.makeExcel
-import API.programs
-import API.projects
+import api.API.bnumbers
+import api.API.collaborators
+import api.API.faculty
+import api.API.makeExcel
+import api.API.programs
+import api.API.projects
 
 
 
 
 # Form pages
-import pages.create
-import pages.people
-import pages.collaborations
-import pages.irbyn
-import pages.upload
-import pages.done
-import pages.budget
-import pages.download
+import api.pages.create
+import api.pages.people
+import api.pages.collaborations
+import api.pages.irbyn
+import api.pages.upload
+import api.pages.done
+import api.pages.budget
+import api.pages.download
 
 #Committee pages
-import committee.committee
-import committee.allBudgets
-import committee.allProjects
-import committee.allFiles
-import committee.allLabor
+import api.committee.committee
+import api.committee.allBudgets
+import api.committee.allProjects
+import api.committee.allFiles
+import api.committee.allLabor
 
 # import committee.vote
-import committee.allVotes
-import committee.castVote
+import api.committee.allVotes
+import api.committee.castVote
 
 #Chair pages
-import chair.chair
-import chair.awardLetters
-import chair.setParameters
-import chair.manageCommittee
-import chair.email_accepted
+import api.chair.chair
+import api.chair.awardLetters
+import api.chair.setParameters
+import api.chair.manageCommittee
+import api.chair.email_accepted
 
-import flaskLogin
+import api.flaskLogin

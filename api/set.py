@@ -1,6 +1,6 @@
 from everything import *
-from projects import getProject
-from faculty import getFaculty
+from api.API.projects import Projects, getProject
+from api.API.faculty import getFaculty
 from pages.budget import getBudget
 
 # FIXME: I'm pretty sure there are better ways to do almost 
@@ -27,7 +27,7 @@ def set_people (username):
   # Update project
   proj = getProject(username)
   if proj is None:
-    proj = Project()
+    proj = Projects()   #untested change
   
   proj.numberStudents = data["numStu"]
   proj.save()

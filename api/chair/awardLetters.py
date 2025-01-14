@@ -1,6 +1,6 @@
 from ..everything import *
 from ..API.parameters import getCurrentParameters
-from forms import ManageCommitteeForm
+from api.chair.forms import ManageCommitteeForm
 from ..API.committee import addCommitteeMembers, removeCommitteeMembers, getCommitteeMembers
 from ..API.faculty import getFacultyWithAcceptedProjects
 from ..API.budget import getTotalBudget
@@ -13,7 +13,7 @@ from ..pages import *
 @app.route("/chair/awardLetters", methods = ["GET"])
 @login_required
 def awardLetters ():
-  if not g.user.isCommitteeMember:
+  if not g.user.isCommitteeMember or not g.user.isChair:
     abort(403)
   # All of our queries
   # we need the current year to get current faculty with projects
