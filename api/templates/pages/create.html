@@ -35,7 +35,7 @@
     </p>
   </div>
   <div style="background-color:ECF0F1; padding-top:10px">
-  <div></div>
+    <div></div>
     <form class = "form-horizontal"
           action = "/create"
           method = "POST"
@@ -74,90 +74,96 @@
 
       <div class="form-group">
         <label for = "startDate" class = "col-sm-2 control-label">Start Date </label>
-        <div class = "input-group date">
-        <div class = "col-sm-9">
-          <input  id    = "startDate"
-    	            name  = "startDate"
-    	            type  = "text"
-     	            class = "form-control"
-     	            value = "{% if proj.startDate is defined %}{{proj.startDate.strftime('%m-%d-%Y')}}{% endif %}"
-                  placeholder = "mm-dd-yyyy"
-    	            onkeydown="return false"
-    	            required>
-        </div>
+        <div class = "input-group date col-sm-10">
+          <div class = "col-sm-4">
+            <input  id    = "startDate"
+                      name  = "startDate"
+                      type  = "text"
+                      class = "form-control"
+                      value = "{% if proj.startDate is defined %}{{proj.startDate.strftime('%m-%d-%Y')}}{% endif %}"
+                      placeholder = "mm-dd-yyyy"
+                      onkeydown="return false"
+                      required />
+          </div>
+          <div class="col-sm-8"></div>
         </div>
       </div>
       <div class="form-group">
-        <label for = "startDate" class = "col-sm-2 control-label">End Date </label>
-        <div class = "input-group date">
-          <div class = "col-sm-9">
+        <label for = "endDate" class = "col-sm-2 control-label">End Date </label>
+        <div class = "input-group date col-sm-10">
+          <div class = "col-sm-4">
             <input  id    = "endDate"
       	            name  = "endDate"
       	            type = "text"
       	            class = "form-control"
        	            value = "{% if proj.endDate is defined %}{{proj.endDate.strftime('%m-%d-%Y')}}{% endif %}"
                     placeholder = "mm-dd-yyyy"
-      	            required>
-            <!--<div id="endDateDisplay">{% if proj.endDate is defined %}{{proj.endDate.strftime('%m-%d-%Y')}}{% endif %}</div>-->
+      	            required />
+          </div>
+          <div class="col-sm-6">
+            <p id="endDateCleanLabel" class="lead" style="padding-top: 10px;"></p>
+          </div>
+
+        </div>
+      </div>
+<!--    </div>-->
+      <div class="container">
+        <div class = "row col-md-offset-1" style="font-size:1.4em;">
+          <div class = "checkbox">
+            <label><input name = "isServiceToCommunity"
+                          {% if proj.isServiceToCommunity %} checked {% endif %}
+                          id = "isServiceToCommunity"
+                          type = "checkbox"
+                          class="checkbox"
+                          value = "{{proj.isServiceToCommunity}}">
+              Does your project provide a service to the community?
+            </label><span
+                  class="glyphicon glyphicon-info-sign"
+                  data-toggle="popover"
+                  data-trigger="hover"
+                  data-content="{{cfg['termDefinition']['serviceToCommunity']}}"
+                  data-placement="right"
+                  tabindex="0"
+                  role="button">
+              </span>
           </div>
         </div>
-    </div>
-    <div class="container">
-      <div class = "row col-md-offset-1" style="font-size:1.4em;">
-        <div class = "checkbox">
-          <label><input name = "isServiceToCommunity"
-                        {% if proj.isServiceToCommunity %} checked {% endif %}
-                        id = "isServiceToCommunity"
-                        type = "checkbox"
-                        class="checkbox"
-                        value = "{{proj.isServiceToCommunity}}">
-            Does your project provide a service to the community?
-          </label><span
-                class="glyphicon glyphicon-info-sign"
-                data-toggle="popover"
-                data-trigger="hover"
-                data-content="{{cfg['termDefinition']['serviceToCommunity']}}"
-                data-placement="right"
-                tabindex="0"
-                role="button">
-            </span>
+        <div class = "row col-md-offset-1" style="font-size:1.4em;">
+          <div class = "checkbox">
+            <label><input name = "hasCommunityPartner"
+                          {% if proj.hasCommunityPartner %} checked {% endif %}
+                          id = "hasCommunityPartner"
+                          type = "checkbox"
+                          class="checkbox"
+                          value = "{{proj.hasCommunityPartner}}">
+              Does your project involve working with community partners?
+            </label>
+          </div>
+        </div>
+        <br>
+        <div class = "row">
+          <div class = "col-sm-1">
+            <input type="button" value="Back" onclick="window.history.back()" class="btn btn-primary"/>
+            </input>
+          </div>
+          <div class = "col-sm-1 col-sm-offset-9"
+               id = "submitButton"
+               >
+            <button id = "submit"
+                    class="btn btn-success"
+                    class = "form-control"
+                    type = "submit"
+                    onclick = "checkForRequired()"
+                    />
+              Submit
+            </button>
+          </div>
         </div>
       </div>
-      <div class = "row col-md-offset-1" style="font-size:1.4em;">
-        <div class = "checkbox">
-          <label><input name = "hasCommunityPartner"
-                        {% if proj.hasCommunityPartner %} checked {% endif %}
-                        id = "hasCommunityPartner"
-                        type = "checkbox"
-                        class="checkbox"
-                        value = "{{proj.hasCommunityPartner}}">
-            Does your project involve working with community partners?
-          </label>
-        </div>
-      </div>
-      <br>
-      <div class = "row">
-      <div class = "col-sm-1">
-        <input type="button" value="Back" onclick="window.history.back()" class="btn btn-primary"/>
-        </input>
-      </div>
-      <div class = "col-sm-1 col-sm-offset-9"
-           id = "submitButton"
-           >
-        <button id = "submit"
-                class="btn btn-success"
-                class = "form-control"
-                type = "submit"
-                onclick = "checkForRequired()"
-                />
-          Submit
-        </button>
-        </div>
-    </div>
-    </div>
-    <br/>
+      <br/>
+    </form>
   </div>
   <br />
-</fieldset>
-</form>
+  </fieldset>
+
 {% endblock %}
