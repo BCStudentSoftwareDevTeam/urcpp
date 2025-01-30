@@ -5,16 +5,15 @@ FROM python:2.7
 
 MAINTAINER Brian Ramsay "ramsayb2@berea.edu"
 
+ENV PYTHONUNBUFFERED 1
+
+RUN pip install --upgrade pip
+
+COPY requirements.txt /tmp/pip-tmp/
+
+RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
+    && rm -rf /tmp/pip-tmp
+
+RUN bash -c "./setup.sh"
+
 EXPOSE 8080
-
-COPY ./requirements.txt /requirements.txt
-
-WORKDIR /
-
-RUN pip install -r requirements.txt
-
-COPY . /
-
-RUN ["/bin/bash","-c","./setup.sh"]
-
-ENTRYPOINT [ "python", "api.py" ]
