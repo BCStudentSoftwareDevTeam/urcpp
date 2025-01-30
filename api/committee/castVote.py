@@ -51,7 +51,7 @@ def vote_POST (pid):
 
   data = request.form.to_dict()
 
-  print "Data is here: " + str(data)
+  # print "Data is here: " + str(data)
 
   votingTable = getVote(g.user.username, pid)
   if votingTable is None:

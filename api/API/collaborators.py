@@ -1,5 +1,5 @@
 from api.everything import *
-from faculty import *
+from api.API.faculty import *
 
 
 def getAllCollaborators():

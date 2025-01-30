@@ -1,13 +1,13 @@
 from api.everything import *
-from ..API.projects import getProject, getProjectByID
-from budget import getBudget
-from ..API.parameters import getCurrentParameters
-from ..API.collaborators import getCollaborators, getCollaboratorsByProjectId
-from ..API.faculty import getFacultyForProject
+from api.API.projects import getProject, getProjectByID
+from api.API.budget import getBudget
+from api.API.parameters import getCurrentParameters
+from api.API.collaborators import getCollaborators, getCollaboratorsByProjectId
+from api.API.faculty import getFacultyForProject
 
 from api.models import *
 
-from upload import checkForFile
+from api.pages.upload import checkForFile
 
 
 @app.route("/done", methods = ["GET"])

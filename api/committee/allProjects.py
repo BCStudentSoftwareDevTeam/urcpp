@@ -54,20 +54,20 @@ def updateStatus_POST ():
       proj.status = m[str(proj.pID)][0]
       proj.save()
       if proj.status == "Withdrawn":
-        print "project status: ", proj.status
+        # print "project status: ", proj.status
         removeFiles(g.user.username)  
     except:
       abort(403)
       
   else:
-    for key, value in data.iteritems():
+    for key, value in data.items():
       projectToSetStatus = getProjectByID(key)
       projectToSetStatus.status = value
       projectToSetStatus.save()
       
       professor = getFacultyForProject(key)
       if projectToSetStatus.status == "Withdrawn":
-        print "project status: ", projectToSetStatus.status
+        # print "project status: ", projectToSetStatus.status
         removeFiles(professor.username.username)
       
       

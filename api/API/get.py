@@ -1,4 +1,4 @@
-from everything import *
+from api.everything import *
 from parameters import getCurrentParameters
 # https://github.com/micha/resty
 # Also, Postman in Chrome

@@ -1,6 +1,6 @@
 from ..everything import *
 from ..API.parameters import getCurrentParameters
-from forms import ManageCommitteeForm
+from api.chair.forms import ManageCommitteeForm
 from ..API.committee import addCommitteeMembers, removeCommitteeMembers, getCommitteeMembers
 from ..pages import *
 
@@ -40,7 +40,7 @@ def addCommitteeMember():
     
   desiredCommitteeList = request.form.getlist('addCommitteeMember') # get the list of chair
   
-  print desiredCommitteeList
+  # print desiredCommitteeList
 
   #remove old committee Members
 

@@ -2,9 +2,7 @@ import datetime
 from peewee import *
 import os
 
-# Create a database
 from api.config import load_config
-
 
 here = os.path.dirname(__file__)
 

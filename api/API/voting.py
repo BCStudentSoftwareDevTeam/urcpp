@@ -2,7 +2,7 @@ from ..everything import *
 
 def getVotesByProject(proj):
   """This function gets the average of all votes for a given project"""
-  print "Starting query"
+  # print "Starting query"
   paramsQ =  (Voting.select(
                Voting.projectID,
                fn.Avg(Voting.studentLearning),
@@ -22,11 +22,11 @@ def getVotesByProject(proj):
               .where(Voting.projectID == proj)
               .tuples()
               )
-  print "Query built"
+  # print "Query built"
   if paramsQ.exists():
     return paramsQ.execute()
   else:
-    print "No results"
+    # print "No results"
     return None
 
 

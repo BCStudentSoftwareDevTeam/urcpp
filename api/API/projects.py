@@ -1,6 +1,6 @@
 from ..everything import *
 import os
-from parameters import getCurrentParameters
+from api.API.parameters import getCurrentParameters
 
 def getProjectByID(projectID):
   projQ = (Projects.select()
@@ -31,9 +31,9 @@ def getProject (username):
   #get project for this user in the current cycle
   currentCycle = getCurrentParameters()
   if currentCycle is not None:
-	year = currentCycle.year
+    year = currentCycle.year
   else:
-	year = None
+    year = None
   return getProjectByYear(username, year)
   
 # Do we need this function? We aren't really using it anymore.
@@ -49,7 +49,7 @@ def getAllCurrentProjects():
   # we only want to get projects for the current year
   currentCycle = getCurrentParameters()
   if currentCycle is not None:
-	year = currentCycle.year
+    year = currentCycle.year
   
   return getAllCurrentProjectsByYear(year)
 
@@ -133,7 +133,7 @@ def projects_getNarrative (username, path):
     if path in filenames:
       response = {"response": "OK",
       "uploadType": filenames}
-      print "Path exists"
+      # print "Path exists"
       return jsonify(response)
   response = { "response": cfg["response"]["noResults"],
             "details": "No results found for project file." }

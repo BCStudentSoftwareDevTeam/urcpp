@@ -55,10 +55,10 @@ def create_POST ():
   proj.endDate    = datetime.datetime.strptime(data["endDate"], '%m-%d-%Y')
   dur = request.form.getlist('duration')
   if(dur):
-    print "FIRST"
+    # print "FIRST"
     proj.duration = int(data["duration"])  
   else:
-    print "SECOND"
+    # print "SECOND"
     proj.duration   = 0
   
   proj.budgetID   = budg.bID

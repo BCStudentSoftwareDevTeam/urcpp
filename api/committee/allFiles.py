@@ -48,16 +48,16 @@ def allFiles(year=None):
   # Does the zipping
   shutil.make_archive(yearDir, 'zip', yearDir)
 
-  allFolders = os.walk(yearDir).next()[1]
+  allFolders = os.walk(yearDir)
+  allFolders = next(allFolders)[1]    # gets the folder name, which is the username of the proposer
+  # print(allFolders)
 
   # downloadFileName = getFilename("allFiles")
 
-
   for folder in allFolders:
-    fullPath =  yearDir + "/" + str(folder)
+    fullPath = yearDir + "/" + str(folder)
     if (folder not in allFac) and (os.stat(fullPath).st_mtime < time.time() - 60*30):
       shutil.rmtree(fullPath)
-
 
   return render_template (  "committee/allFiles.html",
                             username = g.user.username,

@@ -1,11 +1,11 @@
-from everything import *
-from API.faculty import getLDAPFaculty
-from API.projects import getProject
-from API.programs import getAllPrograms
-from API.collaborators import getCollaborators
-from pages.budget import getBudget
-from pages import *
-from API.parameters import getCurrentParameters
+from api.everything import *
+from api.API.faculty import getLDAPFaculty
+from api.API.projects import getProject
+from api.API.programs import getAllPrograms
+from api.API.collaborators import getCollaborators
+from api.pages.budget import getBudget
+from api.pages import *
+from api.API.parameters import getCurrentParameters
 from datetime import datetime
 import pprint
 
