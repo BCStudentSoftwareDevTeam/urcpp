@@ -8,13 +8,6 @@ here = os.path.dirname(__file__)
 
 cfg = load_config(os.path.join(here, 'config.yaml'))
 
-
-
-print (cfg['db']['name']) # Beans
-print (cfg['db']['host']) # Beans
-print (cfg['db']['user']) # Beans
-print (cfg['db']['password']) # Beans
-print ('*'*1000)
 dynamicDB = MySQLDatabase(cfg['db']['name'], host=cfg['db']['host'], user=cfg['db']['user'], passwd=cfg['db']['password'])
 
 class DynamicModel (Model):
