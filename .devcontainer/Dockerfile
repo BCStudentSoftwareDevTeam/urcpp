@@ -1,19 +1,13 @@
 # The first instruction is what image we want to base our container on
-# We Use an official Python runtime as a parent image
-# TODO  https://perchrunway.com/blog/2017-01-19-getting-started-with-docker-for-local-development
-FROM python:2.7
+FROM mcr.microsoft.com/devcontainers/python:0-3.11
 
-MAINTAINER Brian Ramsay "ramsayb2@berea.edu"
+LABEL maintainer="Brian Ramsay 'ramsayb2@berea.edu'"
 
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 
 RUN pip install --upgrade pip
 
-COPY requirements.txt /tmp/pip-tmp/
-
-RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
-    && rm -rf /tmp/pip-tmp
-
-RUN bash -c "./setup.sh"
+# Run source setup.sh whenever a bash terminal is opened in vscode (setup.sh is also run after volumes are mounted as the entrypoint in docker-compose)
+RUN echo "source setup.sh > /dev/null" > /home/vscode/.bashrc
 
 EXPOSE 8080

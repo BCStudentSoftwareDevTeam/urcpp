@@ -7,6 +7,10 @@ services:
         dockerfile: .devcontainer/Dockerfile
     volumes:
       - ..:/home/vscode/urcpp
+    
+    entrypoint: ["/home/vscode/urcpp/entrypoint.sh"]
+    command: sleep infinity
+
     links:
       - db
     ports:
@@ -24,5 +28,5 @@ services:
         # Password for root access
         MYSQL_ROOT_PASSWORD: 'root'
       volumes:
-        - ./docker/data/db:/var/lib/mysql
-        - ./database/docker_init:/docker-entrypoint-initdb.d
+        - ../docker/data/db:/var/lib/mysql
+        - ../database/docker_init:/docker-entrypoint-initdb.d
