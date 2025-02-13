@@ -14,7 +14,7 @@ def setParameters_GET ():
     openDate = datetime.datetime.strptime(data['applicationOpenDate'], dateFormat)
     closeDate = (datetime.datetime
                          .strptime(data['applicationCloseDate'], dateFormat)
-                         .replace(hour=11, minute=55) )
+                         .replace(hour=23, minute=59) )
 #    ProposalOpenDate = datetime.datetime.strptime(data['ProposalOpenDate'], dateFormat)
     ProposalAcceptanceDate = datetime.datetime.strptime(data['ProposalAcceptanceDate'], dateFormat)
 #    ProposalClosedDate = ( datetime.datetime.strptime(data['ProposalClosedDate'], dateFormat).replace(hour=11, minute=55) )
@@ -22,7 +22,7 @@ def setParameters_GET ():
  #   AbstractnarrativesAcceptanceDate = ( datetime.datetime.strptime(data['AbstractnarrativesAcceptanceDate'], dateFormat).replace(hour=11, minute=55) )
 
     AllSubmissionsClosedDate = ( datetime.datetime.strptime(data['AllSubmissionsClosedDate'], dateFormat)
-						  .replace(hour=11, minute=55) )
+						  .replace(hour=23, minute=59) )
 
  
     
