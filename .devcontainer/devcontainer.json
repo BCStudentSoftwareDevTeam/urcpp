@@ -1,0 +1,21 @@
+{
+    "name": "Python3, Flask, and MySQL Dev Container",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+
+    "workspaceFolder": "/home/vscode/${localWorkspaceFolderBasename}",
+    "remoteUser": "vscode",
+
+    "forwardPorts": [8080,3306],
+    
+    "remoteEnv": {
+        "FLASK_DEBUG": "1",
+        "APP_ENV": "development",
+        "USING_CONTAINER": "1",
+        "MYSQL_HOST": "db",
+        "MYSQL_PWD": "DanforthLabor123!"
+    },
+    
+    "postCreateCommand": "/home/vscode/urcpp/setup.sh"
+
+}

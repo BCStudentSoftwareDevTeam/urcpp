@@ -6,11 +6,12 @@
 
 if [ ! -d venv ]
 then
-  virtualenv venv
+  python3 -m venv venv
 fi
 
 . venv/bin/activate
 
+pip install --upgrade pip
 pip install -r requirements.txt
 
 # TODO create a db script that can use the docker init builder

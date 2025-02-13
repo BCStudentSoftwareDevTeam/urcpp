@@ -3,8 +3,8 @@ DEBUG:
   user: "jadudm"
 
 db:
-  host: "localhost"
-  name: "urcpp_flask"
+  name: "urcpp"
+  host: "db"
   user: "urcpp_flask"
   password: "DanforthLabor123!"
 
@@ -146,6 +146,9 @@ contributors:
   - name: "Luis Jesus Riera Soto"
     username: "rieral"
     year: 2022
+  - name: "Lawrence Hoerst"
+    username: ""
+    year: 2025
 
 # Controls the menu for the committee interfaces
 committee:
