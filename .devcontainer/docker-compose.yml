@@ -8,8 +8,7 @@ services:
     volumes:
       - ..:/home/vscode/urcpp
     
-    entrypoint: ["/home/vscode/urcpp/entrypoint.sh"]
-    command: sleep infinity
+    entrypoint: ["/bin/bash", "-c", "/home/vscode/urcpp/entrypoint.sh & sleep infinity"] # TODO: Replace sleep infinity with running the app maybe
 
     links:
       - db

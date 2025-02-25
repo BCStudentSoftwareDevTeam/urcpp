@@ -7,7 +7,7 @@ while [ ! -f /home/vscode/urcpp/setup.sh ]; do
     sleep 1
 done
 
-# Run the desired command
+# Run setup.sh
 cd /home/vscode/urcpp || { echo "Directory for project not found! Exiting."; exit 1; }
 ./setup.sh
 exec "$@"
