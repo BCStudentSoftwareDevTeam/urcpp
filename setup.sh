@@ -8,6 +8,7 @@ if [ ! -d venv ]
 then
   python3 -m venv venv
   chmod +x venv/bin/activate
+  chown -R vscode:vscode venv
 fi
 
 . venv/bin/activate
