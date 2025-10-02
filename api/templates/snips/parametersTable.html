@@ -10,11 +10,7 @@
         <th>Labor Rate</th>
         <th>Applications Open</th>
         <th>Applications Close</th>
-        {#<th>Proposals Open</th>#}
         <th>Proposals Reviewed</th>
-        {#<th>Proposal Closed</th>#}
-        <th>Abstracts Due</th>
-        {#<th>Submissions Close</th>#}
         <th>Actions</th>
 
 
@@ -29,11 +25,7 @@
         <td id = "{{parameter.year}}_labor" data-value = {{parameter.laborRate}}>${{'%0.2f'| format(parameter.laborRate|float)}}</td>
         <td id = "{{parameter.year}}_appopen" data-value = {{parameter.appOpenDate.strftime('%m/%d/%Y')}}>{{parameter.appOpenDate.strftime('%m/%d/%Y')}}</td>
         <td id = "{{parameter.year}}_appclose" data-value = {{parameter.appCloseDate.strftime('%m/%d/%Y')}}>{{parameter.appCloseDate.strftime('%m/%d/%Y')}}</td>
-{#        <td id = "{{parameter.year}}_proposalopen" data-value = {{parameter.ProposalOpenDate.strftime('%m/%d/%Y')}}>{{parameter.ProposalOpenDate.strftime('%m/%d/%Y')}}</td>#}
         <td id = "{{parameter.year}}_proposalaccept" data-value = {{parameter.ProposalAcceptanceDate.strftime('%m/%d/%Y')}}>{{parameter.ProposalAcceptanceDate.strftime('%m/%d/%Y')}}</td>
-{#        <td id = "{{parameter.year}}_proposalclose" data-value = {{parameter.ProposalClosedDate.strftime('%m/%d/%Y')}}>{{parameter.ProposalClosedDate.strftime('%m/%d/%Y')}}</td>#}
-{#        <td id = "{{parameter.year}}_abstract" data-value = {{parameter.AbstractnarrativesAcceptanceDate.strftime('%m/%d/%Y')}}>{{parameter.AbstractnarrativesAcceptanceDate.strftime('%m/%d/%Y')}}</td>#}
-        <td id = "{{parameter.year}}_allsubmit" data-value = {{parameter.AllSubmissionsClosedDate.strftime('%m/%d/%Y')}}>{{parameter.AllSubmissionsClosedDate.strftime('%m/%d/%Y')}}</td>
         <td>
             <div class= "row justify-content-md-center">
                 <span class="glyphicon glyphicon-ok {% if parameter.isCurrentParameter %} isCurrentYear {% endif %}"

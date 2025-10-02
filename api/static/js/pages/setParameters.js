@@ -1,29 +1,6 @@
 /* global $, swal */ 
 $(function() {
-      $("#applicationOpenDate").datepicker({
-        dateFormat: "mm/dd/yy"
-      });
-      
-      $("#applicationCloseDate").datepicker({
-        dateFormat: "mm/dd/yy"
-      });
-      
-      $("#ProposalOpenDate").datepicker({
-        dateFormat: "mm/dd/yy"
-      });
-      $("#ProposalAcceptanceDate").datepicker({
-        dateFormat: "mm/dd/yy"
-      });
-      
-       $("#ProposalClosedDate").datepicker({
-        dateFormat: "mm/dd/yy"
-      });
-      
-       $("#AbstractnarrativesAcceptanceDate").datepicker({
-        dateFormat: "mm/dd/yy"
-      });
-      
-       $("#AllSubmissionsClosedDate").datepicker({
+      $("#applicationOpenDate, #applicationCloseDate, #ProposalAcceptanceDate").datepicker({
         dateFormat: "mm/dd/yy"
       });
     });
@@ -100,11 +77,7 @@ function editParameters(year){
   $("#laborRate").val(parseFloat($("#"+year+"_labor").attr("data-value")).toFixed(2));
   $("#applicationOpenDate").val($("#"+year+"_appopen").attr("data-value"));
   $("#applicationCloseDate").val($("#"+year+"_appclose").attr("data-value"));
-  $("#ProposalOpenDate").val($("#"+year+"_proposalopen").attr("data-value"));
   $("#ProposalAcceptanceDate").val($("#"+year+"_proposalaccept").attr("data-value"));
-  $("#ProposalClosedDate").val($("#"+year+"_proposalclose").attr("data-value"));
-  $("#AbstractnarrativesAcceptanceDate").val($("#"+year+"_abstract").attr("data-value"));
-  $("#AllSubmissionsClosedDate").val($("#"+year+"_allsubmit").attr("data-value"));
   $(".selectpicker").selectpicker('refresh');
   $("#collapseOne").collapse('show');
   window.scrollTo(0, 0);  // Send user to the top of the page

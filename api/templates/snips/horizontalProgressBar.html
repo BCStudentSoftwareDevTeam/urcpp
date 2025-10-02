@@ -25,26 +25,10 @@
                 <div class="bullet"></div>
                 <label class="bar-label" style="text-align: center">Proposals Due: <br><small style="font-size:12px;" "text-align: center;">{{currentCycle.appCloseDate.strftime("%m/%d/%Y")}}</small></label>
             </div>
-{#            <div class="point" id="pending">
-                <div class="bullet"></div>
-                <label class="bar-label">Pending</label>
-            </div> #}
             <div class="point" id="Accept">
                 <div class="bullet"></div>
                 <label class="bar-label" style="text-align: center">Application Reviews Complete: <br><small style="font-size:12px;" "text-align: center;">{{currentCycle.ProposalAcceptanceDate.strftime("%m/%d/%Y")}}</small></label>
             </div>
-{#            <div class="point" id="accept">
-                <div class="bullet"></div>
-                <label class="bar-label" style="text-align: center">Decision Reached <br><small style="font-size:12px;" "text-align: center;">(Proposal Acceptance Date: {{currentCycle.ProposalAcceptanceDate.strftime("%Y/%m/%d")}})</small></label>
-            </div> #}
-            <div class="point" id="abstract_submission">
-                <div class="bullet"></div>
-                <label class="bar-label" style="text-align: center">Abstracts Due:<br><small style="font-size:12px;" "text-align: center;">{{currentCycle.AllSubmissionsClosedDate.strftime("%m/%d/%Y")}}</small></label>
-            </div>
-{#            <div class="point" id="allsubmissionscloses">
-                <div class="bullet"></div>
-                <label class="bar-label" style="text-align: center">All Submissions Close <br><small style="font-size:12px;" "text-align: center;">({{currentCycle.AllSubmissionsClosedDate.strftime("%Y/%m/%d")}})</small></label>
-            </div> #}
         </div>
     </div>
 </div>
