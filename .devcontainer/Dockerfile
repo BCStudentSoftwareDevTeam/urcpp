@@ -8,6 +8,9 @@ ENV PYTHONUNBUFFERED=1
 RUN pip install --upgrade pip
 
 # Run source setup.sh whenever a bash terminal is opened in vscode (setup.sh is also run after volumes are mounted as the entrypoint in docker-compose)
-RUN echo "source setup.sh > /dev/null" > /home/vscode/.bashrc
+RUN echo "source setup.sh && clear" > /home/vscode/.bashrc
+# This copy line may or may not be necessary for the docker-compose entrypoint to work
+COPY entrypoint.sh /home/vscode/urcpp/entrypoint.sh 
+
 
 EXPOSE 8080
