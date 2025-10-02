@@ -29,12 +29,11 @@ def allFiles(year=None):
   faculty = getFacultyWithProjects(parameters.year)
   prevFilepath = {}
 
+  # get the file directory and create it if it doesn't exist
   yearDir = cfg["filepaths"]["projectFiles"]+str(parameters.year)
   yearDir = os.path.join(base_path ,yearDir)
-  # I don't think this is needed anymore #######
-  projectDir = cfg["filepaths"]["projectFiles"]
+  os.makedirs(yearDir, exist_ok=True)
 
-  projectDir = os.path.join(base_path, projectDir)
   ##############################################
   if faculty:
     for fac in faculty:
