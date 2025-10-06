@@ -1,3 +1,4 @@
-CREATE DATABASE IF NOT EXISTS `urcpp_flask`;
-GRANT ALL PRIVILEGES ON *.* TO 'urcpp_flask'@'%' IDENTIFIED BY 'DanforthLabor123!';
-USE `urcpp_flask`;
+CREATE DATABASE IF NOT EXISTS `urcpp`;
+CREATE USER 'urcpp_flask'@'%' IDENTIFIED BY 'DanforthLabor123!';
+GRANT ALL PRIVILEGES ON *.* TO 'urcpp_flask'@'%' WITH GRANT OPTION;
+USE `urcpp`;
