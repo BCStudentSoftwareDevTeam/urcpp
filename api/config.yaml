@@ -4,7 +4,7 @@ DEBUG:
 
 db:
   name: "urcpp"
-  host: "db"
+  host: "localhost"
   user: "urcpp_flask"
   password: "DanforthLabor123!"
 
@@ -52,8 +52,6 @@ allProjectsTable:
     fieldName: "duration"
   - title: "Start Date"
     fieldName: "startDate"
-  - title: "End Date"
-    fieldName: "endDate"
   - title: "Comm. Service"
     fieldName: "isServiceToCommunity"
   - title: "Comm. Partner"
@@ -71,8 +69,6 @@ awardLetterTable:
     fieldName: "duration"
   - title: "Start Date"
     fieldName: "startDate"
-  - title: "End Date"
-    fieldName: "endDate"
   - title: "Amount Funded"
     fieldName: "funding"
   - title: "Amount Stipend"

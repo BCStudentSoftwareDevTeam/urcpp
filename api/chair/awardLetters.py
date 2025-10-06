@@ -77,7 +77,6 @@ def awardLetters_generate(username,pID):
   funding = str(getTotalBudget(project.budgetID))
   project_title = project.title
   start = str(project.startDate.strftime("%B %d, %Y"))
-  end = str(project.endDate.strftime("%B %d, %Y"))
   stipend = str(project.budgetID.facultyStipend)
   faculty = URCPPFaculty.get(project.pID == URCPPFaculty.pID)
   year = str(project.startDate.strftime("%Y"))
@@ -96,7 +95,6 @@ def awardLetters_generate(username,pID):
   body = body.replace("@@Funding@@",funding)
   body = body.replace("@@ProjectTitle@@",project_title)
   body = body.replace("@@Start Date@@",start)
-  body = body.replace("@@End Date@@",end)
   body = body.replace("@@Stipend@@",stipend)
   body = body.replace("@@Staff Support@@",staff_support)
   body = body.replace("@@IRB Chair@@",irb_chair)
@@ -131,7 +129,6 @@ def accept_letters_get(pID):
   project_title = project.title
   student_count = str(project.numberStudents)
   start = str(project.startDate.strftime("%B %d, %Y"))
-  end = str(project.endDate.strftime("%B %d, %Y"))
   stipend = str(project.budgetID.facultyStipend)
   faculty = URCPPFaculty.get(project.pID == URCPPFaculty.pID)
   year = str(project.startDate.strftime("%Y"))
@@ -148,7 +145,6 @@ def accept_letters_get(pID):
   body = body.replace("@@Funding@@",funding)
   body = body.replace("@@ProjectTitle@@",project_title)
   body = body.replace("@@Start Date@@",start)
-  body = body.replace("@@End Date@@",end)
   body = body.replace("@@Stipend@@",stipend)
   body = body.replace("@@Staff Support@@",staff_support)
   body = body.replace("@@IRB Chair@@",irb_chair)
