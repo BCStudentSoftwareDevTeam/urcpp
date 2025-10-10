@@ -7,58 +7,27 @@
 <br/>
 {% include "snips/messages.html" %}
 <div id="dateStateDiv" data-datestate = "{{dateState}}" hidden></div>
-{% if dateState == "preapp"  %}
-  {# Before the applications have opened #}
-  {% with ldap = ldap %}
-    {% include "snips/jumbotron-buttons.html" %} {# Jumbotron with no buttons #}
-  {% endwith %}
-
-  {% with dateState = dateState, currentCycle = currentCycle, email_currentchair=email_currentchair,email_staffsupport=email_staffsupport,email_IRBchair=email_IRBchair %}
-    {% include "snips/allSubmissionsClosed.html" %}
-  {% endwith %}
-{% elif dateState == "appopen" %}
-  {# Submissions are not closed #}
-    {# Load jumbotron with buttons #}
-  {% with ldap = ldap, proj=proj, cfg=cfg %}
     {% include "snips/jumbotron-buttons.html" %}
-  {% endwith %}
-  {# Load horizontal Progress Bar template #}
-  {% with proj=proj, currentCycle=currentCycle, dateState = dateState %}
-    {% include "snips/horizontalProgressBar.html" %}
-  {% endwith %}
-{% elif proj.status == cfg['projectStatus']['Incomplete'] %} {# If project is Incomplete after close date, they shouldn't be able to see progress bar. #}
-  {% with ldap = ldap, proj=proj, cfg=cfg %}
-    {% include "snips/jumbotron-buttons.html" %} {# Jumbotron with no buttons #}
-  {% endwith %}	
-  {% with dateState = dateState, currentCycle = currentCycle, email_currentchair=email_currentchair,email_staffsupport=email_staffsupport,email_IRBchair=email_IRBchair %}
-    {% include "snips/allSubmissionsClosed.html" %}
-  {% endwith %}
-{% elif dateState == "reviewopen" %}
-  {# Applications are pending approval; no buttons #}
-  {% with ldap = ldap, proj=proj, cfg=cfg %}
-    {% include "snips/jumbotron-buttons.html" %} {# Jumbotron with no buttons #}
-  {% endwith %}	
-  {# Load horizontal Progress Bar template #}
-  {% with proj=proj, currentCycle=currentCycle, dateState = dateState %}
-    {% include "snips/horizontalProgressBar.html" %}
-  {% endwith %}
-{% elif dateState == "absopen" %}
-  {# Abstracts can now be submitted #}
-  {% with ldap = ldap, proj=proj, cfg=cfg %}
-    {% include "snips/jumbotron-buttons.html" %}
-  {% endwith %}
-  {# Load horizontal Progress Bar template #}
-  {% with proj=proj, currentCycle=currentCycle, dateState = dateState %}
-    {% include "snips/horizontalProgressBar.html" %}
-  {% endwith %}
-{% elif dateState == "allclosed" %}
-  {% with ldap = ldap, proj=proj, cfg=cfg %}
-    {% include "snips/jumbotron-buttons.html" %} {# Jumbotron with no buttons #}
-  {% endwith %}
 
-  {% with dateState = dateState, currentCycle = currentCycle, email_currentchair=email_currentchair,email_staffsupport=email_staffsupport,email_IRBchair=email_IRBchair %}
-    {% include "snips/allSubmissionsClosed.html" %}
-  {% endwith %}
-{% endif %}
+    {# Before the application period has opened #}
+    {% if dateState == "preapp"  %}
+        {% include "snips/allSubmissionsClosed.html" %}
+
+    {# During the application period #}
+    {% elif dateState == "appopen" %}
+        {% include "snips/horizontalProgressBar.html" %}
+
+    {# If project is Incomplete after close date, they shouldn't be able to see progress bar. #}
+    {% elif proj.status == cfg['projectStatus']['Incomplete'] %} 
+        {% include "snips/allSubmissionsClosed.html" %}
+
+    {# During the review period #}
+    {% elif dateState == "reviewopen" %}
+        {% include "snips/horizontalProgressBar.html" %}
+
+    {# The process is complete #}
+    {% elif dateState == "allclosed" %}
+        {% include "snips/allSubmissionsClosed.html" %}
+    {% endif %}
 
 {% endblock %}

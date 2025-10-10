@@ -1,5 +1,6 @@
 from ..everything import *
-from ..API.faculty import getFacultyWithProjects
+from ..API.faculty import getFacultyWithProjects, getCollaboratorsByYear
+from ..API.projects import getAllCurrentProjectsByYear
 from ..pages.upload import checkForFile
 from ..API.parameters import getCurrentParameters
 from ..API.parameters import getParametersByYear
@@ -25,34 +26,28 @@ def allFiles(year=None):
     flash("You are viewing files from applicationCycle {}".format(year), 'warning')
     parameters = getParametersByYear(year)
 
-  # All of our queries
   faculty = getFacultyWithProjects(parameters.year)
+  collaborators = getCollaboratorsByYear(parameters.year)
+  projects = getAllCurrentProjectsByYear(parameters.year)
+
+  # set up file data structure 
   prevFilepath = {}
+  allFac = [fac.username.username for fac in faculty] + [coll.username for coll in collaborators]
+  for username in allFac:
+    prevFilepath[username] = {}
+    for uploadType in ["narrative", "vitae", "irb", "abstract"]: 
+      if checkForFile(username, uploadType, parameters.year) != "":
+        prevFilepath[username][uploadType]= checkForFile(username, uploadType, parameters.year)
 
-  yearDir = cfg["filepaths"]["projectFiles"]+str(parameters.year)
-  yearDir = os.path.join(base_path ,yearDir)
-  # I don't think this is needed anymore #######
-  projectDir = cfg["filepaths"]["projectFiles"]
+  # get the file directory and create it if it doesn't exist
+  yearDir = os.path.join(base_path ,cfg["filepaths"]["projectFiles"]+str(parameters.year))
+  os.makedirs(yearDir, exist_ok=True)
 
-  projectDir = os.path.join(base_path, projectDir)
-  ##############################################
-  if faculty:
-    for fac in faculty:
-      prevFilepath[fac.username.username] = {}
-      for uploadType in ["narrative", "vitae", "irb", "abstract"]: 
-        if checkForFile(fac.username.username, uploadType, parameters.year) != "":
-          prevFilepath[fac.username.username][uploadType]= checkForFile(fac.username.username, uploadType, parameters.year)
-      allFac = [fac.username.username for fac in faculty]
-  else:
-    allFac = []
   # Does the zipping
   shutil.make_archive(yearDir, 'zip', yearDir)
 
   allFolders = os.walk(yearDir)
   allFolders = next(allFolders)[1]    # gets the folder name, which is the username of the proposer
-  # print(allFolders)
-
-  # downloadFileName = getFilename("allFiles")
 
   for folder in allFolders:
     fullPath = yearDir + "/" + str(folder)
@@ -63,11 +58,12 @@ def allFiles(year=None):
                             username = g.user.username,
                             cfg = cfg,
                             fac = faculty,
+                            coll = collaborators,
+                            projects = projects,
                             files = prevFilepath,
                             params = parameters
 
                           )
-                          # downloadFileName = downloadFileName
 
 @app.route("/committee/allFiles", methods = ["POST"])
 @login_required

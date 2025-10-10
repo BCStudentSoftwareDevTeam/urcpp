@@ -12,3 +12,5 @@ settings.py
 api/models.py
 update-schema.py
 tools/*backup.sql
+*.swp
+*.swo

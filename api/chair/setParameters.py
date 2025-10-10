@@ -9,23 +9,15 @@ dateFormat = '%m/%d/%Y'
 def setParameters_GET ():
   if not g.user.isChair:
     abort(403)
+
   if request.method == 'POST':
     data = request.form
     openDate = datetime.datetime.strptime(data['applicationOpenDate'], dateFormat)
     closeDate = (datetime.datetime
                          .strptime(data['applicationCloseDate'], dateFormat)
                          .replace(hour=11, minute=55) )
-#    ProposalOpenDate = datetime.datetime.strptime(data['ProposalOpenDate'], dateFormat)
     ProposalAcceptanceDate = datetime.datetime.strptime(data['ProposalAcceptanceDate'], dateFormat)
-#    ProposalClosedDate = ( datetime.datetime.strptime(data['ProposalClosedDate'], dateFormat).replace(hour=11, minute=55) )
 
- #   AbstractnarrativesAcceptanceDate = ( datetime.datetime.strptime(data['AbstractnarrativesAcceptanceDate'], dateFormat).replace(hour=11, minute=55) )
-
-    AllSubmissionsClosedDate = ( datetime.datetime.strptime(data['AllSubmissionsClosedDate'], dateFormat)
-						  .replace(hour=11, minute=55) )
-
- 
-    
     try:
 	    parameters = Parameters.get(year = int(data['newYear']))
     except: 
@@ -43,11 +35,7 @@ def setParameters_GET ():
     parameters.staffsupport_id = data['staffsupport_id']
     parameters.appOpenDate = openDate
     parameters.appCloseDate = closeDate
-  #  parameters.ProposalOpenDate = ProposalOpenDate
     parameters.ProposalAcceptanceDate = ProposalAcceptanceDate
-  #  parameters.ProposalClosedDate = ProposalClosedDate
-  #  parameters.AbstractnarrativesAcceptanceDate = AbstractnarrativesAcceptanceDate
-    parameters.AllSubmissionsClosedDate = AllSubmissionsClosedDate
     parameters.mileageRate = data['mileageRate']
     parameters.laborRate = data['laborRate']
         

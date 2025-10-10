@@ -111,6 +111,9 @@ def delete_all_collaborators(project_id):
   return(Collaborators.delete()
                     .where(Collaborators.pID == project_id)).execute()
                     
+def removeCollaborator(project_id, username):
+  return (Collaborators.delete()
+                       .where(Collaborators.pID == project_id, Collaborators.username == username)).execute()
         
 def delete_non_collaborators(project_id, *collaborators):
   """ deletes the current collaborators that are not in the list provided

@@ -46,7 +46,5 @@ def findDateState(today):
     return "appopen"
   elif today < currentParam.ProposalAcceptanceDate:
     return "reviewopen"
-  elif today < currentParam.AllSubmissionsClosedDate:
-    return "absopen"
   else:
     return "allclosed"

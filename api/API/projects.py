@@ -1,4 +1,5 @@
 from ..everything import *
+from peewee import JOIN
 import os
 from api.API.parameters import getCurrentParameters
 
@@ -12,14 +13,16 @@ def getProjectByID(projectID):
     return None
 
 def getProjectByYear(username, year):
+  collaborated_projects = (Projects.select()
+                           )
   
-  #get the project belonging to this user during some year
-  projQ = (Projects.select()
-    .join (URCPPFaculty, on = (URCPPFaculty.pID == Projects.pID))
-    .where (URCPPFaculty.username == username)
-    .where (Projects.year == year)
-    .where (Projects.status != cfg['projectStatus']['Withdrawn'])
-  )
+  #get the project belonging to this user during the given year
+  projQ = (Projects.select(Projects,URCPPFaculty,Collaborators)
+                   .join (URCPPFaculty).switch(Projects)
+                   .join(Collaborators, JOIN.LEFT_OUTER)
+                   .where ((URCPPFaculty.username == username) | (Collaborators.username == username))
+                   .where (Projects.year == year)
+                   .where (Projects.status != cfg['projectStatus']['Withdrawn']))
   
   if projQ.exists():
     proj = projQ.get()
@@ -36,14 +39,20 @@ def getProject (username):
     year = None
   return getProjectByYear(username, year)
   
-# Do we need this function? We aren't really using it anymore.
 def getAllCurrentProjectsByYear(year):
-  allProjQ = (Projects.select()).where(Projects.year == year)
+  allProjQ = (Projects.select(Projects, URCPPFaculty)
+                      .join (URCPPFaculty, JOIN.LEFT_OUTER).switch(Projects)
+                      .where(Projects.year == year, Projects.status != cfg['projectStatus']['Withdrawn']))
   
-  if allProjQ.exists():
-    return allProjQ
-  else:
-    return None
+  projects = {}
+  for p in allProjQ:
+    if p not in projects.keys():
+        projects[p] = {"faculty": p.urcppfaculty.username, 
+                       "program": p.urcppfaculty.programID}
+    
+    projects[p]["collaborators"] = [c.username for c in p.collaborators]
+
+  return projects
 
 def getAllCurrentProjects():
   # we only want to get projects for the current year

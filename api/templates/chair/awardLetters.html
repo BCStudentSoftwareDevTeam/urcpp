@@ -62,7 +62,7 @@
           {% for column in cfg["awardLetterTable"] %}
             <td name = "rowValue" class = "{{column['fieldName']}}" id="col{{loop.index0}}" style="text-align: center;">
               <!--Handle dates-->
-              {% if column['fieldName'] == "startDate" or column['fieldName'] == "createdDate" or column['fieldName'] == "endDate"%}  
+              {% if column['fieldName'] == "startDate" or column['fieldName'] == "createdDate" %}  
                 {% if person.pID[column['fieldName']] %}
                   {{person.pID[column['fieldName']].strftime('%m-%d-%Y')}}
                 {% endif %}

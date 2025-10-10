@@ -9,13 +9,16 @@
 <div class="jumbotron">
     <h1>Hello, {{ldap.firstname}} {{ldap.lastname}}!</h1>
     <p></p>
+    {% set primary = proj.urcppfaculty.username.username if proj else None%}
+
     {# Project application/proposal button #}
-    {% if dateState == "appopen" or proj.status == "Pending" or proj.status == "Accept" or proj.status == "Reject" %} {# cfg handles these three states URL and messaging #}
-    <a href="   {% if proj %} 
+    {% if primary == g.user.username and (dateState == "appopen" or proj.status == "Pending" or proj.status == "Accept" or proj.status == "Reject") %} {# cfg handles these three states URL and messaging #}
+
+    <a href="   {%- if proj -%} 
                         {{cfg['projectStatusAction'][proj.status]['url']}}  {# Loads the URL for the project's current state #}
-                {% else %}
+                {%- else -%}
                         {{cfg['projectStatusAction']['Start']['url']}}      {# Loads the URL to start the proposal #}
-                {% endif %}">
+                {%- endif -%}">
         <button class="btn btn-default">
             <span>
                 {% if proj %} {# start 4 #} 
@@ -28,22 +31,26 @@
         </button>
     </a>
     {% endif %}
-    {% if proj.status != cfg["projectStatus"]["Reject"] and dateState == "appopen" %}<!--UPLOAD BUTTONS--> {# Project wasn't rejected by the committee #}
+
+    {% if (proj and proj.status != cfg["projectStatus"]["Reject"]) and dateState == "appopen" %}<!--UPLOAD BUTTONS--> {# Project wasn't rejected by the committee #}
+
+        {% if primary != g.user.username %}
+        <div class="lead">You have been added as a collaborator by {{primary.firstname}} {{primary.lastname}} on the application for "{{proj.title}}". If this is not correct, you can remove yourself from the application. If it is correct, please upload your curriculum vitae.</div>
+        {% endif %}
         <a href="/upload/vitae?source=home">
-            <button class="btn btn-default">
-                <span>Upload a Curriculum vitae</span>
+            <button class="btn btn-success">
+                <span>Upload a Curriculum Vitae</span>
                 <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
             </button>
         </a>
+        {% if primary != g.user.username %}
+        <a href="/removecollaboration/{{proj.pID}}/{{g.user.username}}?source=home">
+            <button class="btn btn-danger">
+                <span>Withdraw Collaboration</span>
+                <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+            </button>
+        </a>
+        {% endif %}
     {% endif %}
-    {% if dateState == "absopen" and proj.status == cfg["projectStatus"]["Accept"] %}
-	{# Only show when before All submissions closed, after Proposals accepted #}
-        <a href="/upload/abstract?source=home">
-            <button class="btn btn-default">
-                <span>Upload an Abstract</span>
-                <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-            </button>
-        </a>
-    {% endif %}<!---If user has not started appplication, do not show upload buttons--> {# end 5 #}
 </div>
 

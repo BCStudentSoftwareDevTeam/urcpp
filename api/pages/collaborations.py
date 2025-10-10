@@ -1,5 +1,5 @@
 from api.everything import *
-from ..API.projects import getProject
+from ..API.projects import getProjectByID, getProject
 from ..API.collaborators import *
 from ..API.faculty import getLDAPFaculty
 
@@ -14,7 +14,21 @@ def insert_collaborators ():
   # print(newCollab)
   add_collaborators(proj.pID, newCollab)
   return redirect(url_for('irbyn_GET'))
-  
+
+
+@app.route("/removecollaboration/<pID>/<username>", methods = ["GET"])
+@login_required
+def removecollaboration(pID, username):
+
+  if username != g.user.username:
+      abort(403)
+
+  # endpoint for inserting collaborators from collaborations.html
+  proj = getProjectByID(pID)
+  if proj:
+    removeCollaborator(proj.pID, username)
+    
+  return redirect('/')
   
 
 @app.route("/collaborations", methods = ["POST"])

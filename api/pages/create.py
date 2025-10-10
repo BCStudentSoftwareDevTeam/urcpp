@@ -52,7 +52,6 @@ def create_POST ():
   
   proj.title      = data["title"]
   proj.startDate  = datetime.datetime.strptime(data["startDate"], '%m-%d-%Y')
-  proj.endDate    = datetime.datetime.strptime(data["endDate"], '%m-%d-%Y')
   dur = request.form.getlist('duration')
   if(dur):
     # print "FIRST"
