@@ -83,14 +83,9 @@ def getFacultyWithProjects (year):
       URCPPFaculty Select Query: The faculty that have a prject in that year
   """
   facQ = (URCPPFaculty.select().join(Projects).where(Projects.year == year))
+  return list(facQ)
 
-  if facQ.exists():
-    return facQ.execute()
-  else:
-    return None
-
-
-def getCollaborators (year):
+def getCollaboratorsByYear (year):
   """ gets faculty who are collaborators on a project for a given year
 
       Args:
@@ -100,11 +95,8 @@ def getCollaborators (year):
       URCPPFaculty Select Query: The faculty that have a prject in that year
   """
   collabs = (LDAPFaculty.select(LDAPFaculty,Collaborators,Projects).join(Collaborators).join(Projects).where(Projects.year == year))
+  return list(collabs)
 
-  if collabs.exists():
-    return collabs.execute()
-  else:
-    return None
 
 
 def getFacultyWithPendingProjects ():

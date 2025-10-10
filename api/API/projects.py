@@ -40,23 +40,18 @@ def getProject (username):
   return getProjectByYear(username, year)
   
 def getAllCurrentProjectsByYear(year):
-  allProjQ = (Projects.select(Projects, URCPPFaculty, Collaborators, LDAPFaculty)
+  allProjQ = (Projects.select(Projects, URCPPFaculty)
                       .join (URCPPFaculty, JOIN.LEFT_OUTER).switch(Projects)
-                      .join(Collaborators, JOIN.LEFT_OUTER)
-                      .join(LDAPFaculty, JOIN.LEFT_OUTER)
                       .where(Projects.year == year, Projects.status != cfg['projectStatus']['Withdrawn']))
   
   projects = {}
   for p in allProjQ:
     if p not in projects.keys():
-        projects[p] = {"collaborators": [], 
-                       "faculty": p.urcppfaculty.username, 
+        projects[p] = {"faculty": p.urcppfaculty.username, 
                        "program": p.urcppfaculty.programID}
     
-    if(p.collaborators.username):
-        projects[p]["collaborators"].append(p.collaborators.username)
+    projects[p]["collaborators"] = [c.username for c in p.collaborators]
 
-  print(projects)
   return projects
 
 def getAllCurrentProjects():

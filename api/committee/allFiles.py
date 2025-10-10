@@ -1,5 +1,5 @@
 from ..everything import *
-from ..API.faculty import getFacultyWithProjects, getCollaborators
+from ..API.faculty import getFacultyWithProjects, getCollaboratorsByYear
 from ..API.projects import getAllCurrentProjectsByYear
 from ..pages.upload import checkForFile
 from ..API.parameters import getCurrentParameters
@@ -26,36 +26,28 @@ def allFiles(year=None):
     flash("You are viewing files from applicationCycle {}".format(year), 'warning')
     parameters = getParametersByYear(year)
 
-  # All of our queries
   faculty = getFacultyWithProjects(parameters.year)
-  collaborators = getCollaborators(parameters.year)
+  collaborators = getCollaboratorsByYear(parameters.year)
   projects = getAllCurrentProjectsByYear(parameters.year)
+
+  # set up file data structure 
   prevFilepath = {}
+  allFac = [fac.username.username for fac in faculty] + [coll.username for coll in collaborators]
+  for username in allFac:
+    prevFilepath[username] = {}
+    for uploadType in ["narrative", "vitae", "irb", "abstract"]: 
+      if checkForFile(username, uploadType, parameters.year) != "":
+        prevFilepath[username][uploadType]= checkForFile(username, uploadType, parameters.year)
 
   # get the file directory and create it if it doesn't exist
-  yearDir = cfg["filepaths"]["projectFiles"]+str(parameters.year)
-  yearDir = os.path.join(base_path ,yearDir)
+  yearDir = os.path.join(base_path ,cfg["filepaths"]["projectFiles"]+str(parameters.year))
   os.makedirs(yearDir, exist_ok=True)
-
-  ##############################################
-  if faculty:
-    allFac = [fac.username.username for fac in faculty] + [coll.username for coll in collaborators]
-    for username in allFac:
-      prevFilepath[username] = {}
-      for uploadType in ["narrative", "vitae", "irb", "abstract"]: 
-        if checkForFile(username, uploadType, parameters.year) != "":
-          prevFilepath[username][uploadType]= checkForFile(username, uploadType, parameters.year)
-  else:
-    allFac = []
 
   # Does the zipping
   shutil.make_archive(yearDir, 'zip', yearDir)
 
   allFolders = os.walk(yearDir)
   allFolders = next(allFolders)[1]    # gets the folder name, which is the username of the proposer
-  # print(allFolders)
-
-  # downloadFileName = getFilename("allFiles")
 
   for folder in allFolders:
     fullPath = yearDir + "/" + str(folder)
@@ -72,7 +64,6 @@ def allFiles(year=None):
                             params = parameters
 
                           )
-                          # downloadFileName = downloadFileName
 
 @app.route("/committee/allFiles", methods = ["POST"])
 @login_required
