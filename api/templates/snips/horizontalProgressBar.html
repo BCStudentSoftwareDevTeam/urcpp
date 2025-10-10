@@ -3,7 +3,7 @@
         <div 	class="project-progress-bar"
 		data-status="{% if proj %}{# start 7 #}{{proj.status}}{% else %}Start{% endif %}{# end 7 #}">  {# Grabs project status from DB or start if None #}
             <div class="bar">
-                <div style="width: 33%;" id="bar_fill" class="bar__fill"></div>
+                <div style="width: 0%;" id="bar_fill" class="bar__fill"></div>
             </div>
             <div class="point" id="start">
                 <div class="bullet"></div>
@@ -15,8 +15,10 @@
 			{% if proj.status == "Incomplete"%}Application Incomplete
 			{% elif proj.status == "Pending" %}Application Complete
 			{% else %}
-			   {% if dateState == "appopen" %}<a href="{{url_for('create_GET')}}">Start Your Application</a>
-			    {% else %} Applications Closed for {{currentCycle.year}}
+			   {% if dateState == "appopen" %}
+                    <a href="{{url_for('create_GET')}}">Start Your Application</a>
+			    {% else %}
+                    Applications Closed for {{currentCycle.year}}
 			   {% endif %}
 			{% endif %}
 	         </label>
