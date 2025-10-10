@@ -1,5 +1,6 @@
 from ..everything import *
-from ..API.faculty import getFacultyWithProjects
+from ..API.faculty import getFacultyWithProjects, getCollaborators
+from ..API.projects import getAllCurrentProjectsByYear
 from ..pages.upload import checkForFile
 from ..API.parameters import getCurrentParameters
 from ..API.parameters import getParametersByYear
@@ -27,6 +28,8 @@ def allFiles(year=None):
 
   # All of our queries
   faculty = getFacultyWithProjects(parameters.year)
+  collaborators = getCollaborators(parameters.year)
+  projects = getAllCurrentProjectsByYear(parameters.year)
   prevFilepath = {}
 
   # get the file directory and create it if it doesn't exist
@@ -36,14 +39,15 @@ def allFiles(year=None):
 
   ##############################################
   if faculty:
-    for fac in faculty:
-      prevFilepath[fac.username.username] = {}
+    allFac = [fac.username.username for fac in faculty] + [coll.username for coll in collaborators]
+    for username in allFac:
+      prevFilepath[username] = {}
       for uploadType in ["narrative", "vitae", "irb", "abstract"]: 
-        if checkForFile(fac.username.username, uploadType, parameters.year) != "":
-          prevFilepath[fac.username.username][uploadType]= checkForFile(fac.username.username, uploadType, parameters.year)
-      allFac = [fac.username.username for fac in faculty]
+        if checkForFile(username, uploadType, parameters.year) != "":
+          prevFilepath[username][uploadType]= checkForFile(username, uploadType, parameters.year)
   else:
     allFac = []
+
   # Does the zipping
   shutil.make_archive(yearDir, 'zip', yearDir)
 
@@ -62,6 +66,8 @@ def allFiles(year=None):
                             username = g.user.username,
                             cfg = cfg,
                             fac = faculty,
+                            coll = collaborators,
+                            projects = projects,
                             files = prevFilepath,
                             params = parameters
 

@@ -90,6 +90,23 @@ def getFacultyWithProjects (year):
     return None
 
 
+def getCollaborators (year):
+  """ gets faculty who are collaborators on a project for a given year
+
+      Args:
+        year (int): the year that the faculty should have a project
+
+      Returns:
+      URCPPFaculty Select Query: The faculty that have a prject in that year
+  """
+  collabs = (LDAPFaculty.select(LDAPFaculty,Collaborators,Projects).join(Collaborators).join(Projects).where(Projects.year == year))
+
+  if collabs.exists():
+    return collabs.execute()
+  else:
+    return None
+
+
 def getFacultyWithPendingProjects ():
   """ gets the faculty that have started but not submitted a project
 
